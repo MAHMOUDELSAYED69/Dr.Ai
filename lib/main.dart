@@ -1,3 +1,4 @@
+import 'package:dr_ai/view/screen/splash_screen.dart';
 import 'package:flutter/material.dart';
 
 void main() {
@@ -9,6 +10,9 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const MaterialApp();
+    return const MaterialApp(
+      debugShowCheckedModeBanner: false,
+      home: SplashPage(),
+    );
   }
 }
