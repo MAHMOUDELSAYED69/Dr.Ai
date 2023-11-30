@@ -53,7 +53,8 @@ class _SplashPageState extends State<SplashPage>
       backgroundColor: Colors.white,
       body: Stack(
         children: [
-          Image.asset("assets/images/splash_bg.png", fit: BoxFit.fill),
+          Image.asset("assets/images/splash_bg.png",
+              width: double.infinity, fit: BoxFit.fill),
           Center(
             child: Padding(
               padding: const EdgeInsets.only(bottom: 30, left: 30, right: 30),
@@ -84,10 +85,9 @@ class _SplashPageState extends State<SplashPage>
                         textAlign: TextAlign.center,
                         style: GoogleFonts.roboto(
                             textStyle: const TextStyle(
-                          fontSize: 16,
-                          fontWeight: FontWeight.w500,
-                          color: Colors.grey
-                        ))),
+                                fontSize: 16,
+                                fontWeight: FontWeight.w500,
+                                color: Colors.grey))),
                   ),
                   const Spacer(),
                   Text(
