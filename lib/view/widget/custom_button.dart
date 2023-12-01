@@ -13,7 +13,7 @@ class CustomButton extends StatelessWidget {
                 RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
             backgroundColor: const Color(0xff313131),
             fixedSize: const Size(double.maxFinite, 67)),
-        onPressed: () {},
+        onPressed:onPressed,
         child: Text(title,
             style: GoogleFonts.roboto(
                 textStyle: const TextStyle(

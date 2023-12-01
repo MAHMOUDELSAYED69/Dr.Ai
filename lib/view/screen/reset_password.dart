@@ -1,23 +1,23 @@
 import 'dart:developer';
-
-import 'package:dr_ai/view/screen/otp_screen.dart';
-import 'package:dr_ai/view/screen/register_screen.dart';
 import 'package:dr_ai/view/widget/custom_button.dart';
 import 'package:dr_ai/view/widget/custom_text_field.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
-class ForgetPasswordBottomSheet extends StatefulWidget {
-  const ForgetPasswordBottomSheet({super.key});
+class ResetPasswordBottomSheet extends StatefulWidget {
+  const ResetPasswordBottomSheet({super.key});
 
   @override
-  State<ForgetPasswordBottomSheet> createState() =>
-      _ForgetPasswordBottomSheetState();
+  State<ResetPasswordBottomSheet> createState() =>
+      _ResetPasswordBottomSheetState();
 }
 
-class _ForgetPasswordBottomSheetState extends State<ForgetPasswordBottomSheet> {
+class _ResetPasswordBottomSheetState extends State<ResetPasswordBottomSheet> {
   GlobalKey<FormState> formKey = GlobalKey();
-  String? email;
+
+  String? password;
+  String? confirmPassword;
+
   @override
   Widget build(BuildContext context) {
     return Form(
@@ -55,7 +55,7 @@ class _ForgetPasswordBottomSheetState extends State<ForgetPasswordBottomSheet> {
                   ),
                   const SizedBox(height: 16),
                   Text(
-                    "Enter Your email for the verification processes, we will send a 4-digit code to your email.",
+                    "Set the new password for your account so you can login and access all the features.",
                     textAlign: TextAlign.center,
                     style: GoogleFonts.roboto(
                       textStyle: const TextStyle(
@@ -66,12 +66,38 @@ class _ForgetPasswordBottomSheetState extends State<ForgetPasswordBottomSheet> {
                     ),
                   ),
                   CustomTextFormField(
+                    cursorColor: Colors.black,
                     onSaved: (data) {
-                      email = data;
+                      password = data;
                     },
                     textFieldStyle:
                         const TextStyle(color: Colors.black, fontSize: 18),
-                    title: "E-mail",
+                    title: "Password",
+                    titleTextStyle: const TextStyle(
+                        color: Colors.black,
+                        fontSize: 30,
+                        fontWeight: FontWeight.w600),
+                    fillColor: Colors.white,
+                    isVisible: true,
+                    isVisibleColor: const Color(0xff00a859),
+                  ),
+                  CustomTextFormField(
+                    cursorColor: Colors.black,
+                    onSaved: (data) {
+                      confirmPassword = data;
+                    },
+                    validator: (value) {
+                      if (value!.isEmpty) {
+                        return "please fill out the field!";
+                      }
+                      if (confirmPassword != password) {
+                        return "Wrong password";
+                      }
+                      return null;
+                    },
+                    textFieldStyle:
+                        const TextStyle(color: Colors.black, fontSize: 18),
+                    title: "Confirm-Password",
                     titleTextStyle: const TextStyle(
                         color: Colors.black,
                         fontSize: 30,
@@ -82,13 +108,12 @@ class _ForgetPasswordBottomSheetState extends State<ForgetPasswordBottomSheet> {
                   ),
                   const SizedBox(height: 25),
                   CustomButton(
-                    title: "Continue",
+                    title: "Reset Password ",
                     onPressed: () {
+                      formKey.currentState!.save();
                       if (formKey.currentState!.validate()) {
-                        formKey.currentState!.save();
-                        log("Email: $email");
+                        log("Email: $password");
                         Navigator.pop(context);
-                        showOtpBottomSheet(context);
                       }
                     },
                   ),
@@ -102,7 +127,7 @@ class _ForgetPasswordBottomSheetState extends State<ForgetPasswordBottomSheet> {
   }
 }
 
-void showForgetPasswordBottomSheet(BuildContext context) {
+void showResetPasswordBottomSheet(BuildContext context) {
   showModalBottomSheet(
     shape: const RoundedRectangleBorder(
         borderRadius: BorderRadius.only(
@@ -111,7 +136,7 @@ void showForgetPasswordBottomSheet(BuildContext context) {
     context: context,
     isScrollControlled: true,
     builder: (BuildContext context) {
-      return const ForgetPasswordBottomSheet();
+      return const ResetPasswordBottomSheet();
     },
   );
 }

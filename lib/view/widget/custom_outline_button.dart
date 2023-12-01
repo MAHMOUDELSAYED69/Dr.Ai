@@ -5,7 +5,7 @@ class CustomOutlineButton extends StatelessWidget {
   const CustomOutlineButton(
       {super.key, required this.title, this.onPressed, required this.icon});
   final String title;
-  final IconData icon;
+  final String icon;
   final void Function()? onPressed;
   @override
   Widget build(BuildContext context) {
@@ -20,12 +20,11 @@ class CustomOutlineButton extends StatelessWidget {
         child: Row(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            Icon(
+            Image.asset(
               icon,
-              size: 50,
-              color: Colors.black,
+              scale: 2,
             ),
-            Text(title,
+            Text("  $title",
                 style: GoogleFonts.roboto(
                     textStyle: const TextStyle(
                   color: Colors.black,
