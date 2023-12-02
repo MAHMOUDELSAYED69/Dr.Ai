@@ -1,4 +1,7 @@
+import 'package:dr_ai/view/screen/nav_bar/home_screen.dart';
 import 'package:dr_ai/view/screen/login_screen.dart';
+import 'package:dr_ai/view/screen/nav_bar/nav_bar_screen_.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
@@ -34,8 +37,12 @@ class _SplashPageState extends State<SplashPage>
         seconds: 3,
       ),
       () {
-        Navigator.push(context,
-            MaterialPageRoute(builder: (context) => const LoginScreen()));
+        Navigator.pushReplacement(
+            context,
+            MaterialPageRoute(
+                builder: (context) => FirebaseAuth.instance.currentUser == null
+                    ? const LoginScreen()
+                    : const NavbarScreen()));
       },
     );
   }

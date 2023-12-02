@@ -1,9 +1,11 @@
 import 'dart:developer';
 
+import 'package:dr_ai/core/helper/scaffold_snakbar.dart';
 import 'package:dr_ai/view/screen/otp_screen.dart';
 import 'package:dr_ai/view/screen/register_screen.dart';
 import 'package:dr_ai/view/widget/custom_button.dart';
 import 'package:dr_ai/view/widget/custom_text_field.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
@@ -16,6 +18,10 @@ class ForgetPasswordBottomSheet extends StatefulWidget {
 }
 
 class _ForgetPasswordBottomSheetState extends State<ForgetPasswordBottomSheet> {
+  Future<void> resetPassword({required String email}) async {
+    await FirebaseAuth.instance.sendPasswordResetEmail(email: email);
+  }
+
   GlobalKey<FormState> formKey = GlobalKey();
   String? email;
   @override
@@ -66,6 +72,7 @@ class _ForgetPasswordBottomSheetState extends State<ForgetPasswordBottomSheet> {
                     ),
                   ),
                   CustomTextFormField(
+                    keyboardType: TextInputType.emailAddress,
                     onSaved: (data) {
                       email = data;
                     },
@@ -86,9 +93,11 @@ class _ForgetPasswordBottomSheetState extends State<ForgetPasswordBottomSheet> {
                     onPressed: () {
                       if (formKey.currentState!.validate()) {
                         formKey.currentState!.save();
-                        log("Email: $email");
+                        resetPassword(email: email!);
                         Navigator.pop(context);
-                        showOtpBottomSheet(context);
+                        scaffoldSnackBar(context, "Check your E-mail");
+
+                        // showOtpBottomSheet(context);
                       }
                     },
                   ),

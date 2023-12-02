@@ -16,7 +16,7 @@ class CustomOutlineButton extends StatelessWidget {
               borderRadius: BorderRadius.circular(15),
             ),
             fixedSize: const Size(double.maxFinite, 67)),
-        onPressed: () {},
+        onPressed: onPressed,
         child: Row(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
