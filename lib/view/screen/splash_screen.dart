@@ -1,4 +1,4 @@
-import 'package:dr_ai/view/screen/nav_bar/home_screen.dart';
+
 import 'package:dr_ai/view/screen/login_screen.dart';
 import 'package:dr_ai/view/screen/nav_bar/nav_bar_screen_.dart';
 import 'package:firebase_auth/firebase_auth.dart';
