@@ -12,7 +12,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:modal_progress_hud_nsn/modal_progress_hud_nsn.dart';
-import '../../logic/auth/login/login_with_google.dart';
+import '../../logic/auth/google/login_with_google.dart';
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({super.key});

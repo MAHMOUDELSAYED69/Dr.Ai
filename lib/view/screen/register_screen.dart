@@ -1,6 +1,6 @@
 import 'dart:developer';
 import 'package:dr_ai/core/helper/scaffold_snakbar.dart';
-import 'package:dr_ai/logic/auth/login/login_with_google.dart';
+import 'package:dr_ai/logic/auth/google/login_with_google.dart';
 import 'package:dr_ai/logic/auth/register/register_cubit.dart';
 import 'package:dr_ai/view/screen/nav_bar/home_screen.dart';
 import 'package:dr_ai/view/widget/custom_button.dart';
