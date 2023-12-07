@@ -22,6 +22,24 @@ class _ForgetPasswordBottomSheetState extends State<ForgetPasswordBottomSheet> {
     await FirebaseAuth.instance.sendPasswordResetEmail(email: email);
   }
 
+  // Future<void> sendOTPEmail(String email) async {
+  //   try {
+  //     await FirebaseAuth.instance.sendSignInLinkToEmail(
+  //       email: email,
+  //       actionCodeSettings: ActionCodeSettings(
+  //         url: 'https://schemas.android.com/apk/res/android',
+  //         handleCodeInApp: true,
+  //         androidPackageName: 'com.example.dr_ai',
+  //         dynamicLinkDomain: "dr-aiapp.com",
+
+  //       ),
+  //     );
+  //     log('OTP email sent successfully!');
+  //   } catch (e) {
+  //     log('Failed to send OTP email: $e');
+  //   }
+  // }
+
   GlobalKey<FormState> formKey = GlobalKey();
   String? email;
   @override
@@ -84,7 +102,6 @@ class _ForgetPasswordBottomSheetState extends State<ForgetPasswordBottomSheet> {
                         fontSize: 30,
                         fontWeight: FontWeight.w600),
                     fillColor: Colors.white,
-                    isVisible: true,
                     isVisibleColor: const Color(0xff00a859),
                   ),
                   const SizedBox(height: 25),
@@ -93,11 +110,11 @@ class _ForgetPasswordBottomSheetState extends State<ForgetPasswordBottomSheet> {
                     onPressed: () {
                       if (formKey.currentState!.validate()) {
                         formKey.currentState!.save();
-                        resetPassword(email: email!);
+                        // sendOTPEmail(email!);
                         Navigator.pop(context);
                         scaffoldSnackBar(context, "Check your E-mail");
-
                         // showOtpBottomSheet(context);
+                        //  showOtpBottomSheet(context);
                       }
                     },
                   ),

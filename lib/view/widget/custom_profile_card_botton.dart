@@ -5,15 +5,18 @@ class CustomProfileCardButton extends StatelessWidget {
       {super.key,
       required this.leadingImage,
       required this.trailingImage,
-      this.onTap, this.scale});
+      this.onTap,
+      this.scale,
+      required this.content});
   final String leadingImage;
   final String trailingImage;
+  final String content;
   final void Function()? onTap;
   final double? scale;
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.symmetric(vertical: 10),
+      padding: const EdgeInsets.symmetric(vertical: 9),
       child: Card(
         color: const Color(0xff00A859),
         child: SizedBox(
@@ -26,7 +29,7 @@ class CustomProfileCardButton extends StatelessWidget {
               child: Image.asset(
                 leadingImage,
                 color: Colors.white,
-                scale:scale ?? 3.5,
+                scale: scale ?? 3.5,
               ),
             ),
             trailing: Padding(
@@ -37,11 +40,13 @@ class CustomProfileCardButton extends StatelessWidget {
                 scale: 3.5,
               ),
             ),
-            title: const Text(
-              "Mohamed hafeez",
-              style: TextStyle(color: Colors.white),
+            title: Text(
+              content,
+              maxLines: 1,
+              overflow: TextOverflow.ellipsis,
+              style: const TextStyle(color: Colors.white),
             ),
-            onTap: () {},
+            onTap:onTap,
           ),
         ),
       ),

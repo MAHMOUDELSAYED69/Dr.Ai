@@ -1,35 +1,33 @@
 import 'package:flutter/material.dart';
 
-import '../../models/message_model.dart';
-
 class ChatBubleForAi extends StatelessWidget {
-  ChatBubleForAi({
+  const ChatBubleForAi({
     Key? key,
     required this.message,
   }) : super(key: key);
 
-  // final Message message;      ابقي شيل الكومنتدا واشتغل عليه
-  String message; //ابقي شيل دا انا عامله عشان اشل Ui
+  final String message;
   @override
   Widget build(BuildContext context) {
     return Align(
       alignment: Alignment.centerLeft,
       child: Container(
         padding:
-            const EdgeInsets.only(left: 16, top: 32, bottom: 32, right: 32),
-        margin: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+            const EdgeInsets.only(left: 16, top: 10, bottom: 10, right: 10),
+        margin: const EdgeInsets.only(left: 16, top: 8, bottom: 16, right: 100),
         decoration: BoxDecoration(
-          borderRadius:const  BorderRadius.only(
-            topLeft: Radius.circular(50),
-            topRight: Radius.circular(50),
-            bottomRight: Radius.circular(50),
+          borderRadius: const BorderRadius.only(
+            bottomLeft: Radius.circular(15),
+            topRight: Radius.circular(15),
+            bottomRight: Radius.circular(15),
           ),
           color: Colors.grey[200],
         ),
         child: Text(
-          // message.message,
           message,
+          textAlign: TextAlign.start,
           style: const TextStyle(
+            fontSize: 18,
             color: Colors.black,
           ),
         ),
@@ -52,13 +50,13 @@ class ChatBubleForGest extends StatelessWidget {
       alignment: Alignment.centerRight,
       child: Container(
         padding:
-            const EdgeInsets.only(left: 16, top: 32, bottom: 32, right: 32),
-        margin: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+            const EdgeInsets.only(left: 16, top: 10, bottom: 10, right: 10),
+        margin: const EdgeInsets.only(left: 100, top: 8, bottom: 16, right: 16),
         decoration: const BoxDecoration(
           borderRadius: BorderRadius.only(
-            bottomRight: Radius.circular(50),
-            topLeft: Radius.circular(50),
-            bottomLeft: Radius.circular(50),
+            bottomLeft: Radius.circular(15),
+            topLeft: Radius.circular(15),
+            bottomRight: Radius.circular(15),
           ),
           color: Colors.green,
         ),
@@ -66,6 +64,7 @@ class ChatBubleForGest extends StatelessWidget {
           message,
           // message.message,
           style: const TextStyle(
+            fontSize: 18,
             color: Colors.white,
           ),
         ),

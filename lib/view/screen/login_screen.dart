@@ -1,4 +1,5 @@
 import 'dart:developer';
+import 'package:dr_ai/core/cache/cache.dart';
 import 'package:dr_ai/core/helper/scaffold_snakbar.dart';
 import 'package:dr_ai/logic/auth/login/login_cubit.dart';
 import 'package:dr_ai/view/screen/forget_password.dart';
@@ -12,6 +13,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:modal_progress_hud_nsn/modal_progress_hud_nsn.dart';
+import '../../data/service/cloud_fire_store.dart';
 import '../../logic/auth/google/login_with_google.dart';
 
 class LoginScreen extends StatefulWidget {
@@ -35,7 +37,10 @@ class _LoginScreenState extends State<LoginScreen> {
         }
         if (state is LoginSuccess) {
           isLading = false;
-          Navigator.pushReplacementNamed(context, "/nav");
+          CacheData.setData(key: "email", value: email);
+          CloudStoreService.fetchDataFromFirestore();
+          Navigator.pushNamedAndRemoveUntil(context, "/nav", (route) => false);
+          FocusScope.of(context).unfocus();
         }
         if (state is LoginFailure) {
           isLading = false;

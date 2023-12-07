@@ -1,7 +1,9 @@
 import 'dart:developer';
+import 'package:dr_ai/core/cache/cache.dart';
 import 'package:dr_ai/logic/auth/login/login_cubit.dart';
 import 'package:dr_ai/logic/auth/register/register_cubit.dart';
 import 'package:dr_ai/view/screen/chat_screen.dart';
+import 'package:dr_ai/view/screen/nav_bar/archive_screen.dart';
 import 'package:dr_ai/view/screen/nav_bar/home_screen.dart';
 import 'package:dr_ai/view/screen/login_screen.dart';
 import 'package:dr_ai/view/screen/nav_bar/nav_bar_screen_.dart';
@@ -19,6 +21,8 @@ Future<void> main() async {
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
   );
+  WidgetsFlutterBinding.ensureInitialized();
+  await CacheData.cacheDataInit();
   runApp(const MyApp());
 }
 
@@ -57,13 +61,14 @@ class _MyAppState extends State<MyApp> {
         debugShowCheckedModeBanner: false,
         initialRoute: "/",
         routes: {
-          "/": (context) => const SplashPage(),
+          "/": (context) => const SplashScreen(),
           "/login": (context) => const LoginScreen(),
           "/register": (context) => const RegisterScreen(),
           "/home": (context) => const HomeScreen(),
           "/nav": (context) => const NavbarScreen(),
           "/chat": (context) => const ChatScreen(),
           "/profile": (context) => const ProfileScreen(),
+          "/archive": (context) => const ArchiveScreen(),
         },
       ),
     );

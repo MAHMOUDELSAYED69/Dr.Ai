@@ -1,8 +1,10 @@
+
+import 'dart:developer';
+
+import 'package:dr_ai/core/cache/cache.dart';
 import 'package:dr_ai/view/widget/custom_button.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:google_sign_in/google_sign_in.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -12,7 +14,8 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
- 
+  var fullName = CacheData.getdata(key: "fullName");
+  var fullNameFire = CacheData.getdata(key:"fullNameFire");
   List<String> images = [
     "assets/images/heath_1.png",
     "assets/images/heath_2.png",
@@ -31,8 +34,9 @@ class _HomeScreenState extends State<HomeScreen> {
         child: Column(
           children: [
             ListTile(
-              onTap: (){
-                Navigator.pushNamed(context,"/profile");
+              onTap: () {
+                Navigator.pushNamed(context, "/profile");
+                log(fullNameFire.toString());
               },
               isThreeLine: true,
               contentPadding: EdgeInsets.zero,
@@ -41,7 +45,7 @@ class _HomeScreenState extends State<HomeScreen> {
                       textStyle: const TextStyle(
                     fontSize: 10,
                   ))),
-              subtitle: Text("Mohammed hafeez",
+              subtitle: Text(fullNameFire ?? fullName ?? "Guest",
                   style: GoogleFonts.roboto(
                       textStyle: const TextStyle(
                     fontSize: 12,
@@ -133,11 +137,6 @@ class _HomeScreenState extends State<HomeScreen> {
                 },
               ),
             ),
-            // CustomButton(
-            //   title: "الاسطي بيدحرج المسا وبيقولك اطلع بره",
-            //   onPressed: () {
-           
-            // )
           ],
         ),
       ),

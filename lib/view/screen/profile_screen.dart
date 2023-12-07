@@ -1,12 +1,15 @@
+import 'dart:io';
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:dr_ai/core/cache/cache.dart';
+import 'package:dr_ai/data/service/cloud_fire_store.dart';
 import 'package:dr_ai/view/widget/custom_button.dart';
 import 'package:dr_ai/view/widget/custom_profile_card_botton.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:google_sign_in/google_sign_in.dart';
-
+import 'package:image_picker/image_picker.dart';
 import '../../core/helper/scaffold_snakbar.dart';
-import 'login_screen.dart';
 
 class ProfileScreen extends StatefulWidget {
   const ProfileScreen({super.key});
@@ -16,10 +19,27 @@ class ProfileScreen extends StatefulWidget {
 }
 
 class _ProfileScreenState extends State<ProfileScreen> {
+  var fullName = CacheData.getdata(key: "fullName");
+  var fullNameFire = CacheData.getdata(key: "fullNameFire");
+  var email = CacheData.getdata(key: "email");
   GoogleSignIn googleSignIn = GoogleSignIn();
   Future<void> logOut() async {
     await FirebaseAuth.instance.signOut();
     // await googleSignIn.disconnect();
+  }
+
+  CollectionReference fireStore =
+      FirebaseFirestore.instance.collection('image');
+  File? selectedImage;
+
+  Future pickImageFromGallery() async {
+    final returnImage =
+        await ImagePicker().pickImage(source: ImageSource.gallery);
+    if (returnImage == null) return null;
+    setState(() {
+      selectedImage = File(returnImage.path);
+    });
+    fireStore.add({"img": "$selectedImage"});
   }
 
   @override
@@ -62,10 +82,11 @@ class _ProfileScreenState extends State<ProfileScreen> {
                           border: Border.all(
                               color: const Color(0xff00A859), width: 4),
                           shape: BoxShape.circle),
-                      child: const CircleAvatar(
+                      child: CircleAvatar(
                         radius: 51,
-                        backgroundImage:
-                            AssetImage("assets/images/hafeez.jpeg"),
+                        backgroundImage: selectedImage != null
+                            ? FileImage(selectedImage!)
+                            : null,
                       ),
                     ),
                   ),
@@ -73,13 +94,13 @@ class _ProfileScreenState extends State<ProfileScreen> {
                     top: 140,
                     child: Column(
                       children: [
-                        Text("Mohammed hafeez",
+                        Text(fullName ?? fullNameFire ?? "Guest",
                             style: GoogleFonts.roboto(
                                 textStyle: const TextStyle(
                                     fontSize: 16,
                                     fontWeight: FontWeight.w500,
                                     color: Color(0xff00A859)))),
-                        Text("mohammedhafiez.h@gmail.com",
+                        Text("$email",
                             style: GoogleFonts.roboto(
                                 textStyle: const TextStyle(
                               fontSize: 12,
@@ -92,35 +113,43 @@ class _ProfileScreenState extends State<ProfileScreen> {
                     child: Column(
                       children: [
                         CustomProfileCardButton(
-                          onTap: () {},
+                          content: fullName ?? fullNameFire ?? "Guest",
+                          onTap: () {
+                           
+                          },
                           leadingImage: "assets/images/useradd.png",
                           trailingImage: "assets/images/edit.png",
                         ),
                         CustomProfileCardButton(
+                          content: "$email",
                           scale: 2,
                           onTap: () {},
                           leadingImage: "assets/images/email.png",
                           trailingImage: "assets/images/edit.png",
                         ),
                         CustomProfileCardButton(
+                          content: "Password",
                           scale: 2,
                           onTap: () {},
                           leadingImage: "assets/images/password.png",
                           trailingImage: "assets/images/edit.png",
                         ),
                         CustomProfileCardButton(
+                          content: "Health Information",
                           scale: 2,
                           onTap: () {},
                           leadingImage: "assets/images/task.png",
                           trailingImage: "assets/images/arrowdown.png",
                         ),
                         CustomProfileCardButton(
+                          content: "Privacy",
                           scale: 2,
                           onTap: () {},
                           leadingImage: "assets/images/securitycard.png",
                           trailingImage: "assets/images/arrowdown.png",
                         ),
                         CustomProfileCardButton(
+                          content: "Setting",
                           scale: 2,
                           onTap: () {},
                           leadingImage: "assets/images/setting.png",
@@ -135,9 +164,11 @@ class _ProfileScreenState extends State<ProfileScreen> {
                       child: CustomButton(
                         height: 60,
                         onPressed: () {
+                          CacheData.clearData(clearData: true);
                           logOut();
                           scaffoldSnackBar(context, "Log out");
-                          Navigator.popUntil(context, (route) =>route.isFirst);
+                          Navigator.pushNamedAndRemoveUntil(
+                              context, "/login", (route) => false);
                         },
                         widget: Row(
                           mainAxisAlignment: MainAxisAlignment.center,
@@ -158,7 +189,18 @@ class _ProfileScreenState extends State<ProfileScreen> {
                           ],
                         ),
                         color: const Color(0xff313131),
-                      ))
+                      )),
+                  Positioned(
+                      top: 93,
+                      right: 112,
+                      child: IconButton(
+                          onPressed: pickImageFromGallery,
+                          icon: const CircleAvatar(
+                            radius: 12,
+                            backgroundColor: Color(0xff7EBB9B),
+                            backgroundImage:
+                                AssetImage("assets/images/add.png"),
+                          ))),
                 ],
               )
             ],

@@ -1,4 +1,5 @@
 import 'dart:developer';
+import 'package:dr_ai/core/cache/cache.dart';
 import 'package:dr_ai/core/helper/scaffold_snakbar.dart';
 import 'package:dr_ai/logic/auth/google/login_with_google.dart';
 import 'package:dr_ai/logic/auth/register/register_cubit.dart';
@@ -35,8 +36,10 @@ class _RegisterScreenState extends State<RegisterScreen> {
         if (state is RegisterSuccess) {
           isLoading = false;
           scaffoldSnackBar(context, "Account created successfully");
-          Navigator.pushReplacement(context,
-              MaterialPageRoute(builder: (context) => const HomeScreen()));
+          CacheData.setData(key: "fullName", value: fullName);
+          CacheData.setData(key: "email", value: email);
+          Navigator.pushNamedAndRemoveUntil(context, "/nav", (route) => false);
+          FocusScope.of(context).unfocus();
         }
         if (state is RegisterFailure) {
           isLoading = false;
@@ -66,6 +69,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                           fontWeight: FontWeight.w600,
                         ))),
                     CustomTextFormField(
+                      keyboardType: TextInputType.name,
                       icon: "assets/images/fullname.png",
                       title: "Full Name",
                       onSaved: (data) {
@@ -73,6 +77,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                       },
                     ),
                     CustomTextFormField(
+                      keyboardType: TextInputType.emailAddress,
                       icon: "assets/images/email.png",
                       title: "Email Address",
                       onSaved: (data) {
@@ -80,6 +85,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                       },
                     ),
                     CustomTextFormField(
+                      keyboardType: TextInputType.visiblePassword,
                       icon: "assets/images/password.png",
                       onSaved: (data) {
                         password = data;
@@ -113,7 +119,9 @@ class _RegisterScreenState extends State<RegisterScreen> {
                                 formKey.currentState?.save();
                                 BlocProvider.of<RegisterCubit>(context)
                                     .userRegister(
-                                        email: email!, password: password!);
+                                        fullName: fullName!,
+                                        email: email!,
+                                        password: password!);
                               }
                             })),
                     const Padding(
@@ -144,12 +152,10 @@ class _RegisterScreenState extends State<RegisterScreen> {
                         ],
                       ),
                     ),
-                    Padding(
-                      padding: const EdgeInsets.only(top: 37),
+                    const Padding(
+                      padding: EdgeInsets.only(top: 37),
                       child: CustomOutlineButton(
-                        onPressed: () {
-                          signInWithGoogle();
-                        },
+                        onPressed: signInWithGoogle,
                         title: "Google",
                         icon: "assets/images/google.png",
                       ),
