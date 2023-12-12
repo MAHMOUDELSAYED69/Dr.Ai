@@ -47,9 +47,7 @@ class _LoginScreenState extends State<LoginScreen> {
         if (state is LoginSuccess) {
           CacheData.setData(key: "email", value: email);
           CloudStoreService.fetchDataFromFirestore();
-
           delay();
-
           FocusScope.of(context).unfocus();
         }
         if (state is LoginFailure) {
@@ -57,10 +55,6 @@ class _LoginScreenState extends State<LoginScreen> {
           scaffoldSnackBar(context, state.message);
         }
       },
-      /*
-       *[log] screen height: 867.4285714285714 px
-       *[log] screen width: 411.42857142857144 px
-       */
       builder: (context, state) {
         return ModalProgressHUD(
           inAsyncCall: isLading,
@@ -166,7 +160,7 @@ class _LoginScreenState extends State<LoginScreen> {
                         child: CustomOutlineButton(
                           onPressed: () {
                             try {
-                              signInWithGoogle();
+                              GoogleService.signInWithGoogle();
                             } catch (err) {
                               log(err.toString());
                             }

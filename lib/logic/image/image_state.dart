@@ -18,3 +18,5 @@ class ImageFailure extends ImageState {
 
   ImageFailure({required this.message});
 }
+
+

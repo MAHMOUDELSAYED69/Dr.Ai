@@ -2,7 +2,6 @@ import 'dart:developer';
 import 'package:dr_ai/logic/auth/login/login_cubit.dart';
 import 'package:dr_ai/logic/auth/register/register_cubit.dart';
 import 'package:dr_ai/logic/chat/chat_cubit.dart';
-import 'package:dr_ai/logic/home/home_cubit.dart';
 import 'package:dr_ai/logic/image/image_cubit.dart';
 import 'package:dr_ai/view/screen/chat_screen.dart';
 import 'package:dr_ai/view/screen/nav_bar/archive_screen.dart';
@@ -51,9 +50,6 @@ class _MyAppState extends State<MyApp> {
         ),
         BlocProvider(
           create: (context) => ImageCubit(),
-        ),
-        BlocProvider(
-          create: (context) => HomeCubit(),
         ),
       ],
       child: MaterialApp(

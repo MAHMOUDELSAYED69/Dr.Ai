@@ -12,11 +12,9 @@ class CloudStoreService {
 
       for (var doc in querySnapshot.docs) {
         Map<String, dynamic> data = doc.data() as Map<String, dynamic>;
-        log('Start');
         log('${data['name']}');
         if (data['email'] == email) {
           CacheData.setData(key: 'fullNameFire', value: data['name']);
-          CacheData.getdata(key: 'fullNameFire');
           log(CacheData.getdata(key: 'fullNameFire'));
           break;
         } else {
@@ -36,7 +34,6 @@ class CloudStoreService {
 
       for (var doc in querySnapshot.docs) {
         Map<String, dynamic> data = doc.data() as Map<String, dynamic>;
-        log('Start');
         log('${data['image']}');
         if (data['email'] == email) {
           CacheData.setData(key: 'imageFire', value: data['image']);

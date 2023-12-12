@@ -29,28 +29,3 @@ class RegisterCubit extends Cubit<RegisterState> {
     }
   }
 }
-
-/* 
- *Future<void> signUpWithEmailAndPassword(
-      String email, String password, String fullName) async {
-    try {
-      UserCredential userCredential = await FirebaseAuth.instance
-          .createUserWithEmailAndPassword(email: email, password: password);
-
-      // After creating the user, update the display name (full name)
-      User? user = userCredential.user;
-      if (user != null) {
-        UserUpdateInfo updateInfo = UserUpdateInfo();
-        updateInfo.displayName = fullName;
-
-        await user.updateProfile(updateInfo);
-        await user.reload(); // Reload the user for the updated information
-
-        print("User registered successfully with display name: ${user.displayName}");
-      }
-    } catch (e) {
-      print("Error signing up: $e");
-    }
-  } 
- * 
- */

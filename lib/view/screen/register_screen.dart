@@ -97,8 +97,8 @@ class _RegisterScreenState extends State<RegisterScreen> {
                         title: "Password",
                       ),
                       Padding(
-                          padding: EdgeInsets.only(
-                              top: ScreenSize.height * 0.05764),
+                          padding:
+                              EdgeInsets.only(top: ScreenSize.height * 0.05764),
                           child: CustomButton(
                               title: "Register",
                               onPressed: () async {
@@ -144,7 +144,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                         padding:
                             EdgeInsets.only(top: ScreenSize.height * 0.043807),
                         child: const CustomOutlineButton(
-                          onPressed: signInWithGoogle,
+                          onPressed: GoogleService.signInWithGoogle,
                           title: "Google",
                           icon: "assets/images/google.png",
                         ),

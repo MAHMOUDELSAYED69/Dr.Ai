@@ -15,3 +15,5 @@ class ScreenSize {
         orientation == Orientation.landscape ? width * .024 : height * .024;
   }
 }
+
+

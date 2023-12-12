@@ -16,13 +16,14 @@ class ChatScreen extends StatefulWidget {
 
 class _ChatScreenState extends State<ChatScreen> {
   ScrollController _scrollController = ScrollController();
-void scrollToListEnd() {
-  _scrollController.animateTo(
-    _scrollController.position.maxScrollExtent,
-    duration: const Duration(milliseconds: 100),
-    curve: Curves.easeInOut,
-  );
-}
+  void scrollToListEnd() {
+    _scrollController.animateTo(
+      _scrollController.position.maxScrollExtent,
+      duration: const Duration(milliseconds: 100),
+      curve: Curves.easeInOut,
+    );
+  }
+
   bool isLoading = false;
   List<UserMessage> userMessageList = []; //!
   int id = 1;
@@ -46,7 +47,6 @@ void scrollToListEnd() {
         if (state is ChatLoading) {
           isLoading = true;
           controller.clear();
-          // FocusScope.of(context).unfocus();
         }
         if (state is ChatSuccess) {
           isLoading = false;
@@ -58,16 +58,13 @@ void scrollToListEnd() {
           isLoading = false;
           alertMessage(context);
         }
-        //  else {
-        //   isLoading = false;
-        //   chatMessage(context);
-        // }
       },
       builder: (context, state) {
         return ModalProgressHUD(
           inAsyncCall: isLoading,
           child: Scaffold(
             appBar: AppBar(
+             
               backgroundColor: const Color(0xff00A859),
               leading: IconButton(
                 onPressed: () {
@@ -103,7 +100,6 @@ void scrollToListEnd() {
                     hintText: '  Write your message',
                     suffixIcon: IconButton(
                       onPressed: () {
-                        
                         sendMessage();
                       },
                       icon: const Padding(

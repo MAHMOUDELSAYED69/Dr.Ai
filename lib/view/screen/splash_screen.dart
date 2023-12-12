@@ -12,7 +12,6 @@ class SplashScreen extends StatefulWidget {
   @override
   State<SplashScreen> createState() => _SplashScreenState();
 }
-
 class _SplashScreenState extends State<SplashScreen>
     with SingleTickerProviderStateMixin {
   AnimationController? animationController;
@@ -28,30 +27,6 @@ class _SplashScreenState extends State<SplashScreen>
       });
     animationController?.repeat(reverse: true);
     getToNewScreen();
-  }
-
-  void getToNewScreen() {
-    Future.delayed(
-      const Duration(
-        seconds: 3,
-      ),
-      () {
-        Navigator.pushReplacement(
-            context,
-            MaterialPageRoute(
-                builder: (context) => FirebaseAuth.instance.currentUser == null
-                    ? const LoginScreen()
-                    : const NavbarScreen()));
-        log("screen height: ${ScreenSize.height} px");
-        log("screen width: ${ScreenSize.width} px");
-      },
-    );
-  }
-
-  @override
-  void dispose() {
-    animationController?.dispose();
-    super.dispose();
   }
 
   @override
@@ -113,5 +88,29 @@ class _SplashScreenState extends State<SplashScreen>
         ],
       ),
     );
+  }
+
+  void getToNewScreen() {
+    Future.delayed(
+      const Duration(
+        seconds: 3,
+      ),
+      () {
+        Navigator.pushReplacement(
+            context,
+            MaterialPageRoute(
+                builder: (context) => FirebaseAuth.instance.currentUser == null
+                    ? const LoginScreen()
+                    : const NavbarScreen()));
+        log("screen height: ${ScreenSize.height} px");
+        log("screen width: ${ScreenSize.width} px");
+      },
+    );
+  }
+
+  @override
+  void dispose() {
+    animationController?.dispose();
+    super.dispose();
   }
 }

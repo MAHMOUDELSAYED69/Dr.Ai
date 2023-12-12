@@ -13,3 +13,5 @@ class LoginFailure extends LoginState {
   LoginFailure({required this.message});
   final String message;
 }
+
+
