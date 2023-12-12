@@ -15,6 +15,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:dr_ai/view/screen/splash_screen.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 class MyApp extends StatefulWidget {
   const MyApp({super.key});
@@ -57,6 +58,24 @@ class _MyAppState extends State<MyApp> {
         ),
       ],
       child: MaterialApp(
+        theme: ThemeData(
+            textTheme: TextTheme(
+          bodySmall: GoogleFonts.roboto(
+              textStyle: const TextStyle(
+                  fontSize: 12,
+                  fontWeight: FontWeight.w500,
+                  color: Colors.green)),
+          bodyMedium: GoogleFonts.roboto(
+              textStyle: const TextStyle(
+            fontSize: 24,
+            fontWeight: FontWeight.w500,
+          )),
+          headlineMedium: GoogleFonts.roboto(
+              textStyle: const TextStyle(
+                  fontSize: 16,
+                  fontWeight: FontWeight.w500,
+                  color: Colors.grey)),
+        )),
         debugShowCheckedModeBanner: false,
         initialRoute: "/",
         routes: {
