@@ -1,10 +1,17 @@
-
 import 'dart:developer';
+import 'dart:io';
 
 import 'package:dr_ai/core/cache/cache.dart';
+import 'package:dr_ai/core/helper/alert_message.dart';
+import 'package:dr_ai/core/helper/responsive.dart';
+import 'package:dr_ai/logic/home/home_cubit.dart';
 import 'package:dr_ai/view/widget/custom_button.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:modal_progress_hud_nsn/modal_progress_hud_nsn.dart';
+
+import '../../../data/service/cloud_fire_store.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -14,8 +21,17 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
+  @override
+  void initState() {
+    super.initState();
+    BlocProvider.of<HomeCubit>(context).homeUserData();
+  }
+
+  @override
+  bool isLoading = false;
   var fullName = CacheData.getdata(key: "fullName");
-  var fullNameFire = CacheData.getdata(key:"fullNameFire");
+  var fullNameFire = CacheData.getdata(key: "fullNameFire");
+  var image = CacheData.getdata(key: "imageFire");
   List<String> images = [
     "assets/images/heath_1.png",
     "assets/images/heath_2.png",
@@ -30,43 +46,77 @@ class _HomeScreenState extends State<HomeScreen> {
       backgroundColor: Colors.white,
       body: Container(
         width: double.infinity,
-        margin: const EdgeInsets.all(40),
+        margin: const EdgeInsets.all(35),
         child: Column(
           children: [
-            ListTile(
-              onTap: () {
-                Navigator.pushNamed(context, "/profile");
-                log(fullNameFire.toString());
+            BlocConsumer<HomeCubit, HomeState>(
+              listener: (context, state) {
+                if (state is HomeLoading) {
+                  isLoading = true;
+                }
+                if (state is HomeSuccess) {
+                  isLoading = false;
+                }
+                if (state is HomeFailure) {
+                  isLoading = false;
+                  alertMessage(context, message: "a7a b2a");
+                }
               },
-              isThreeLine: true,
-              contentPadding: EdgeInsets.zero,
-              title: Text("Welcome Back",
-                  style: GoogleFonts.roboto(
-                      textStyle: const TextStyle(
-                    fontSize: 10,
-                  ))),
-              subtitle: Text(fullNameFire ?? fullName ?? "Guest",
-                  style: GoogleFonts.roboto(
-                      textStyle: const TextStyle(
-                    fontSize: 12,
-                    fontWeight: FontWeight.bold,
-                  ))),
-              leading: Container(
-                decoration: BoxDecoration(
-                    border:
-                        Border.all(color: const Color(0xffE0E0E0), width: 2),
-                    shape: BoxShape.circle),
-                child: const CircleAvatar(
-                  radius: 20,
-                  backgroundImage: AssetImage("assets/images/hafeez.jpeg"),
-                ),
-              ),
+              builder: (context, state) {
+                return ModalProgressHUD(
+                  inAsyncCall: isLoading,
+                  child: ListTile(
+                    onTap: () {
+                      Navigator.pushNamedAndRemoveUntil(
+                        context,
+                        "/profile",
+                        (route) => false,
+                      );
+                    },
+                    isThreeLine: true,
+                    contentPadding: EdgeInsets.zero,
+                    title: Text("Welcome Back",
+                        style: GoogleFonts.roboto(
+                            textStyle: const TextStyle(
+                          fontSize: 10,
+                        ))),
+                    subtitle: Text(
+                        CacheData.getdata(key: "fullNameFire") ??
+                            fullNameFire ??
+                            fullName ??
+                            "Guest",
+                        style: GoogleFonts.roboto(
+                            textStyle: const TextStyle(
+                          fontSize: 12,
+                          fontWeight: FontWeight.bold,
+                        ))),
+                    leading: Container(
+                      decoration: BoxDecoration(
+                          border: Border.all(
+                              color: const Color(0xffE0E0E0), width: 2),
+                          shape: BoxShape.circle),
+                      child: CircleAvatar(
+                          radius: 20,
+                          backgroundImage: CacheData.getdata(
+                                      key: "uploadImage") !=
+                                  null
+                              ? FileImage(
+                                  File(CacheData.getdata(key: "uploadImage")))
+                              : CacheData.getdata(key: "imageFire") != null
+                                  ? FileImage(
+                                      File(CacheData.getdata(key: "imageFire")))
+                                  : null),
+                    ),
+                  ),
+                );
+              },
             ),
             Card(
               color: const Color.fromARGB(255, 255, 255, 255),
               child: ListTile(
                 title: Column(
                   children: [
+                    SizedBox(height: ScreenSize.height * 0.01152),
                     Align(
                       alignment: Alignment.centerLeft,
                       child: Text("Chat in Doctor AI",
@@ -76,27 +126,33 @@ class _HomeScreenState extends State<HomeScreen> {
                                   fontWeight: FontWeight.w500,
                                   color: Color(0xff00A859)))),
                     ),
+                    SizedBox(height: ScreenSize.height * 0.005764),
                     Text(
-                        "You can ask your medical questions\nAnd know the required medicines",
+                        "You can ask your medical questions And know the required medicines",
                         style: GoogleFonts.roboto(
                             textStyle: const TextStyle(
-                                fontSize: 12, color: Color(0xff858585))))
+                                fontSize: 12, color: Color(0xff858585)))),
+                    SizedBox(height: ScreenSize.height * 0.02882),
                   ],
                 ),
-                subtitle: CustomButton(
-                    fontSize: 12,
-                    height: 33,
-                    width: 125,
-                    color: const Color(0xff00A859),
-                    title: "Start Chat",
-                    onPressed: () {
-                      Navigator.pushNamed(context, "/chat");
-                    }),
+                subtitle: Padding(
+                  padding: EdgeInsets.only(right: ScreenSize.width * 0.1701388),
+                  child: CustomButton(
+                      borderRadius: 8,
+                      fontSize: 12,
+                      height: 33,
+                      width: 125,
+                      color: const Color(0xff00A859),
+                      title: "Start Chat",
+                      onPressed: () {
+                        Navigator.pushNamed(context, "/chat");
+                      }),
+                ),
                 trailing: Image.asset(
                   "assets/images/robot.png",
                   scale: 0.1,
-                  width: 50,
-                  height: 90,
+                  width: 50, //!
+                  height: 90, //!
                 ),
               ),
             ),

@@ -7,7 +7,7 @@ class MessageService {
   static Dio dio = Dio();
   static const String apiUrl = "https://doctorai.pythonanywhere.com/myapp/api/";
 
-  static Future<Message?> postData({required Map<String, dynamic> data}) async {
+  static Future postData({required Map<String, dynamic> data}) async {
     try {
       final response = await dio.post(apiUrl, data: data);
 

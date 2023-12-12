@@ -34,8 +34,8 @@ class _NavbarScreenState extends State<NavbarScreen> {
       floatingActionButton: FloatingActionButton(
         shape: const CircleBorder(),
         backgroundColor: const Color(0xff00A859),
-        child: Image.asset(
-          "assets/images/logo_white.png",
+        child: Image.asset(_bottomNavIndex ==0 ?
+          "assets/images/logo_white.png":"assets/images/chat.png",
           scale: 2.5,
         ),
         onPressed: () {

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:dr_ai/core/helper/responsive.dart';
 
 class CustomTextFormField extends StatefulWidget {
   const CustomTextFormField(
@@ -20,7 +21,8 @@ class CustomTextFormField extends StatefulWidget {
       this.fillColor,
       this.isVisibleColor,
       this.titleTextStyle,
-      this.textFieldStyle, this.cursorColor});
+      this.textFieldStyle,
+      this.cursorColor});
   final String? hintText;
   final String? label;
   final FormFieldSetter<String>? onSaved;
@@ -50,7 +52,7 @@ class _CustomTextFormFieldState extends State<CustomTextFormField> {
     return Column(children: [
       Container(
         alignment: Alignment.centerLeft,
-        padding: const EdgeInsets.symmetric(vertical: 16),
+        padding: EdgeInsets.symmetric(vertical: ScreenSize.height * 0.0184453),
         child: Text(widget.title ?? "",
             style: GoogleFonts.roboto(
                 textStyle: widget.titleTextStyle ??
@@ -60,9 +62,9 @@ class _CustomTextFormFieldState extends State<CustomTextFormField> {
                         color: Color(0xff8CAAB9)))),
       ),
       TextFormField(
-        style:widget.textFieldStyle ??
+        style: widget.textFieldStyle ??
             const TextStyle(color: Colors.white, fontSize: 18),
-        cursorColor:widget.cursorColor ?? Colors.white,
+        cursorColor: widget.cursorColor ?? Colors.white,
         keyboardType: widget.keyboardType,
         controller: widget.controller,
         obscureText: widget.isVisible == true ? isObscure : false,
@@ -102,8 +104,9 @@ class _CustomTextFormFieldState extends State<CustomTextFormField> {
                   iconSize: 25,
                 )
               : null,
-          contentPadding:
-              const EdgeInsets.symmetric(vertical: 15, horizontal: 10),
+          contentPadding: EdgeInsets.symmetric(
+              vertical: ScreenSize.height * 0.017292,
+              horizontal: ScreenSize.width * 0.024305),
           filled: true,
           fillColor: widget.fillColor ?? const Color(0xff00a859),
           hintText: widget.hintText,
@@ -126,7 +129,3 @@ class _CustomTextFormFieldState extends State<CustomTextFormField> {
     ]);
   }
 }
-
-
-
-

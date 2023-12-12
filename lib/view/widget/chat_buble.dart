@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
-class ChatBubleForAi extends StatelessWidget {
-  const ChatBubleForAi({
+class ChatBubbleForDrAi extends StatelessWidget {
+  const ChatBubbleForDrAi({
     Key? key,
     required this.message,
   }) : super(key: key);
@@ -17,9 +17,9 @@ class ChatBubleForAi extends StatelessWidget {
         margin: const EdgeInsets.only(left: 16, top: 8, bottom: 16, right: 100),
         decoration: BoxDecoration(
           borderRadius: const BorderRadius.only(
-            bottomLeft: Radius.circular(15),
-            topRight: Radius.circular(15),
-            bottomRight: Radius.circular(15),
+            bottomLeft: Radius.circular(25),
+            topRight: Radius.circular(25),
+            bottomRight: Radius.circular(25),
           ),
           color: Colors.grey[200],
         ),
@@ -36,8 +36,8 @@ class ChatBubleForAi extends StatelessWidget {
   }
 }
 
-class ChatBubleForGest extends StatelessWidget {
-  const ChatBubleForGest({
+class ChatBubbleForGuest extends StatelessWidget {
+  const ChatBubbleForGuest({
     Key? key,
     required this.message,
   }) : super(key: key);
@@ -54,11 +54,11 @@ class ChatBubleForGest extends StatelessWidget {
         margin: const EdgeInsets.only(left: 100, top: 8, bottom: 16, right: 16),
         decoration: const BoxDecoration(
           borderRadius: BorderRadius.only(
-            bottomLeft: Radius.circular(15),
-            topLeft: Radius.circular(15),
-            bottomRight: Radius.circular(15),
+            bottomLeft: Radius.circular(25),
+            topLeft: Radius.circular(25),
+            bottomRight: Radius.circular(25),
           ),
-          color: Colors.green,
+          color:  Color(0xff00A859) ,
         ),
         child: Text(
           message,

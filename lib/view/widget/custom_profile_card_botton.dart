@@ -1,3 +1,4 @@
+import 'package:dr_ai/core/helper/responsive.dart';
 import 'package:flutter/material.dart';
 
 class CustomProfileCardButton extends StatelessWidget {
@@ -20,7 +21,7 @@ class CustomProfileCardButton extends StatelessWidget {
       child: Card(
         color: const Color(0xff00A859),
         child: SizedBox(
-          height: 50,
+          height: ScreenSize.height * 0.05764,
           width: MediaQuery.sizeOf(context).width * 0.83,
           child: ListTile(
             contentPadding: EdgeInsets.zero,
@@ -46,7 +47,7 @@ class CustomProfileCardButton extends StatelessWidget {
               overflow: TextOverflow.ellipsis,
               style: const TextStyle(color: Colors.white),
             ),
-            onTap:onTap,
+            onTap: onTap,
           ),
         ),
       ),

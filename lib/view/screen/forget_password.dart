@@ -1,5 +1,4 @@
 import 'dart:developer';
-
 import 'package:dr_ai/core/helper/scaffold_snakbar.dart';
 import 'package:dr_ai/view/screen/otp_screen.dart';
 import 'package:dr_ai/view/screen/register_screen.dart';

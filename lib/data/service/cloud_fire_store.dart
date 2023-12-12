@@ -27,4 +27,27 @@ class CloudStoreService {
       log('Error fetching data: $e');
     }
   }
+
+  static Future<void> fetchImage() async {
+    var email = CacheData.getdata(key: 'email');
+    try {
+      QuerySnapshot querySnapshot =
+          await FirebaseFirestore.instance.collection('image').get();
+
+      for (var doc in querySnapshot.docs) {
+        Map<String, dynamic> data = doc.data() as Map<String, dynamic>;
+        log('Start');
+        log('${data['image']}');
+        if (data['email'] == email) {
+          CacheData.setData(key: 'imageFire', value: data['image']);
+          log(CacheData.getdata(key: 'imageFire'));
+          break;
+        } else {
+          log('image not found');
+        }
+      }
+    } catch (e) {
+      log('Error fetching image: $e');
+    }
+  }
 }

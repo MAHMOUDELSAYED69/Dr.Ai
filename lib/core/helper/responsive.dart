@@ -1,41 +1,17 @@
 import 'package:flutter/material.dart';
 
-class SizeConfig {
-  static double? screenWidth;
-  static double? screenHeight;
-  static double? defaultSize;
-  static Orientation? orientation;
+class ScreenSize {
+  static late double width;
+  static late double height;
+  static late double defaultSize;
+  static late Orientation orientation;
 
-  void init(BuildContext context) {
-    screenWidth = MediaQuery.of(context).size.width;
-    screenHeight = MediaQuery.of(context).size.height;
+  static void init(BuildContext context) {
+    width = MediaQuery.sizeOf(context).width;
+    height = MediaQuery.sizeOf(context).height;
     orientation = MediaQuery.of(context).orientation;
 
-    defaultSize = orientation == Orientation.landscape
-        ? screenHeight! * .024
-        : screenWidth! * .024;
-  }
-}
-
-class SizeHorizontal extends StatelessWidget {
-  const SizeHorizontal({super.key, required this.value});
-  final double value;
-
-  @override
-  Widget build(BuildContext context) {
-    return SizedBox(
-      width: SizeConfig.defaultSize! * value,
-    );
-  }
-}
-
-class SizeVertical extends StatelessWidget {
-  const SizeVertical({super.key, required this.value});
-  final double value;
-  @override
-  Widget build(BuildContext context) {
-    return SizedBox(
-      height: SizeConfig.defaultSize! * value,
-    );
+    defaultSize =
+        orientation == Orientation.landscape ? width * .024 : height * .024;
   }
 }

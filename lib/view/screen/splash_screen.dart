@@ -1,3 +1,4 @@
+import 'dart:developer';
 
 import 'package:dr_ai/view/screen/login_screen.dart';
 import 'package:dr_ai/view/screen/nav_bar/nav_bar_screen_.dart';
@@ -43,6 +44,8 @@ class _SplashScreenState extends State<SplashScreen>
                 builder: (context) => FirebaseAuth.instance.currentUser == null
                     ? const LoginScreen()
                     : const NavbarScreen()));
+        log("screen height: ${ScreenSize.height} px");
+        log("screen width: ${ScreenSize.width} px");
       },
     );
   }
@@ -55,7 +58,7 @@ class _SplashScreenState extends State<SplashScreen>
 
   @override
   Widget build(BuildContext context) {
-    SizeConfig().init(context);
+    ScreenSize.init(context);
     return Scaffold(
       backgroundColor: Colors.white,
       body: Stack(
