@@ -53,7 +53,6 @@ class _MyAppState extends State<MyApp> {
         ),
       ],
       child: MaterialApp(
-        theme: ThemeData(),
         debugShowCheckedModeBanner: false,
         initialRoute: "/",
         routes: {

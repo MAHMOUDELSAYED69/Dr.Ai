@@ -1,9 +1,7 @@
 import 'dart:io';
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:dr_ai/core/cache/cache.dart';
 import 'package:dr_ai/core/helper/alert_message.dart';
 import 'package:dr_ai/core/helper/responsive.dart';
-import 'package:dr_ai/data/service/cloud_fire_store.dart';
 import 'package:dr_ai/logic/auth/login/login_cubit.dart';
 import 'package:dr_ai/logic/image/image_cubit.dart';
 import 'package:dr_ai/view/widget/custom_button.dart';
@@ -13,9 +11,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:google_sign_in/google_sign_in.dart';
-import 'package:image_picker/image_picker.dart';
 import 'package:modal_progress_hud_nsn/modal_progress_hud_nsn.dart';
-import 'package:modal_progress_hud_nsn/modal_progress_hud_nsn_method_channel.dart';
 import '../../core/helper/scaffold_snakbar.dart';
 import 'package:gap/gap.dart';
 

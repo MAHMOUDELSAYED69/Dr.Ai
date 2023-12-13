@@ -25,7 +25,7 @@ class _ChatScreenState extends State<ChatScreen> {
   }
 
   bool isLoading = false;
-  List<UserMessage> userMessageList = []; //!
+
   int id = 1;
   late String data;
   void sendMessage() async {
@@ -64,7 +64,6 @@ class _ChatScreenState extends State<ChatScreen> {
           inAsyncCall: isLoading,
           child: Scaffold(
             appBar: AppBar(
-             
               backgroundColor: const Color(0xff00A859),
               leading: IconButton(
                 onPressed: () {
@@ -101,6 +100,7 @@ class _ChatScreenState extends State<ChatScreen> {
                     suffixIcon: IconButton(
                       onPressed: () {
                         sendMessage();
+                        scrollToListEnd();
                       },
                       icon: const Padding(
                         padding: EdgeInsets.only(right: 10),
@@ -149,3 +149,6 @@ class _ChatScreenState extends State<ChatScreen> {
     );
   }
 }
+
+List<UserMessage> userMessageList = [];
+

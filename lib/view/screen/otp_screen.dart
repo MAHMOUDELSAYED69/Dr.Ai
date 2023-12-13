@@ -1,7 +1,6 @@
 import 'dart:developer';
 import 'package:dr_ai/view/screen/reset_password.dart';
 import 'package:dr_ai/view/widget/custom_button.dart';
-import 'package:dr_ai/view/widget/custom_text_field.dart';
 import 'package:dr_ai/view/widget/otp_field.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';

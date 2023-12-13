@@ -4,8 +4,6 @@ import 'package:dr_ai/view/widget/custom_button.dart';
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:modal_progress_hud_nsn/modal_progress_hud_nsn.dart';
-
 import '../../../core/cache/cache.dart';
 import '../../../core/helper/responsive.dart';
 

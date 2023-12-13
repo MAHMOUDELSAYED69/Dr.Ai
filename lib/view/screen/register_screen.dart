@@ -1,14 +1,12 @@
-import 'dart:developer';
+
 import 'package:dr_ai/core/cache/cache.dart';
 import 'package:dr_ai/core/helper/responsive.dart';
 import 'package:dr_ai/core/helper/scaffold_snakbar.dart';
 import 'package:dr_ai/logic/auth/google/login_with_google.dart';
 import 'package:dr_ai/logic/auth/register/register_cubit.dart';
-import 'package:dr_ai/view/screen/nav_bar/home_screen.dart';
 import 'package:dr_ai/view/widget/custom_button.dart';
 import 'package:dr_ai/view/widget/custom_outline_button.dart';
 import 'package:dr_ai/view/widget/custom_text_field.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -44,6 +42,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
         }
         if (state is RegisterFailure) {
           isLoading = false;
+          // alertMessage(context,message: state.message);
           scaffoldSnackBar(context, state.message);
         }
       },

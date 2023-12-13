@@ -1,7 +1,5 @@
-import 'dart:developer';
+
 import 'package:dr_ai/core/helper/scaffold_snakbar.dart';
-import 'package:dr_ai/view/screen/otp_screen.dart';
-import 'package:dr_ai/view/screen/register_screen.dart';
 import 'package:dr_ai/view/widget/custom_button.dart';
 import 'package:dr_ai/view/widget/custom_text_field.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -20,25 +18,6 @@ class _ForgetPasswordBottomSheetState extends State<ForgetPasswordBottomSheet> {
   Future<void> resetPassword({required String email}) async {
     await FirebaseAuth.instance.sendPasswordResetEmail(email: email);
   }
-
-  // Future<void> sendOTPEmail(String email) async {
-  //   try {
-  //     await FirebaseAuth.instance.sendSignInLinkToEmail(
-  //       email: email,
-  //       actionCodeSettings: ActionCodeSettings(
-  //         url: 'https://schemas.android.com/apk/res/android',
-  //         handleCodeInApp: true,
-  //         androidPackageName: 'com.example.dr_ai',
-  //         dynamicLinkDomain: "dr-aiapp.com",
-
-  //       ),
-  //     );
-  //     log('OTP email sent successfully!');
-  //   } catch (e) {
-  //     log('Failed to send OTP email: $e');
-  //   }
-  // }
-
   GlobalKey<FormState> formKey = GlobalKey();
   String? email;
   @override
