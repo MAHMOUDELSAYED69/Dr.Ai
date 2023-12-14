@@ -88,7 +88,7 @@ class _ForgetPasswordBottomSheetState extends State<ForgetPasswordBottomSheet> {
                     onPressed: () {
                       if (formKey.currentState!.validate()) {
                         formKey.currentState!.save();
-                        // sendOTPEmail(email!);
+                        resetPassword(email: email!);
                         Navigator.pop(context);
                         scaffoldSnackBar(context, "Check your E-mail");
                         // showOtpBottomSheet(context);

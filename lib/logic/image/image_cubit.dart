@@ -20,6 +20,8 @@ class ImageCubit extends Cubit<ImageState> {
           await ImagePicker().pickImage(source: ImageSource.gallery);
       selectedImage = File(returnImage!.path);
       CacheData.setData(key: "uploadImage", value: returnImage.path);
+      fireStore.add(
+          {"email": CacheData.getdata(key: "email"), "image": selectedImage});
       emit(ImageSuccess(imageUrl: returnImage.path));
     } on Exception catch (err) {
       emit(ImageFailure(message: err.toString()));

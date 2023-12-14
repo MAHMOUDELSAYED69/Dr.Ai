@@ -23,6 +23,7 @@ class ProfileScreen extends StatefulWidget {
 }
 
 class _ProfileScreenState extends State<ProfileScreen> {
+
   var fullName = CacheData.getdata(key: "fullName");
   var fullNameFire = CacheData.getdata(key: "fullNameFire");
   var email = CacheData.getdata(key: "email");

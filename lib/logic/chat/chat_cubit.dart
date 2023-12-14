@@ -2,7 +2,7 @@ import 'package:bloc/bloc.dart';
 import 'package:dr_ai/data/model/message_model.dart';
 import 'package:meta/meta.dart';
 
-import '../../data/service/get_messae.dart';
+import '../../data/service/api_messae.dart';
 
 part 'chat_state.dart';
 
