@@ -23,7 +23,6 @@ class ProfileScreen extends StatefulWidget {
 }
 
 class _ProfileScreenState extends State<ProfileScreen> {
-
   var fullName = CacheData.getdata(key: "fullName");
   var fullNameFire = CacheData.getdata(key: "fullNameFire");
   var email = CacheData.getdata(key: "email");
@@ -54,7 +53,9 @@ class _ProfileScreenState extends State<ProfileScreen> {
         return Scaffold(
           body: Container(
               width: double.infinity,
-              padding: const EdgeInsets.all(32),
+              padding: EdgeInsets.symmetric(
+                  vertical: ScreenSize.height * 0.036890,
+                  horizontal: ScreenSize.width * 0.07777),
               child: Stack(
                 children: [
                   IconButton(
