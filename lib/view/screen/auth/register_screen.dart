@@ -26,8 +26,8 @@ class _RegisterScreenState extends State<RegisterScreen> {
   register() {
     if (formKey.currentState?.validate() ?? false) {
       formKey.currentState!.save();
-      BlocProvider.of<RegisterCubit>(context).userRegister(
-          email: email!, password: password!, fullName: displayName!);
+      BlocProvider.of<RegisterCubit>(context)
+          .userRegister(email: email!, password: password!);
     }
   }
 
