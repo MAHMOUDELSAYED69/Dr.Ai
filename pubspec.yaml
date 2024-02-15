@@ -43,6 +43,7 @@ dependencies:
   google_fonts: ^6.1.0
   google_sign_in: ^6.1.6
   image_picker: ^1.0.4
+  meta: ^1.10.0
   modal_progress_hud_nsn: ^0.4.0
   shared_preferences: ^2.2.2
 
