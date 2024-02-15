@@ -15,15 +15,6 @@ class ChatScreen extends StatefulWidget {
 }
 
 class _ChatScreenState extends State<ChatScreen> {
-  ScrollController scrollController = ScrollController();
-  void scrollToListEnd() {
-    scrollController.animateTo(
-      scrollController.position.maxScrollExtent,
-      duration: const Duration(milliseconds: 100),
-      curve: Curves.easeInOut,
-    );
-  }
-
   bool isLoading = false;
 
   int id = 1;
@@ -51,7 +42,7 @@ class _ChatScreenState extends State<ChatScreen> {
         if (state is ChatSuccess) {
           isLoading = false;
           userMessageList.add(UserMessage(state.response, id));
-          scrollToListEnd();
+
           id++;
         }
         if (state is ChatFailure) {
@@ -91,23 +82,14 @@ class _ChatScreenState extends State<ChatScreen> {
                     right: 30, left: 30, top: 10, bottom: 20),
                 child: TextField(
                   controller: controller,
-                  onSubmitted: (_) {
-                    sendMessage();
-                    scrollToListEnd();
-                  },
+                  onSubmitted: (_) => sendMessage(),
                   decoration: InputDecoration(
                     hintText: '  Write your message',
                     suffixIcon: IconButton(
-                      onPressed: () {
-                        sendMessage();
-                        scrollToListEnd();
-                      },
-                      icon: const Padding(
-                        padding: EdgeInsets.only(right: 10),
-                        child: Icon(
-                          Icons.send,
-                          color: Color(0xff00A859),
-                        ),
+                      onPressed: () => sendMessage(),
+                      icon:  Padding(
+                        padding: const EdgeInsets.only(right: 10),
+                        child: Image.asset("assets/images/send.png",scale: 1.4,),
                       ),
                     ),
                     border: OutlineInputBorder(
@@ -132,7 +114,6 @@ class _ChatScreenState extends State<ChatScreen> {
               ),
             ),
             body: ListView.builder(
-              controller: scrollController,
               physics: const BouncingScrollPhysics(),
               itemCount: userMessageList.length,
               itemBuilder: (context, index) {
@@ -151,4 +132,3 @@ class _ChatScreenState extends State<ChatScreen> {
 }
 
 List<UserMessage> userMessageList = [];
-

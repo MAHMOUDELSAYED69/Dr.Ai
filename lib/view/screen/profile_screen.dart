@@ -1,7 +1,7 @@
 import 'dart:developer';
 import 'dart:io';
 import 'package:dr_ai/core/cache/cache.dart';
-import 'package:dr_ai/core/helper/responsive.dart';
+import 'package:dr_ai/data/service/firebase/firebase_service.dart';
 import 'package:dr_ai/logic/image/image_cubit.dart';
 import 'package:dr_ai/view/widget/custom_button.dart';
 import 'package:dr_ai/view/widget/custom_profile_card_botton.dart';
@@ -25,16 +25,19 @@ class _ProfileScreenState extends State<ProfileScreen> {
   var user = FirebaseAuth.instance.currentUser!;
   bool isLoading = false;
   GoogleSignIn googleSignIn = GoogleSignIn();
-  Future<void> logOut() async {
-    await FirebaseAuth.instance.signOut();
-    // await googleSignIn.disconnect();
-  }
 
   bool isImageLoading = false;
   bool isLogOutLoading = false;
   String? imageUrl;
-  pickImage() {
+  void pickImage() {
     BlocProvider.of<ImageCubit>(context).pickImageFromGallery();
+  }
+
+  void logOut() {
+    CacheData.clearData(clearData: true);
+    FirebaseService.logOut();
+    scaffoldSnackBar(context, "Log out");
+    Navigator.pushNamedAndRemoveUntil(context, "/login", (route) => false);
   }
 
   @override
@@ -42,9 +45,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
     return Scaffold(
       body: Container(
           width: double.infinity,
-          padding: EdgeInsets.symmetric(
-              vertical: ScreenSize.height * 0.036890,
-              horizontal: ScreenSize.width * 0.07777),
+          padding: const EdgeInsets.all(32),
           child: Stack(
             children: [
               IconButton(
@@ -68,17 +69,17 @@ class _ProfileScreenState extends State<ProfileScreen> {
                 alignment: Alignment.center,
                 children: [
                   Positioned(
-                    top: ScreenSize.height * 0.07839,
+                    top: 68,
                     child: Container(
-                      width: ScreenSize.width * 0.833680,
-                      height: ScreenSize.height * 0.209815,
+                      width: 343,
+                      height: 182,
                       decoration: BoxDecoration(
                           color: const Color(0xff7EBB9B).withOpacity(0.3),
                           borderRadius: BorderRadius.circular(16)),
                     ),
                   ),
                   Positioned(
-                    top: ScreenSize.height * 0.036890,
+                    top: 32,
                     width: 102,
                     height: 102,
                     child: BlocConsumer<ImageCubit, ImageState>(
@@ -117,11 +118,13 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                     )
                                   : CircleAvatar(
                                       radius: 35,
-                                      backgroundColor: const Color(0xff7EBB9B),
+                                      backgroundColor:
+                                          const Color(0xff7EBB9B),
                                       backgroundImage: imageUrl != null
                                           ? FileImage(File(imageUrl!))
                                           : user.photoURL != null
-                                              ? FileImage(File(user.photoURL!))
+                                              ? FileImage(
+                                                  File(user.photoURL!))
                                               : null,
                                       child: imageUrl == null &&
                                               user.photoURL == null
@@ -130,7 +133,8 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                                 user.displayName
                                                     .toString()
                                                     .toUpperCase()[0],
-                                                overflow: TextOverflow.ellipsis,
+                                                overflow:
+                                                    TextOverflow.ellipsis,
                                                 style: const TextStyle(
                                                     color: Colors.white,
                                                     fontSize: 32),
@@ -145,7 +149,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                     ),
                   ),
                   Positioned(
-                    top: ScreenSize.height * 0.161396,
+                    top: 140,
                     child: Column(
                       children: [
                         const Gap(8),
@@ -165,7 +169,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                     ),
                   ),
                   Positioned(
-                    top: ScreenSize.height * 0.311264,
+                    top: 270,
                     child: Column(
                       children: [
                         CustomProfileCardButton(
@@ -216,14 +220,8 @@ class _ProfileScreenState extends State<ProfileScreen> {
                       padding: const EdgeInsets.symmetric(horizontal: 5),
                       alignment: Alignment.bottomCenter,
                       child: CustomButton(
-                        height: ScreenSize.height * 0.06916,
-                        onPressed: () {
-                          CacheData.clearData(clearData: true);
-                          logOut();
-                          scaffoldSnackBar(context, "Log out");
-                          Navigator.pushNamedAndRemoveUntil(
-                              context, "/login", (route) => false);
-                        },
+                        height: 60,
+                        onPressed: logOut,
                         widget: Row(
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
@@ -245,8 +243,8 @@ class _ProfileScreenState extends State<ProfileScreen> {
                         color: const Color(0xff313131),
                       )),
                   Positioned(
-                      top: ScreenSize.height * 0.107213,
-                      right: ScreenSize.width * 0.272222,
+                      top: 93,
+                      right: 112,
                       child: IconButton(
                           onPressed: pickImage,
                           icon: const CircleAvatar(

@@ -49,7 +49,7 @@ class _ArchiveScreenState extends State<ArchiveScreen> {
                           backgroundColor: const Color(0xff7EBB9B),
                           radius: 51,
                           backgroundImage: user.photoURL != null
-                              ? FileImage(File(user.photoURL!))
+                              ? FileImage(File(user.photoURL!)) 
                               : null,
                           child: user.photoURL == null
                               ? Text(

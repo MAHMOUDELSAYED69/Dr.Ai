@@ -21,7 +21,7 @@ class CustomProfileCardButton extends StatelessWidget {
       child: Card(
         color: const Color(0xff00A859),
         child: SizedBox(
-          height: ScreenSize.height * 0.05764,
+          height: 50,
           width: MediaQuery.sizeOf(context).width * 0.83,
           child: ListTile(
             contentPadding: EdgeInsets.zero,
