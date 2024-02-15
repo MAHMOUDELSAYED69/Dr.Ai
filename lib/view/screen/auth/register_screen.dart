@@ -42,7 +42,6 @@ class _RegisterScreenState extends State<RegisterScreen> {
           isLoading = false;
           //  CacheData.setData(key: "fullName", value: fullName); //remove
           // CacheData.setData(key: "email", value: email); //remove
-
           Navigator.pop(context);
           FocusScope.of(context).unfocus();
           scaffoldSnackBar(context, "You can log in now");
