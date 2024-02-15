@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
-import '../../core/helper/responsive.dart';
-
 class CustomOutlineButton extends StatelessWidget {
   const CustomOutlineButton(
       {super.key, required this.title, this.onPressed, required this.icon});
@@ -18,7 +16,7 @@ class CustomOutlineButton extends StatelessWidget {
               borderRadius: BorderRadius.circular(15),
             ),
             fixedSize:
-                Size(double.maxFinite, ScreenSize.height * 0.07262845849)),
+                const Size(double.maxFinite,65)),
         onPressed: onPressed,
         child: Row(
           mainAxisAlignment: MainAxisAlignment.center,

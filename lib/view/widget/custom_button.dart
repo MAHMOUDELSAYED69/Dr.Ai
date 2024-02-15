@@ -29,7 +29,7 @@ class CustomButton extends StatelessWidget {
                 borderRadius: BorderRadius.circular(borderRadius ?? 15)),
             backgroundColor: color ?? const Color(0xff313131),
             fixedSize: Size(width ?? double.maxFinite,
-                height ?? ScreenSize.height * 0.07262845849)),
+                height ?? 65)),
         onPressed: onPressed,
         child: widget ??
             Text(title ?? "",

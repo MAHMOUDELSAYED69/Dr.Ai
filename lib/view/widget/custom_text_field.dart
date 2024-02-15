@@ -52,7 +52,7 @@ class _CustomTextFormFieldState extends State<CustomTextFormField> {
     return Column(children: [
       Container(
         alignment: Alignment.centerLeft,
-        padding: EdgeInsets.symmetric(vertical: ScreenSize.height * 0.0184453),
+        padding: const EdgeInsets.symmetric(vertical: 16),
         child: Text(widget.title ?? "",
             style: GoogleFonts.roboto(
                 textStyle: widget.titleTextStyle ??
@@ -104,9 +104,8 @@ class _CustomTextFormFieldState extends State<CustomTextFormField> {
                   iconSize: 25,
                 )
               : null,
-          contentPadding: EdgeInsets.symmetric(
-              vertical: ScreenSize.height * 0.017292,
-              horizontal: ScreenSize.width * 0.024305),
+          contentPadding:
+              const EdgeInsets.symmetric(vertical: 15, horizontal: 10),
           filled: true,
           fillColor: widget.fillColor ?? const Color(0xff00a859),
           hintText: widget.hintText,
