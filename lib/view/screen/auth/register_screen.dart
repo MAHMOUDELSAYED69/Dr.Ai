@@ -1,5 +1,3 @@
-import 'package:dr_ai/core/cache/cache.dart';
-import 'package:dr_ai/core/helper/responsive.dart';
 import 'package:dr_ai/core/helper/scaffold_snakbar.dart';
 import 'package:dr_ai/logic/auth/google/login_with_google.dart';
 import 'package:dr_ai/logic/auth/register/register_cubit.dart';
@@ -20,11 +18,19 @@ class RegisterScreen extends StatefulWidget {
 
 class _RegisterScreenState extends State<RegisterScreen> {
   GlobalKey<FormState> formKey = GlobalKey<FormState>();
-  bool isClick = false;
-  String? fullName;
+  // TextEditingController txtController = TextEditingController(); to confirm password.
   String? email;
   String? password;
   bool isLoading = false;
+  String? displayName;
+  register() {
+    if (formKey.currentState?.validate() ?? false) {
+      formKey.currentState!.save();
+      BlocProvider.of<RegisterCubit>(context).userRegister(
+          email: email!, password: password!, fullName: displayName!);
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return BlocConsumer<RegisterCubit, RegisterState>(
@@ -34,10 +40,12 @@ class _RegisterScreenState extends State<RegisterScreen> {
         }
         if (state is RegisterSuccess) {
           isLoading = false;
-          CacheData.setData(key: "fullName", value: fullName); //remove
-          CacheData.setData(key: "email", value: email); //remove
-          Navigator.pushNamedAndRemoveUntil(context, "/nav", (route) => false); 
+          //  CacheData.setData(key: "fullName", value: fullName); //remove
+          // CacheData.setData(key: "email", value: email); //remove
+
+          Navigator.pop(context);
           FocusScope.of(context).unfocus();
+          scaffoldSnackBar(context, "You can log in now");
         }
         if (state is RegisterFailure) {
           isLoading = false;
@@ -47,6 +55,9 @@ class _RegisterScreenState extends State<RegisterScreen> {
       builder: (context, state) {
         return ModalProgressHUD(
           inAsyncCall: isLoading,
+          progressIndicator: const CircularProgressIndicator(
+            color: Colors.green,
+          ),
           child: Scaffold(
             backgroundColor: Colors.white,
             body: SingleChildScrollView(
@@ -73,7 +84,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                         icon: "assets/images/fullname.png",
                         title: "Full Name",
                         onSaved: (data) {
-                          fullName = data;
+                          displayName = data;
                         },
                       ),
                       CustomTextFormField(
@@ -94,24 +105,14 @@ class _RegisterScreenState extends State<RegisterScreen> {
                         title: "Password",
                       ),
                       Padding(
-                          padding:
-                              EdgeInsets.only(top: ScreenSize.height * 0.05764),
+                          padding: const EdgeInsets.only(top: 40),
                           child: CustomButton(
-                              title: "Register",
-                              onPressed: () async {
-                                if (formKey.currentState!.validate()) {
-                                  formKey.currentState?.save();
-                                  BlocProvider.of<RegisterCubit>(context)
-                                      .userRegister(
-                                          fullName: fullName!,
-                                          email: email!,
-                                          password: password!);
-                                }
-                              })),
-                      Padding(
-                        padding:
-                            EdgeInsets.only(top: ScreenSize.height * 0.043807),
-                        child: const Row(
+                            title: "Register",
+                            onPressed: register,
+                          )),
+                      const Padding(
+                        padding: EdgeInsets.only(top: 37),
+                        child: Row(
                           children: [
                             Expanded(
                                 child: Divider(
@@ -137,18 +138,16 @@ class _RegisterScreenState extends State<RegisterScreen> {
                           ],
                         ),
                       ),
-                      Padding(
-                        padding:
-                            EdgeInsets.only(top: ScreenSize.height * 0.043807),
-                        child: const CustomOutlineButton(
+                      const Padding(
+                        padding: EdgeInsets.only(top: 37),
+                        child: CustomOutlineButton(
                           onPressed: GoogleService.signInWithGoogle,
                           title: "Google",
                           icon: "assets/images/google.png",
                         ),
                       ),
                       Padding(
-                        padding:
-                            EdgeInsets.only(top: ScreenSize.height * 0.02882),
+                        padding: const EdgeInsets.only(top: 25),
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [

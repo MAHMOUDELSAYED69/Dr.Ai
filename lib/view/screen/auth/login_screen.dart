@@ -1,6 +1,4 @@
 import 'dart:developer';
-import 'package:dr_ai/core/cache/cache.dart';
-import 'package:dr_ai/core/helper/responsive.dart';
 import 'package:dr_ai/core/helper/scaffold_snakbar.dart';
 import 'package:dr_ai/logic/auth/login/login_cubit.dart';
 import 'package:dr_ai/view/screen/auth/forget_password.dart';
@@ -11,7 +9,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:modal_progress_hud_nsn/modal_progress_hud_nsn.dart';
-import '../../../data/service/cloud_fire_store.dart';
 import '../../../logic/auth/google/login_with_google.dart';
 
 class LoginScreen extends StatefulWidget {
@@ -25,16 +22,13 @@ class _LoginScreenState extends State<LoginScreen> {
   GlobalKey<FormState> formKey = GlobalKey<FormState>();
   String? email;
   String? password;
-  bool isLading = false;
-  void delay() async {
-    await Future.delayed(const Duration(milliseconds: 700));
-    isLading = false;
-    await CloudStoreService.fetchImage();
-    loginNavigator();
-  }
-
-  void loginNavigator() {
-    Navigator.pushNamedAndRemoveUntil(context, "/nav", (route) => false);
+  bool isLoading = false;
+  login() {
+    if (formKey.currentState!.validate()) {
+      formKey.currentState!.save();
+      BlocProvider.of<LoginCubit>(context)
+          .userLogin(email: email!, password: password!);
+    }
   }
 
   @override
@@ -42,23 +36,26 @@ class _LoginScreenState extends State<LoginScreen> {
     return BlocConsumer<LoginCubit, LoginState>(
       listener: (context, state) async {
         if (state is LoginLoading) {
-          isLading = true;
+          isLoading = true;
         }
         if (state is LoginSuccess) {
-          CacheData.setData(key: "email", value: email); //remove
-          CloudStoreService.fetchDataFromFirestore(); //remove
-          delay(); //remove
+          // CacheData.setData(key: "email", value: email); //remove
+          // CloudStoreService.fetchDataFromFirestore(); //remove
+          isLoading = false;
           FocusScope.of(context).unfocus();
+          Navigator.pushNamedAndRemoveUntil(context, "/nav", (route) => false);
         }
         if (state is LoginFailure) {
-          isLading = false;
+          isLoading = false;
           scaffoldSnackBar(context, state.message);
         }
       },
       builder: (context, state) {
         return ModalProgressHUD(
-          color: Colors.green,
-          inAsyncCall: isLading,
+          progressIndicator: const CircularProgressIndicator(
+            color: Colors.green,
+          ),
+          inAsyncCall: isLoading,
           child: Scaffold(
             backgroundColor: Colors.white,
             body: SingleChildScrollView(
@@ -70,8 +67,8 @@ class _LoginScreenState extends State<LoginScreen> {
                     children: [
                       Center(
                         child: SizedBox(
-                            width: ScreenSize.width * 0.388,
-                            height: ScreenSize.height * 0.126,
+                            width: 160,
+                            height: 110,
                             child: Image.asset("assets/images/logo.png")),
                       ),
                       Text("Welcome Back!",
@@ -98,12 +95,9 @@ class _LoginScreenState extends State<LoginScreen> {
                         title: "Password",
                       ),
                       GestureDetector(
-                        onTap: () {
-                          showForgetPasswordBottomSheet(context);
-                        },
+                        onTap: () => showForgetPasswordBottomSheet(context),
                         child: Container(
-                          padding:
-                              EdgeInsets.only(top: ScreenSize.height * 0.0126),
+                          padding: const EdgeInsets.only(top: 11),
                           alignment: Alignment.centerRight,
                           child: Text("Forgot Password?",
                               style: GoogleFonts.roboto(
@@ -114,22 +108,14 @@ class _LoginScreenState extends State<LoginScreen> {
                         ),
                       ),
                       Padding(
-                          padding:
-                              EdgeInsets.only(top: ScreenSize.height * 0.0438),
+                          padding: const EdgeInsets.only(top: 38),
                           child: CustomButton(
                             title: "Log in",
-                            onPressed: () {
-                              if (formKey.currentState!.validate()) {
-                                formKey.currentState!.save();
-                                BlocProvider.of<LoginCubit>(context).userLogin(
-                                    email: email!, password: password!);
-                              }
-                            },
+                            onPressed: login,
                           )),
-                      Padding(
-                        padding:
-                            EdgeInsets.only(top: ScreenSize.height * 0.04265),
-                        child: const Row(
+                      const Padding(
+                        padding: EdgeInsets.only(top: 37),
+                        child: Row(
                           children: [
                             Expanded(
                                 child: Divider(
@@ -156,8 +142,7 @@ class _LoginScreenState extends State<LoginScreen> {
                         ),
                       ),
                       Padding(
-                        padding:
-                            EdgeInsets.only(top: ScreenSize.height * 0.04265),
+                        padding: const EdgeInsets.only(top: 37),
                         child: CustomOutlineButton(
                           onPressed: () {
                             try {
@@ -171,8 +156,7 @@ class _LoginScreenState extends State<LoginScreen> {
                         ),
                       ),
                       Padding(
-                        padding:
-                            EdgeInsets.only(top: ScreenSize.height * 0.02882),
+                        padding: const EdgeInsets.only(top: 25),
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
