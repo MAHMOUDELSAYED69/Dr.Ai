@@ -15,10 +15,10 @@ class ChatScreen extends StatefulWidget {
 }
 
 class _ChatScreenState extends State<ChatScreen> {
-  ScrollController _scrollController = ScrollController();
+  ScrollController scrollController = ScrollController();
   void scrollToListEnd() {
-    _scrollController.animateTo(
-      _scrollController.position.maxScrollExtent,
+    scrollController.animateTo(
+      scrollController.position.maxScrollExtent,
       duration: const Duration(milliseconds: 100),
       curve: Curves.easeInOut,
     );
@@ -132,7 +132,7 @@ class _ChatScreenState extends State<ChatScreen> {
               ),
             ),
             body: ListView.builder(
-              controller: _scrollController,
+              controller: scrollController,
               physics: const BouncingScrollPhysics(),
               itemCount: userMessageList.length,
               itemBuilder: (context, index) {

@@ -1,4 +1,5 @@
 import 'dart:developer';
+import 'package:dr_ai/logic/auth/forget_password/forget_password_cubit.dart';
 import 'package:dr_ai/logic/auth/login/login_cubit.dart';
 import 'package:dr_ai/logic/auth/register/register_cubit.dart';
 import 'package:dr_ai/logic/chat/chat_cubit.dart';
@@ -50,6 +51,9 @@ class _MyAppState extends State<MyApp> {
         ),
         BlocProvider(
           create: (context) => ImageCubit(),
+        ),
+        BlocProvider(
+          create: (context) => ForgetPasswordCubit(),
         ),
       ],
       child: MaterialApp(
