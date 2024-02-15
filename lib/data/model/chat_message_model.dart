@@ -1,21 +1,22 @@
-class ChatMessage {
-  int? id;
-  String? name;
-  String? description;
+class ChatMessageModel {
+  final bool isUser;
+  final String message;
+  final String timeTamp;
 
-  ChatMessage({this.id, this.name, this.description});
+  ChatMessageModel(
+      {required this.isUser, required this.message, required this.timeTamp});
 
-  ChatMessage.fromJson(Map<String, dynamic> json) {
-    id = json['id'];
-    name = json['name'];
-    description = json['description'];
+  factory ChatMessageModel.fromJson(Map<String, dynamic> jsonData) {
+    return ChatMessageModel(
+        isUser: jsonData['isUser'],
+        message: jsonData['message'],
+        timeTamp: jsonData['timeTamp']);
   }
-
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = <String, dynamic>{};
-    data['id'] = id;
-    data['name'] = name;
-    data['description'] = description;
-    return data;
+    return {
+      'isUser': isUser,
+      'message': message,
+      'timeTamp': timeTamp,
+    };
   }
 }

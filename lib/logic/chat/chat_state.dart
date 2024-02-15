@@ -7,10 +7,12 @@ class ChatInitial extends ChatState {}
 
 class ChatLoading extends ChatState {}
 
-class ChatSuccess extends ChatState {
-  final String response;
+class ChatSendSuccess extends ChatState {}
 
-  ChatSuccess({required this.response});
+class ChatReceiveSuccess extends ChatState {
+  final dynamic response;
+
+  ChatReceiveSuccess({required this.response});
 }
 
 class ChatFailure extends ChatState {

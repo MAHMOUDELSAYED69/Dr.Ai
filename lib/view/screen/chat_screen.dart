@@ -1,5 +1,5 @@
 import 'package:dr_ai/core/helper/alert_message.dart';
-import 'package:dr_ai/data/model/message_model.dart';
+import 'package:dr_ai/data/model/chat_message_model.dart';
 import 'package:dr_ai/logic/chat/chat_cubit.dart';
 import 'package:dr_ai/view/widget/chat_buble.dart';
 import 'package:flutter/material.dart';
@@ -15,22 +15,22 @@ class ChatScreen extends StatefulWidget {
 }
 
 class _ChatScreenState extends State<ChatScreen> {
-  bool isLoading = false;
+  @override
+  void initState() {
+    BlocProvider.of<ChatCubit>(context).recivedMessage();
+    super.initState();
+  }
 
-  int id = 1;
-  late String data;
-  void sendMessage() async {
+  bool isLoading = false;
+  List<ChatMessageModel> chatMessageMode = [];
+  void sendMessage() {
     if (controller.text.isNotEmpty) {
-      data = controller.text;
-      setState(() {
-        userMessageList.add(UserMessage(data, id)); //!
-        id++; //!
-      });
-      BlocProvider.of<ChatCubit>(context).sendMessage(data: data);
+      BlocProvider.of<ChatCubit>(context).sendMessage(message: controller.text);
     }
   }
 
   TextEditingController controller = TextEditingController();
+
   @override
   Widget build(BuildContext context) {
     return BlocConsumer<ChatCubit, ChatState>(
@@ -39,11 +39,14 @@ class _ChatScreenState extends State<ChatScreen> {
           isLoading = true;
           controller.clear();
         }
-        if (state is ChatSuccess) {
+        if (state is ChatSendSuccess) {
+          if (controller.text.isNotEmpty) {
+            BlocProvider.of<ChatCubit>(context).recivedMessage();
+          }
+        }
+        if (state is ChatReceiveSuccess) {
           isLoading = false;
-          userMessageList.add(UserMessage(state.response, id));
-
-          id++;
+          chatMessageMode = state.response;
         }
         if (state is ChatFailure) {
           isLoading = false;
@@ -87,9 +90,12 @@ class _ChatScreenState extends State<ChatScreen> {
                     hintText: '  Write your message',
                     suffixIcon: IconButton(
                       onPressed: () => sendMessage(),
-                      icon:  Padding(
+                      icon: Padding(
                         padding: const EdgeInsets.only(right: 10),
-                        child: Image.asset("assets/images/send.png",scale: 1.4,),
+                        child: Image.asset(
+                          "assets/images/send.png",
+                          scale: 1.4,
+                        ),
                       ),
                     ),
                     border: OutlineInputBorder(
@@ -115,13 +121,16 @@ class _ChatScreenState extends State<ChatScreen> {
             ),
             body: ListView.builder(
               physics: const BouncingScrollPhysics(),
-              itemCount: userMessageList.length,
+              itemCount: chatMessageMode.length,
+              reverse: true,
               itemBuilder: (context, index) {
-                return index.isEven
+                return chatMessageMode[index].isUser == true
                     ? ChatBubbleForGuest(
-                        message: userMessageList[index].message)
-                    : ChatBubbleForDrAi(
-                        message: userMessageList[index].message);
+                        message: chatMessageMode[index].message)
+                    : isLoading == true
+                        ? const ChatBubbleForDrAi(message: "Typing...")
+                        : ChatBubbleForDrAi(
+                            message: chatMessageMode[index].message);
               },
             ),
           ),
@@ -130,5 +139,3 @@ class _ChatScreenState extends State<ChatScreen> {
     );
   }
 }
-
-List<UserMessage> userMessageList = [];
