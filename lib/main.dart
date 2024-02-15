@@ -1,5 +1,5 @@
 
-import 'package:dr_ai/app/matrial.dart';
+import 'package:dr_ai/view/app/matrial.dart';
 import 'package:dr_ai/core/cache/cache.dart';
 import 'package:dr_ai/firebase_options.dart';
 import 'package:firebase_core/firebase_core.dart';

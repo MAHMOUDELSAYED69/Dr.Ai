@@ -1,9 +1,8 @@
-import 'dart:developer';
 import 'package:dr_ai/core/cache/cache.dart';
 import 'package:dr_ai/core/helper/responsive.dart';
 import 'package:dr_ai/core/helper/scaffold_snakbar.dart';
-import 'package:dr_ai/logic/auth/login/login_cubit.dart';
-import 'package:dr_ai/view/screen/forget_password.dart';
+import 'package:dr_ai/logic/auth/google/login_with_google.dart';
+import 'package:dr_ai/logic/auth/register/register_cubit.dart';
 import 'package:dr_ai/view/widget/custom_button.dart';
 import 'package:dr_ai/view/widget/custom_outline_button.dart';
 import 'package:dr_ai/view/widget/custom_text_field.dart';
@@ -11,53 +10,43 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:modal_progress_hud_nsn/modal_progress_hud_nsn.dart';
-import '../../data/service/cloud_fire_store.dart';
-import '../../logic/auth/google/login_with_google.dart';
 
-class LoginScreen extends StatefulWidget {
-  const LoginScreen({super.key});
+class RegisterScreen extends StatefulWidget {
+  const RegisterScreen({super.key});
 
   @override
-  State<LoginScreen> createState() => _LoginScreenState();
+  State<RegisterScreen> createState() => _RegisterScreenState();
 }
 
-class _LoginScreenState extends State<LoginScreen> {
+class _RegisterScreenState extends State<RegisterScreen> {
   GlobalKey<FormState> formKey = GlobalKey<FormState>();
+  bool isClick = false;
+  String? fullName;
   String? email;
   String? password;
-  bool isLading = false;
-  void delay() async {
-    await Future.delayed(const Duration(milliseconds: 700));
-    isLading = false;
-    await CloudStoreService.fetchImage();
-    loginNavigator();
-  }
-
-  void loginNavigator() {
-    Navigator.pushNamedAndRemoveUntil(context, "/nav", (route) => false);
-  }
-
+  bool isLoading = false;
   @override
   Widget build(BuildContext context) {
-    return BlocConsumer<LoginCubit, LoginState>(
-      listener: (context, state) async {
-        if (state is LoginLoading) {
-          isLading = true;
+    return BlocConsumer<RegisterCubit, RegisterState>(
+      listener: (context, state) {
+        if (state is RegisterLoading) {
+          isLoading = true;
         }
-        if (state is LoginSuccess) {
-          CacheData.setData(key: "email", value: email);
-          CloudStoreService.fetchDataFromFirestore();
-          delay();
+        if (state is RegisterSuccess) {
+          isLoading = false;
+          CacheData.setData(key: "fullName", value: fullName); //remove
+          CacheData.setData(key: "email", value: email); //remove
+          Navigator.pushNamedAndRemoveUntil(context, "/nav", (route) => false); 
           FocusScope.of(context).unfocus();
         }
-        if (state is LoginFailure) {
-          isLading = false;
+        if (state is RegisterFailure) {
+          isLoading = false;
           scaffoldSnackBar(context, state.message);
         }
       },
       builder: (context, state) {
         return ModalProgressHUD(
-          inAsyncCall: isLading,
+          inAsyncCall: isLoading,
           child: Scaffold(
             backgroundColor: Colors.white,
             body: SingleChildScrollView(
@@ -69,65 +58,59 @@ class _LoginScreenState extends State<LoginScreen> {
                     children: [
                       Center(
                         child: SizedBox(
-                            width: ScreenSize.width * 0.388,
-                            height: ScreenSize.height * 0.126,
+                            width: 160,
+                            height: 110,
                             child: Image.asset("assets/images/logo.png")),
                       ),
-                      Text("Welcome Back!",
+                      Text("Create your account",
                           style: GoogleFonts.roboto(
                               textStyle: const TextStyle(
                             fontSize: 26,
                             fontWeight: FontWeight.w600,
                           ))),
                       CustomTextFormField(
+                        keyboardType: TextInputType.name,
+                        icon: "assets/images/fullname.png",
+                        title: "Full Name",
+                        onSaved: (data) {
+                          fullName = data;
+                        },
+                      ),
+                      CustomTextFormField(
                         keyboardType: TextInputType.emailAddress,
                         icon: "assets/images/email.png",
+                        title: "Email Address",
                         onSaved: (data) {
                           email = data;
                         },
-                        title: "Email Address",
                       ),
                       CustomTextFormField(
                         keyboardType: TextInputType.visiblePassword,
+                        icon: "assets/images/password.png",
                         onSaved: (data) {
                           password = data;
                         },
-                        icon: "assets/images/password.png",
                         isVisible: true,
                         title: "Password",
                       ),
-                      GestureDetector(
-                        onTap: () {
-                          showForgetPasswordBottomSheet(context);
-                        },
-                        child: Container(
-                          padding:
-                              EdgeInsets.only(top: ScreenSize.height * 0.0126),
-                          alignment: Alignment.centerRight,
-                          child: Text("Forgot Password?",
-                              style: GoogleFonts.roboto(
-                                  textStyle: const TextStyle(
-                                fontSize: 16,
-                                fontWeight: FontWeight.w500,
-                              ))),
-                        ),
-                      ),
                       Padding(
                           padding:
-                              EdgeInsets.only(top: ScreenSize.height * 0.0438),
+                              EdgeInsets.only(top: ScreenSize.height * 0.05764),
                           child: CustomButton(
-                            title: "Log in",
-                            onPressed: () {
-                              if (formKey.currentState!.validate()) {
-                                formKey.currentState!.save();
-                                BlocProvider.of<LoginCubit>(context).userLogin(
-                                    email: email!, password: password!);
-                              }
-                            },
-                          )),
+                              title: "Register",
+                              onPressed: () async {
+                                if (formKey.currentState!.validate()) {
+                                  formKey.currentState?.save();
+                                  BlocProvider.of<RegisterCubit>(context)
+                                      .userRegister(
+                                          fullName: fullName!,
+                                          email: email!,
+                                          password: password!);
+                                }
+                              })),
                       Padding(
                         padding:
-                            EdgeInsets.only(top: ScreenSize.height * 0.04265),
+                            EdgeInsets.only(top: ScreenSize.height * 0.043807),
                         child: const Row(
                           children: [
                             Expanded(
@@ -156,15 +139,9 @@ class _LoginScreenState extends State<LoginScreen> {
                       ),
                       Padding(
                         padding:
-                            EdgeInsets.only(top: ScreenSize.height * 0.04265),
-                        child: CustomOutlineButton(
-                          onPressed: () {
-                            try {
-                              GoogleService.signInWithGoogle();
-                            } catch (err) {
-                              log(err.toString());
-                            }
-                          },
+                            EdgeInsets.only(top: ScreenSize.height * 0.043807),
+                        child: const CustomOutlineButton(
+                          onPressed: GoogleService.signInWithGoogle,
                           title: "Google",
                           icon: "assets/images/google.png",
                         ),
@@ -184,7 +161,7 @@ class _LoginScreenState extends State<LoginScreen> {
                                 ))),
                             GestureDetector(
                               onTap: () {
-                                Navigator.pushNamed(context, "/register");
+                                Navigator.pop(context);
                               },
                               child: Text(" Sign Up",
                                   style: GoogleFonts.roboto(

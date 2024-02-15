@@ -91,8 +91,6 @@ class _ForgetPasswordBottomSheetState extends State<ForgetPasswordBottomSheet> {
                         resetPassword(email: email!);
                         Navigator.pop(context);
                         scaffoldSnackBar(context, "Check your E-mail");
-                        // showOtpBottomSheet(context);
-                        //  showOtpBottomSheet(context);
                       }
                     },
                   ),
