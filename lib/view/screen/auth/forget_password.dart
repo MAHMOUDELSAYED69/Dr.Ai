@@ -1,12 +1,10 @@
 import 'dart:developer';
-
 import 'package:dr_ai/core/helper/scaffold_snakbar.dart';
 import 'package:dr_ai/view/widget/custom_button.dart';
 import 'package:dr_ai/view/widget/custom_text_field.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_fonts/google_fonts.dart';
-
 import '../../../logic/auth/forget_password/forget_password_cubit.dart';
 
 class ForgetPassword extends StatefulWidget {

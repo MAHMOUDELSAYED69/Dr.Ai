@@ -1,19 +1,19 @@
 import 'dart:developer';
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:dr_ai/core/cache/cache.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
 class FirebaseService {
   //! REGISTER
   static Future<void> register(
-      {required String email, required String password}) async {
+      {required String email,
+      required String password,
+      required String displayName}) async {
     UserCredential userCredential =
         await FirebaseAuth.instance.createUserWithEmailAndPassword(
       email: email,
       password: password,
     );
-    await FirebaseAuth.instance.currentUser!
-        .updateDisplayName(CacheData.getdata(key: "displayName"));
+    await FirebaseAuth.instance.currentUser!.updateDisplayName(displayName);
     // FirebaseService.emailVerify();
     FirebaseFirestore.instance
         .collection('users')
@@ -23,6 +23,7 @@ class FirebaseService {
       'email': userCredential.user!.email,
       'name': userCredential.user!.displayName,
       'image': userCredential.user?.photoURL,
+      'time': DateTime.now().toString(),
     });
   }
 
@@ -43,6 +44,7 @@ class FirebaseService {
       'email': userCredential.user!.email,
       'name': userCredential.user!.displayName,
       'image': userCredential.user?.photoURL,
+      'time': DateTime.now().toString(),
     }, SetOptions(merge: true));
   }
 

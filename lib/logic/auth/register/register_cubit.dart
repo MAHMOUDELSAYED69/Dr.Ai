@@ -12,10 +12,12 @@ class RegisterCubit extends Cubit<RegisterState> {
   Future<void> userRegister({
     required String email,
     required String password,
+    required String displayName,
   }) async {
     emit(RegisterLoading());
     try {
-      await FirebaseService.register(email: email, password: password);
+      await FirebaseService.register(
+          email: email, password: password, displayName: displayName);
       emit(RegisterSuccess());
     } on FirebaseAuthException catch (err) {
       emit(RegisterFailure(message: err.code));
