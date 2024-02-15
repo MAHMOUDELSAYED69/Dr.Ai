@@ -1,5 +1,4 @@
 import 'dart:io';
-import 'package:dr_ai/core/cache/cache.dart';
 import 'package:dr_ai/core/helper/responsive.dart';
 import 'package:dr_ai/view/widget/custom_button.dart';
 import 'package:firebase_auth/firebase_auth.dart';

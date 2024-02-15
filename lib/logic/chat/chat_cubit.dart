@@ -14,7 +14,7 @@ class ChatCubit extends Cubit<ChatState> {
   ChatCubit() : super(ChatInitial());
   dynamic response;
   Future<void> sendMessage({required String message}) async {
-    emit(ChatLoading());
+    emit(ChatSenderLoading());
     try {
       ChatMessageModel chatMessageModel = ChatMessageModel(
           isUser: true, message: message, timeTamp: DateTime.now().toString());
@@ -26,7 +26,7 @@ class ChatCubit extends Cubit<ChatState> {
       response = await MessageService.postData(data: {'content': message});
       log(response.toString());
       await recivedMessage();
-      response=null;
+      response = null;
       emit(ChatSendSuccess());
     } on Exception catch (err) {
       emit(ChatFailure(message: err.toString()));
@@ -34,9 +34,9 @@ class ChatCubit extends Cubit<ChatState> {
   }
 
   Future<void> recivedMessage() async {
+    emit(ChatReceiverLoading());
     try {
       if (response != null) {
-        emit(ChatLoading());
         ChatMessageModel chatMessageModel = ChatMessageModel(
             isUser: false,
             message: response ?? "ERROR",
@@ -47,23 +47,22 @@ class ChatCubit extends Cubit<ChatState> {
             .collection('messages')
             .add(chatMessageModel.toJson());
       }
-        FirebaseFirestore.instance
-            .collection('chat_history')
-            .doc(FirebaseAuth.instance.currentUser!.uid)
-            .collection('messages')
-            .orderBy(
-              'timeTamp',
-              descending: true,
-            )
-            .snapshots()
-            .listen((event) {
-          List<ChatMessageModel> chatMessageModel = [];
-          for (var doc in event.docs) {
-            chatMessageModel.add(ChatMessageModel.fromJson(doc.data()));
-          }
-          emit(ChatReceiveSuccess(response: chatMessageModel));
-        });
-      
+      FirebaseFirestore.instance
+          .collection('chat_history')
+          .doc(FirebaseAuth.instance.currentUser!.uid)
+          .collection('messages')
+          .orderBy(
+            'timeTamp',
+            descending: true,
+          )
+          .snapshots()
+          .listen((event) {
+        List<ChatMessageModel> chatMessageModel = [];
+        for (var doc in event.docs) {
+          chatMessageModel.add(ChatMessageModel.fromJson(doc.data()));
+        }
+        emit(ChatReceiveSuccess(response: chatMessageModel));
+      });
     } on FirebaseException catch (err) {
       emit(ChatFailure(message: err.toString()));
       log(err.toString());
