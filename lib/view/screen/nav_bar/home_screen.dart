@@ -2,6 +2,7 @@ import 'dart:io';
 import 'package:dr_ai/core/cache/cache.dart';
 import 'package:dr_ai/core/helper/responsive.dart';
 import 'package:dr_ai/view/widget/custom_button.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
@@ -13,9 +14,6 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
-  var fullName = CacheData.getdata(key: "fullName");
-  var fullNameFire = CacheData.getdata(key: "fullNameFire");
-  var image = CacheData.getdata(key: "imageFire");
   List<String> images = [
     "assets/images/heath_1.png",
     "assets/images/heath_2.png",
@@ -24,6 +22,7 @@ class _HomeScreenState extends State<HomeScreen> {
     "assets/images/heath_5.png",
     "assets/images/heath_6.png",
   ];
+  var user = FirebaseAuth.instance.currentUser!;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -49,10 +48,7 @@ class _HomeScreenState extends State<HomeScreen> {
                     fontSize: 10,
                   ))),
               subtitle: Text(
-                  CacheData.getdata(key: "fullNameFire") ??
-                      fullNameFire ??
-                      fullName ??
-                      "Guest",
+                  FirebaseAuth.instance.currentUser!.displayName ?? "Guest",
                   style: GoogleFonts.roboto(
                       textStyle: const TextStyle(
                     fontSize: 12,
@@ -60,18 +56,21 @@ class _HomeScreenState extends State<HomeScreen> {
                   ))),
               leading: Container(
                 decoration: BoxDecoration(
-                    border:
-                        Border.all(color: const Color(0xffE0E0E0), width: 2),
+                    border: Border.all(color: Colors.green, width: 3),
                     shape: BoxShape.circle),
                 child: CircleAvatar(
+                    backgroundColor: Colors.green,
                     radius: 20,
-                    backgroundImage: CacheData.getdata(key: "uploadImage") !=
-                            null
-                        ? FileImage(File(CacheData.getdata(key: "uploadImage")))
-                        : CacheData.getdata(key: "imageFire") != null
-                            ? FileImage(
-                                File(CacheData.getdata(key: "imageFire")))
-                            : null),
+                    backgroundImage: user.photoURL != null
+                        ? FileImage(File(user.photoURL!))
+                        : null,
+                    child: user.photoURL == null
+                        ? Text(
+                            user.displayName!.toUpperCase()[0],
+                            style: const TextStyle(
+                                color: Colors.white, fontSize: 18),
+                          )
+                        : null),
               ),
             ),
             Card(

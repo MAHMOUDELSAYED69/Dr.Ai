@@ -109,26 +109,22 @@ class _ProfileScreenState extends State<ProfileScreen> {
                               onTap: pickImage,
                               child: isImageLoading == true
                                   ? const CircleAvatar(
+                                      backgroundColor: Color(0xff7EBB9B),
                                       radius: 35,
-                                      child: CircularProgressIndicator(),
+                                      child: CircularProgressIndicator(
+                                        color: Colors.green,
+                                      ),
                                     )
                                   : CircleAvatar(
                                       radius: 35,
                                       backgroundColor: const Color(0xff7EBB9B),
                                       backgroundImage: imageUrl != null
                                           ? FileImage(File(imageUrl!))
-                                          : FirebaseAuth.instance.currentUser!
-                                                      .photoURL !=
-                                                  null
-                                              ? FileImage(File(FirebaseAuth
-                                                  .instance
-                                                  .currentUser!
-                                                  .photoURL!))
+                                          : user.photoURL != null
+                                              ? FileImage(File(user.photoURL!))
                                               : null,
                                       child: imageUrl == null &&
-                                              FirebaseAuth.instance.currentUser!
-                                                      .photoURL ==
-                                                  null
+                                              user.photoURL == null
                                           ? SizedBox(
                                               child: Text(
                                                 user.displayName
@@ -137,7 +133,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                                 overflow: TextOverflow.ellipsis,
                                                 style: const TextStyle(
                                                     color: Colors.white,
-                                                    fontSize: 24),
+                                                    fontSize: 32),
                                               ),
                                             )
                                           : null, // Replace with your default avatar image

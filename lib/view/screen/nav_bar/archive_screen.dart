@@ -1,10 +1,9 @@
 import 'dart:io';
-
 import 'package:dr_ai/view/widget/custom_button.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
 import 'package:google_fonts/google_fonts.dart';
-import '../../../core/cache/cache.dart';
 import '../../../core/helper/responsive.dart';
 
 class ArchiveScreen extends StatefulWidget {
@@ -15,10 +14,7 @@ class ArchiveScreen extends StatefulWidget {
 }
 
 class _ArchiveScreenState extends State<ArchiveScreen> {
-  var fullName = CacheData.getdata(key: "fullName");
-  var fullNameFire = CacheData.getdata(key: "fullNameFire");
-  var email = CacheData.getdata(key: "email");
-  var image = CacheData.getdata(key: "imageFire");
+  var user = FirebaseAuth.instance.currentUser!;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -50,12 +46,17 @@ class _ArchiveScreenState extends State<ArchiveScreen> {
                               color: const Color(0xff00A859), width: 4),
                           shape: BoxShape.circle),
                       child: CircleAvatar(
+                          backgroundColor: const Color(0xff7EBB9B),
                           radius: 51,
-                          backgroundImage: CacheData.getdata(
-                                      key: "uploadImage") !=
-                                  null
-                              ? FileImage(
-                                  File(CacheData.getdata(key: "uploadImage")))
+                          backgroundImage: user.photoURL != null
+                              ? FileImage(File(user.photoURL!))
+                              : null,
+                          child: user.photoURL == null
+                              ? Text(
+                                  user.displayName!.toUpperCase()[0],
+                                  // ignore: prefer_const_constructors
+                                  style: TextStyle(color: Colors.white,fontSize: 32),
+                                )
                               : null),
                     ),
                   ),
@@ -64,14 +65,14 @@ class _ArchiveScreenState extends State<ArchiveScreen> {
                     child: Column(
                       children: [
                         const Gap(2),
-                        Text(fullName ?? fullNameFire ?? "Guest",
+                        Text(user.displayName ?? "Guest",
                             style: GoogleFonts.roboto(
                                 textStyle: const TextStyle(
                                     fontSize: 18,
                                     fontWeight: FontWeight.w500,
                                     color: Color(0xff00A859)))),
                         const Gap(2),
-                        Text("$email",
+                        Text(user.email.toString(),
                             style: GoogleFonts.roboto(
                                 textStyle: const TextStyle(
                               fontSize: 14,
