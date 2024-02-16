@@ -1,11 +1,8 @@
-import 'dart:io';
+
 import 'package:dr_ai/core/constant/color.dart';
-import 'package:dr_ai/view/widget/custom_button.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:gap/gap.dart';
-import 'package:google_fonts/google_fonts.dart';
-import '../../../core/helper/responsive.dart';
+
 
 class ArchiveScreen extends StatefulWidget {
   const ArchiveScreen({super.key});

@@ -1,5 +1,6 @@
 import 'dart:developer';
 import 'package:dr_ai/core/constant/image.dart';
+import 'package:dr_ai/core/constant/routes.dart';
 import 'package:dr_ai/core/helper/scaffold_snakbar.dart';
 import 'package:dr_ai/logic/auth/login/login_cubit.dart';
 import 'package:dr_ai/view/screen/auth/forget_password.dart';
@@ -46,7 +47,7 @@ class _LoginScreenState extends State<LoginScreen> {
           FocusScope.of(context).unfocus();
           if (FirebaseAuth.instance.currentUser!.emailVerified) {
             Navigator.pushNamedAndRemoveUntil(
-                context, "/nav", (route) => false);
+                context, MyRoutes.nav, (route) => false);
           }
         }
         if (state is LoginFailure) {
@@ -173,7 +174,7 @@ class _LoginScreenState extends State<LoginScreen> {
                                 ))),
                             GestureDetector(
                               onTap: () {
-                                Navigator.pushNamed(context, "/register");
+                                Navigator.pushNamed(context, MyRoutes.register);
                               },
                               child: Text(" Sign Up",
                                   style: GoogleFonts.roboto(

@@ -1,5 +1,6 @@
 import 'package:dr_ai/core/constant/color.dart';
 import 'package:dr_ai/core/constant/image.dart';
+import 'package:dr_ai/core/constant/routes.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -100,8 +101,8 @@ class _SplashScreenState extends State<SplashScreen>
             context,
             (FirebaseAuth.instance.currentUser != null &&
                     FirebaseAuth.instance.currentUser!.emailVerified)
-                ? "/nav"
-                : "/login");
+                ? MyRoutes.nav
+                : MyRoutes.login);
       },
     );
   }

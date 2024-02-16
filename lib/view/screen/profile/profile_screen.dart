@@ -2,6 +2,7 @@ import 'dart:developer';
 import 'dart:io';
 import 'package:dr_ai/core/cache/cache.dart';
 import 'package:dr_ai/core/constant/image.dart';
+import 'package:dr_ai/core/constant/routes.dart';
 import 'package:dr_ai/data/service/firebase/firebase_service.dart';
 import 'package:dr_ai/logic/image/image_cubit.dart';
 import 'package:dr_ai/view/widget/custom_button.dart';
@@ -39,7 +40,8 @@ class _ProfileScreenState extends State<ProfileScreen> {
     CacheData.clearData(clearData: true);
     FirebaseService.logOut();
     scaffoldSnackBar(context, "Log out");
-    Navigator.pushNamedAndRemoveUntil(context, "/login", (route) => false);
+    Navigator.pushNamedAndRemoveUntil(
+        context, MyRoutes.login, (route) => false);
   }
 
   @override
@@ -51,10 +53,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
           child: Stack(
             children: [
               IconButton(
-                onPressed: () {
-                  Navigator.pushNamedAndRemoveUntil(
-                      context, "/nav", (route) => false);
-                },
+                onPressed: () => Navigator.pop(context),
                 icon: const Icon(Icons.arrow_back_ios_new_outlined),
               ),
               Align(

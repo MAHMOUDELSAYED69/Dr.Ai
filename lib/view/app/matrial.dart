@@ -1,4 +1,5 @@
 import 'dart:developer';
+import 'package:dr_ai/core/constant/routes.dart';
 import 'package:dr_ai/logic/auth/forget_password/forget_password_cubit.dart';
 import 'package:dr_ai/logic/auth/login/login_cubit.dart';
 import 'package:dr_ai/logic/auth/register/register_cubit.dart';
@@ -59,16 +60,16 @@ class _MyAppState extends State<MyApp> {
       ],
       child: MaterialApp(
         debugShowCheckedModeBanner: false,
-        initialRoute: "/",
+        initialRoute: MyRoutes.initialRoute,
         routes: {
-          "/": (context) => const SplashScreen(),
-          "/login": (context) => const LoginScreen(),
-          "/register": (context) => const RegisterScreen(),
-          "/home": (context) => const HomeScreen(),
-          "/nav": (context) => const NavbarScreen(),
-          "/chat": (context) => const ChatScreen(),
-          "/profile": (context) => const ProfileScreen(),
-          "/archive": (context) => const ArchiveScreen(),
+          MyRoutes.initialRoute: (context) => const SplashScreen(),
+          MyRoutes.login: (context) => const LoginScreen(),
+          MyRoutes.register: (context) => const RegisterScreen(),
+          MyRoutes.home: (context) => const HomeScreen(),
+          MyRoutes.nav: (context) => const NavbarScreen(),
+          MyRoutes.chat: (context) => const ChatScreen(),
+          MyRoutes.profile: (context) => const ProfileScreen(),
+          MyRoutes.maps: (context) => const ArchiveScreen(),
         },
       ),
     );

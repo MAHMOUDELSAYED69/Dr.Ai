@@ -1,6 +1,7 @@
 import 'package:animated_bottom_navigation_bar/animated_bottom_navigation_bar.dart';
 import 'package:dr_ai/core/constant/color.dart';
 import 'package:dr_ai/core/constant/image.dart';
+import 'package:dr_ai/core/constant/routes.dart';
 
 import 'package:flutter/material.dart';
 
@@ -43,7 +44,7 @@ class _NavbarScreenState extends State<NavbarScreen> {
           scale: 2.5,
         ),
         onPressed: () {
-          Navigator.pushNamed(context, "/chat");
+          Navigator.pushNamed(context, MyRoutes.chat);
         },
       ),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,

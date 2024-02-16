@@ -1,5 +1,6 @@
 import 'dart:io';
 import 'package:dr_ai/core/constant/image.dart';
+import 'package:dr_ai/core/constant/routes.dart';
 import 'package:dr_ai/core/helper/responsive.dart';
 import 'package:dr_ai/view/widget/custom_button.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -37,11 +38,7 @@ class _HomeScreenState extends State<HomeScreen> {
           children: [
             GestureDetector(
               onTap: () {
-                Navigator.pushNamedAndRemoveUntil(
-                  context,
-                  "/profile",
-                  (route) => false,
-                );
+                Navigator.pushNamed(context, MyRoutes.profile);
               },
               child: Container(
                 padding: const EdgeInsets.all(8.0),
@@ -141,7 +138,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                 color: MyColors.green,
                                 title: "Start Chat",
                                 onPressed: () {
-                                  Navigator.pushNamed(context, "/chat");
+                                  Navigator.pushNamed(context, MyRoutes.chat);
                                 },
                               ),
                               const Gap(10),
@@ -154,7 +151,7 @@ class _HomeScreenState extends State<HomeScreen> {
                     Expanded(
                       flex: 1,
                       child: Image.asset(
-                       MyImages.robot,
+                        MyImages.robot,
                         width: 100,
                         height: 105,
                       ),
@@ -168,7 +165,7 @@ class _HomeScreenState extends State<HomeScreen> {
               gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
                   crossAxisCount: 3),
               itemCount: images.length,
-              itemBuilder: (BuildContext context, int index) {
+              itemBuilder: (context, index) {
                 return Card(
                   color: MyColors.white,
                   child: Column(
