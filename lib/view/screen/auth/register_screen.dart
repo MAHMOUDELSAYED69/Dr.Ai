@@ -3,6 +3,7 @@ import 'package:dr_ai/core/helper/scaffold_snakbar.dart';
 import 'package:dr_ai/logic/auth/google/login_with_google.dart';
 import 'package:dr_ai/logic/auth/register/register_cubit.dart';
 import 'package:dr_ai/view/widget/custom_button.dart';
+import 'package:dr_ai/view/widget/custom_divider.dart';
 import 'package:dr_ai/view/widget/custom_outline_button.dart';
 import 'package:dr_ai/view/widget/custom_text_field.dart';
 import 'package:flutter/material.dart';
@@ -112,33 +113,8 @@ class _RegisterScreenState extends State<RegisterScreen> {
                             onPressed: register,
                           )),
                       const Padding(
-                        padding: EdgeInsets.only(top: 37),
-                        child: Row(
-                          children: [
-                            Expanded(
-                                child: Divider(
-                              color: MyColors.selver,
-                              thickness: 2,
-                              indent: 30,
-                              endIndent: 6,
-                            )),
-                            Text(
-                              "Or continue with",
-                              style: TextStyle(
-                                fontSize: 15,
-                                color: MyColors.selver,
-                              ),
-                            ),
-                            Expanded(
-                                child: Divider(
-                              color: MyColors.selver,
-                              thickness: 2,
-                              indent: 10,
-                              endIndent: 35,
-                            )),
-                          ],
-                        ),
-                      ),
+                          padding: EdgeInsets.only(top: 37),
+                          child: CustomDivider()),
                       const Padding(
                         padding: EdgeInsets.only(top: 37),
                         child: CustomOutlineButton(

@@ -14,6 +14,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:modal_progress_hud_nsn/modal_progress_hud_nsn.dart';
 import '../../../core/constant/color.dart';
 import '../../../logic/auth/google/login_with_google.dart';
+import '../../widget/custom_divider.dart';
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({super.key});
@@ -120,31 +121,7 @@ class _LoginScreenState extends State<LoginScreen> {
                           )),
                       const Padding(
                         padding: EdgeInsets.only(top: 37),
-                        child: Row(
-                          children: [
-                            Expanded(
-                                child: Divider(
-                              color: MyColors.selver,
-                              thickness: 2,
-                              indent: 30,
-                              endIndent: 6,
-                            )),
-                            Text(
-                              "Or continue with",
-                              style: TextStyle(
-                                fontSize: 15,
-                                color: MyColors.selver,
-                              ),
-                            ),
-                            Expanded(
-                                child: Divider(
-                              color: MyColors.selver,
-                              thickness: 2,
-                              indent: 10,
-                              endIndent: 35,
-                            )),
-                          ],
-                        ),
+                        child: CustomDivider(),
                       ),
                       Padding(
                         padding: const EdgeInsets.only(top: 37),
@@ -197,3 +174,4 @@ class _LoginScreenState extends State<LoginScreen> {
     );
   }
 }
+
