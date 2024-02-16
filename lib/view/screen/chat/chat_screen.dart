@@ -3,6 +3,7 @@ import 'package:dr_ai/data/model/chat_message_model.dart';
 import 'package:dr_ai/logic/chat/chat_cubit.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:gap/gap.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 import '../../../core/constant/color.dart';
@@ -113,6 +114,7 @@ class _ChatScreenState extends State<ChatScreen> {
                       color: MyColors.black.withOpacity(0.13))
                 ]),
                 child: TextField(
+                  cursorColor: MyColors.green,
                   controller: controller,
                   onSubmitted: (_) => sendMessage(),
                   decoration: InputDecoration(
@@ -121,15 +123,26 @@ class _ChatScreenState extends State<ChatScreen> {
                     filled: true,
                     fillColor: MyColors.white,
                     hintText: '  Write your message',
-                    suffixIcon: IconButton(
-                      onPressed: () => sendMessage(),
-                      icon: Padding(
-                        padding: const EdgeInsets.only(right: 10),
-                        child: Image.asset(
-                          "assets/images/send.png",
-                          scale: 1.4,
+                    suffixIcon: Row(
+                      mainAxisAlignment: MainAxisAlignment.end,
+                      mainAxisSize: MainAxisSize.min,
+                      children: [
+                        IconButton(
+                          onPressed: () {},
+                          icon: Image.asset(
+                            "assets/images/mic.png",
+                            scale: 1.4,
+                          ),
                         ),
-                      ),
+                        IconButton(
+                          onPressed: () => sendMessage(),
+                          icon: Image.asset(
+                            "assets/images/send.png",
+                            scale: 1.4,
+                          ),
+                        ),
+                        const Gap(10),
+                      ],
                     ),
                     border: OutlineInputBorder(
                       borderSide: BorderSide.none,

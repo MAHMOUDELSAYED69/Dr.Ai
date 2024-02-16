@@ -3,6 +3,7 @@ import 'package:dr_ai/core/helper/responsive.dart';
 import 'package:dr_ai/view/widget/custom_button.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:gap/gap.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 import '../../../core/constant/color.dart';
@@ -76,46 +77,68 @@ class _HomeScreenState extends State<HomeScreen> {
             ),
             Card(
               color: MyColors.white,
-              child: ListTile(
-                title: Column(
+              child: Padding(
+                padding: EdgeInsets.all(ScreenSize.width * 0.02882),
+                child: Row(
                   children: [
-                    SizedBox(height: ScreenSize.height * 0.01152),
-                    Align(
-                      alignment: Alignment.centerLeft,
-                      child: Text("Chat in Doctor AI",
-                          style: GoogleFonts.roboto(
+                    Expanded(
+                      flex: 2,
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          const Gap(20),
+                          Text(
+                            "Chat in Doctor AI",
+                            style: GoogleFonts.roboto(
                               textStyle: const TextStyle(
-                                  fontSize: 16,
-                                  fontWeight: FontWeight.w500,
-                                  color: MyColors.green))),
+                                fontSize: 16,
+                                fontWeight: FontWeight.w500,
+                                color: MyColors.green,
+                              ),
+                            ),
+                          ),
+                          SizedBox(height: ScreenSize.height * 0.005764),
+                          Text(
+                            "Get instant medical advice anytime, anywhere with our trusted AI-powered doctor app. Chat now!",
+                            style: GoogleFonts.roboto(
+                              textStyle: const TextStyle(
+                                fontSize: 12,
+                                color: MyColors.grey1,
+                              ),
+                            ),
+                          ),
+                          SizedBox(height: ScreenSize.height * 0.01152),
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              CustomButton(
+                                borderRadius: 8,
+                                fontSize: 12,
+                                height: 33,
+                                width: 125,
+                                color: MyColors.green,
+                                title: "Start Chat",
+                                onPressed: () {
+                                  Navigator.pushNamed(context, "/chat");
+                                },
+                              ),
+                              const Gap(10),
+                            ],
+                          ),
+                        ],
+                      ),
                     ),
-                    SizedBox(height: ScreenSize.height * 0.005764),
-                    Text(
-                        "You can ask your medical questions And know the required medicines",
-                        style: GoogleFonts.roboto(
-                            textStyle: const TextStyle(
-                                fontSize: 12, color: MyColors.grey1))),
-                    SizedBox(height: ScreenSize.height * 0.02882),
+                    const Gap(10),
+                    Expanded(
+                      flex: 1,
+                      child: Image.asset(
+                        "assets/images/robot.png",
+                        width: 100,
+                        height: 105,
+                      ),
+                    ),
+                  
                   ],
-                ),
-                subtitle: Padding(
-                  padding: EdgeInsets.only(right: ScreenSize.width * 0.1701388),
-                  child: CustomButton(
-                      borderRadius: 8,
-                      fontSize: 12,
-                      height: 33,
-                      width: 125,
-                      color: MyColors.green,
-                      title: "Start Chat",
-                      onPressed: () {
-                        Navigator.pushNamed(context, "/chat");
-                      }),
-                ),
-                trailing: Image.asset(
-                  "assets/images/robot.png",
-                  scale: 0.1,
-                  width: 50, //!
-                  height: 90, //!
                 ),
               ),
             ),

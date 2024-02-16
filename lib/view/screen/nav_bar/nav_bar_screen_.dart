@@ -16,13 +16,13 @@ class NavbarScreen extends StatefulWidget {
 class _NavbarScreenState extends State<NavbarScreen> {
   final List<IconData> iconList = const [
     Icons.home,
-    Icons.archive_rounded,
+    Icons.person_pin_circle_rounded,
   ];
   final List<Widget> classSwitch = [
     const HomeScreen(),
     const ArchiveScreen(),
   ];
-  int _bottomNavIndex = 0;
+  int bottomNavIndex = 0;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -30,7 +30,7 @@ class _NavbarScreenState extends State<NavbarScreen> {
         width: double.infinity,
         height: double.infinity,
         child: IndexedStack(
-          index: _bottomNavIndex,
+          index: bottomNavIndex,
           children: classSwitch,
         ),
       ),
@@ -38,9 +38,7 @@ class _NavbarScreenState extends State<NavbarScreen> {
         shape: const CircleBorder(),
         backgroundColor: MyColors.green,
         child: Image.asset(
-          _bottomNavIndex == 0
-              ? "assets/images/logo_white.png"
-              : "assets/images/chat.png",
+          "assets/images/logo_white.png",
           scale: 2.5,
         ),
         onPressed: () {
@@ -53,7 +51,7 @@ class _NavbarScreenState extends State<NavbarScreen> {
         elevation: 100,
         inactiveColor: MyColors.grey2,
         activeColor: MyColors.green,
-        activeIndex: _bottomNavIndex,
+        activeIndex: bottomNavIndex,
         gapLocation: GapLocation.center,
         notchSmoothness: NotchSmoothness.smoothEdge,
         height: 60,
@@ -61,7 +59,7 @@ class _NavbarScreenState extends State<NavbarScreen> {
         leftCornerRadius: 24,
         rightCornerRadius: 24,
         onTap: (index) {
-          setState(() => _bottomNavIndex = index);
+          setState(() => bottomNavIndex = index);
         },
         //other params
       ),

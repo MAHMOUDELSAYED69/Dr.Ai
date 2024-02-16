@@ -19,84 +19,26 @@ class _ArchiveScreenState extends State<ArchiveScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Center(
-        child: Padding(
-          padding: const EdgeInsets.only(top: 10),
-          child: Stack(
-            children: [
-              Stack(
-                alignment: Alignment.center,
-                children: [
-                  Positioned(
-                    top: ScreenSize.height * 0.07839,
-                    child: Container(
-                      width: ScreenSize.width * 0.833680,
-                      height: ScreenSize.height * 0.209815,
-                      decoration: BoxDecoration(
-                          color: MyColors.green2.withOpacity(0.3),
-                          borderRadius: BorderRadius.circular(16)),
-                    ),
-                  ),
-                  Positioned(
-                    top: ScreenSize.height * 0.036890,
-                    width: 102,
-                    height: 102,
-                    child: Container(
-                      decoration: BoxDecoration(
-                          border: Border.all(
-                              color: MyColors.green, width: 4),
-                          shape: BoxShape.circle),
-                      child: CircleAvatar(
-                          backgroundColor: MyColors.green2,
-                          radius: 51,
-                          backgroundImage: user.photoURL != null
-                              ? FileImage(File(user.photoURL!)) 
-                              : null,
-                          child: user.photoURL == null
-                              ? Text(
-                                  user.displayName!.toUpperCase()[0],
-                                  // ignore: prefer_const_constructors
-                                  style: TextStyle(color: MyColors.white,fontSize: 32),
-                                )
-                              : null),
-                    ),
-                  ),
-                  Positioned(
-                    top: ScreenSize.height * 0.161396,
-                    child: Column(
-                      children: [
-                        const Gap(2),
-                        Text(user.displayName ?? "Guest",
-                            style: GoogleFonts.roboto(
-                                textStyle: const TextStyle(
-                                    fontSize: 18,
-                                    fontWeight: FontWeight.w500,
-                                    color: MyColors.green))),
-                        const Gap(2),
-                        Text(user.email.toString(),
-                            style: GoogleFonts.roboto(
-                                textStyle: const TextStyle(
-                              fontSize: 14,
-                            ))),
-                        const Gap(2),
-                        CustomButton(
-                          height: 33,
-                          width: 130,
-                          color: MyColors.green,
-                          borderRadius: 8,
-                          fontSize: 14,
-                          onPressed: () {
-                            Navigator.pushReplacementNamed(context, "/profile");
-                          },
-                          title: "Edit Profile",
-                        )
-                      ],
-                    ),
-                  ),
-                ],
-              ),
-            ],
-          ),
+      appBar: AppBar(
+        centerTitle: true,
+        title: const Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Text("Maps"),
+            Icon(
+              Icons.person_pin_circle_rounded,
+              color: MyColors.green,
+              size: 30,
+            )
+          ],
+        ),
+      ),
+      body: const Center(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Icon(Icons.map, size: 150, color: MyColors.green),
+          ],
         ),
       ),
     );

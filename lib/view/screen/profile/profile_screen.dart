@@ -184,13 +184,6 @@ class _ProfileScreenState extends State<ProfileScreen> {
                           trailingImage: "assets/images/edit.png",
                         ),
                         CustomProfileCardButton(
-                          content: "Password",
-                          scale: 2,
-                          onTap: () {},
-                          leadingImage: "assets/images/password.png",
-                          trailingImage: "assets/images/edit.png",
-                        ),
-                        CustomProfileCardButton(
                           content: "Health Information",
                           scale: 2,
                           onTap: () {},
@@ -225,7 +218,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                             children: [
                               Image.asset(
                                 "assets/images/logout.png",
-                                scale: 4,
+                                scale: 4.2,
                                 color: MyColors.white,
                               ),
                               const SizedBox(width: 10),
