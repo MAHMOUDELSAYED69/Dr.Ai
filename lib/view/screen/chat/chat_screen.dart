@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_fonts/google_fonts.dart';
 
+import '../../../core/constant/color.dart';
 import '../../widget/chat_buble.dart';
 
 class ChatScreen extends StatefulWidget {
@@ -80,7 +81,7 @@ class _ChatScreenState extends State<ChatScreen> {
                   borderRadius: BorderRadius.only(
                       bottomLeft: Radius.circular(25),
                       bottomRight: Radius.circular(25))),
-              backgroundColor: Colors.white,
+              backgroundColor: MyColors.white,
               leading: IconButton(
                 onPressed: () => Navigator.pop(context),
                 icon: const Icon(Icons.arrow_back_ios_new),
@@ -109,7 +110,7 @@ class _ChatScreenState extends State<ChatScreen> {
                       blurRadius: 20,
                       offset: const Offset(5, 4),
                       spreadRadius: 0,
-                      color: const Color(0xff000000).withOpacity(0.13))
+                      color: MyColors.black.withOpacity(0.13))
                 ]),
                 child: TextField(
                   controller: controller,
@@ -118,7 +119,7 @@ class _ChatScreenState extends State<ChatScreen> {
                     contentPadding:
                         const EdgeInsets.only(top: 19, bottom: 19, left: 12),
                     filled: true,
-                    fillColor: Colors.white,
+                    fillColor: MyColors.white,
                     hintText: '  Write your message',
                     suffixIcon: IconButton(
                       onPressed: () => sendMessage(),

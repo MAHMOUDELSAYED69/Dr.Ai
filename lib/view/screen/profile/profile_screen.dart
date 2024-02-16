@@ -11,6 +11,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:modal_progress_hud_nsn/modal_progress_hud_nsn.dart';
+import '../../../core/constant/color.dart';
 import '../../../core/helper/scaffold_snakbar.dart';
 import 'package:gap/gap.dart';
 
@@ -74,7 +75,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                       width: 343,
                       height: 182,
                       decoration: BoxDecoration(
-                          color: const Color(0xff7EBB9B).withOpacity(0.3),
+                          color: MyColors.green2.withOpacity(0.3),
                           borderRadius: BorderRadius.circular(16)),
                     ),
                   ),
@@ -101,8 +102,8 @@ class _ProfileScreenState extends State<ProfileScreen> {
                       builder: (context, state) {
                         return Container(
                           decoration: BoxDecoration(
-                              border: Border.all(
-                                  color: const Color(0xff00A859), width: 4),
+                              border:
+                                  Border.all(color: MyColors.green, width: 4),
                               shape: BoxShape.circle),
                           child: ModalProgressHUD(
                             inAsyncCall: isLoading,
@@ -110,21 +111,19 @@ class _ProfileScreenState extends State<ProfileScreen> {
                               onTap: pickImage,
                               child: isImageLoading == true
                                   ? const CircleAvatar(
-                                      backgroundColor: Color(0xff7EBB9B),
+                                      backgroundColor: MyColors.green2,
                                       radius: 35,
                                       child: CircularProgressIndicator(
-                                        color: Colors.green,
+                                        color: MyColors.green,
                                       ),
                                     )
                                   : CircleAvatar(
                                       radius: 35,
-                                      backgroundColor:
-                                          const Color(0xff7EBB9B),
+                                      backgroundColor: MyColors.green2,
                                       backgroundImage: imageUrl != null
                                           ? FileImage(File(imageUrl!))
                                           : user.photoURL != null
-                                              ? FileImage(
-                                                  File(user.photoURL!))
+                                              ? FileImage(File(user.photoURL!))
                                               : null,
                                       child: imageUrl == null &&
                                               user.photoURL == null
@@ -133,10 +132,9 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                                 user.displayName
                                                     .toString()
                                                     .toUpperCase()[0],
-                                                overflow:
-                                                    TextOverflow.ellipsis,
+                                                overflow: TextOverflow.ellipsis,
                                                 style: const TextStyle(
-                                                    color: Colors.white,
+                                                    color: MyColors.white,
                                                     fontSize: 32),
                                               ),
                                             )
@@ -158,7 +156,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                 textStyle: const TextStyle(
                                     fontSize: 18,
                                     fontWeight: FontWeight.w500,
-                                    color: Color(0xff00A859)))),
+                                    color: MyColors.green))),
                         const Gap(2),
                         Text(user.email.toString(),
                             style: GoogleFonts.roboto(
@@ -220,28 +218,27 @@ class _ProfileScreenState extends State<ProfileScreen> {
                       padding: const EdgeInsets.symmetric(horizontal: 5),
                       alignment: Alignment.bottomCenter,
                       child: CustomButton(
-                        height: 60,
-                        onPressed: logOut,
-                        widget: Row(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            Image.asset(
-                              "assets/images/logout.png",
-                              scale: 4,
-                              color: Colors.white,
-                            ),
-                            const SizedBox(width: 10),
-                            Text("Logout",
-                                style: GoogleFonts.roboto(
-                                    textStyle: const TextStyle(
-                                  color: Colors.white,
-                                  fontSize: 18,
-                                  fontWeight: FontWeight.w500,
-                                )))
-                          ],
-                        ),
-                        color: const Color(0xff313131),
-                      )),
+                          height: 60,
+                          onPressed: logOut,
+                          widget: Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              Image.asset(
+                                "assets/images/logout.png",
+                                scale: 4,
+                                color: MyColors.white,
+                              ),
+                              const SizedBox(width: 10),
+                              Text("Logout",
+                                  style: GoogleFonts.roboto(
+                                      textStyle: const TextStyle(
+                                    color: MyColors.white,
+                                    fontSize: 18,
+                                    fontWeight: FontWeight.w500,
+                                  )))
+                            ],
+                          ),
+                          color: MyColors.black)),
                   Positioned(
                       top: 93,
                       right: 112,
@@ -249,7 +246,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                           onPressed: pickImage,
                           icon: const CircleAvatar(
                             radius: 12,
-                            backgroundColor: Color(0xff7EBB9B),
+                            backgroundColor: MyColors.green2,
                             backgroundImage:
                                 AssetImage("assets/images/add.png"),
                           ))),

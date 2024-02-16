@@ -1,3 +1,4 @@
+import 'package:dr_ai/core/constant/color.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -31,7 +32,7 @@ class _SplashScreenState extends State<SplashScreen>
   Widget build(BuildContext context) {
     ScreenSize.init(context);
     return Scaffold(
-      backgroundColor: Colors.white,
+      backgroundColor: MyColors.white,
       body: Stack(
         children: [
           Image.asset("assets/images/splash_bg.png",
@@ -68,7 +69,7 @@ class _SplashScreenState extends State<SplashScreen>
                             textStyle: const TextStyle(
                                 fontSize: 16,
                                 fontWeight: FontWeight.w500,
-                                color: Colors.grey))),
+                                color: MyColors.grey1))),
                   ),
                   const Spacer(),
                   Text(
@@ -77,7 +78,7 @@ class _SplashScreenState extends State<SplashScreen>
                         textStyle: const TextStyle(
                             fontSize: 12,
                             fontWeight: FontWeight.w500,
-                            color: Colors.green)),
+                            color: MyColors.lightBlue)),
                   )
                 ],
               ),

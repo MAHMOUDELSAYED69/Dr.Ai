@@ -1,3 +1,4 @@
+import 'package:dr_ai/core/constant/color.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:dr_ai/core/helper/responsive.dart';
@@ -59,12 +60,12 @@ class _CustomTextFormFieldState extends State<CustomTextFormField> {
                     const TextStyle(
                         fontSize: 18,
                         fontWeight: FontWeight.w600,
-                        color: Color(0xff8CAAB9)))),
+                        color: MyColors.selver))),
       ),
       TextFormField(
         style: widget.textFieldStyle ??
-            const TextStyle(color: Colors.white, fontSize: 18),
-        cursorColor: widget.cursorColor ?? Colors.white,
+            const TextStyle(color: MyColors.black, fontSize: 18),
+        cursorColor: widget.cursorColor ?? MyColors.black,
         keyboardType: widget.keyboardType,
         controller: widget.controller,
         obscureText: widget.isVisible == true ? isObscure : false,
@@ -81,14 +82,13 @@ class _CustomTextFormFieldState extends State<CustomTextFormField> {
         onChanged: widget.onChanged,
         decoration: InputDecoration(
           isCollapsed: true,
-          helperStyle: const TextStyle(color: Colors.white),
           isDense: true,
           errorStyle:
               const TextStyle(fontSize: 16, fontWeight: FontWeight.w700),
           prefixIcon: widget.icon != null
               ? Image.asset(
                   widget.icon!,
-                  scale: 1.9,
+                  scale: 1.9,color: MyColors.black,
                 )
               : null,
           suffixIcon: widget.isVisible == true
@@ -100,29 +100,31 @@ class _CustomTextFormFieldState extends State<CustomTextFormField> {
                   icon: Icon(isObscure == true
                       ? Icons.visibility_off
                       : Icons.visibility),
-                  color: widget.isVisibleColor ?? Colors.white,
+                  color: widget.isVisibleColor ?? MyColors.black,
                   iconSize: 25,
                 )
               : null,
           contentPadding:
               const EdgeInsets.symmetric(vertical: 15, horizontal: 10),
-          filled: true,
-          fillColor: widget.fillColor ?? const Color(0xff00a859),
+          filled: false //true
+          ,
+          fillColor: widget.fillColor ?? MyColors.green,
           hintText: widget.hintText,
-          label: Text(widget.label ?? ""),
+          hintStyle: const TextStyle(color: MyColors.black),
+         // label: Text(widget.label ?? ""),
           enabledBorder: const OutlineInputBorder(
-            borderSide: BorderSide(color: Color(0xff00a859), width: 2),
+            borderSide: BorderSide(color: MyColors.black, width: 2),
             borderRadius: BorderRadius.all(Radius.circular(10)),
           ),
           focusedBorder: const OutlineInputBorder(
               borderRadius: BorderRadius.all(Radius.circular(10)),
-              borderSide: BorderSide(color: Color(0xff00a859))),
+              borderSide: BorderSide(color: MyColors.black,width: 2)),
           errorBorder: const OutlineInputBorder(
               borderRadius: BorderRadius.all(Radius.circular(10)),
-              borderSide: BorderSide(color: Colors.red, width: 2)),
+              borderSide: BorderSide(color: MyColors.red, width: 2)),
           focusedErrorBorder: const OutlineInputBorder(
               borderRadius: BorderRadius.all(Radius.circular(10)),
-              borderSide: BorderSide(color: Colors.red, width: 2)),
+              borderSide: BorderSide(color: MyColors.red, width: 2)),
         ),
       )
     ]);

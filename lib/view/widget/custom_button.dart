@@ -1,3 +1,4 @@
+import 'package:dr_ai/core/constant/color.dart';
 import 'package:dr_ai/core/helper/responsive.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -27,7 +28,7 @@ class CustomButton extends StatelessWidget {
         style: ElevatedButton.styleFrom(
             shape: RoundedRectangleBorder(
                 borderRadius: BorderRadius.circular(borderRadius ?? 15)),
-            backgroundColor: color ?? const Color(0xff313131),
+            backgroundColor: color ?? MyColors.green,
             fixedSize: Size(width ?? double.maxFinite,
                 height ?? 65)),
         onPressed: onPressed,
@@ -35,7 +36,7 @@ class CustomButton extends StatelessWidget {
             Text(title ?? "",
                 style: GoogleFonts.roboto(
                     textStyle: TextStyle(
-                  color: Colors.white,
+                  color: MyColors.white,
                   fontSize: fontSize ?? 18,
                   fontWeight: FontWeight.w600,
                 ))));

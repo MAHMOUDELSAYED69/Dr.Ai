@@ -1,4 +1,5 @@
 import 'dart:io';
+import 'package:dr_ai/core/constant/color.dart';
 import 'package:dr_ai/view/widget/custom_button.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
@@ -32,7 +33,7 @@ class _ArchiveScreenState extends State<ArchiveScreen> {
                       width: ScreenSize.width * 0.833680,
                       height: ScreenSize.height * 0.209815,
                       decoration: BoxDecoration(
-                          color: const Color(0xff7EBB9B).withOpacity(0.3),
+                          color: MyColors.green2.withOpacity(0.3),
                           borderRadius: BorderRadius.circular(16)),
                     ),
                   ),
@@ -43,10 +44,10 @@ class _ArchiveScreenState extends State<ArchiveScreen> {
                     child: Container(
                       decoration: BoxDecoration(
                           border: Border.all(
-                              color: const Color(0xff00A859), width: 4),
+                              color: MyColors.green, width: 4),
                           shape: BoxShape.circle),
                       child: CircleAvatar(
-                          backgroundColor: const Color(0xff7EBB9B),
+                          backgroundColor: MyColors.green2,
                           radius: 51,
                           backgroundImage: user.photoURL != null
                               ? FileImage(File(user.photoURL!)) 
@@ -55,7 +56,7 @@ class _ArchiveScreenState extends State<ArchiveScreen> {
                               ? Text(
                                   user.displayName!.toUpperCase()[0],
                                   // ignore: prefer_const_constructors
-                                  style: TextStyle(color: Colors.white,fontSize: 32),
+                                  style: TextStyle(color: MyColors.white,fontSize: 32),
                                 )
                               : null),
                     ),
@@ -70,7 +71,7 @@ class _ArchiveScreenState extends State<ArchiveScreen> {
                                 textStyle: const TextStyle(
                                     fontSize: 18,
                                     fontWeight: FontWeight.w500,
-                                    color: Color(0xff00A859)))),
+                                    color: MyColors.green))),
                         const Gap(2),
                         Text(user.email.toString(),
                             style: GoogleFonts.roboto(
@@ -81,7 +82,7 @@ class _ArchiveScreenState extends State<ArchiveScreen> {
                         CustomButton(
                           height: 33,
                           width: 130,
-                          color: const Color(0xff00A859),
+                          color: MyColors.green,
                           borderRadius: 8,
                           fontSize: 14,
                           onPressed: () {

@@ -1,3 +1,4 @@
+import 'package:dr_ai/core/constant/color.dart';
 import 'package:flutter/material.dart';
 
 class ChatBubbleForDrAi extends StatelessWidget {
@@ -28,7 +29,7 @@ class ChatBubbleForDrAi extends StatelessWidget {
           textAlign: TextAlign.start,
           style: const TextStyle(
             fontSize: 18,
-            color: Colors.black,
+            color: MyColors.black,
           ),
         ),
       ),
@@ -58,14 +59,14 @@ class ChatBubbleForGuest extends StatelessWidget {
             topLeft: Radius.circular(25),
             bottomRight: Radius.circular(25),
           ),
-          color:  Color(0xff00A859) ,
+          color:MyColors.green,
         ),
         child: Text(
           message,
           // message.message,
           style: const TextStyle(
             fontSize: 18,
-            color: Colors.white,
+            color: MyColors.white,
           ),
         ),
       ),

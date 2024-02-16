@@ -1,4 +1,5 @@
 import 'dart:developer';
+import 'package:dr_ai/core/constant/color.dart';
 import 'package:dr_ai/core/helper/scaffold_snakbar.dart';
 import 'package:dr_ai/view/widget/custom_button.dart';
 import 'package:dr_ai/view/widget/custom_text_field.dart';
@@ -57,7 +58,7 @@ class _ForgetPasswordState extends State<ForgetPassword> {
               height: 5,
               decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(74),
-                  color: const Color(0xffd9d9d9)),
+                  color: MyColors.grey1.withOpacity(0.40)),
             ),
             Padding(
               padding: const EdgeInsets.only(bottom: 56),
@@ -85,7 +86,7 @@ class _ForgetPasswordState extends State<ForgetPassword> {
                       textAlign: TextAlign.center,
                       style: GoogleFonts.roboto(
                         textStyle: const TextStyle(
-                          color: Colors.grey,
+                          color: MyColors.grey1,
                           fontSize: 18,
                           fontWeight: FontWeight.w600,
                         ),
@@ -103,15 +104,15 @@ class _ForgetPasswordState extends State<ForgetPassword> {
                           color: Colors.black,
                           fontSize: 30,
                           fontWeight: FontWeight.w600),
-                      fillColor: Colors.white,
-                      isVisibleColor: const Color(0xff00a859),
+                      fillColor: MyColors.white,
+                      isVisibleColor: MyColors.green,
                     ),
                     const SizedBox(height: 25),
                     CustomButton(
                       title: isLoading == false ? "Send link" : null,
                       widget: isLoading == true
                           ? const CircularProgressIndicator(
-                              color: Colors.green,
+                              color: MyColors.white,
                             )
                           : null,
                       onPressed: resetPassword,

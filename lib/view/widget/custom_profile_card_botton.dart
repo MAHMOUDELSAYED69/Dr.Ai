@@ -1,3 +1,4 @@
+import 'package:dr_ai/core/constant/color.dart';
 import 'package:dr_ai/core/helper/responsive.dart';
 import 'package:flutter/material.dart';
 
@@ -19,7 +20,7 @@ class CustomProfileCardButton extends StatelessWidget {
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: 9),
       child: Card(
-        color: const Color(0xff00A859),
+        color: MyColors.green,
         child: SizedBox(
           height: 50,
           width: MediaQuery.sizeOf(context).width * 0.83,
@@ -29,7 +30,7 @@ class CustomProfileCardButton extends StatelessWidget {
               padding: const EdgeInsets.only(bottom: 15, left: 15, top: 15),
               child: Image.asset(
                 leadingImage,
-                color: Colors.white,
+                color: MyColors.white,
                 scale: scale ?? 3.5,
               ),
             ),
@@ -37,7 +38,7 @@ class CustomProfileCardButton extends StatelessWidget {
               padding: const EdgeInsets.all(15),
               child: Image.asset(
                 trailingImage,
-                color: Colors.white,
+                color: MyColors.white,
                 scale: 3.5,
               ),
             ),
@@ -45,7 +46,7 @@ class CustomProfileCardButton extends StatelessWidget {
               content,
               maxLines: 1,
               overflow: TextOverflow.ellipsis,
-              style: const TextStyle(color: Colors.white),
+              style: const TextStyle(color: MyColors.white),
             ),
             onTap: onTap,
           ),

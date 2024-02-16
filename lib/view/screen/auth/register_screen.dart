@@ -9,6 +9,8 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:modal_progress_hud_nsn/modal_progress_hud_nsn.dart';
 
+import '../../../core/constant/color.dart';
+
 class RegisterScreen extends StatefulWidget {
   const RegisterScreen({super.key});
 
@@ -54,10 +56,10 @@ class _RegisterScreenState extends State<RegisterScreen> {
         return ModalProgressHUD(
           inAsyncCall: isLoading,
           progressIndicator: const CircularProgressIndicator(
-            color: Colors.green,
+            color: MyColors.green,
           ),
           child: Scaffold(
-            backgroundColor: Colors.white,
+            backgroundColor: MyColors.white,
             body: SingleChildScrollView(
               child: Padding(
                 padding: const EdgeInsets.all(25),
@@ -114,7 +116,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                           children: [
                             Expanded(
                                 child: Divider(
-                              color: Color(0xff8CAAB9),
+                              color: MyColors.selver,
                               thickness: 2,
                               indent: 30,
                               endIndent: 6,
@@ -123,12 +125,12 @@ class _RegisterScreenState extends State<RegisterScreen> {
                               "Or continue with",
                               style: TextStyle(
                                 fontSize: 15,
-                                color: Color(0xff8CAAB9),
+                                color: MyColors.selver,
                               ),
                             ),
                             Expanded(
                                 child: Divider(
-                              color: Color(0xff8CAAB9),
+                              color: MyColors.selver,
                               thickness: 2,
                               indent: 10,
                               endIndent: 35,
@@ -149,10 +151,10 @@ class _RegisterScreenState extends State<RegisterScreen> {
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
-                            Text("Don’t have an account?",
+                            Text("Already have an account?",
                                 style: GoogleFonts.roboto(
                                     textStyle: const TextStyle(
-                                  color: Color(0xff8CAAB9),
+                                  color: MyColors.selver,
                                   fontSize: 16,
                                   fontWeight: FontWeight.w500,
                                 ))),

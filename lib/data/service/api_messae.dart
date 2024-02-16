@@ -10,7 +10,6 @@ class MessageService {
     try {
       final response = await dio.post(apiUrl, data: data);
       log('[${response.statusCode}] Data posted successfully!');
-
       // Message message = Message.fromJson(response.data);
       // log(message.message);
       log("DATA: ${response.data}");

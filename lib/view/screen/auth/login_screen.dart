@@ -10,6 +10,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:modal_progress_hud_nsn/modal_progress_hud_nsn.dart';
+import '../../../core/constant/color.dart';
 import '../../../logic/auth/google/login_with_google.dart';
 
 class LoginScreen extends StatefulWidget {
@@ -55,11 +56,11 @@ class _LoginScreenState extends State<LoginScreen> {
       builder: (context, state) {
         return ModalProgressHUD(
           progressIndicator: const CircularProgressIndicator(
-            color: Colors.green,
+            color: MyColors.green,
           ),
           inAsyncCall: isLoading,
           child: Scaffold(
-            backgroundColor: Colors.white,
+            backgroundColor: MyColors.white,
             body: SingleChildScrollView(
               child: Padding(
                 padding: const EdgeInsets.all(25),
@@ -121,7 +122,7 @@ class _LoginScreenState extends State<LoginScreen> {
                           children: [
                             Expanded(
                                 child: Divider(
-                              color: Color(0xff8CAAB9),
+                              color: MyColors.selver,
                               thickness: 2,
                               indent: 30,
                               endIndent: 6,
@@ -130,12 +131,12 @@ class _LoginScreenState extends State<LoginScreen> {
                               "Or continue with",
                               style: TextStyle(
                                 fontSize: 15,
-                                color: Color(0xff8CAAB9),
+                                color: MyColors.selver,
                               ),
                             ),
                             Expanded(
                                 child: Divider(
-                              color: Color(0xff8CAAB9),
+                              color: MyColors.selver,
                               thickness: 2,
                               indent: 10,
                               endIndent: 35,
@@ -165,7 +166,7 @@ class _LoginScreenState extends State<LoginScreen> {
                             Text("Don’t have an account?",
                                 style: GoogleFonts.roboto(
                                     textStyle: const TextStyle(
-                                  color: Color(0xff8CAAB9),
+                                  color: MyColors.selver,
                                   fontSize: 16,
                                   fontWeight: FontWeight.w500,
                                 ))),

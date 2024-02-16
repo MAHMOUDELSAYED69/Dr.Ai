@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
+import '../../core/constant/color.dart';
+
 class CustomOutlineButton extends StatelessWidget {
   const CustomOutlineButton(
       {super.key, required this.title, this.onPressed, required this.icon});
@@ -15,8 +17,7 @@ class CustomOutlineButton extends StatelessWidget {
             shape: RoundedRectangleBorder(
               borderRadius: BorderRadius.circular(15),
             ),
-            fixedSize:
-                const Size(double.maxFinite,65)),
+            fixedSize: const Size(double.maxFinite, 65)),
         onPressed: onPressed,
         child: Row(
           mainAxisAlignment: MainAxisAlignment.center,
@@ -28,7 +29,7 @@ class CustomOutlineButton extends StatelessWidget {
             Text("  $title",
                 style: GoogleFonts.roboto(
                     textStyle: const TextStyle(
-                  color: Colors.black,
+                  color: MyColors.black,
                   fontSize: 18,
                   fontWeight: FontWeight.w600,
                 ))),

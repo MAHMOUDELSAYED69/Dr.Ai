@@ -1,11 +1,10 @@
 import 'package:animated_bottom_navigation_bar/animated_bottom_navigation_bar.dart';
+import 'package:dr_ai/core/constant/color.dart';
 
 import 'package:flutter/material.dart';
 
 import '../nav_bar/archive_screen.dart';
 import '../nav_bar/home_screen.dart';
-
-
 
 class NavbarScreen extends StatefulWidget {
   const NavbarScreen({super.key});
@@ -37,9 +36,11 @@ class _NavbarScreenState extends State<NavbarScreen> {
       ),
       floatingActionButton: FloatingActionButton(
         shape: const CircleBorder(),
-        backgroundColor: const Color(0xff00A859),
-        child: Image.asset(_bottomNavIndex ==0 ?
-          "assets/images/logo_white.png":"assets/images/chat.png",
+        backgroundColor: MyColors.green,
+        child: Image.asset(
+          _bottomNavIndex == 0
+              ? "assets/images/logo_white.png"
+              : "assets/images/chat.png",
           scale: 2.5,
         ),
         onPressed: () {
@@ -50,8 +51,8 @@ class _NavbarScreenState extends State<NavbarScreen> {
       bottomNavigationBar: AnimatedBottomNavigationBar(
         icons: iconList,
         elevation: 100,
-        inactiveColor: Colors.grey,
-        activeColor: const Color(0xff00A859),
+        inactiveColor: MyColors.grey2,
+        activeColor: MyColors.green,
         activeIndex: _bottomNavIndex,
         gapLocation: GapLocation.center,
         notchSmoothness: NotchSmoothness.smoothEdge,
