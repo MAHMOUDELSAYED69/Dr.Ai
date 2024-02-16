@@ -1,3 +1,4 @@
+import 'package:dr_ai/core/constant/image.dart';
 import 'package:dr_ai/core/helper/scaffold_snakbar.dart';
 import 'package:dr_ai/logic/auth/google/login_with_google.dart';
 import 'package:dr_ai/logic/auth/register/register_cubit.dart';
@@ -71,7 +72,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                         child: SizedBox(
                             width: 160,
                             height: 110,
-                            child: Image.asset("assets/images/logo.png")),
+                            child: Image.asset(MyImages.logo)),
                       ),
                       Text("Create your account",
                           style: GoogleFonts.roboto(
@@ -81,7 +82,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                           ))),
                       CustomTextFormField(
                         keyboardType: TextInputType.name,
-                        icon: "assets/images/fullname.png",
+                        icon: MyImages.name,
                         title: "Full Name",
                         onSaved: (data) {
                           displayName = data;
@@ -89,7 +90,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                       ),
                       CustomTextFormField(
                         keyboardType: TextInputType.emailAddress,
-                        icon: "assets/images/email.png",
+                        icon: MyImages.email,
                         title: "Email Address",
                         onSaved: (data) {
                           email = data;
@@ -97,7 +98,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                       ),
                       CustomTextFormField(
                         keyboardType: TextInputType.visiblePassword,
-                        icon: "assets/images/password.png",
+                        icon: MyImages.password,
                         onSaved: (data) {
                           password = data;
                         },
@@ -143,7 +144,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                         child: CustomOutlineButton(
                           onPressed: GoogleService.signInWithGoogle,
                           title: "Google",
-                          icon: "assets/images/google.png",
+                          icon: MyImages.google,
                         ),
                       ),
                       Padding(

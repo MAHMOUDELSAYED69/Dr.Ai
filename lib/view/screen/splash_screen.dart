@@ -1,4 +1,5 @@
 import 'package:dr_ai/core/constant/color.dart';
+import 'package:dr_ai/core/constant/image.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -35,7 +36,7 @@ class _SplashScreenState extends State<SplashScreen>
       backgroundColor: MyColors.white,
       body: Stack(
         children: [
-          Image.asset("assets/images/splash_bg.png",
+          Image.asset(MyImages.splash,
               width: double.infinity, fit: BoxFit.fill),
           Center(
             child: Padding(
@@ -49,7 +50,7 @@ class _SplashScreenState extends State<SplashScreen>
                       builder: (context, _) => Opacity(
                           opacity: animation?.value,
                           child: Image.asset(
-                            "assets/images/logo.png",
+                            MyImages.logo,
                             width: 160,
                             height: 110,
                           ))),

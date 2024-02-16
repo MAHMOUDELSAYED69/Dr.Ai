@@ -1,4 +1,5 @@
 import 'dart:io';
+import 'package:dr_ai/core/constant/image.dart';
 import 'package:dr_ai/core/helper/responsive.dart';
 import 'package:dr_ai/view/widget/custom_button.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -34,7 +35,7 @@ class _HomeScreenState extends State<HomeScreen> {
         margin: const EdgeInsets.all(35),
         child: Column(
           children: [
-            ListTile(
+            GestureDetector(
               onTap: () {
                 Navigator.pushNamedAndRemoveUntil(
                   context,
@@ -42,37 +43,58 @@ class _HomeScreenState extends State<HomeScreen> {
                   (route) => false,
                 );
               },
-              isThreeLine: true,
-              contentPadding: EdgeInsets.zero,
-              title: Text("Welcome Back",
-                  style: GoogleFonts.roboto(
-                      textStyle: const TextStyle(
-                    fontSize: 10,
-                  ))),
-              subtitle: Text(
-                  FirebaseAuth.instance.currentUser!.displayName ?? "Guest",
-                  style: GoogleFonts.roboto(
-                      textStyle: const TextStyle(
-                    fontSize: 12,
-                    fontWeight: FontWeight.bold,
-                  ))),
-              leading: Container(
-                decoration: BoxDecoration(
-                    border: Border.all(color: MyColors.green, width: 3),
-                    shape: BoxShape.circle),
-                child: CircleAvatar(
-                    backgroundColor: MyColors.green,
-                    radius: 20,
-                    backgroundImage: user.photoURL != null
-                        ? FileImage(File(user.photoURL!))
-                        : null,
-                    child: user.photoURL == null
-                        ? Text(
-                            user.displayName!.toUpperCase()[0],
-                            style: const TextStyle(
-                                color: MyColors.white, fontSize: 18),
-                          )
-                        : null),
+              child: Container(
+                padding: const EdgeInsets.all(8.0),
+                child: Row(
+                  children: [
+                    Container(
+                      decoration: BoxDecoration(
+                        border: Border.all(color: MyColors.green, width: 3),
+                        shape: BoxShape.circle,
+                      ),
+                      child: CircleAvatar(
+                        backgroundColor: MyColors.green,
+                        radius: 20,
+                        backgroundImage: user.photoURL != null
+                            ? FileImage(File(user.photoURL!))
+                            : null,
+                        child: user.photoURL == null
+                            ? Text(
+                                user.displayName!.toUpperCase()[0],
+                                style: const TextStyle(
+                                  color: MyColors.white,
+                                  fontSize: 18,
+                                ),
+                              )
+                            : null,
+                      ),
+                    ),
+                    const Gap(10),
+                    Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          "Welcome Back",
+                          style: GoogleFonts.roboto(
+                            textStyle: const TextStyle(
+                              fontSize: 12,
+                            ),
+                          ),
+                        ),
+                        Text(
+                          FirebaseAuth.instance.currentUser!.displayName ??
+                              "Guest",
+                          style: GoogleFonts.roboto(
+                            textStyle: const TextStyle(
+                              fontSize: 14,
+                              fontWeight: FontWeight.bold,
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
+                  ],
+                ),
               ),
             ),
             Card(
@@ -97,7 +119,7 @@ class _HomeScreenState extends State<HomeScreen> {
                               ),
                             ),
                           ),
-                          SizedBox(height: ScreenSize.height * 0.005764),
+                          const Gap(8),
                           Text(
                             "Get instant medical advice anytime, anywhere with our trusted AI-powered doctor app. Chat now!",
                             style: GoogleFonts.roboto(
@@ -107,7 +129,7 @@ class _HomeScreenState extends State<HomeScreen> {
                               ),
                             ),
                           ),
-                          SizedBox(height: ScreenSize.height * 0.01152),
+                          const Gap(10),
                           Row(
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
@@ -132,12 +154,11 @@ class _HomeScreenState extends State<HomeScreen> {
                     Expanded(
                       flex: 1,
                       child: Image.asset(
-                        "assets/images/robot.png",
+                       MyImages.robot,
                         width: 100,
                         height: 105,
                       ),
                     ),
-                  
                   ],
                 ),
               ),

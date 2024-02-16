@@ -1,4 +1,5 @@
 import 'dart:developer';
+import 'package:dr_ai/core/constant/image.dart';
 import 'package:dr_ai/core/helper/scaffold_snakbar.dart';
 import 'package:dr_ai/logic/auth/login/login_cubit.dart';
 import 'package:dr_ai/view/screen/auth/forget_password.dart';
@@ -82,7 +83,7 @@ class _LoginScreenState extends State<LoginScreen> {
                           ))),
                       CustomTextFormField(
                         keyboardType: TextInputType.emailAddress,
-                        icon: "assets/images/email.png",
+                        icon: MyImages.email,
                         onSaved: (data) {
                           email = data;
                         },
@@ -93,7 +94,7 @@ class _LoginScreenState extends State<LoginScreen> {
                         onSaved: (data) {
                           password = data;
                         },
-                        icon: "assets/images/password.png",
+                        icon: MyImages.password,
                         isVisible: true,
                         title: "Password",
                       ),
@@ -155,7 +156,7 @@ class _LoginScreenState extends State<LoginScreen> {
                             }
                           },
                           title: "Google",
-                          icon: "assets/images/google.png",
+                          icon: MyImages.google,
                         ),
                       ),
                       Padding(

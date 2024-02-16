@@ -1,6 +1,7 @@
 import 'dart:developer';
 import 'dart:io';
 import 'package:dr_ai/core/cache/cache.dart';
+import 'package:dr_ai/core/constant/image.dart';
 import 'package:dr_ai/data/service/firebase/firebase_service.dart';
 import 'package:dr_ai/logic/image/image_cubit.dart';
 import 'package:dr_ai/view/widget/custom_button.dart';
@@ -173,36 +174,36 @@ class _ProfileScreenState extends State<ProfileScreen> {
                         CustomProfileCardButton(
                           content: user.displayName ?? "Guest",
                           onTap: () {},
-                          leadingImage: "assets/images/useradd.png",
-                          trailingImage: "assets/images/edit.png",
+                          leadingImage: MyImages.userAdd,
+                          trailingImage: MyImages.edit,
                         ),
                         CustomProfileCardButton(
                           content: user.email.toString(),
                           scale: 2,
                           onTap: () {},
-                          leadingImage: "assets/images/email.png",
-                          trailingImage: "assets/images/edit.png",
+                          leadingImage: MyImages.email,
+                          trailingImage: MyImages.edit,
                         ),
                         CustomProfileCardButton(
                           content: "Health Information",
                           scale: 2,
                           onTap: () {},
-                          leadingImage: "assets/images/task.png",
-                          trailingImage: "assets/images/arrowdown.png",
+                          leadingImage: MyImages.task,
+                          trailingImage: MyImages.arrowDown,
                         ),
                         CustomProfileCardButton(
                           content: "Privacy",
                           scale: 2,
                           onTap: () {},
-                          leadingImage: "assets/images/securitycard.png",
-                          trailingImage: "assets/images/arrowdown.png",
+                          leadingImage: MyImages.securityCard,
+                          trailingImage: MyImages.arrowDown,
                         ),
                         CustomProfileCardButton(
                           content: "Setting",
                           scale: 2,
                           onTap: () {},
-                          leadingImage: "assets/images/setting.png",
-                          trailingImage: "assets/images/arrowdown.png",
+                          leadingImage: MyImages.setting,
+                          trailingImage: MyImages.arrowDown,
                         ),
                       ],
                     ),
@@ -217,7 +218,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: [
                               Image.asset(
-                                "assets/images/logout.png",
+                                MyImages.logOut,
                                 scale: 4.2,
                                 color: MyColors.white,
                               ),
@@ -240,8 +241,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                           icon: const CircleAvatar(
                             radius: 12,
                             backgroundColor: MyColors.green2,
-                            backgroundImage:
-                                AssetImage("assets/images/add.png"),
+                            backgroundImage: AssetImage(MyImages.add),
                           ))),
                 ],
               )

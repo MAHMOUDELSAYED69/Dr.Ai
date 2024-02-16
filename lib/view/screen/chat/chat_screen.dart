@@ -1,3 +1,4 @@
+import 'package:dr_ai/core/constant/image.dart';
 import 'package:dr_ai/core/helper/alert_message.dart';
 import 'package:dr_ai/data/model/chat_message_model.dart';
 import 'package:dr_ai/logic/chat/chat_cubit.dart';
@@ -130,14 +131,14 @@ class _ChatScreenState extends State<ChatScreen> {
                         IconButton(
                           onPressed: () {},
                           icon: Image.asset(
-                            "assets/images/mic.png",
+                            MyImages.mic,
                             scale: 1.4,
                           ),
                         ),
                         IconButton(
                           onPressed: () => sendMessage(),
                           icon: Image.asset(
-                            "assets/images/send.png",
+                            MyImages.send,
                             scale: 1.4,
                           ),
                         ),

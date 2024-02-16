@@ -1,5 +1,6 @@
 import 'package:animated_bottom_navigation_bar/animated_bottom_navigation_bar.dart';
 import 'package:dr_ai/core/constant/color.dart';
+import 'package:dr_ai/core/constant/image.dart';
 
 import 'package:flutter/material.dart';
 
@@ -38,7 +39,7 @@ class _NavbarScreenState extends State<NavbarScreen> {
         shape: const CircleBorder(),
         backgroundColor: MyColors.green,
         child: Image.asset(
-          "assets/images/logo_white.png",
+          MyImages.whiteLogo,
           scale: 2.5,
         ),
         onPressed: () {
