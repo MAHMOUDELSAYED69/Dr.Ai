@@ -117,42 +117,40 @@ class _HomeScreenState extends State<HomeScreen> {
                 ),
               ),
             ),
-            Expanded(
-              child: GridView.builder(
-                shrinkWrap: true,
-                gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                    crossAxisCount: 3),
-                itemCount: images.length,
-                itemBuilder: (BuildContext context, int index) {
-                  return Card(
-                    color: const Color(0xffFAFAFA),
-                    child: Column(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        mainAxisSize: MainAxisSize.min,
-                        children: [
-                          Container(
-                              padding: const EdgeInsets.only(left: 10),
-                              alignment: Alignment.centerLeft,
-                              child: Image.asset(
-                                images[index],
-                                scale: 2,
-                              )),
-                          Text("Mental Health",
-                              style: GoogleFonts.roboto(
-                                  textStyle: const TextStyle(
-                                fontSize: 12,
-                                fontWeight: FontWeight.bold,
-                              ))),
-                          Text("16 Conversations",
-                              style: GoogleFonts.roboto(
-                                  textStyle: const TextStyle(
-                                      fontSize: 10,
-                                      fontWeight: FontWeight.bold,
-                                      color: Color(0xff8D8D8D))))
-                        ]),
-                  );
-                },
-              ),
+            GridView.builder(
+              shrinkWrap: true,
+              gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                  crossAxisCount: 3),
+              itemCount: images.length,
+              itemBuilder: (BuildContext context, int index) {
+                return Card(
+                  color: const Color(0xffFAFAFA),
+                  child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      mainAxisSize: MainAxisSize.min,
+                      children: [
+                        Container(
+                            padding: const EdgeInsets.only(left: 10),
+                            alignment: Alignment.centerLeft,
+                            child: Image.asset(
+                              images[index],
+                              scale: 2,
+                            )),
+                        Text("Mental Health",
+                            style: GoogleFonts.roboto(
+                                textStyle: const TextStyle(
+                              fontSize: 12,
+                              fontWeight: FontWeight.bold,
+                            ))),
+                        Text("16 Conversations",
+                            style: GoogleFonts.roboto(
+                                textStyle: const TextStyle(
+                                    fontSize: 10,
+                                    fontWeight: FontWeight.bold,
+                                    color: Color(0xff8D8D8D))))
+                      ]),
+                );
+              },
             ),
           ],
         ),

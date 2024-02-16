@@ -40,11 +40,10 @@ class _RegisterScreenState extends State<RegisterScreen> {
         }
         if (state is RegisterSuccess) {
           isLoading = false;
-          //  CacheData.setData(key: "fullName", value: fullName); //remove
-          // CacheData.setData(key: "email", value: email); //remove
+
           Navigator.pop(context);
           FocusScope.of(context).unfocus();
-          scaffoldSnackBar(context, "You can log in now");
+          scaffoldSnackBar(context, "Verify your E-mail and Login");
         }
         if (state is RegisterFailure) {
           isLoading = false;

@@ -5,6 +5,7 @@ import 'package:dr_ai/view/screen/auth/forget_password.dart';
 import 'package:dr_ai/view/widget/custom_button.dart';
 import 'package:dr_ai/view/widget/custom_outline_button.dart';
 import 'package:dr_ai/view/widget/custom_text_field.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -39,11 +40,12 @@ class _LoginScreenState extends State<LoginScreen> {
           isLoading = true;
         }
         if (state is LoginSuccess) {
-          // CacheData.setData(key: "email", value: email); //remove
-          // CloudStoreService.fetchDataFromFirestore(); //remove
           isLoading = false;
           FocusScope.of(context).unfocus();
-          Navigator.pushNamedAndRemoveUntil(context, "/nav", (route) => false);
+          if (FirebaseAuth.instance.currentUser!.emailVerified) {
+            Navigator.pushNamedAndRemoveUntil(
+                context, "/nav", (route) => false);
+          }
         }
         if (state is LoginFailure) {
           isLoading = false;

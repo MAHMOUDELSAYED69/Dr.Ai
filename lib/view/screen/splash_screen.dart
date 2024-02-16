@@ -95,7 +95,7 @@ class _SplashScreenState extends State<SplashScreen>
       ),
       () {
         Navigator.pushReplacementNamed(context,
-            FirebaseAuth.instance.currentUser != null ? "/home" : "/login");
+            FirebaseAuth.instance.currentUser != null ? "/nav" : "/login");
       },
     );
   }

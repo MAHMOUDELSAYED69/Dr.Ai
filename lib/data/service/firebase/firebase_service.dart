@@ -14,7 +14,7 @@ class FirebaseService {
       password: password,
     );
     await FirebaseAuth.instance.currentUser!.updateDisplayName(displayName);
-    // FirebaseService.emailVerify();
+    FirebaseService.emailVerify();
     FirebaseFirestore.instance
         .collection('users')
         .doc(userCredential.user!.uid)
