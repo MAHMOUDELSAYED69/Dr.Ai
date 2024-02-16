@@ -1,3 +1,4 @@
+import 'dart:developer';
 import 'dart:io';
 import 'package:bloc/bloc.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -24,12 +25,20 @@ class ImageCubit extends Cubit<ImageState> {
       if (returnImage != null) {
         await FirebaseService.updateUserImage(urlImage: returnImage.path);
 
-        FirebaseFirestore.instance
+        await FirebaseFirestore.instance
             .collection('users')
             .doc(FirebaseAuth.instance.currentUser!.uid)
             .set({'image': returnImage.path}, SetOptions(merge: true));
-        CacheData.setData(key: "uploadImage", value: returnImage.path);
-        emit(ImageSuccess(imageUrl: returnImage.path));
+        //
+        var snapshot = await FirebaseFirestore.instance
+            .collection('users')
+            .doc(FirebaseAuth.instance.currentUser!.uid)
+            .get();
+        dynamic response = snapshot.data();
+        log('response: ${response['image'].toString()}');
+
+        // CacheData.setData(key: "uploadImage", value: returnImage.path);
+        emit(ImageSuccess(imageUrl: response['image'].toString()));
       }
     } on Exception catch (err) {
       emit(ImageFailure(message: err.toString()));

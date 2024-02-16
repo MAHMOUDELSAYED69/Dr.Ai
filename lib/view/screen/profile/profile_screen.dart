@@ -11,7 +11,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:modal_progress_hud_nsn/modal_progress_hud_nsn.dart';
-import '../../core/helper/scaffold_snakbar.dart';
+import '../../../core/helper/scaffold_snakbar.dart';
 import 'package:gap/gap.dart';
 
 class ProfileScreen extends StatefulWidget {

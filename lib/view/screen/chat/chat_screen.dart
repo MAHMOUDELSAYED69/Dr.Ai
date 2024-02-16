@@ -5,7 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_fonts/google_fonts.dart';
 
-import '../widget/chat_buble.dart';
+import '../../widget/chat_buble.dart';
 
 class ChatScreen extends StatefulWidget {
   const ChatScreen({Key? key}) : super(key: key);
@@ -76,61 +76,71 @@ class _ChatScreenState extends State<ChatScreen> {
       builder: (context, state) {
         return Scaffold(
           appBar: AppBar(
-            backgroundColor: const Color(0xff00A859),
-            leading: IconButton(
-              onPressed: () {
-                Navigator.pop(context);
-              },
-              icon: const Icon(Icons.arrow_back_ios_new),
-            ),
-            title: Text(
-              "Chat",
-              style: GoogleFonts.roboto(
-                textStyle: const TextStyle(
-                  fontSize: 20,
-                  fontWeight: FontWeight.w600,
+              shape: const RoundedRectangleBorder(
+                  borderRadius: BorderRadius.only(
+                      bottomLeft: Radius.circular(25),
+                      bottomRight: Radius.circular(25))),
+              backgroundColor: Colors.white,
+              leading: IconButton(
+                onPressed: () => Navigator.pop(context),
+                icon: const Icon(Icons.arrow_back_ios_new),
+              ),
+              title: Text(
+                "Chat",
+                style: GoogleFonts.roboto(
+                  textStyle: const TextStyle(
+                    fontSize: 20,
+                    fontWeight: FontWeight.w600,
+                  ),
                 ),
               ),
-            ),
-            centerTitle: true,
-            elevation: 200,
-          ),
+              centerTitle: true,
+              elevation: 0,
+              shadowColor: Colors.grey[50]),
           bottomNavigationBar: Padding(
             padding: EdgeInsets.only(
                 bottom: MediaQuery.viewInsetsOf(context).bottom),
             child: Padding(
               padding: const EdgeInsets.only(
-                  right: 30, left: 30, top: 10, bottom: 20),
-              child: TextField(
-                controller: controller,
-                onSubmitted: (_) => sendMessage(),
-                decoration: InputDecoration(
-                  hintText: '  Write your message',
-                  suffixIcon: IconButton(
-                    onPressed: () => sendMessage(),
-                    icon: Padding(
-                      padding: const EdgeInsets.only(right: 10),
-                      child: Image.asset(
-                        "assets/images/send.png",
-                        scale: 1.4,
+                  right: 25, left: 25, top: 10, bottom: 20),
+              child: Container(
+                decoration: BoxDecoration(boxShadow: [
+                  BoxShadow(
+                      blurRadius: 20,
+                      offset: const Offset(5, 4),
+                      spreadRadius: 0,
+                      color: const Color(0xff000000).withOpacity(0.13))
+                ]),
+                child: TextField(
+                  controller: controller,
+                  onSubmitted: (_) => sendMessage(),
+                  decoration: InputDecoration(
+                    contentPadding:
+                        const EdgeInsets.only(top: 19, bottom: 19, left: 12),
+                    filled: true,
+                    fillColor: Colors.white,
+                    hintText: '  Write your message',
+                    suffixIcon: IconButton(
+                      onPressed: () => sendMessage(),
+                      icon: Padding(
+                        padding: const EdgeInsets.only(right: 10),
+                        child: Image.asset(
+                          "assets/images/send.png",
+                          scale: 1.4,
+                        ),
                       ),
                     ),
-                  ),
-                  border: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(30),
-                  ),
-                  enabledBorder: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(30),
-                    borderSide: const BorderSide(
-                      width: 3,
-                      color: Colors.grey,
+                    border: OutlineInputBorder(
+                      borderSide: BorderSide.none,
+                      borderRadius: BorderRadius.circular(30),
                     ),
-                  ),
-                  focusedBorder: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(30),
-                    borderSide: const BorderSide(
-                      width: 3,
-                      color: Color(0xff00A859),
+                    enabledBorder: OutlineInputBorder(
+                      borderSide: BorderSide.none,
+                      borderRadius: BorderRadius.circular(30),
+                    ),
+                    focusedBorder: OutlineInputBorder(
+                      borderSide: BorderSide.none,
+                      borderRadius: BorderRadius.circular(30),
                     ),
                   ),
                 ),

@@ -94,8 +94,12 @@ class _SplashScreenState extends State<SplashScreen>
         seconds: 3,
       ),
       () {
-        Navigator.pushReplacementNamed(context,
-            FirebaseAuth.instance.currentUser != null ? "/nav" : "/login");
+        Navigator.pushReplacementNamed(
+            context,
+            (FirebaseAuth.instance.currentUser != null &&
+                    FirebaseAuth.instance.currentUser!.emailVerified)
+                ? "/nav"
+                : "/login");
       },
     );
   }
