@@ -5,17 +5,17 @@ import 'package:dr_ai/logic/auth/register/register_cubit.dart';
 import 'package:dr_ai/logic/chat/chat_cubit.dart';
 import 'package:dr_ai/logic/image/image_cubit.dart';
 import 'package:dr_ai/view/screen/chat/chat_screen.dart';
-import 'package:dr_ai/view/screen/home/archive_screen.dart';
 import 'package:dr_ai/view/screen/auth/login_screen.dart';
-import 'package:dr_ai/view/screen/home/nav_bar_screen_.dart';
-import 'package:dr_ai/view/screen/profile/profile_screen.dart';
 import 'package:dr_ai/view/screen/auth/register_screen.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:dr_ai/view/screen/splash_screen.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
+import '../screen/nav_bar/archive_screen.dart';
 import '../screen/nav_bar/home_screen.dart';
+import '../screen/nav_bar/nav_bar_screen_.dart';
+import '../screen/profile/profile_screen.dart';
 
 class MyApp extends StatefulWidget {
   const MyApp({super.key});
