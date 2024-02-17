@@ -42,18 +42,14 @@ class _ChatScreenState extends State<ChatScreen> {
     return BlocConsumer<ChatCubit, ChatState>(
       listener: (context, state) {
         if (state is ChatSenderLoading) {
-          setState(() {
-            isSenderLoading = true;
-            controller.clear();
-          });
+          isSenderLoading = true;
+          controller.clear();
         }
         if (state is ChatSendSuccess) {
-          setState(() {
-            isSenderLoading = false;
-            if (controller.text.isNotEmpty) {
-              BlocProvider.of<ChatCubit>(context).recivedMessage();
-            }
-          });
+          isSenderLoading = false;
+          if (controller.text.isNotEmpty) {
+            BlocProvider.of<ChatCubit>(context).recivedMessage();
+          }
         }
         if (state is ChatReceiverLoading) {
           isReceiverLoading = true;

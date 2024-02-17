@@ -65,7 +65,7 @@ class _CustomTextFormFieldState extends State<CustomTextFormField> {
       TextFormField(
         style: widget.textFieldStyle ??
             const TextStyle(color: MyColors.black, fontSize: 18),
-        cursorColor: widget.cursorColor ?? MyColors.black,
+        cursorColor: widget.cursorColor ?? MyColors.green,
         keyboardType: widget.keyboardType,
         controller: widget.controller,
         obscureText: widget.isVisible == true ? isObscure : false,
@@ -118,7 +118,7 @@ class _CustomTextFormFieldState extends State<CustomTextFormField> {
           ),
           focusedBorder: const OutlineInputBorder(
               borderRadius: BorderRadius.all(Radius.circular(10)),
-              borderSide: BorderSide(color: MyColors.black,width: 2)),
+              borderSide: BorderSide(color: MyColors.green,width: 2)),
           errorBorder: const OutlineInputBorder(
               borderRadius: BorderRadius.all(Radius.circular(10)),
               borderSide: BorderSide(color: MyColors.red, width: 2)),
