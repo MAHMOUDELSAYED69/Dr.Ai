@@ -9,8 +9,6 @@ import 'package:dr_ai/view/widget/custom_text_field.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:modal_progress_hud_nsn/modal_progress_hud_nsn.dart';
-
 import '../../../core/constant/color.dart';
 
 class RegisterScreen extends StatefulWidget {
@@ -55,102 +53,101 @@ class _RegisterScreenState extends State<RegisterScreen> {
         }
       },
       builder: (context, state) {
-        return ModalProgressHUD(
-          inAsyncCall: isLoading,
-          progressIndicator: const CircularProgressIndicator(
-            color: MyColors.green,
-          ),
-          child: Scaffold(
-            backgroundColor: MyColors.white,
-            body: SingleChildScrollView(
-              child: Padding(
-                padding: const EdgeInsets.all(25),
-                child: Form(
-                  key: formKey,
-                  child: Column(
-                    children: [
-                      Center(
-                        child: SizedBox(
-                            width: 160,
-                            height: 110,
-                            child: Image.asset(MyImages.logo)),
-                      ),
-                      Text("Create your account",
-                          style: GoogleFonts.roboto(
-                              textStyle: const TextStyle(
-                            fontSize: 26,
-                            fontWeight: FontWeight.w600,
-                          ))),
-                      CustomTextFormField(
-                        keyboardType: TextInputType.name,
-                        icon: MyImages.name,
-                        title: "Full Name",
-                        onSaved: (data) {
-                          displayName = data;
-                        },
-                      ),
-                      CustomTextFormField(
-                        keyboardType: TextInputType.emailAddress,
-                        icon: MyImages.email,
-                        title: "Email Address",
-                        onSaved: (data) {
-                          email = data;
-                        },
-                      ),
-                      CustomTextFormField(
-                        keyboardType: TextInputType.visiblePassword,
-                        icon: MyImages.password,
-                        onSaved: (data) {
-                          password = data;
-                        },
-                        isVisible: true,
-                        title: "Password",
-                      ),
-                      Padding(
-                          padding: const EdgeInsets.only(top: 40),
-                          child: CustomButton(
-                            title: "Register",
-                            onPressed: register,
-                          )),
-                      const Padding(
-                          padding: EdgeInsets.only(top: 37),
-                          child: CustomDivider()),
-                      const Padding(
+        return Scaffold(
+          backgroundColor: MyColors.white,
+          body: SingleChildScrollView(
+            child: Padding(
+              padding: const EdgeInsets.all(25),
+              child: Form(
+                key: formKey,
+                child: Column(
+                  children: [
+                    Center(
+                      child: SizedBox(
+                          width: 160,
+                          height: 110,
+                          child: Image.asset(MyImages.logo)),
+                    ),
+                    Text("Create your account",
+                        style: GoogleFonts.roboto(
+                            textStyle: const TextStyle(
+                          fontSize: 26,
+                          fontWeight: FontWeight.w600,
+                        ))),
+                    CustomTextFormField(
+                      keyboardType: TextInputType.name,
+                      icon: MyImages.name,
+                      title: "Full Name",
+                      onSaved: (data) {
+                        displayName = data;
+                      },
+                    ),
+                    CustomTextFormField(
+                      keyboardType: TextInputType.emailAddress,
+                      icon: MyImages.email,
+                      title: "Email Address",
+                      onSaved: (data) {
+                        email = data;
+                      },
+                    ),
+                    CustomTextFormField(
+                      keyboardType: TextInputType.visiblePassword,
+                      icon: MyImages.password,
+                      onSaved: (data) {
+                        password = data;
+                      },
+                      isVisible: true,
+                      title: "Password",
+                    ),
+                    Padding(
+                        padding: const EdgeInsets.only(top: 40),
+                        child: CustomButton(
+                          title: isLoading == false ? "Register" : null,
+                          widget: isLoading == true
+                              ? const CircularProgressIndicator(
+                                  color: MyColors.white,
+                                )
+                              : null,
+                          onPressed: register,
+                        )),
+                    const Padding(
                         padding: EdgeInsets.only(top: 37),
-                        child: CustomOutlineButton(
-                          onPressed: GoogleService.signInWithGoogle,
-                          title: "Google",
-                          icon: MyImages.google,
-                        ),
+                        child: CustomDivider()),
+                    const Padding(
+                      padding: EdgeInsets.only(top: 37),
+                      child: CustomOutlineButton(
+                        onPressed: GoogleService.signInWithGoogle,
+                        title: "Google",
+                        icon: MyImages.google,
                       ),
-                      Padding(
-                        padding: const EdgeInsets.only(top: 25),
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            Text("Already have an account?",
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.only(top: 25),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Text("Already have an account?",
+                              style: GoogleFonts.roboto(
+                                  textStyle: const TextStyle(
+                                color: MyColors.selver,
+                                fontSize: 16,
+                                fontWeight: FontWeight.w500,
+                              ))),
+                          GestureDetector(
+                            onTap: () {
+                              Navigator.pop(context);
+                            },
+                            child: Text(" Sign Up",
                                 style: GoogleFonts.roboto(
                                     textStyle: const TextStyle(
-                                  color: MyColors.selver,
                                   fontSize: 16,
-                                  fontWeight: FontWeight.w500,
+                                  fontWeight: FontWeight.bold,
                                 ))),
-                            GestureDetector(
-                              onTap: () {
-                                Navigator.pop(context);
-                              },
-                              child: Text(" Sign Up",
-                                  style: GoogleFonts.roboto(
-                                      textStyle: const TextStyle(
-                                    fontSize: 16,
-                                    fontWeight: FontWeight.bold,
-                                  ))),
-                            ),
-                          ],
-                        ),
-                      )
-                    ],
-                  ),
+                          ),
+                        ],
+                      ),
+                    )
+                  ],
                 ),
               ),
             ),

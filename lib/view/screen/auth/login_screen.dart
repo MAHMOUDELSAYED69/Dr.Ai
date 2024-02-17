@@ -11,7 +11,6 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:modal_progress_hud_nsn/modal_progress_hud_nsn.dart';
 import '../../../core/constant/color.dart';
 import '../../../logic/auth/google/login_with_google.dart';
 import '../../widget/custom_divider.dart';
@@ -57,114 +56,113 @@ class _LoginScreenState extends State<LoginScreen> {
         }
       },
       builder: (context, state) {
-        return ModalProgressHUD(
-          progressIndicator: const CircularProgressIndicator(
-            color: MyColors.green,
-          ),
-          inAsyncCall: isLoading,
-          child: Scaffold(
-            backgroundColor: MyColors.white,
-            body: SingleChildScrollView(
-              child: Padding(
-                padding: const EdgeInsets.all(25),
-                child: Form(
-                  key: formKey,
-                  child: Column(
-                    children: [
-                      Center(
-                        child: SizedBox(
-                            width: 160,
-                            height: 110,
-                            child: Image.asset("assets/images/logo.png")),
+        return Scaffold(
+          backgroundColor: MyColors.white,
+          body: SingleChildScrollView(
+            child: Padding(
+              padding: const EdgeInsets.all(25),
+              child: Form(
+                key: formKey,
+                child: Column(
+                  children: [
+                    Center(
+                      child: SizedBox(
+                          width: 160,
+                          height: 110,
+                          child: Image.asset("assets/images/logo.png")),
+                    ),
+                    Text("Welcome Back!",
+                        style: GoogleFonts.roboto(
+                            textStyle: const TextStyle(
+                          fontSize: 26,
+                          fontWeight: FontWeight.w600,
+                        ))),
+                    CustomTextFormField(
+                      keyboardType: TextInputType.emailAddress,
+                      icon: MyImages.email,
+                      onSaved: (data) {
+                        email = data;
+                      },
+                      title: "Email Address",
+                    ),
+                    CustomTextFormField(
+                      keyboardType: TextInputType.visiblePassword,
+                      onSaved: (data) {
+                        password = data;
+                      },
+                      icon: MyImages.password,
+                      isVisible: true,
+                      title: "Password",
+                    ),
+                    GestureDetector(
+                      onTap: () => showForgetPasswordBottomSheet(context),
+                      child: Container(
+                        padding: const EdgeInsets.only(top: 11),
+                        alignment: Alignment.centerRight,
+                        child: Text("Forgot Password?",
+                            style: GoogleFonts.roboto(
+                                textStyle: const TextStyle(
+                              fontSize: 16,
+                              fontWeight: FontWeight.w500,
+                            ))),
                       ),
-                      Text("Welcome Back!",
-                          style: GoogleFonts.roboto(
-                              textStyle: const TextStyle(
-                            fontSize: 26,
-                            fontWeight: FontWeight.w600,
-                          ))),
-                      CustomTextFormField(
-                        keyboardType: TextInputType.emailAddress,
-                        icon: MyImages.email,
-                        onSaved: (data) {
-                          email = data;
+                    ),
+                    Padding(
+                        padding: const EdgeInsets.only(top: 38),
+                        child: CustomButton(
+                          title: isLoading == false ? "Log in" : null,
+                          widget: isLoading == true
+                              ? const CircularProgressIndicator(
+                                  color: MyColors.white,
+                                )
+                              : null,
+                          onPressed: login,
+                        )),
+                    const Padding(
+                      padding: EdgeInsets.only(top: 37),
+                      child: CustomDivider(),
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.only(top: 37),
+                      child: CustomOutlineButton(
+                        onPressed: () {
+                          try {
+                            GoogleService.signInWithGoogle();
+                          } catch (err) {
+                            log(err.toString());
+                          }
                         },
-                        title: "Email Address",
+                        title: "Google",
+                        icon: MyImages.google,
                       ),
-                      CustomTextFormField(
-                        keyboardType: TextInputType.visiblePassword,
-                        onSaved: (data) {
-                          password = data;
-                        },
-                        icon: MyImages.password,
-                        isVisible: true,
-                        title: "Password",
-                      ),
-                      GestureDetector(
-                        onTap: () => showForgetPasswordBottomSheet(context),
-                        child: Container(
-                          padding: const EdgeInsets.only(top: 11),
-                          alignment: Alignment.centerRight,
-                          child: Text("Forgot Password?",
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.only(top: 25),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Text("Don’t have an account?",
                               style: GoogleFonts.roboto(
                                   textStyle: const TextStyle(
+                                color: MyColors.selver,
                                 fontSize: 16,
                                 fontWeight: FontWeight.w500,
                               ))),
-                        ),
-                      ),
-                      Padding(
-                          padding: const EdgeInsets.only(top: 38),
-                          child: CustomButton(
-                            title: "Log in",
-                            onPressed: login,
-                          )),
-                      const Padding(
-                        padding: EdgeInsets.only(top: 37),
-                        child: CustomDivider(),
-                      ),
-                      Padding(
-                        padding: const EdgeInsets.only(top: 37),
-                        child: CustomOutlineButton(
-                          onPressed: () {
-                            try {
-                              GoogleService.signInWithGoogle();
-                            } catch (err) {
-                              log(err.toString());
-                            }
-                          },
-                          title: "Google",
-                          icon: MyImages.google,
-                        ),
-                      ),
-                      Padding(
-                        padding: const EdgeInsets.only(top: 25),
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            Text("Don’t have an account?",
+                          GestureDetector(
+                            onTap: () {
+                              Navigator.pushNamed(context, MyRoutes.register);
+                            },
+                            child: Text(" Sign Up",
                                 style: GoogleFonts.roboto(
                                     textStyle: const TextStyle(
-                                  color: MyColors.selver,
                                   fontSize: 16,
-                                  fontWeight: FontWeight.w500,
+                                  fontWeight: FontWeight.bold,
                                 ))),
-                            GestureDetector(
-                              onTap: () {
-                                Navigator.pushNamed(context, MyRoutes.register);
-                              },
-                              child: Text(" Sign Up",
-                                  style: GoogleFonts.roboto(
-                                      textStyle: const TextStyle(
-                                    fontSize: 16,
-                                    fontWeight: FontWeight.bold,
-                                  ))),
-                            ),
-                          ],
-                        ),
-                      )
-                    ],
-                  ),
+                          ),
+                        ],
+                      ),
+                    )
+                  ],
                 ),
               ),
             ),
@@ -174,4 +172,3 @@ class _LoginScreenState extends State<LoginScreen> {
     );
   }
 }
-

@@ -9,6 +9,7 @@ import 'package:gap/gap.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 import '../../../core/constant/color.dart';
+import '../../widget/mental_health_card.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -18,14 +19,6 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
-  List<String> images = [
-    "assets/images/heath_1.png",
-    "assets/images/heath_2.png",
-    "assets/images/heath_3.png",
-    "assets/images/heath_4.png",
-    "assets/images/heath_5.png",
-    "assets/images/heath_6.png",
-  ];
   var user = FirebaseAuth.instance.currentUser!;
   @override
   Widget build(BuildContext context) {
@@ -161,41 +154,43 @@ class _HomeScreenState extends State<HomeScreen> {
                   ),
                 ),
               ),
-              GridView.builder(
+              GridView(
                 shrinkWrap: true,
                 gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
                     crossAxisCount: 3),
-                itemCount: images.length,
-                itemBuilder: (context, index) {
-                  return Card(
-                    color: MyColors.white,
-                    child: Column(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        mainAxisSize: MainAxisSize.min,
-                        children: [
-                          Container(
-                              padding: const EdgeInsets.only(left: 10),
-                              alignment: Alignment.centerLeft,
-                              child: Image.asset(
-                                images[index],
-                                scale: 2,
-                              )),
-                          Text("Mental Health",
-                              style: GoogleFonts.roboto(
-                                  textStyle: const TextStyle(
-                                fontSize: 12,
-                                fontWeight: FontWeight.bold,
-                              ))),
-                          Text("16 Conversations",
-                              style: GoogleFonts.roboto(
-                                  textStyle: const TextStyle(
-                                      fontSize: 10,
-                                      fontWeight: FontWeight.bold,
-                                      color: MyColors.grey2)))
-                        ]),
-                  );
-                },
-              ),
+                children: [
+                  MentalHealthCard(
+                    image: MyImages.ambulance,
+                    title: "Ambulance",
+                    subTitle: "123",
+                    onTap: () {},
+                  ),
+                  MentalHealthCard(
+                    image: MyImages.amergency,
+                    title: "Amergency",
+                    subTitle: "112",
+                    onTap: () {},
+                  ),
+                  MentalHealthCard(
+                    image: MyImages.fireAmbulance,
+                    title: "Fire Ambulance",
+                    subTitle: "180",
+                    onTap: () {},
+                  ),
+                  MentalHealthCard(
+                    image: MyImages.healthA4,
+                    onTap: () {},
+                  ),
+                  MentalHealthCard(
+                    image: MyImages.healthA5,
+                    onTap: () {},
+                  ),
+                  MentalHealthCard(
+                    image: MyImages.healthA6,
+                    onTap: () {},
+                  ),
+                ],
+              )
             ],
           ),
         ),

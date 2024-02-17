@@ -1,4 +1,3 @@
-
 class MyImages {
   static const splash = "assets/images/splash_bg.png";
   static const logo = "assets/images/logo.png";
@@ -18,4 +17,10 @@ class MyImages {
   static const setting = "assets/images/setting.png";
   static const logOut = "assets/images/logout.png";
   static const add = "assets/images/add.png";
+  static const ambulance = "assets/images/ambulance.png";
+  static const amergency = "assets/images/amergency.png";
+  static const fireAmbulance = "assets/images/fire_ambulance.png";
+  static const healthA4 = "assets/images/heath_4.png";
+  static const healthA5 = "assets/images/heath_5.png";
+  static const healthA6 = "assets/images/heath_6.png";
 }

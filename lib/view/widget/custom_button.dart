@@ -1,5 +1,4 @@
 import 'package:dr_ai/core/constant/color.dart';
-import 'package:dr_ai/core/helper/responsive.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
