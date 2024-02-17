@@ -53,7 +53,8 @@ class _ProfileScreenState extends State<ProfileScreen> {
           child: Stack(
             children: [
               IconButton(
-                onPressed: () => Navigator.pop(context),
+                onPressed: () => Navigator.pushNamedAndRemoveUntil(
+                    context,MyRoutes.nav, (route) => false),
                 icon: const Icon(Icons.arrow_back_ios_new_outlined),
               ),
               Align(

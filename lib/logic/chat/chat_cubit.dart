@@ -23,6 +23,8 @@ class ChatCubit extends Cubit<ChatState> {
           .doc(FirebaseAuth.instance.currentUser!.uid)
           .collection('messages')
           .add(chatMessageModel.toJson());
+      emit(ChatSendSuccess());
+      emit(ChatReceiverLoading());
       response = await MessageService.postData(data: {'content': message});
       log(response.toString());
       await recivedMessage();
@@ -34,7 +36,6 @@ class ChatCubit extends Cubit<ChatState> {
   }
 
   Future<void> recivedMessage() async {
-    emit(ChatReceiverLoading());
     try {
       if (response != null) {
         ChatMessageModel chatMessageModel = ChatMessageModel(

@@ -6,7 +6,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:gap/gap.dart';
 import 'package:google_fonts/google_fonts.dart';
-
 import '../../../core/constant/color.dart';
 import '../../widget/chat_buble.dart';
 
@@ -51,29 +50,22 @@ class _ChatScreenState extends State<ChatScreen> {
         if (state is ChatSendSuccess) {
           setState(() {
             isSenderLoading = false;
-            isReceiverLoading = true;
             if (controller.text.isNotEmpty) {
               BlocProvider.of<ChatCubit>(context).recivedMessage();
             }
           });
         }
         if (state is ChatReceiverLoading) {
-          setState(() {
-            isReceiverLoading = true;
-          });
+          isReceiverLoading = true;
         }
         if (state is ChatReceiveSuccess) {
-          setState(() {
-            chatMessageMode = state.response;
-            isReceiverLoading = false;
-          });
+          isReceiverLoading = false;
+          chatMessageMode = state.response;
         }
         if (state is ChatFailure) {
-          setState(() {
-            isSenderLoading = false;
-            isReceiverLoading = false;
-            alertMessage(context);
-          });
+          isSenderLoading = false;
+          isReceiverLoading = false;
+          alertMessage(context);
         }
       },
       builder: (context, state) {
@@ -168,7 +160,7 @@ class _ChatScreenState extends State<ChatScreen> {
             reverse: true,
             itemBuilder: (context, index) {
               if (isReceiverLoading && index == 0) {
-                return const ChatBubbleForDrAi(message: "loading...");
+                return const ChatBubbleForLoading();
               } else {
                 final chatIndex = isReceiverLoading ? index - 1 : index;
                 final chatMessage = chatMessageMode[chatIndex];
