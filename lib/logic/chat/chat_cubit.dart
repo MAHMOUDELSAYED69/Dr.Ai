@@ -6,7 +6,7 @@ import 'package:dr_ai/data/model/chat_message_model.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:meta/meta.dart';
 
-import '../../data/service/api_messae.dart';
+import '../../data/service/api/api_messae.dart';
 
 part 'chat_state.dart';
 
