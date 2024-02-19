@@ -2,6 +2,7 @@ import 'dart:io';
 import 'package:dr_ai/core/constant/image.dart';
 import 'package:dr_ai/core/constant/routes.dart';
 import 'package:dr_ai/core/helper/responsive.dart';
+import 'package:dr_ai/logic/other/contact_func.dart';
 import 'package:dr_ai/view/widget/custom_button.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
@@ -163,19 +164,22 @@ class _HomeScreenState extends State<HomeScreen> {
                     image: MyImages.ambulance,
                     title: "Ambulance",
                     subTitle: "123",
-                    onTap: () {},
+                    onTap: () =>
+                        OtherMethod.openContactsApp(phoneNumber: '123'),
                   ),
                   MentalHealthCard(
                     image: MyImages.amergency,
                     title: "Amergency",
                     subTitle: "112",
-                    onTap: () {},
+                    onTap: () =>
+                        OtherMethod.openContactsApp(phoneNumber: '122'),
                   ),
                   MentalHealthCard(
                     image: MyImages.fireAmbulance,
                     title: "Fire Ambulance",
                     subTitle: "180",
-                    onTap: () {},
+                    onTap: () =>
+                        OtherMethod.openContactsApp(phoneNumber: '180'),
                   ),
                   MentalHealthCard(
                     image: MyImages.healthA4,

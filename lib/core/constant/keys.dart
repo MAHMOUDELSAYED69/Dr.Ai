@@ -1,4 +1,6 @@
+import 'package:flutter_dotenv/flutter_dotenv.dart';
+
 class MyApiKeys {
   static const pyDrAi = "https://doctorai.pythonanywhere.com/myapp/api/";
-  static const googleMap = "AIzaSyAcfN7lQE1w9D_EkLCuYeCs6MtBitnVxtI";
+  static String? googleMap = dotenv.env['mapApiKey'];
 }
