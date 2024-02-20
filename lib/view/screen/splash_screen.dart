@@ -1,8 +1,10 @@
 import 'package:dr_ai/core/constant/color.dart';
 import 'package:dr_ai/core/constant/image.dart';
 import 'package:dr_ai/core/constant/routes.dart';
+import 'package:dr_ai/logic/auth/log_out/log_out_cubit.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_fonts/google_fonts.dart';
 import '../../core/helper/responsive.dart';
 
@@ -32,6 +34,7 @@ class _SplashScreenState extends State<SplashScreen>
 
   @override
   Widget build(BuildContext context) {
+    BlocProvider.of<LogOutCubit>(context).logOut();
     ScreenSize.init(context);
     return Scaffold(
       backgroundColor: MyColors.white,
