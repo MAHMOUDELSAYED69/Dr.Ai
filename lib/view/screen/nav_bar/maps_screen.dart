@@ -2,10 +2,11 @@ import 'dart:async';
 
 import 'package:dr_ai/core/constant/color.dart';
 import 'package:dr_ai/core/helper/location.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
+
+import '../../widget/floating_search_bar.dart';
 
 class ArchiveScreen extends StatefulWidget {
   const ArchiveScreen({super.key});
@@ -67,28 +68,30 @@ class _ArchiveScreenState extends State<ArchiveScreen> {
         CameraUpdate.newCameraPosition(myCurrrentPositionCameraPosition));
   }
 
-  var user = FirebaseAuth.instance.currentUser!;
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Stack(children: [
-        position != null
-            ? buildMap()
-            : const Center(
-                child: CircularProgressIndicator(
-                  color: MyColors.green,
-                ),
-              )
-      ]),
-      floatingActionButton: FloatingActionButton(
+        resizeToAvoidBottomInset: false,
+        body: Stack(
+          children: [
+            position != null
+                ? buildMap()
+                : const Center(
+                    child: CircularProgressIndicator(
+                      color: MyColors.green,
+                    ),
+                  ),
+            const MyFloatingSearchBar(),
+          ],
+        ),
+        floatingActionButton: FloatingActionButton(
           backgroundColor: MyColors.green,
           heroTag: 1,
           onPressed: goToMyCurrentLocation,
           child: const Icon(
             Icons.zoom_out_map_outlined,
             color: MyColors.white,
-          )),
-    );
+          ),
+        ));
   }
 }
