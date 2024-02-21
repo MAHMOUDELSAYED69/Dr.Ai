@@ -5,7 +5,7 @@
         android:icon="@mipmap/launcher_icon"
         android:enableOnBackInvokedCallback="true">
         <meta-data android:name="com.google.android.geo.API_KEY"
-            android:value="AIzaSyAcfN7lQE1w9D_EkLCuYeCs6MtBitnVxtI" />
+            android:value="AIzaSyAk44ARDYlyxejknsj1k55m2N5o6aPY2Ws" />
         <activity
             android:name=".MainActivity"
             android:exported="true"
@@ -26,6 +26,9 @@
             android:name="flutterEmbedding"
             android:value="2" />
     </application>
+
+    <!-- Location Permission -->
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
 
     <!-- Required visibility configuration for API level 30 and above -->
     <queries>

@@ -5,7 +5,7 @@ import 'package:dr_ai/core/constant/routes.dart';
 
 import 'package:flutter/material.dart';
 
-import '../nav_bar/archive_screen.dart';
+import 'maps_screen.dart';
 import '../nav_bar/home_screen.dart';
 
 class NavbarScreen extends StatefulWidget {

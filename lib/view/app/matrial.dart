@@ -14,7 +14,7 @@ import 'package:dr_ai/view/screen/splash_screen.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
-import '../screen/nav_bar/archive_screen.dart';
+import '../screen/nav_bar/maps_screen.dart';
 import '../screen/nav_bar/home_screen.dart';
 import '../screen/nav_bar/nav_bar_screen_.dart';
 import '../screen/profile/profile_screen.dart';

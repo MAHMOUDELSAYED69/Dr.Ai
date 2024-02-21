@@ -10,4 +10,5 @@ class MyColors {
   static const red = Colors.red;
   static const selver = Color(0xff8CAAB9);
   static const white = Color(0xffFFFFFF);
+  static const blue = Colors.blue;
 }

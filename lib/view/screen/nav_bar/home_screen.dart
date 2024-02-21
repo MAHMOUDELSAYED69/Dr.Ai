@@ -1,6 +1,5 @@
-import 'dart:developer';
+
 import 'dart:io';
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:dr_ai/core/constant/image.dart';
 import 'package:dr_ai/core/constant/routes.dart';
 import 'package:dr_ai/core/helper/responsive.dart';
@@ -22,10 +21,6 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
-  Future<void> logout() async {
-
-  }
-
   var user = FirebaseAuth.instance.currentUser!;
   @override
   Widget build(BuildContext context) {
@@ -189,7 +184,7 @@ class _HomeScreenState extends State<HomeScreen> {
                   ),
                   MentalHealthCard(
                     image: MyImages.healthA4,
-                    onTap: logout,
+                    onTap: () {},
                   ),
                   MentalHealthCard(
                     image: MyImages.healthA5,
