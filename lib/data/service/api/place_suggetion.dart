@@ -2,12 +2,10 @@ import 'package:dio/dio.dart';
 import 'package:dr_ai/core/constant/keys.dart';
 import 'dart:developer';
 
-import '../../model/place_suggetion.dart';
-
 class PlacesWebservices {
   static Dio dio = Dio();
 
-  static Future<List<PlaceSuggestionModel>> fetchSuggestions(
+  static Future fetchSuggestions(
       String place, String sessionToken) async {
     try {
       Response response = await dio.get(
@@ -17,21 +15,22 @@ class PlacesWebservices {
           'types': 'address',
           'components': 'country:eg',
           'key': MyApiKeys.googleMap,
-          'sessiontoken': sessionToken,
+           'sessiontoken': sessionToken,
         },
       );
-
-      log(response.data['predictions'].toString());
-      log(response.statusCode.toString());
-
-      List<dynamic> predictions = response.data['predictions'];
-      List<PlaceSuggestionModel> suggestionList = predictions
-          .map((prediction) => PlaceSuggestionModel.fromJson(prediction))
-          .toList();
+      
+      // log(response.data['predictions'].toString());
+      // log(response.statusCode.toString());
+      // //! DATA MAPING
+      // List<dynamic> predictions = response.data['predictions'];
+      // List<PlaceSuggestionModel> suggestionList = predictions
+      //     .map((prediction) => PlaceSuggestionModel.fromJson(prediction))
+      //     .toList();
 
       return response.data['predictions'];
+
     } on DioException catch (err) {
-      log(err.toString());
+      log('Dio Method err:$err');
       return [];
     }
   }

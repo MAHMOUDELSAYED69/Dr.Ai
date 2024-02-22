@@ -15,16 +15,21 @@ class MapsCubit extends Cubit<MapsState> {
       {required String place, required String sessionToken}) async {
     emit(MapsLoading());
     try {
-      dynamic response =
+      List<dynamic> response =
           await PlacesWebservices.fetchSuggestions(place, sessionToken);
 
-      List<dynamic> predictions = response;
-      List<PlaceSuggestionModel> suggestionList = predictions
+      List<PlaceSuggestionModel> suggestionList = response
           .map((prediction) => PlaceSuggestionModel.fromJson(prediction))
           .toList();
 
+      // //! JUST FOR TESTING
+      // int index = suggestionList.length - 1;
+      // while (index > 0) {
+      //   log(suggestionList[index].description);
+      //   index--;
+      // }
+
       emit(MapsLoadedSuccess(placeSuggestionList: suggestionList));
-      
     } on DioException catch (err) {
       emit(MapsFailure(errMessage: err.toString()));
       log("Dio err:$err");

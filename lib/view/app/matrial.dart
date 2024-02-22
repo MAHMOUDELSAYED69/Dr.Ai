@@ -6,6 +6,7 @@ import 'package:dr_ai/logic/auth/login/login_cubit.dart';
 import 'package:dr_ai/logic/auth/register/register_cubit.dart';
 import 'package:dr_ai/logic/chat/chat_cubit.dart';
 import 'package:dr_ai/logic/image/image_cubit.dart';
+import 'package:dr_ai/logic/maps/maps_cubit.dart';
 import 'package:dr_ai/view/screen/chat/chat_screen.dart';
 import 'package:dr_ai/view/screen/auth/login_screen.dart';
 import 'package:dr_ai/view/screen/auth/register_screen.dart';
@@ -60,6 +61,9 @@ class _MyAppState extends State<MyApp> {
         ),
         BlocProvider(
           create: (context) => LogOutCubit(),
+        ),
+        BlocProvider(
+          create: (context) => MapsCubit(),
         ),
       ],
       child: MaterialApp(

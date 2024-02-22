@@ -1,16 +1,16 @@
+
 import 'dart:io';
 import 'package:dr_ai/core/constant/image.dart';
 import 'package:dr_ai/core/constant/routes.dart';
 import 'package:dr_ai/core/helper/responsive.dart';
+import 'package:dr_ai/data/model/place_suggetion.dart';
 import 'package:dr_ai/logic/other/contact_func.dart';
 import 'package:dr_ai/view/widget/custom_button.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
 import 'package:google_fonts/google_fonts.dart';
-
 import '../../../core/constant/color.dart';
-import '../../../data/service/api/place_suggetion.dart';
 import '../../widget/mental_health_card.dart';
 
 class HomeScreen extends StatefulWidget {
@@ -21,6 +21,7 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
+
   var user = FirebaseAuth.instance.currentUser!;
   @override
   Widget build(BuildContext context) {
@@ -184,9 +185,8 @@ class _HomeScreenState extends State<HomeScreen> {
                   ),
                   MentalHealthCard(
                     image: MyImages.healthA4,
-                    onTap: () async {
-                      await PlacesWebservices.fetchSuggestions(
-                          'ألعبور', 'dnvkd45211411448xcr5');
+                    onTap: () {
+                     
                     },
                   ),
                   MentalHealthCard(
