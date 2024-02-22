@@ -1,6 +1,6 @@
 import 'package:dr_ai/core/constant/image.dart';
 import 'package:dr_ai/core/helper/alert_message.dart';
-import 'package:dr_ai/data/model/chat_message_model.dart';
+import 'package:dr_ai/data/model/chat_message.dart';
 import 'package:dr_ai/logic/chat/chat_cubit.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';

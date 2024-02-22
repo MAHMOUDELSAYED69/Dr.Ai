@@ -2,6 +2,8 @@
 import 'package:flutter/material.dart';
 import 'package:material_floating_search_bar_2/material_floating_search_bar_2.dart';
 
+import '../../core/constant/color.dart';
+
 class MyFloatingSearchBar extends StatefulWidget {
   const MyFloatingSearchBar({Key? key}) : super(key: key);
 
@@ -19,7 +21,9 @@ class MyFloatingSearchBarState extends State<MyFloatingSearchBar> {
         MediaQuery.of(context).orientation == Orientation.portrait;
 
     return FloatingSearchBar(
-      hint: 'Search...',
+      borderRadius: BorderRadius.circular(14),
+      height: 50,
+      hint: 'Find a hospital...',
       scrollPadding: const EdgeInsets.only(top: 16, bottom: 56),
       transitionDuration: const Duration(milliseconds: 800),
       transitionCurve: Curves.easeInOut,
@@ -45,9 +49,9 @@ class MyFloatingSearchBarState extends State<MyFloatingSearchBar> {
       ],
       builder: (context, transition) {
         return ClipRRect(
-          borderRadius: BorderRadius.circular(8),
+          borderRadius: BorderRadius.circular(16),
           child: const Material(
-            color: Colors.white,
+            color: MyColors.white,
             elevation: 4.0,
             child: Column(),
           ),
