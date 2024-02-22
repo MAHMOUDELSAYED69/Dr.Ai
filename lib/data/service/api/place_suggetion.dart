@@ -1,5 +1,5 @@
 import 'package:dio/dio.dart';
-import 'package:dr_ai/core/constant/keys.dart';
+import 'package:dr_ai/core/constant/api_url.dart';
 import 'dart:developer';
 
 class PlacesWebservices {
@@ -9,12 +9,12 @@ class PlacesWebservices {
       String place, String sessionToken) async {
     try {
       Response response = await dio.get(
-        MyApiKeys.placeSuggetion,
+        MyApiUrl.placeSuggetion,
         queryParameters: {
           'input': place,
           'types': 'address',
           'components': 'country:eg',
-          'key': MyApiKeys.googleMap,
+          'key': MyApiUrl.googleMap,
            'sessiontoken': sessionToken,
         },
       );

@@ -22,12 +22,12 @@ class MapsCubit extends Cubit<MapsState> {
           .map((prediction) => PlaceSuggestionModel.fromJson(prediction))
           .toList();
 
-      // //! JUST FOR TESTING
-      // int index = suggestionList.length - 1;
-      // while (index > 0) {
-      //   log(suggestionList[index].description);
-      //   index--;
-      // }
+      //! JUST FOR TESTING
+      int index = suggestionList.length - 1;
+      while (index > 0) {
+        log(suggestionList[index].placeId);
+        index--;
+      }
 
       emit(MapsLoadedSuccess(placeSuggestionList: suggestionList));
     } on DioException catch (err) {

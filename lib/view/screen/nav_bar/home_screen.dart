@@ -175,7 +175,7 @@ class _HomeScreenState extends State<HomeScreen> {
                   ),
                   MentalHealthCard(
                     image: MyImages.fireAmbulance,
-                    title: "Fire Ambulance",
+                    title: "Firefighting",
                     subTitle: "180",
                     onTap: () =>
                         OtherMethod.openContactsApp(phoneNumber: '180'),
