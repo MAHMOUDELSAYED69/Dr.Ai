@@ -89,7 +89,7 @@ class _ArchiveScreenState extends State<ArchiveScreen> {
           heroTag: 1,
           onPressed: goToMyCurrentLocation,
           child: const Icon(
-            Icons.zoom_out_map_outlined,
+            Icons.zoom_in_map_rounded,
             color: MyColors.white,
           ),
         ));

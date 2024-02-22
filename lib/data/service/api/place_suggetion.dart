@@ -29,7 +29,7 @@ class PlacesWebservices {
           .map((prediction) => PlaceSuggestionModel.fromJson(prediction))
           .toList();
 
-      return suggestionList;
+      return response.data['predictions'];
     } on DioException catch (err) {
       log(err.toString());
       return [];
