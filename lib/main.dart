@@ -1,4 +1,3 @@
-import 'package:dr_ai/data/service/api/place_suggetion.dart';
 import 'package:dr_ai/view/app/matrial.dart';
 import 'package:dr_ai/core/cache/cache.dart';
 import 'package:dr_ai/firebase_options.dart';
@@ -17,5 +16,4 @@ Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await CacheData.cacheDataInit();
   runApp(const MyApp());
-
 }

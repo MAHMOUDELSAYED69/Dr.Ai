@@ -1,9 +1,7 @@
-
 import 'dart:io';
 import 'package:dr_ai/core/constant/image.dart';
 import 'package:dr_ai/core/constant/routes.dart';
 import 'package:dr_ai/core/helper/responsive.dart';
-import 'package:dr_ai/data/model/place_suggetion.dart';
 import 'package:dr_ai/logic/other/contact_func.dart';
 import 'package:dr_ai/view/widget/custom_button.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -21,7 +19,6 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
-
   var user = FirebaseAuth.instance.currentUser!;
   @override
   Widget build(BuildContext context) {
@@ -185,9 +182,7 @@ class _HomeScreenState extends State<HomeScreen> {
                   ),
                   MentalHealthCard(
                     image: MyImages.healthA4,
-                    onTap: () {
-                     
-                    },
+                    onTap: () {},
                   ),
                   MentalHealthCard(
                     image: MyImages.healthA5,
