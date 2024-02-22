@@ -1,4 +1,3 @@
-
 import 'dart:io';
 import 'package:dr_ai/core/constant/image.dart';
 import 'package:dr_ai/core/constant/routes.dart';
@@ -11,6 +10,7 @@ import 'package:gap/gap.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 import '../../../core/constant/color.dart';
+import '../../../data/service/api/place_suggetion.dart';
 import '../../widget/mental_health_card.dart';
 
 class HomeScreen extends StatefulWidget {
@@ -184,7 +184,10 @@ class _HomeScreenState extends State<HomeScreen> {
                   ),
                   MentalHealthCard(
                     image: MyImages.healthA4,
-                    onTap: () {},
+                    onTap: () async {
+                      await PlacesWebservices.fetchSuggestions(
+                          'ألعبور', 'dnvkd45211411448xcr5');
+                    },
                   ),
                   MentalHealthCard(
                     image: MyImages.healthA5,

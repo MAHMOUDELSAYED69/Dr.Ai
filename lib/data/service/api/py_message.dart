@@ -4,7 +4,7 @@ import 'package:dio/dio.dart';
 import '../../../core/constant/keys.dart';
 
 //! POST
-class MessageService {
+class MessageWebService {
   static Dio dio = Dio();
 
   static Future postData({required Map<String, dynamic> data}) async {

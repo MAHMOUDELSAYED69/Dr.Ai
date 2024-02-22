@@ -6,7 +6,7 @@ import 'package:dr_ai/data/model/chat_message.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:meta/meta.dart';
 
-import '../../data/service/api/api_messae.dart';
+import '../../data/service/api/py_message.dart';
 
 part 'chat_state.dart';
 
@@ -25,7 +25,7 @@ class ChatCubit extends Cubit<ChatState> {
           .add(chatMessageModel.toJson());
       emit(ChatSendSuccess());
       emit(ChatReceiverLoading());
-      response = await MessageService.postData(data: {'content': message});
+      response = await MessageWebService.postData(data: {'content': message});
       log(response.toString());
       await recivedMessage();
       response = null;

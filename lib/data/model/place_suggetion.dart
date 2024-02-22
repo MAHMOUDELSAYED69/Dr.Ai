@@ -1,19 +1,19 @@
-class PlaceSuggestion {
+class PlaceSuggestionModel {
   String description;
   String placeId;
   String mainText;
   String secondaryText;
 
-  PlaceSuggestion({
+  PlaceSuggestionModel({
     required this.description,
     required this.placeId,
     required this.mainText,
     required this.secondaryText,
   });
 
-  factory PlaceSuggestion.fromJson(Map<String, dynamic> json) {
+  factory PlaceSuggestionModel.fromJson(Map<String, dynamic> json) {
     final structuredFormatting = json['structured_formatting'];
-    return PlaceSuggestion(
+    return PlaceSuggestionModel(
       description: json['description'],
       placeId: json['place_id'],
       mainText: structuredFormatting['main_text'],
