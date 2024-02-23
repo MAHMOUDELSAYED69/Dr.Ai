@@ -4,9 +4,8 @@ import 'dart:developer';
 
 class PlacesWebservices {
   static Dio dio = Dio();
-
-  static Future fetchSuggestions(
-      String place, String sessionToken) async {
+  //! Fetch Suggetions.
+  static Future fetchSuggestions(String place, String sessionToken) async {
     try {
       Response response = await dio.get(
         MyApiUrl.placeSuggetion,
@@ -15,10 +14,10 @@ class PlacesWebservices {
           'types': 'address',
           'components': 'country:eg',
           'key': MyApiUrl.googleMap,
-           'sessiontoken': sessionToken,
+          'sessiontoken': sessionToken,
         },
       );
-      
+
       // log(response.data['predictions'].toString());
       // log(response.statusCode.toString());
       // //! DATA MAPING
@@ -28,10 +27,31 @@ class PlacesWebservices {
       //     .toList();
 
       return response.data['predictions'];
-
     } on DioException catch (err) {
       log('Dio Method err:$err');
-      return [];
+
+      return Future.error("Place suggestions error: ",
+          StackTrace.fromString("this is the trace"));
+    }
+  }
+
+  static Future fetchPlaceLocation(String placeId, String sessionToken) async {
+    try {
+      Response response = await dio.get(
+        MyApiUrl.placeSuggetion,
+        queryParameters: {
+          'place_id': placeId,
+          'fields': 'geometry',
+          'key': MyApiUrl.googleMap,
+          'sessiontoken': sessionToken,
+        },
+      );
+      return response.data;
+    } on DioException catch (err) {
+
+      log('Dio Method err:$err');
+      return Future.error(
+          "Place location error: ", StackTrace.fromString("this is the trace"));
     }
   }
 }

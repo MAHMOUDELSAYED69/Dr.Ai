@@ -3,7 +3,7 @@ import 'dart:developer';
 import 'package:bloc/bloc.dart';
 import 'package:dio/dio.dart';
 import 'package:dr_ai/data/model/place_suggetion.dart';
-import 'package:dr_ai/data/service/api/place_suggetion.dart';
+import 'package:dr_ai/data/service/api/maps_place.dart';
 import 'package:meta/meta.dart';
 
 part 'maps_state.dart';
