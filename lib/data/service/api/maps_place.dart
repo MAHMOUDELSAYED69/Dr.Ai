@@ -5,7 +5,7 @@ import 'dart:developer';
 class PlacesWebservices {
   static Dio dio = Dio();
   //! Fetch Suggetions.
-  static Future fetchSuggestions(String place, String sessionToken) async {
+  static Future fetchPlaceSuggestions(String place, String sessionToken) async {
     try {
       Response response = await dio.get(
         MyApiUrl.placeSuggetion,
@@ -38,7 +38,7 @@ class PlacesWebservices {
   static Future fetchPlaceLocation(String placeId, String sessionToken) async {
     try {
       Response response = await dio.get(
-        MyApiUrl.placeSuggetion,
+        MyApiUrl.placeLocation,
         queryParameters: {
           'place_id': placeId,
           'fields': 'geometry',

@@ -32,7 +32,6 @@ class MyFloatingSearchBarState extends State<MyFloatingSearchBar> {
         MediaQuery.of(context).orientation == Orientation.portrait;
 
     return FloatingSearchBar(
-
       borderRadius: BorderRadius.circular(14),
       height: 50,
       hint: 'Find a hospital...',
@@ -63,7 +62,7 @@ class MyFloatingSearchBarState extends State<MyFloatingSearchBar> {
       builder: (context, transition) {
         return BlocBuilder<MapsCubit, MapsState>(
           builder: (context, state) {
-            if (state is MapsLoadedSuccess) {
+            if (state is MapsLoadedSuggestionsSuccess) {
               placeSuggestionList = state.placeSuggestionList;
               return ListView.builder(
                 shrinkWrap: true,

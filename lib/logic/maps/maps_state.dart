@@ -7,13 +7,20 @@ class MapsInitial extends MapsState {}
 
 class MapsLoading extends MapsState {}
 
-class MapsLoadedSuccess extends MapsState {
+class MapsLoadedSuggestionsSuccess extends MapsState {
   final List<PlaceSuggestionModel> placeSuggestionList;
 
-  MapsLoadedSuccess({required this.placeSuggestionList});
+  MapsLoadedSuggestionsSuccess({required this.placeSuggestionList});
+}
+
+class MapsLoadedLocationSuccess extends MapsState {
+  final PlaceLocationModel placeLocationModel;
+
+  MapsLoadedLocationSuccess({required this.placeLocationModel});
 }
 
 class MapsFailure extends MapsState {
   final String errMessage;
+
   MapsFailure({required this.errMessage});
 }
