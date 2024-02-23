@@ -11,6 +11,7 @@ part 'maps_state.dart';
 
 class MapsCubit extends Cubit<MapsState> {
   MapsCubit() : super(MapsInitial());
+
   //! Place suggetions.
   Future<void> getPlaceSuggetions(
       {required String place, required String sessionToken}) async {
@@ -47,10 +48,10 @@ class MapsCubit extends Cubit<MapsState> {
     try {
       var response =
           await PlacesWebservices.fetchPlaceLocation(placeId, sessionToken);
-
+      log(response.toString());
       PlaceLocationModel placeLocationModel =
           PlaceLocationModel.fromJson(response);
-      log(response.toString());
+
       emit(MapsLoadedLocationSuccess(placeLocationModel: placeLocationModel));
     } on DioException catch (err) {
       emit(MapsFailure(errMessage: err.toString()));

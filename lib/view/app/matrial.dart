@@ -77,7 +77,7 @@ class _MyAppState extends State<MyApp> {
           MyRoutes.nav: (context) => const NavbarScreen(),
           MyRoutes.chat: (context) => const ChatScreen(),
           MyRoutes.profile: (context) => const ProfileScreen(),
-          MyRoutes.maps: (context) => const ArchiveScreen(),
+          MyRoutes.maps: (context) => const MapScreen(),
         },
       ),
     );

@@ -2,20 +2,22 @@ import 'dart:async';
 
 import 'package:dr_ai/core/constant/color.dart';
 import 'package:dr_ai/core/helper/location.dart';
+import 'package:dr_ai/data/model/place_location.dart';
+import 'package:dr_ai/data/model/place_suggetion.dart';
 import 'package:flutter/material.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 
 import '../../widget/floating_search_bar.dart';
 
-class ArchiveScreen extends StatefulWidget {
-  const ArchiveScreen({super.key});
+class MapScreen extends StatefulWidget {
+  const MapScreen({super.key});
 
   @override
-  State<ArchiveScreen> createState() => _ArchiveScreenState();
+  State<MapScreen> createState() => _MapScreenState();
 }
 
-class _ArchiveScreenState extends State<ArchiveScreen> {
+class _MapScreenState extends State<MapScreen> {
   Completer<GoogleMapController> mapController = Completer();
   static Position? position;
   static final CameraPosition myCurrrentPositionCameraPosition = CameraPosition(
@@ -29,7 +31,27 @@ class _ArchiveScreenState extends State<ArchiveScreen> {
       setState(() {});
     });
   }
+//!
+// these variables for getPlaceLocation
+  Set<Marker> markers = {};
+  late PlaceSuggestionModel placeSuggestion;
+  late PlaceLocationModel selectedPlace;
+  late Marker searchedPlaceMarker;
+  late Marker currentLocationMarker;
+  late CameraPosition goToSearchedForPlace;
 
+  void buildCameraNewPosition() {
+    goToSearchedForPlace = CameraPosition(
+      bearing: 0.0,
+      tilt: 0.0,
+      target: LatLng(
+        selectedPlace.lat,
+        selectedPlace.lng,
+      ),
+      zoom: 13,
+    );
+  }
+//!
   @override
   void initState() {
     super.initState();

@@ -10,12 +10,16 @@ class MessageWebService {
   static Future postData({required Map<String, dynamic> data}) async {
     try {
       final response = await dio.post(MyApiUrl.pyDrAi, data: data);
+
       log('[${response.statusCode}] Data posted successfully!');
       log("DATA: ${response.data}");
+
       return response.data['message'];
-    } catch (error) {
-      log('CATCH: $error');
+    } on DioException {
+      return Future.error(
+          "pyDrAi error: ", StackTrace.fromString("this is the trace"));
+    } catch (err) {
+      log(err.toString());
     }
-    return null;
   }
 }

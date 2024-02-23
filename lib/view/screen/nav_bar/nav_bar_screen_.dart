@@ -22,7 +22,7 @@ class _NavbarScreenState extends State<NavbarScreen> {
   ];
   final List<Widget> classSwitch = [
     const HomeScreen(),
-    const ArchiveScreen(),
+    const MapScreen(),
   ];
   int bottomNavIndex = 0;
   @override

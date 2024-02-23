@@ -1,3 +1,4 @@
+
 import 'package:dr_ai/data/model/place_suggetion.dart';
 import 'package:dr_ai/logic/maps/maps_cubit.dart';
 import 'package:flutter/material.dart';
@@ -86,7 +87,12 @@ class MyFloatingSearchBarState extends State<MyFloatingSearchBar> {
                       placeSuggestionList[index].secondaryText,
                       textAlign: TextAlign.center,
                     ),
-                    onTap: () {},
+                    onTap: () {
+                      final sessionToken = const Uuid().v4();
+                      BlocProvider.of<MapsCubit>(context).getPlaceLocation(
+                          placeId: placeSuggestionList[index].placeId,
+                          sessionToken: sessionToken);
+                    },
                   ),
                 ),
               );

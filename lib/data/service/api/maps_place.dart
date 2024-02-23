@@ -10,8 +10,9 @@ class PlacesWebservices {
       Response response = await dio.get(
         MyApiUrl.placeSuggetion,
         queryParameters: {
+          'radius': 5000,
           'input': place,
-          'types': 'address',
+          'types': 'hospital',
           'components': 'country:eg',
           'key': MyApiUrl.googleMap,
           'sessiontoken': sessionToken,
@@ -27,14 +28,15 @@ class PlacesWebservices {
       //     .toList();
 
       return response.data['predictions'];
-    } on DioException catch (err) {
-      log('Dio Method err:$err');
-
+    } on DioException {
       return Future.error("Place suggestions error: ",
           StackTrace.fromString("this is the trace"));
+    } catch (err) {
+      log('Dio Method err:$err');
     }
   }
 
+  //! fetch Location
   static Future fetchPlaceLocation(String placeId, String sessionToken) async {
     try {
       Response response = await dio.get(
@@ -47,11 +49,11 @@ class PlacesWebservices {
         },
       );
       return response.data;
-    } on DioException catch (err) {
-
-      log('Dio Method err:$err');
+    } on DioException {
       return Future.error(
           "Place location error: ", StackTrace.fromString("this is the trace"));
+    } catch (err) {
+      log('Dio Method err:$err');
     }
   }
 }
