@@ -47,64 +47,56 @@ class _ProfileScreenState extends State<ProfileScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(
+        leading: IconButton(
+          onPressed: () => Navigator.pop(context),
+          icon: const Icon(Icons.arrow_back_ios_new_outlined),
+        ),
+        centerTitle: true,
+        title: Text("Profile",
+            style: GoogleFonts.roboto(
+              textStyle: const TextStyle(
+                fontSize: 20,
+                fontWeight: FontWeight.w500,
+              ),
+            )),
+      ),
       body: Container(
           width: double.infinity,
-          padding: const EdgeInsets.all(32),
-          child: Stack(
+          padding:
+              const EdgeInsets.only(top: 5, left: 20, right: 20, bottom: 30),
+          child: Column(
             children: [
-              IconButton(
-                onPressed: () => Navigator.pushNamedAndRemoveUntil(
-                    context,MyRoutes.nav, (route) => false),
-                icon: const Icon(Icons.arrow_back_ios_new_outlined),
-              ),
-              Align(
-                alignment: Alignment.topCenter,
-                child: Text("Profile",
-                    style: GoogleFonts.roboto(
-                      textStyle: const TextStyle(
-                        fontSize: 20,
-                        fontWeight: FontWeight.w500,
-                      ),
-                    )),
-              ),
-              Stack(
-                alignment: Alignment.center,
-                children: [
-                  Positioned(
-                    top: 68,
-                    child: Container(
-                      width: 343,
-                      height: 182,
-                      decoration: BoxDecoration(
-                          color: MyColors.green2.withOpacity(0.3),
-                          borderRadius: BorderRadius.circular(16)),
-                    ),
-                  ),
-                  Positioned(
-                    top: 32,
-                    width: 102,
-                    height: 102,
-                    child: BlocConsumer<ImageCubit, ImageState>(
-                      listener: (context, state) {
-                        if (state is Imageloading) {
-                          isImageLoading = true;
-                        }
-                        if (state is ImageSuccess) {
-                          isImageLoading = false;
-                          imageUrl = state.imageUrl;
-                        }
-                        if (state is ImageFailure) {
-                          isImageLoading = false;
-                          scaffoldSnackBar(context,
-                              "There was an error please try again later!");
-                          log(state.message);
-                        }
-                      },
-                      builder: (context, state) {
-                        return Container(
+              Container(
+                padding: const EdgeInsets.all(10),
+                decoration: BoxDecoration(
+                    color: MyColors.green2.withOpacity(0.3),
+                    borderRadius: BorderRadius.circular(16)),
+                child: BlocConsumer<ImageCubit, ImageState>(
+                  listener: (context, state) {
+                    if (state is Imageloading) {
+                      isImageLoading = true;
+                    }
+                    if (state is ImageSuccess) {
+                      isImageLoading = false;
+                      imageUrl = state.imageUrl;
+                    }
+                    if (state is ImageFailure) {
+                      isImageLoading = false;
+                      scaffoldSnackBar(context,
+                          "There was an error please try again later!");
+                      log(state.message);
+                    }
+                  },
+                  builder: (context, state) {
+                    return Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        const Spacer(),
+                        Container(
                           decoration: BoxDecoration(
                               border:
-                                  Border.all(color: MyColors.green, width: 4),
+                                  Border.all(color: MyColors.green, width: 3),
                               shape: BoxShape.circle),
                           child: ModalProgressHUD(
                             inAsyncCall: isLoading,
@@ -113,13 +105,13 @@ class _ProfileScreenState extends State<ProfileScreen> {
                               child: isImageLoading == true
                                   ? const CircleAvatar(
                                       backgroundColor: MyColors.green2,
-                                      radius: 35,
+                                      radius: 40,
                                       child: CircularProgressIndicator(
                                         color: MyColors.green,
                                       ),
                                     )
                                   : CircleAvatar(
-                                      radius: 35,
+                                      radius: 40,
                                       backgroundColor: MyColors.green2,
                                       backgroundImage: imageUrl != null
                                           ? FileImage(File(imageUrl!))
@@ -143,108 +135,95 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                     ),
                             ),
                           ),
-                        );
-                      },
-                    ),
-                  ),
-                  Positioned(
-                    top: 140,
-                    child: Column(
-                      children: [
-                        const Gap(8),
-                        Text(user.displayName ?? "Guest",
-                            style: GoogleFonts.roboto(
-                                textStyle: const TextStyle(
-                                    fontSize: 18,
-                                    fontWeight: FontWeight.w500,
-                                    color: MyColors.green))),
-                        const Gap(2),
-                        Text(user.email.toString(),
-                            style: GoogleFonts.roboto(
-                                textStyle: const TextStyle(
-                              fontSize: 14,
-                            )))
-                      ],
-                    ),
-                  ),
-                  Positioned(
-                    top: 270,
-                    child: Column(
-                      children: [
-                        CustomProfileCardButton(
-                          content: user.displayName ?? "Guest",
-                          onTap: () {},
-                          leadingImage: MyImages.userAdd,
-                          trailingImage: MyImages.edit,
                         ),
-                        CustomProfileCardButton(
-                          content: user.email.toString(),
-                          scale: 2,
-                          onTap: () {},
-                          leadingImage: MyImages.email,
-                          trailingImage: MyImages.edit,
+                        const Spacer(
+                          flex: 3,
                         ),
-                        CustomProfileCardButton(
-                          content: "Health Information",
-                          scale: 2,
-                          onTap: () {},
-                          leadingImage: MyImages.task,
-                          trailingImage: MyImages.arrowDown,
+                        Column(
+                          children: [
+                            Text(
+                              user.displayName ?? "Guest",
+                              style: GoogleFonts.roboto(
+                                  textStyle: const TextStyle(
+                                      fontSize: 20,
+                                      fontWeight: FontWeight.w500,
+                                      color: MyColors.green)),
+                              textAlign: TextAlign.center,
+                            ),
+                            const Gap(2),
+                            Text(user.email.toString(),
+                                style: GoogleFonts.roboto(
+                                    textStyle: const TextStyle(
+                                  fontSize: 16,
+                                ))),
+                          ],
                         ),
-                        CustomProfileCardButton(
-                          content: "Privacy",
-                          scale: 2,
-                          onTap: () {},
-                          leadingImage: MyImages.securityCard,
-                          trailingImage: MyImages.arrowDown,
-                        ),
-                        CustomProfileCardButton(
-                          content: "Setting",
-                          scale: 2,
-                          onTap: () {},
-                          leadingImage: MyImages.setting,
-                          trailingImage: MyImages.arrowDown,
+                        const Spacer(
+                          flex: 2,
                         ),
                       ],
-                    ),
+                    );
+                  },
+                ),
+              ),
+              const Gap(15),
+              CustomProfileCardButton(
+                content: user.displayName ?? "Guest",
+                onTap: () {},
+                leadingImage: MyImages.userAdd,
+                trailingImage: MyImages.edit,
+              ),
+              CustomProfileCardButton(
+                content: user.email.toString(),
+                scale: 2,
+                onTap: () {},
+                leadingImage: MyImages.email,
+                trailingImage: MyImages.edit,
+              ),
+              CustomProfileCardButton(
+                content: "Health Information",
+                scale: 2,
+                onTap: () {},
+                leadingImage: MyImages.task,
+                trailingImage: MyImages.arrowDown,
+              ),
+              CustomProfileCardButton(
+                content: "Privacy",
+                scale: 2,
+                onTap: () {},
+                leadingImage: MyImages.securityCard,
+                trailingImage: MyImages.arrowDown,
+              ),
+              CustomProfileCardButton(
+                content: "Setting",
+                scale: 2,
+                onTap: () {},
+                leadingImage: MyImages.setting,
+                trailingImage: MyImages.arrowDown,
+              ),
+              const Spacer(),
+              CustomButton(
+                  height: 60,
+                  onPressed: logOut,
+                  widget: Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Image.asset(
+                        MyImages.logOut,
+                        scale: 4.2,
+                        color: MyColors.white,
+                      ),
+                      const SizedBox(width: 10),
+                      Text("Logout",
+                          style: GoogleFonts.roboto(
+                              textStyle: const TextStyle(
+                            color: MyColors.white,
+                            fontSize: 18,
+                            fontWeight: FontWeight.w500,
+                          )))
+                    ],
                   ),
-                  Container(
-                      padding: const EdgeInsets.symmetric(horizontal: 5),
-                      alignment: Alignment.bottomCenter,
-                      child: CustomButton(
-                          height: 60,
-                          onPressed: logOut,
-                          widget: Row(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                              Image.asset(
-                                MyImages.logOut,
-                                scale: 4.2,
-                                color: MyColors.white,
-                              ),
-                              const SizedBox(width: 10),
-                              Text("Logout",
-                                  style: GoogleFonts.roboto(
-                                      textStyle: const TextStyle(
-                                    color: MyColors.white,
-                                    fontSize: 18,
-                                    fontWeight: FontWeight.w500,
-                                  )))
-                            ],
-                          ),
-                          color: MyColors.black)),
-                  Positioned(
-                      top: 93,
-                      right: 112,
-                      child: IconButton(
-                          onPressed: pickImage,
-                          icon: const CircleAvatar(
-                            radius: 12,
-                            backgroundColor: MyColors.green2,
-                            backgroundImage: AssetImage(MyImages.add),
-                          ))),
-                ],
-              )
+                  color: MyColors.black),
             ],
           )),
     );

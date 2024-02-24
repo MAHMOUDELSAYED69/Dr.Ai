@@ -17,12 +17,11 @@ class CustomProfileCardButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.symmetric(vertical: 9),
+      padding: const EdgeInsets.only(top: 15),
       child: Card(
         color: MyColors.green,
         child: SizedBox(
-          height: 50,
-          width: MediaQuery.sizeOf(context).width * 0.83,
+          height: 55,
           child: ListTile(
             contentPadding: EdgeInsets.zero,
             leading: Padding(

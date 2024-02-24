@@ -16,7 +16,9 @@ class ChatCubit extends Cubit<ChatState> {
     emit(ChatSenderLoading());
     try {
       ChatMessageModel chatMessageModel = ChatMessageModel(
-          isUser: true, message: message, timeTamp: DateTime.now().toString());
+          isUser: true,
+          message: message.trim(),
+          timeTamp: DateTime.now().toString());
       await FirebaseFirestore.instance
           .collection('chat_history')
           .doc(FirebaseAuth.instance.currentUser!.uid)

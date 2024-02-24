@@ -1,4 +1,4 @@
-
+import 'dart:developer';
 import 'dart:io';
 import 'package:dr_ai/core/constant/image.dart';
 import 'package:dr_ai/core/constant/routes.dart';
@@ -7,9 +7,12 @@ import 'package:dr_ai/logic/other/contact_func.dart';
 import 'package:dr_ai/view/widget/custom_button.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:gap/gap.dart';
 import 'package:google_fonts/google_fonts.dart';
 import '../../../core/constant/color.dart';
+import '../../../core/helper/scaffold_snakbar.dart';
+import '../../../logic/image/image_cubit.dart';
 import '../../widget/mental_health_card.dart';
 
 class HomeScreen extends StatefulWidget {
@@ -21,6 +24,8 @@ class HomeScreen extends StatefulWidget {
 
 class _HomeScreenState extends State<HomeScreen> {
   var user = FirebaseAuth.instance.currentUser!;
+  bool isImageLoading = false;
+  String? imageUrl;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -28,65 +33,101 @@ class _HomeScreenState extends State<HomeScreen> {
       body: SingleChildScrollView(
         child: Container(
           width: double.infinity,
-          margin: const EdgeInsets.all(35),
+          margin: const EdgeInsets.only(right: 15, left: 15, top: 35),
           child: Column(
             children: [
               GestureDetector(
                 onTap: () {
                   Navigator.pushNamed(context, MyRoutes.profile);
                 },
-                child: Container(
-                  padding: const EdgeInsets.all(8.0),
-                  child: Row(
-                    children: [
-                      Container(
-                        decoration: BoxDecoration(
-                          border: Border.all(color: MyColors.green, width: 3),
-                          shape: BoxShape.circle,
-                        ),
-                        child: CircleAvatar(
-                          backgroundColor: MyColors.green,
-                          radius: 20,
-                          backgroundImage: user.photoURL != null
-                              ? FileImage(File(user.photoURL!))
-                              : null,
-                          child: user.photoURL == null
-                              ? Text(
-                                  user.displayName!.toUpperCase()[0],
-                                  style: const TextStyle(
-                                    color: MyColors.white,
-                                    fontSize: 18,
-                                  ),
-                                )
-                              : null,
-                        ),
-                      ),
-                      const Gap(10),
-                      Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
+                child: BlocConsumer<ImageCubit, ImageState>(
+                  listener: (context, state) {
+                    if (state is Imageloading) {
+                      isImageLoading = true;
+                    }
+                    if (state is ImageSuccess) {
+                      isImageLoading = false;
+                      imageUrl = state.imageUrl;
+                    }
+                    if (state is ImageFailure) {
+                      isImageLoading = false;
+                      scaffoldSnackBar(context,
+                          "There was an error please try again later!");
+                      log(state.message);
+                    }
+                  },
+                  builder: (context, state) {
+                    return Container(
+                      padding: const EdgeInsets.all(8.0),
+                      child: Row(
                         children: [
-                          Text(
-                            "Welcome Back",
-                            style: GoogleFonts.roboto(
-                              textStyle: const TextStyle(
-                                fontSize: 12,
-                              ),
+                          Container(
+                            decoration: BoxDecoration(
+                              border:
+                                  Border.all(color: MyColors.green, width: 2),
+                              shape: BoxShape.circle,
                             ),
+                            child: isImageLoading == true
+                                ? const CircleAvatar(
+                                    backgroundColor: MyColors.green2,
+                                    radius: 25,
+                                    child: CircularProgressIndicator(
+                                      color: MyColors.green,
+                                    ),
+                                  )
+                                : CircleAvatar(
+                                    backgroundColor: MyColors.green,
+                                    radius: 25,
+                                    backgroundImage: imageUrl != null
+                                        ? FileImage(File(imageUrl!))
+                                        : user.photoURL != null
+                                            ? FileImage(File(user.photoURL!))
+                                            : null,
+                                    child: imageUrl == null &&
+                                            user.photoURL == null
+                                        ? SizedBox(
+                                            child: Text(
+                                            user.displayName
+                                                .toString()
+                                                .toUpperCase()[0],
+                                            overflow: TextOverflow.ellipsis,
+                                            style: const TextStyle(
+                                              color: MyColors.white,
+                                              fontSize: 18,
+                                            ),
+                                          ))
+                                        : null,
+                                  ),
                           ),
-                          Text(
-                            FirebaseAuth.instance.currentUser!.displayName ??
-                                "Guest",
-                            style: GoogleFonts.roboto(
-                              textStyle: const TextStyle(
-                                fontSize: 14,
-                                fontWeight: FontWeight.bold,
+                          const Gap(10),
+                          Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Text(
+                                "Welcome Back",
+                                style: GoogleFonts.roboto(
+                                  textStyle: const TextStyle(
+                                    fontSize: 14,
+                                  ),
+                                ),
                               ),
-                            ),
-                          ),
+                              Text(
+                                FirebaseAuth
+                                        .instance.currentUser!.displayName ??
+                                    "Guest",
+                                style: GoogleFonts.roboto(
+                                  textStyle: const TextStyle(
+                                    fontSize: 16,
+                                    fontWeight: FontWeight.bold,
+                                  ),
+                                ),
+                              ),
+                            ],
+                          )
                         ],
                       ),
-                    ],
-                  ),
+                    );
+                  },
                 ),
               ),
               Card(
@@ -116,7 +157,7 @@ class _HomeScreenState extends State<HomeScreen> {
                               "Get instant medical advice anytime, anywhere with our trusted AI-powered doctor app. Chat now!",
                               style: GoogleFonts.roboto(
                                 textStyle: const TextStyle(
-                                  fontSize: 12,
+                                  fontSize: 14,
                                   color: MyColors.grey1,
                                 ),
                               ),
@@ -129,7 +170,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                   borderRadius: 8,
                                   fontSize: 12,
                                   height: 33,
-                                  width: 125,
+                                  width: 140,
                                   color: MyColors.green,
                                   title: "Start Chat",
                                   onPressed: () {
@@ -147,8 +188,8 @@ class _HomeScreenState extends State<HomeScreen> {
                         flex: 1,
                         child: Image.asset(
                           MyImages.robot,
-                          width: 100,
-                          height: 105,
+                          width: 130,
+                          height: 135,
                         ),
                       ),
                     ],
@@ -183,8 +224,7 @@ class _HomeScreenState extends State<HomeScreen> {
                   ),
                   MentalHealthCard(
                     image: MyImages.healthA4,
-                    onTap: () {
-                    },
+                    onTap: () {},
                   ),
                   MentalHealthCard(
                     image: MyImages.healthA5,

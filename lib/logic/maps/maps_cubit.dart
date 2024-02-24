@@ -17,8 +17,8 @@ class MapsCubit extends Cubit<MapsState> {
       {required String place, required String sessionToken}) async {
     emit(MapsLoading());
     try {
-      List<dynamic> response =
-          await PlacesWebservices.fetchPlaceSuggestions(place, sessionToken);
+      List<dynamic> response = await PlacesWebservices.fetchPlaceSuggestions(
+          place.trim(), sessionToken);
 
       List<PlaceSuggestionModel> suggestionList = response
           .map((prediction) => PlaceSuggestionModel.fromJson(prediction))
@@ -46,8 +46,8 @@ class MapsCubit extends Cubit<MapsState> {
       {required String placeId, required String sessionToken}) async {
     emit(MapsLoading());
     try {
-      var response =
-          await PlacesWebservices.fetchPlaceLocation(placeId, sessionToken);
+      var response = await PlacesWebservices.fetchPlaceLocation(
+          placeId.trim(), sessionToken);
       log(response.toString());
       PlaceLocationModel placeLocationModel =
           PlaceLocationModel.fromJson(response);

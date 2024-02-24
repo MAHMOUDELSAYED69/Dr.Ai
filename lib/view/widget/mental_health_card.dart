@@ -9,7 +9,7 @@ class MentalHealthCard extends StatelessWidget {
     super.key,
     required this.image,
     this.title = "Mental Health",
-    this.subTitle = "16 Conversations",
+    this.subTitle = "",
     this.onTap,
   });
 
