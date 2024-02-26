@@ -5,4 +5,5 @@ class MyApiUrl {
   static String googleMap = dotenv.env['mapApiKey']!;
   static String placeSuggetion = dotenv.env['placeSuggetionBaseUrl']!;
   static String placeLocation = dotenv.env['placeLocationBaseUrl']!;
+  static String directions = dotenv.env['directionsBaseUrl']!;
 }

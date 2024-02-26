@@ -2,6 +2,8 @@ import 'package:dio/dio.dart';
 import 'package:dr_ai/core/constant/api_url.dart';
 import 'dart:developer';
 
+import 'package:google_maps_flutter/google_maps_flutter.dart';
+
 class PlacesWebservices {
   static Dio dio = Dio();
   //! Fetch Suggetions.
@@ -46,6 +48,25 @@ class PlacesWebservices {
           'fields': 'geometry',
           'key': MyApiUrl.googleMap,
           'sessiontoken': sessionToken,
+        },
+      );
+      return response.data;
+    } on DioException {
+      return Future.error(
+          "Place location error: ", StackTrace.fromString("this is the trace"));
+    } catch (err) {
+      log('Dio Method err:$err');
+    }
+  }
+
+  static Future getdirections(LatLng origin, LatLng destination) async {
+    try {
+      Response response = await dio.get(
+        MyApiUrl.directions,
+        queryParameters: {
+          'origin': '${origin.latitude},${origin.longitude}',
+          'destination': '${destination.latitude},${destination.longitude}',
+          'key': MyApiUrl.googleMap,
         },
       );
       return response.data;
