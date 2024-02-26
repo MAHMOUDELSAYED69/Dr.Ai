@@ -37,7 +37,7 @@ class _MapScreenState extends State<MapScreen> {
 
 //!
   Set<Marker> markers = {};
-  // late PlaceSuggestionModel placeSuggestion;
+  late String placeSuggestion;
   late PlaceLocationModel selectedPlace;
   late Marker searchedPlaceMarker;
   late CameraPosition goToSearchedForPlace;
@@ -108,7 +108,7 @@ class _MapScreenState extends State<MapScreen> {
                       color: MyColors.green,
                     ),
                   ),
-            buildSelectedPlaceLocationBloc(),
+            buildSelectedPlaceLocation(),
             const MyFloatingSearchBar(),
           ],
         ),
@@ -123,11 +123,12 @@ class _MapScreenState extends State<MapScreen> {
         ));
   }
 
-  Widget buildSelectedPlaceLocationBloc() {
+  Widget buildSelectedPlaceLocation() {
     return BlocListener<MapsCubit, MapsState>(
       listener: (context, state) {
         if (state is MapsLoadedLocationSuccess) {
-          selectedPlace = state.placeLocationModel;
+          selectedPlace = state.placeLocation[0];
+          placeSuggestion = state.placeLocation[1];
           log(selectedPlace.toString());
           goToMySearchedForLocation();
         }
@@ -151,7 +152,7 @@ class _MapScreenState extends State<MapScreen> {
       onTap: () {
         setState(() {});
       },
-      infoWindow: InfoWindow(title: CacheData.getdata(key: "description")),
+      infoWindow: InfoWindow(title: placeSuggestion),
       icon: BitmapDescriptor.defaultMarkerWithHue(BitmapDescriptor.hueRed),
     );
 

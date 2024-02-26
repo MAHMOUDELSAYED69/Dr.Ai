@@ -43,16 +43,18 @@ class MapsCubit extends Cubit<MapsState> {
 
   //! Place Location.
   Future<void> getPlaceLocation(
-      {required String placeId, required String sessionToken}) async {
+      {required String placeId,
+      required String sessionToken,
+      String? description}) async {
     emit(MapsLoading());
     try {
       var response = await PlacesWebservices.fetchPlaceLocation(
           placeId.trim(), sessionToken);
-      // log(response.toString());
       PlaceLocationModel placeLocationModel =
           PlaceLocationModel.fromJson(response);
 
-      emit(MapsLoadedLocationSuccess(placeLocationModel: placeLocationModel));
+      emit(MapsLoadedLocationSuccess(
+          placeLocation: [placeLocationModel, description]));
     } on DioException catch (err) {
       emit(MapsFailure(errMessage: err.toString()));
       log("Dio err: $err");

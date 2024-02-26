@@ -14,9 +14,9 @@ class MapsLoadedSuggestionsSuccess extends MapsState {
 }
 
 class MapsLoadedLocationSuccess extends MapsState {
-  final PlaceLocationModel placeLocationModel;
+  final List<dynamic> placeLocation;
 
-  MapsLoadedLocationSuccess({required this.placeLocationModel});
+  MapsLoadedLocationSuccess({required this.placeLocation});
 }
 
 class MapsFailure extends MapsState {

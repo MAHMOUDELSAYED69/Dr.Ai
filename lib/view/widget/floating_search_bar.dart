@@ -1,6 +1,3 @@
-import 'dart:developer';
-
-import 'package:dr_ai/core/cache/cache.dart';
 import 'package:dr_ai/data/model/place_suggetion.dart';
 import 'package:dr_ai/logic/maps/maps_cubit.dart';
 import 'package:flutter/material.dart';
@@ -11,8 +8,7 @@ import 'package:uuid/uuid.dart';
 import '../../core/constant/color.dart';
 
 class MyFloatingSearchBar extends StatefulWidget {
-  const MyFloatingSearchBar({Key? key}) : super(key: key);
-
+  const MyFloatingSearchBar({super.key});
   @override
   MyFloatingSearchBarState createState() => MyFloatingSearchBarState();
 }
@@ -39,7 +35,7 @@ class MyFloatingSearchBarState extends State<MyFloatingSearchBar> {
       borderRadius: BorderRadius.circular(14),
       height: 50,
       hint: 'Find a hospital...',
-      scrollPadding: const EdgeInsets.only(bottom: 56),
+      scrollPadding: const EdgeInsets.only(bottom: 56, top: 0),
       transitionDuration: const Duration(milliseconds: 400),
       transitionCurve: Curves.easeInOut,
       physics: const BouncingScrollPhysics(),
@@ -68,50 +64,55 @@ class MyFloatingSearchBarState extends State<MyFloatingSearchBar> {
           builder: (context, state) {
             if (state is MapsLoadedSuggestionsSuccess) {
               placeSuggestionList = state.placeSuggestionList;
-              return SingleChildScrollView(
-                physics: const BouncingScrollPhysics(),
-                child: ListView.builder(
-                  shrinkWrap: true,
-                  itemCount: placeSuggestionList.length,
-                  itemBuilder: (context, index) => Card(
-                    child: ListTile(
-                      trailing: const Icon(
-                        Icons.apartment_rounded,
-                        color: MyColors.green,
-                      ),
-                      leading: const Icon(
-                        Icons.place,
-                        color: MyColors.green,
-                      ),
-                      title: Text(
-                        placeSuggestionList[index].mainText,
-                        textAlign: TextAlign.center,
-                        style: const TextStyle(fontSize: 18),
-                      ),
-                      subtitle: Text(
-                        placeSuggestionList[index].secondaryText,
-                        textAlign: TextAlign.center,
-                      ),
-                      onTap: () {
-                        CacheData.setData(
-                            key: "description",
-                            value: placeSuggestionList[index].description);
-                        final sessionToken = const Uuid().v4();
-                        BlocProvider.of<MapsCubit>(context).getPlaceLocation(
-                            placeId: placeSuggestionList[index].placeId,
-                            sessionToken: sessionToken);
-                        searchBarController.close();
-                        FocusScope.of(context).unfocus();
-                      },
+              return ListView.builder(
+                shrinkWrap: true,
+                itemCount: placeSuggestionList.length,
+                itemBuilder: (context, index) => Card(
+                  child: ListTile(
+                    trailing: const Icon(
+                      Icons.apartment_rounded,
+                      color: MyColors.green,
                     ),
+                    leading: const Icon(
+                      Icons.place,
+                      color: MyColors.green,
+                    ),
+                    title: Text(
+                      placeSuggestionList[index].mainText,
+                      textAlign: TextAlign.center,
+                      style: const TextStyle(fontSize: 18),
+                    ),
+                    subtitle: Text(
+                      placeSuggestionList[index].secondaryText,
+                      textAlign: TextAlign.center,
+                    ),
+                    onTap: () {
+                      final sessionToken = const Uuid().v4();
+                      BlocProvider.of<MapsCubit>(context).getPlaceLocation(
+                          placeId: placeSuggestionList[index].placeId,
+                          description: placeSuggestionList[index].description,
+                          sessionToken: sessionToken);
+                      searchBarController.close();
+                      FocusScope.of(context).unfocus();
+                    },
                   ),
                 ),
               );
             }
             if (state is MapsLoading) {
-              return const Center(
-                child: CircularProgressIndicator(
-                  color: MyColors.green,
+              return Padding(
+                padding: const EdgeInsets.only(top: 20),
+                child: Container(
+                  alignment: Alignment.center,
+                  width: 60,
+                  height: 60,
+                  decoration: const BoxDecoration(
+                    color: MyColors.white,
+                    shape: BoxShape.circle,
+                  ),
+                  child: const CircularProgressIndicator(
+                    color: MyColors.green,
+                  ),
                 ),
               );
             }
