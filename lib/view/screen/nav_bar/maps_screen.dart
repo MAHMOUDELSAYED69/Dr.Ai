@@ -4,6 +4,7 @@ import 'dart:developer';
 import 'package:dr_ai/core/cache/cache.dart';
 import 'package:dr_ai/core/constant/color.dart';
 import 'package:dr_ai/core/helper/location.dart';
+import 'package:dr_ai/data/model/place_directions.dart';
 import 'package:dr_ai/data/model/place_location.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
