@@ -58,21 +58,21 @@ class PlacesWebservices {
       log('Dio Method err:$err');
     }
   }
-
-  static Future getdirections(LatLng origin, LatLng destination) async {
+   //! get destination
+  static Future getPlaceDirections(LatLng origin, LatLng destination) async {
     try {
       Response response = await dio.get(
         MyApiUrl.directions,
         queryParameters: {
           'origin': '${origin.latitude},${origin.longitude}',
           'destination': '${destination.latitude},${destination.longitude}',
-          'key': MyApiUrl.googleMap,
+          'key': MyApiUrl.googleMap, 
         },
       );
       return response.data;
     } on DioException {
-      return Future.error(
-          "Place location error: ", StackTrace.fromString("this is the trace"));
+      return Future.error("Place destination error: ",
+          StackTrace.fromString("this is the trace"));
     } catch (err) {
       log('Dio Method err:$err');
     }
