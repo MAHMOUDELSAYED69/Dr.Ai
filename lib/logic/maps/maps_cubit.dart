@@ -2,9 +2,11 @@ import 'dart:developer';
 
 import 'package:bloc/bloc.dart';
 import 'package:dio/dio.dart';
+import 'package:dr_ai/data/model/place_directions.dart';
 import 'package:dr_ai/data/model/place_location.dart';
 import 'package:dr_ai/data/model/place_suggetion.dart';
 import 'package:dr_ai/data/service/api/maps_place.dart';
+import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:meta/meta.dart';
 
 part 'maps_state.dart';
@@ -55,6 +57,29 @@ class MapsCubit extends Cubit<MapsState> {
 
       emit(MapsLoadedLocationSuccess(
           placeLocation: [placeLocationModel, description]));
+    } on DioException catch (err) {
+      emit(MapsFailure(errMessage: err.toString()));
+      log("Dio err: $err");
+    } catch (err) {
+      emit(MapsFailure(errMessage: err.toString()));
+      log(err.toString());
+    }
+  }
+
+  Future<void> getPlaceDirections({
+    required LatLng origin,
+    required LatLng destination,
+  }) async {
+    emit(MapsLoading());
+    try {
+      List<dynamic> response =
+          await PlacesWebservices.getPlaceDirections(origin, destination);
+
+      List<PlaceDirectionsModel> placeDirectionsList = response
+          .map((direction) => PlaceDirectionsModel.fromJson(direction))
+          .toList();
+      emit(MapsLoadedDirectionsSuccess(placeDirections: placeDirectionsList));
+      
     } on DioException catch (err) {
       emit(MapsFailure(errMessage: err.toString()));
       log("Dio err: $err");

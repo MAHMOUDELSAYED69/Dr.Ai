@@ -19,6 +19,12 @@ class MapsLoadedLocationSuccess extends MapsState {
   MapsLoadedLocationSuccess({required this.placeLocation});
 }
 
+class MapsLoadedDirectionsSuccess extends MapsState {
+  final List<dynamic> placeDirections;
+
+  MapsLoadedDirectionsSuccess({required this.placeDirections});
+}
+
 class MapsFailure extends MapsState {
   final String errMessage;
 
