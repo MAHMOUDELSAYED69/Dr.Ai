@@ -24,12 +24,12 @@ class MapsCubit extends Cubit<MapsState> {
           .map((prediction) => PlaceSuggestionModel.fromJson(prediction))
           .toList();
 
-      //! JUST FOR TESTING
-      int index = suggestionList.length - 1;
-      while (index > 0) {
-        log(suggestionList[index].placeId);
-        index--;
-      }
+      // //! JUST FOR TESTING
+      // int index = suggestionList.length - 1;
+      // while (index > 0) {
+      //   log(suggestionList[index].placeId);
+      //   index--;
+      // }
 
       emit(MapsLoadedSuggestionsSuccess(placeSuggestionList: suggestionList));
     } on DioException catch (err) {
@@ -48,7 +48,7 @@ class MapsCubit extends Cubit<MapsState> {
     try {
       var response = await PlacesWebservices.fetchPlaceLocation(
           placeId.trim(), sessionToken);
-      log(response.toString());
+      // log(response.toString());
       PlaceLocationModel placeLocationModel =
           PlaceLocationModel.fromJson(response);
 

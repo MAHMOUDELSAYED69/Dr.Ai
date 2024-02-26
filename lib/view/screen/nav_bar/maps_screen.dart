@@ -1,13 +1,16 @@
 import 'dart:async';
+import 'dart:developer';
 
+import 'package:dr_ai/core/cache/cache.dart';
 import 'package:dr_ai/core/constant/color.dart';
 import 'package:dr_ai/core/helper/location.dart';
 import 'package:dr_ai/data/model/place_location.dart';
-import 'package:dr_ai/data/model/place_suggetion.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 
+import '../../../logic/maps/maps_cubit.dart';
 import '../../widget/floating_search_bar.dart';
 
 class MapScreen extends StatefulWidget {
@@ -31,16 +34,16 @@ class _MapScreenState extends State<MapScreen> {
       setState(() {});
     });
   }
+
 //!
-// these variables for getPlaceLocation
   Set<Marker> markers = {};
-  late PlaceSuggestionModel placeSuggestion;
+  // late PlaceSuggestionModel placeSuggestion;
   late PlaceLocationModel selectedPlace;
   late Marker searchedPlaceMarker;
-  late Marker currentLocationMarker;
   late CameraPosition goToSearchedForPlace;
 
   void buildCameraNewPosition() {
+    log("${selectedPlace.lat}  ${selectedPlace.lng}");
     goToSearchedForPlace = CameraPosition(
       bearing: 0.0,
       tilt: 0.0,
@@ -51,6 +54,7 @@ class _MapScreenState extends State<MapScreen> {
       zoom: 13,
     );
   }
+
 //!
   @override
   void initState() {
@@ -60,6 +64,7 @@ class _MapScreenState extends State<MapScreen> {
 
   Widget buildMap() {
     return GoogleMap(
+      markers: markers,
       initialCameraPosition: CameraPosition(
         target: LatLng(position!.latitude, position!.longitude),
         zoom: 15.0,
@@ -103,6 +108,7 @@ class _MapScreenState extends State<MapScreen> {
                       color: MyColors.green,
                     ),
                   ),
+            buildSelectedPlaceLocationBloc(),
             const MyFloatingSearchBar(),
           ],
         ),
@@ -115,5 +121,46 @@ class _MapScreenState extends State<MapScreen> {
             color: MyColors.white,
           ),
         ));
+  }
+
+  Widget buildSelectedPlaceLocationBloc() {
+    return BlocListener<MapsCubit, MapsState>(
+      listener: (context, state) {
+        if (state is MapsLoadedLocationSuccess) {
+          selectedPlace = state.placeLocationModel;
+          log(selectedPlace.toString());
+          goToMySearchedForLocation();
+        }
+      },
+      child: Container(),
+    );
+  }
+
+  Future<void> goToMySearchedForLocation() async {
+    buildCameraNewPosition();
+    final GoogleMapController controller = await mapController.future;
+    controller
+        .animateCamera(CameraUpdate.newCameraPosition(goToSearchedForPlace));
+    buildSearchedPlaceMarker();
+  }
+
+  void buildSearchedPlaceMarker() {
+    searchedPlaceMarker = Marker(
+      position: goToSearchedForPlace.target,
+      markerId: const MarkerId('1'),
+      onTap: () {
+        setState(() {});
+      },
+      infoWindow: InfoWindow(title: CacheData.getdata(key: "description")),
+      icon: BitmapDescriptor.defaultMarkerWithHue(BitmapDescriptor.hueRed),
+    );
+
+    addMarkerToMarkersAndUpdateUI(searchedPlaceMarker);
+  }
+
+  void addMarkerToMarkersAndUpdateUI(Marker marker) {
+    setState(() {
+      markers.add(marker);
+    });
   }
 }

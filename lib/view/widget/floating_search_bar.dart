@@ -1,4 +1,6 @@
+import 'dart:developer';
 
+import 'package:dr_ai/core/cache/cache.dart';
 import 'package:dr_ai/data/model/place_suggetion.dart';
 import 'package:dr_ai/logic/maps/maps_cubit.dart';
 import 'package:flutter/material.dart';
@@ -33,6 +35,7 @@ class MyFloatingSearchBarState extends State<MyFloatingSearchBar> {
         MediaQuery.of(context).orientation == Orientation.portrait;
 
     return FloatingSearchBar(
+      controller: searchBarController,
       borderRadius: BorderRadius.circular(14),
       height: 50,
       hint: 'Find a hospital...',
@@ -65,34 +68,42 @@ class MyFloatingSearchBarState extends State<MyFloatingSearchBar> {
           builder: (context, state) {
             if (state is MapsLoadedSuggestionsSuccess) {
               placeSuggestionList = state.placeSuggestionList;
-              return ListView.builder(
-                shrinkWrap: true,
-                itemCount: placeSuggestionList.length,
-                itemBuilder: (context, index) => Card(
-                  child: ListTile(
-                    trailing: const Icon(
-                      Icons.apartment_rounded,
-                      color: MyColors.green,
+              return SingleChildScrollView(
+                physics: const BouncingScrollPhysics(),
+                child: ListView.builder(
+                  shrinkWrap: true,
+                  itemCount: placeSuggestionList.length,
+                  itemBuilder: (context, index) => Card(
+                    child: ListTile(
+                      trailing: const Icon(
+                        Icons.apartment_rounded,
+                        color: MyColors.green,
+                      ),
+                      leading: const Icon(
+                        Icons.place,
+                        color: MyColors.green,
+                      ),
+                      title: Text(
+                        placeSuggestionList[index].mainText,
+                        textAlign: TextAlign.center,
+                        style: const TextStyle(fontSize: 18),
+                      ),
+                      subtitle: Text(
+                        placeSuggestionList[index].secondaryText,
+                        textAlign: TextAlign.center,
+                      ),
+                      onTap: () {
+                        CacheData.setData(
+                            key: "description",
+                            value: placeSuggestionList[index].description);
+                        final sessionToken = const Uuid().v4();
+                        BlocProvider.of<MapsCubit>(context).getPlaceLocation(
+                            placeId: placeSuggestionList[index].placeId,
+                            sessionToken: sessionToken);
+                        searchBarController.close();
+                        FocusScope.of(context).unfocus();
+                      },
                     ),
-                    leading: const Icon(
-                      Icons.place,
-                      color: MyColors.green,
-                    ),
-                    title: Text(
-                      placeSuggestionList[index].mainText,
-                      textAlign: TextAlign.center,
-                      style: const TextStyle(fontSize: 18),
-                    ),
-                    subtitle: Text(
-                      placeSuggestionList[index].secondaryText,
-                      textAlign: TextAlign.center,
-                    ),
-                    onTap: () {
-                      final sessionToken = const Uuid().v4();
-                      BlocProvider.of<MapsCubit>(context).getPlaceLocation(
-                          placeId: placeSuggestionList[index].placeId,
-                          sessionToken: sessionToken);
-                    },
                   ),
                 ),
               );
