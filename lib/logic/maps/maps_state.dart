@@ -20,7 +20,7 @@ class MapsLoadedLocationSuccess extends MapsState {
 }
 
 class MapsLoadedDirectionsSuccess extends MapsState {
-  final List<dynamic> placeDirections;
+  final dynamic placeDirections;
 
   MapsLoadedDirectionsSuccess({required this.placeDirections});
 }

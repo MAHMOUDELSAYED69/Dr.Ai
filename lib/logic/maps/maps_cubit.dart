@@ -27,11 +27,11 @@ class MapsCubit extends Cubit<MapsState> {
           .toList();
 
       // //! JUST FOR TESTING
-      // int index = suggestionList.length - 1;
-      // while (index > 0) {
-      //   log(suggestionList[index].placeId);
-      //   index--;
-      // }
+      int index = suggestionList.length - 1;
+      while (index > 0) {
+        log(suggestionList[index].placeId);
+        index--;
+      }
 
       emit(MapsLoadedSuggestionsSuccess(placeSuggestionList: suggestionList));
     } on DioException catch (err) {
@@ -54,7 +54,7 @@ class MapsCubit extends Cubit<MapsState> {
           placeId.trim(), sessionToken);
       PlaceLocationModel placeLocationModel =
           PlaceLocationModel.fromJson(response);
-
+      log(placeLocationModel.toString());
       emit(MapsLoadedLocationSuccess(
           placeLocation: [placeLocationModel, description]));
     } on DioException catch (err) {
@@ -72,14 +72,13 @@ class MapsCubit extends Cubit<MapsState> {
   }) async {
     emit(MapsLoading());
     try {
-      List<dynamic> response =
+      var response =
           await PlacesWebservices.getPlaceDirections(origin, destination);
 
-      List<PlaceDirectionsModel> placeDirectionsList = response
-          .map((direction) => PlaceDirectionsModel.fromJson(direction))
-          .toList();
-      emit(MapsLoadedDirectionsSuccess(placeDirections: placeDirectionsList));
-      
+      final directions = PlaceDirectionsModel.fromJson(response);
+      log(destination.toString());
+
+      emit(MapsLoadedDirectionsSuccess(placeDirections: directions));
     } on DioException catch (err) {
       emit(MapsFailure(errMessage: err.toString()));
       log("Dio err: $err");

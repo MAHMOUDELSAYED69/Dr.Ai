@@ -37,12 +37,13 @@ class DistanceAndTime extends StatelessWidget {
                   horizontalTitleGap: 0,
                   leading: const Icon(
                     Icons.access_time_filled,
-                    color: MyColors.blue,
+                    color: MyColors.green,
                     size: 30,
                   ),
                   title: Text(
-                    placeDirections!.totalDuration,
-                    style: const TextStyle(color: Colors.black, fontSize: 16),
+                    placeDirections?.totalDuration ?? "Empty",
+                    style: const TextStyle(color: Colors.black, fontSize: 18),
+                    textAlign: TextAlign.center,
                     overflow: TextOverflow.ellipsis,
                     maxLines: 1,
                   ),
@@ -66,12 +67,13 @@ class DistanceAndTime extends StatelessWidget {
                   horizontalTitleGap: 0,
                   leading: const Icon(
                     Icons.directions_car_filled,
-                    color: MyColors.blue,
+                    color: MyColors.green,
                     size: 30,
                   ),
                   title: Text(
-                    placeDirections!.totalDistance,
-                    style: const TextStyle(color: MyColors.black, fontSize: 16),
+                    placeDirections?.totalDistance ?? "Empty",
+                    style: const TextStyle(color: MyColors.black, fontSize: 18),
+                    textAlign: TextAlign.center,
                     overflow: TextOverflow.ellipsis,
                     maxLines: 1,
                   ),

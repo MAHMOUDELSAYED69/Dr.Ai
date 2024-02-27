@@ -2,10 +2,10 @@ import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:flutter_polyline_points/flutter_polyline_points.dart';
 
 class PlaceDirectionsModel {
-  final LatLngBounds bounds;
-  final List<PointLatLng> polylinePoints;
-  final String totalDistance;
-  final String totalDuration;
+  late LatLngBounds bounds;
+  late List<PointLatLng> polylinePoints;
+  late String totalDistance;
+  late String totalDuration;
 
   PlaceDirectionsModel({
     required this.bounds,

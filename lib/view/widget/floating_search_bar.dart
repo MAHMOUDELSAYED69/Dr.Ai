@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:dr_ai/data/model/place_suggetion.dart';
 import 'package:dr_ai/logic/maps/maps_cubit.dart';
 import 'package:flutter/material.dart';
@@ -8,7 +10,11 @@ import 'package:uuid/uuid.dart';
 import '../../core/constant/color.dart';
 
 class MyFloatingSearchBar extends StatefulWidget {
-  const MyFloatingSearchBar({super.key});
+  const MyFloatingSearchBar({
+    super.key, required this.onPressed,
+  });
+final void Function() onPressed;
+
   @override
   MyFloatingSearchBarState createState() => MyFloatingSearchBarState();
 }
@@ -16,7 +22,9 @@ class MyFloatingSearchBar extends StatefulWidget {
 class MyFloatingSearchBarState extends State<MyFloatingSearchBar> {
   FloatingSearchBarController searchBarController =
       FloatingSearchBarController();
-
+void getDirections(){
+  widget.onPressed();
+}
   void Function(String)? onQueryChanged(query) {
     final sessionToken = const Uuid().v4();
     BlocProvider.of<MapsCubit>(context)
@@ -52,7 +60,7 @@ class MyFloatingSearchBarState extends State<MyFloatingSearchBar> {
           child: CircularButton(
             icon: const Icon(Icons.apartment_rounded,
                 color: MyColors.green, size: 30),
-            onPressed: () {},
+            onPressed:widget.onPressed 
           ),
         ),
         FloatingSearchBarAction.searchToClear(
@@ -92,6 +100,7 @@ class MyFloatingSearchBarState extends State<MyFloatingSearchBar> {
                           placeId: placeSuggestionList[index].placeId,
                           description: placeSuggestionList[index].description,
                           sessionToken: sessionToken);
+                       //  widget.onPressed();
                       searchBarController.close();
                       FocusScope.of(context).unfocus();
                     },
