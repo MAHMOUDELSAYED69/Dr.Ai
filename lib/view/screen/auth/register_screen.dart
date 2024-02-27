@@ -20,11 +20,15 @@ class RegisterScreen extends StatefulWidget {
 
 class _RegisterScreenState extends State<RegisterScreen> {
   GlobalKey<FormState> formKey = GlobalKey<FormState>();
-  // TextEditingController txtController = TextEditingController(); to confirm password.
   String? email;
   String? password;
   bool isLoading = false;
   String? displayName;
+  String? chronicDiseases;
+  String? familyChronicDiseases;
+  String? previousOperations;
+  String? allergies;
+
   register() {
     if (formKey.currentState?.validate() ?? false) {
       formKey.currentState!.save();
@@ -98,6 +102,38 @@ class _RegisterScreenState extends State<RegisterScreen> {
                       },
                       isVisible: true,
                       title: "Password",
+                    ),
+                    CustomTextFormField(
+                      keyboardType: TextInputType.name,
+                       icon: MyImages.healthA5,
+                      onSaved: (data) {
+                        chronicDiseases = data;
+                      },
+                      title: "Chronic Diseases",
+                    ),
+                    CustomTextFormField(
+                      keyboardType: TextInputType.name,
+                      icon: MyImages.healthA5,
+                      onSaved: (data) {
+                        familyChronicDiseases = data;
+                      },
+                      title: "Family Chronic Diseases",
+                    ),
+                    CustomTextFormField(
+                      keyboardType: TextInputType.name,
+                      icon: MyImages.healthA5,
+                      onSaved: (data) {
+                        previousOperations = data;
+                      },
+                      title: "Previous Operations",
+                    ),
+                    CustomTextFormField(
+                      keyboardType: TextInputType.name,
+                      icon: MyImages.healthA5,
+                      onSaved: (data) {
+                        allergies = data;
+                      },
+                      title: "Allergies",
                     ),
                     Padding(
                         padding: const EdgeInsets.only(top: 40),

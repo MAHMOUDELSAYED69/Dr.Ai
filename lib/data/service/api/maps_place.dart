@@ -1,7 +1,6 @@
 import 'package:dio/dio.dart';
 import 'package:dr_ai/core/constant/api_url.dart';
 import 'dart:developer';
-
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 
 class PlacesWebservices {

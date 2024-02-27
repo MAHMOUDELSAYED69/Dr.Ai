@@ -10,9 +10,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
-import 'package:material_floating_search_bar_2/material_floating_search_bar_2.dart';
-import 'package:uuid/uuid.dart';
-
 import '../../../logic/maps/maps_cubit.dart';
 
 class MapScreen extends StatefulWidget {
@@ -130,12 +127,12 @@ class _MapScreenState extends State<MapScreen> {
                     isTimeAndDistanceVisible: isTimeAndDistanceVisible,
                     placeDirections: placeDirections)
                 : Container(),
+            buildPlaceDiretions(),
             MyFloatingSearchBar(
               onPressed: () {
                 getDirections();
               },
             ),
-            buildPlaceDiretions(),
           ],
         ),
         floatingActionButton: FloatingActionButton(
@@ -227,16 +224,6 @@ class _MapScreenState extends State<MapScreen> {
       origin: LatLng(position!.latitude, position!.longitude),
       destination: LatLng(selectedPlace.lat, selectedPlace.lng),
     );
-  }
-
-  FloatingSearchBarController searchBarController =
-      FloatingSearchBarController();
-
-  void Function(String)? onQueryChanged(query) {
-    final sessionToken = const Uuid().v4();
-    BlocProvider.of<MapsCubit>(context)
-        .getPlaceSuggetions(place: query, sessionToken: sessionToken);
-    return null;
   }
 }
 /*
