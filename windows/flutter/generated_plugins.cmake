@@ -8,7 +8,6 @@ list(APPEND FLUTTER_PLUGIN_LIST
   firebase_auth
   firebase_core
   geolocator_windows
-  modal_progress_hud_nsn
   url_launcher_windows
 )
 
