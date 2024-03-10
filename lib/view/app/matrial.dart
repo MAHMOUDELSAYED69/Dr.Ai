@@ -14,6 +14,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:dr_ai/view/screen/splash_screen.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import '../screen/nav_bar/maps_screen.dart';
 import '../screen/nav_bar/home_screen.dart';
@@ -66,19 +67,26 @@ class _MyAppState extends State<MyApp> {
           create: (context) => MapsCubit(),
         ),
       ],
-      child: MaterialApp(
-        debugShowCheckedModeBanner: false,
-        initialRoute: MyRoutes.initialRoute,
-        routes: {
-          MyRoutes.initialRoute: (context) => const SplashScreen(),
-          MyRoutes.login: (context) => const LoginScreen(),
-          MyRoutes.register: (context) => const RegisterScreen(),
-          MyRoutes.home: (context) => const HomeScreen(),
-          MyRoutes.nav: (context) => const NavbarScreen(),
-          MyRoutes.chat: (context) => const ChatScreen(),
-          MyRoutes.profile: (context) => const ProfileScreen(),
-          MyRoutes.maps: (context) => const MapScreen(),
-        },
+      child: ScreenUtilInit(
+        designSize: const Size(360, 690),
+        minTextAdapt: true,
+        splitScreenMode: true,
+        child: Builder(builder: (_) {
+          return MaterialApp(
+            debugShowCheckedModeBanner: false,
+            initialRoute: MyRoutes.initialRoute,
+            routes: {
+              MyRoutes.initialRoute: (context) => const SplashScreen(),
+              MyRoutes.login: (context) => const LoginScreen(),
+              MyRoutes.register: (context) => const RegisterScreen(),
+              MyRoutes.home: (context) => const HomeScreen(),
+              MyRoutes.nav: (context) => const NavbarScreen(),
+              MyRoutes.chat: (context) => const ChatScreen(),
+              MyRoutes.profile: (context) => const ProfileScreen(),
+              MyRoutes.maps: (context) => const MapScreen(),
+            },
+          );
+        }),
       ),
     );
   }

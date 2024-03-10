@@ -1,5 +1,6 @@
 class MyImages {
   static const splash = "assets/images/splash_bg.png";
+  static const newSplashLogo = "assets/images/dr_ai_logo.png";
   static const logo = "assets/images/logo.png";
   static const whiteLogo = "assets/images/logo_white.png";
   static const email = "assets/images/email.png";
