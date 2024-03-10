@@ -12,8 +12,6 @@ class BuidLoadingIndicator extends StatelessWidget {
     return Align(
       alignment: Alignment.bottomCenter,
       child: Lottie.asset(
-        filterQuality: FilterQuality.high,
-        frameRate: const FrameRate(60.0),
         animate: true,
         height: 200.h,
         width: 200.w,

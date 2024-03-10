@@ -1,18 +1,14 @@
-import 'dart:developer';
-import 'package:dr_ai/core/constant/image.dart';
 import 'package:dr_ai/core/constant/routes.dart';
 import 'package:dr_ai/core/helper/scaffold_snakbar.dart';
 import 'package:dr_ai/logic/auth/login/login_cubit.dart';
 import 'package:dr_ai/view/screen/auth/forget_password.dart';
 import 'package:dr_ai/view/widget/custom_button.dart';
-import 'package:dr_ai/view/widget/custom_outline_button.dart';
 import 'package:dr_ai/view/widget/custom_text_field.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:google_fonts/google_fonts.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import '../../../core/constant/color.dart';
-import '../../../logic/auth/google/login_with_google.dart';
 import '../../widget/custom_divider.dart';
 
 class LoginScreen extends StatefulWidget {
@@ -27,6 +23,7 @@ class _LoginScreenState extends State<LoginScreen> {
   String? email;
   String? password;
   bool isLoading = false;
+  bool isChecked = false;
   login() {
     if (formKey.currentState!.validate()) {
       formKey.currentState!.save();
@@ -58,111 +55,207 @@ class _LoginScreenState extends State<LoginScreen> {
       builder: (context, state) {
         return Scaffold(
           backgroundColor: MyColors.white,
-          body: SingleChildScrollView(
-            child: Padding(
-              padding: const EdgeInsets.all(25),
-              child: Form(
-                key: formKey,
-                child: Column(
-                  children: [
-                    Center(
-                      child: SizedBox(
-                          width: 160,
-                          height: 110,
-                          child: Image.asset("assets/images/logo.png")),
-                    ),
-                    Text("Welcome Back!",
-                        style: GoogleFonts.roboto(
-                            textStyle: const TextStyle(
-                          fontSize: 26,
-                          fontWeight: FontWeight.w600,
-                        ))),
-                    CustomTextFormField(
-                      keyboardType: TextInputType.emailAddress,
-                      icon: MyImages.email,
-                      onSaved: (data) {
-                        email = data;
-                      },
-                      title: "Email Address",
-                    ),
-                    CustomTextFormField(
-                      keyboardType: TextInputType.visiblePassword,
-                      onSaved: (data) {
-                        password = data;
-                      },
-                      icon: MyImages.password,
-                      isVisible: true,
-                      title: "Password",
-                    ),
-                    GestureDetector(
-                      onTap: () => showForgetPasswordBottomSheet(context),
-                      child: Container(
-                        padding: const EdgeInsets.only(top: 11),
-                        alignment: Alignment.centerRight,
-                        child: Text("Forgot Password?",
-                            style: GoogleFonts.roboto(
-                                textStyle: const TextStyle(
-                              fontSize: 16,
-                              fontWeight: FontWeight.w500,
-                            ))),
-                      ),
-                    ),
-                    Padding(
-                        padding: const EdgeInsets.only(top: 38),
-                        child: CustomButton(
-                          title: isLoading == false ? "Log in" : null,
-                          widget: isLoading == true
-                              ? const CircularProgressIndicator(
-                                  color: MyColors.white,
-                                )
-                              : null,
-                          onPressed: login,
-                        )),
-                    const Padding(
-                      padding: EdgeInsets.only(top: 37),
-                      child: CustomDivider(),
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.only(top: 37),
-                      child: CustomOutlineButton(
-                        onPressed: () {
-                          try {
-                            GoogleService.signInWithGoogle();
-                          } catch (err) {
-                            log(err.toString());
-                          }
-                        },
-                        title: "Google",
-                        icon: MyImages.google,
-                      ),
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.only(top: 25),
-                      child: Row(
+          appBar: AppBar(),
+          body: Center(
+            child: SingleChildScrollView(
+              child: Padding(
+                padding: const EdgeInsets.all(18),
+                child: Form(
+                  key: formKey,
+                  child: Column(
+                    children: [
+                      Row(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
-                          Text("Don’t have an account?",
-                              style: GoogleFonts.roboto(
-                                  textStyle: const TextStyle(
-                                color: MyColors.selver,
-                                fontSize: 16,
-                                fontWeight: FontWeight.w500,
-                              ))),
-                          GestureDetector(
-                            onTap: () {
-                              Navigator.pushNamed(context, MyRoutes.register);
-                            },
-                            child: Text(" Sign Up",
-                                style: GoogleFonts.roboto(
-                                    textStyle: const TextStyle(
-                                  fontSize: 16,
-                                  fontWeight: FontWeight.bold,
-                                ))),
-                          ),
+                          Text("Welcome ",
+                              style: TextStyle(
+                                fontFamily: "Poppins",
+                                fontSize: 32.sp,
+                                fontWeight: FontWeight.w600,
+                              )),
+                          Text("back",
+                              style: TextStyle(
+                                fontFamily: "Poppins",
+                                color: MyColors.green,
+                                fontSize: 32.sp,
+                                fontWeight: FontWeight.w600,
+                              )),
                         ],
                       ),
-                    )
-                  ],
+                      SizedBox(height: 8.h),
+                      Text(
+                        "Please enter your email & password to access your account.",
+                        textAlign: TextAlign.center,
+                        style: TextStyle(
+                            fontSize: 16.sp,
+                            color: MyColors.grey3,
+                            fontWeight: FontWeight.w400,
+                            fontFamily: "Poppins"),
+                      ),
+                      CustomTextFormField(
+                        keyboardType: TextInputType.emailAddress,
+                        onSaved: (data) {
+                          email = data;
+                        },
+                        hintText: "Enter your Email",
+                        title: "Email",
+                      ),
+                      CustomTextFormField(
+                        keyboardType: TextInputType.visiblePassword,
+                        onSaved: (data) {
+                          password = data;
+                        },
+                        hintText: "Enter Your Password",
+                        isVisible: true,
+                        title: "Password",
+                      ),
+                      Padding(
+                        padding: EdgeInsets.only(top: 8.h),
+                        child: Row(
+                          children: [
+                            Row(children: [
+                              Transform.scale(
+                                scale: 1.4,
+                                child: Checkbox(
+                                  activeColor:MyColors.green,
+                                  side: const BorderSide(
+                                      color: MyColors.grey3, width: 1.1),
+                                  shape: RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.circular(3),
+                                  ),
+                                  value: isChecked,
+                                  onChanged: (value) {
+                                    isChecked = value ?? false;
+                                    setState(() {});
+                                  },
+                                ),
+                              ),
+                               Text(
+                                "Remember Me",
+                                style: TextStyle(
+                                    fontFamily: "Poppins",
+                                    color: MyColors.grey3,
+                                    fontSize: 14.sp),
+                              )
+                            ]),
+                            const Spacer(),
+                            GestureDetector(
+                              onTap: () =>
+                                  showForgetPasswordBottomSheet(context),
+                              child: Text("Forgot Password?",
+                                  style: TextStyle(
+                                    fontFamily: "Poppins",
+                                    decoration: TextDecoration.underline,
+                                    decorationColor: MyColors.green,
+                                    color: MyColors.green,
+                                    fontSize: 14.sp,
+                                    fontWeight: FontWeight.w500,
+                                  )),
+                            ),
+                          ],
+                        ),
+                      ),
+                      Padding(
+                          padding: const EdgeInsets.only(top: 38),
+                          child: CustomButton(
+                            title: isLoading == false ? "Login" : null,
+                            widget: isLoading == true
+                                ? const CircularProgressIndicator(
+                                    color: MyColors.white,
+                                  )
+                                : null,
+                            onPressed: login,
+                          )),
+                      Padding(
+                        padding: EdgeInsets.only(top: 16.h),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Text("Don’t have an account?",
+                                style: TextStyle(
+                                  fontFamily: "Poppins",
+                                  color: MyColors.grey3,
+                                  fontSize: 14.sp,
+                                  fontWeight: FontWeight.w400,
+                                )),
+                            GestureDetector(
+                              onTap: () {
+                                Navigator.pushNamed(context, MyRoutes.register);
+                              },
+                              child: Row(
+                                children: [
+                                  Text(" Sign Up",
+                                      style: TextStyle(
+                                        fontFamily: "Poppins",
+                                        decoration: TextDecoration.underline,
+                                        decorationColor: MyColors.green,
+                                        color: MyColors.green,
+                                        fontSize: 14.sp,
+                                        fontWeight: FontWeight.w500,
+                                      )),
+                                  const Icon(
+                                    Icons.arrow_outward,
+                                    color: MyColors.green,
+                                  )
+                                ],
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                      Padding(
+                        padding: EdgeInsets.only(top: 30.h),
+                        child: const CustomDivider(title: "Log in with"),
+                      ),
+                      Padding(
+                          padding: EdgeInsets.only(top: 30.h),
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              OutlinedButton(
+                                style: OutlinedButton.styleFrom(
+                                    foregroundColor: Colors.green,
+                                    side: BorderSide(
+                                        width: 3,
+                                        color: MyColors.green.withOpacity(0.3)),
+                                    shape: RoundedRectangleBorder(
+                                        borderRadius: BorderRadius.circular(8)),
+                                    alignment: Alignment.center,
+                                    fixedSize: Size(95.w, 50.h)),
+                                child: Image.asset("assets/images/google.png"),
+                                onPressed: () {},
+                              ),
+                              OutlinedButton(
+                                style: OutlinedButton.styleFrom(
+                                    foregroundColor: Colors.green,
+                                    side: BorderSide(
+                                        width: 3,
+                                        color: MyColors.green.withOpacity(0.3)),
+                                    shape: RoundedRectangleBorder(
+                                        borderRadius: BorderRadius.circular(8)),
+                                    alignment: Alignment.center,
+                                    fixedSize: Size(95.w, 50.h)),
+                                child:
+                                    Image.asset("assets/images/facebook.png"),
+                                onPressed: () {},
+                              ),
+                              OutlinedButton(
+                                style: OutlinedButton.styleFrom(
+                                    foregroundColor: Colors.green,
+                                    side: BorderSide(
+                                        width: 3,
+                                        color: MyColors.green.withOpacity(0.3)),
+                                    shape: RoundedRectangleBorder(
+                                        borderRadius: BorderRadius.circular(8)),
+                                    alignment: Alignment.center,
+                                    fixedSize: Size(95.w, 50.h)),
+                                child: Image.asset("assets/images/apple.png"),
+                                onPressed: () {},
+                              ),
+                            ],
+                          )),
+                    ],
+                  ),
                 ),
               ),
             ),

@@ -5,6 +5,7 @@ class MyColors {
   static const green2 = Color(0xff7EBB9B);
   static const lightBlue = Color(0xff2AABE4);
   static const grey2 = Color(0xff858585);
+  static const grey3 = Color(0xff92929D);
   static const grey1 = Color(0xffA1A1A1);
   static const black = Colors.black;
   static const red = Colors.red;

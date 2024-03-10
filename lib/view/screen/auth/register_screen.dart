@@ -105,7 +105,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                     ),
                     CustomTextFormField(
                       keyboardType: TextInputType.name,
-                       icon: MyImages.healthA5,
+                      icon: MyImages.healthA5,
                       onSaved: (data) {
                         chronicDiseases = data;
                       },
@@ -148,7 +148,8 @@ class _RegisterScreenState extends State<RegisterScreen> {
                         )),
                     const Padding(
                         padding: EdgeInsets.only(top: 37),
-                        child: CustomDivider()),
+                        child: CustomDivider(
+                            title: "Create your account quickly with")),
                     const Padding(
                       padding: EdgeInsets.only(top: 37),
                       child: CustomOutlineButton(

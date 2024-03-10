@@ -1,6 +1,6 @@
 import 'package:dr_ai/core/constant/color.dart';
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class CustomTextFormField extends StatefulWidget {
   const CustomTextFormField(
@@ -46,24 +46,26 @@ class CustomTextFormField extends StatefulWidget {
 }
 
 class _CustomTextFormFieldState extends State<CustomTextFormField> {
+  bool isTap = false;
   bool isObscure = true;
   @override
   Widget build(BuildContext context) {
     return Column(children: [
       Container(
         alignment: Alignment.centerLeft,
-        padding: const EdgeInsets.symmetric(vertical: 16),
+        padding: EdgeInsets.only(top: 16.h,bottom: 8.h),
         child: Text(widget.title ?? "",
-            style: GoogleFonts.roboto(
-                textStyle: widget.titleTextStyle ??
-                    const TextStyle(
-                        fontSize: 18,
-                        fontWeight: FontWeight.w600,
-                        color: MyColors.selver))),
+            style: widget.titleTextStyle ??
+                TextStyle(
+                    fontFamily: "Poppins",
+                    fontSize: 16.sp,
+                    fontWeight: FontWeight.w500,
+                    color: MyColors.black)),
       ),
       TextFormField(
         style: widget.textFieldStyle ??
-            const TextStyle(color: MyColors.black, fontSize: 18),
+            TextStyle(
+                color: MyColors.black, fontSize: 16.sp, fontFamily: "Poppins"),
         cursorColor: widget.cursorColor ?? MyColors.green,
         keyboardType: widget.keyboardType,
         controller: widget.controller,
@@ -79,17 +81,28 @@ class _CustomTextFormFieldState extends State<CustomTextFormField> {
         onFieldSubmitted: widget.onFieldSubmitted,
         onSaved: widget.onSaved,
         onChanged: widget.onChanged,
+        onTap: () {
+          isTap = true;
+          setState(() {});
+        },
+        onTapOutside: (_) {
+          isTap = false;
+          setState(() {});
+        },
         decoration: InputDecoration(
           isCollapsed: true,
           isDense: true,
-          errorStyle:
-              const TextStyle(fontSize: 16, fontWeight: FontWeight.w700),
-          prefixIcon: widget.icon != null
-              ? Image.asset(
-                  widget.icon!,
-                  scale: 1.9,color: MyColors.black,
-                )
-              : null,
+          errorStyle: TextStyle(
+              fontFamily: "Poppins",
+              fontSize: 14.sp,
+              fontWeight: FontWeight.w500),
+          // prefixIcon: widget.icon != null
+          //     ? Image.asset(
+          //         widget.icon!,
+          //         scale: 1.9.sp,
+          //         color: MyColors.black,
+          //       )
+          //     : null,
           suffixIcon: widget.isVisible == true
               ? IconButton(
                   onPressed: () {
@@ -99,25 +112,24 @@ class _CustomTextFormFieldState extends State<CustomTextFormField> {
                   icon: Icon(isObscure == true
                       ? Icons.visibility_off
                       : Icons.visibility),
-                  color: widget.isVisibleColor ?? MyColors.black,
-                  iconSize: 25,
+                  color: isTap == false ? MyColors.grey3 : MyColors.green,
+                  iconSize: 25.sp,
                 )
               : null,
           contentPadding:
-              const EdgeInsets.symmetric(vertical: 15, horizontal: 10),
+              EdgeInsets.symmetric(vertical: 13.h, horizontal: 10.w),
           filled: false //true
           ,
           fillColor: widget.fillColor ?? MyColors.green,
           hintText: widget.hintText,
-          hintStyle: const TextStyle(color: MyColors.black),
-         // label: Text(widget.label ?? ""),
+          hintStyle: TextStyle(color: MyColors.grey3, fontSize: 14.sp),
           enabledBorder: const OutlineInputBorder(
-            borderSide: BorderSide(color: MyColors.black, width: 2),
+            borderSide: BorderSide(color: MyColors.grey3, width: 2),
             borderRadius: BorderRadius.all(Radius.circular(10)),
           ),
           focusedBorder: const OutlineInputBorder(
               borderRadius: BorderRadius.all(Radius.circular(10)),
-              borderSide: BorderSide(color: MyColors.green,width: 2)),
+              borderSide: BorderSide(color: MyColors.green, width: 2)),
           errorBorder: const OutlineInputBorder(
               borderRadius: BorderRadius.all(Radius.circular(10)),
               borderSide: BorderSide(color: MyColors.red, width: 2)),
