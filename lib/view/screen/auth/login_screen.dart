@@ -9,7 +9,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import '../../../core/constant/color.dart';
+import '../../widget/custom_check_box.dart';
 import '../../widget/custom_divider.dart';
+import '../../widget/custom_sign_up_button.dart';
+import '../../widget/custom_text_span.dart';
+import '../../widget/social_login_card.dart';
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({super.key});
@@ -23,7 +27,6 @@ class _LoginScreenState extends State<LoginScreen> {
   String? email;
   String? password;
   bool isLoading = false;
-  bool isChecked = false;
   login() {
     if (formKey.currentState!.validate()) {
       formKey.currentState!.save();
@@ -64,24 +67,8 @@ class _LoginScreenState extends State<LoginScreen> {
                   key: formKey,
                   child: Column(
                     children: [
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          Text("Welcome ",
-                              style: TextStyle(
-                                fontFamily: "Poppins",
-                                fontSize: 32.sp,
-                                fontWeight: FontWeight.w600,
-                              )),
-                          Text("back",
-                              style: TextStyle(
-                                fontFamily: "Poppins",
-                                color: MyColors.green,
-                                fontSize: 32.sp,
-                                fontWeight: FontWeight.w600,
-                              )),
-                        ],
-                      ),
+                      const CustomTextSpan(
+                          fontSize: 32, textOne: "Welcome ", textTwo: "back"),
                       SizedBox(height: 8.h),
                       Text(
                         "Please enter your email & password to access your account.",
@@ -113,31 +100,7 @@ class _LoginScreenState extends State<LoginScreen> {
                         padding: EdgeInsets.only(top: 8.h),
                         child: Row(
                           children: [
-                            Row(children: [
-                              Transform.scale(
-                                scale: 1.4,
-                                child: Checkbox(
-                                  activeColor: MyColors.green,
-                                  side: const BorderSide(
-                                      color: MyColors.grey3, width: 1.1),
-                                  shape: RoundedRectangleBorder(
-                                    borderRadius: BorderRadius.circular(3),
-                                  ),
-                                  value: isChecked,
-                                  onChanged: (value) {
-                                    isChecked = value ?? false;
-                                    setState(() {});
-                                  },
-                                ),
-                              ),
-                              Text(
-                                "Remember Me",
-                                style: TextStyle(
-                                    fontFamily: "Poppins",
-                                    color: MyColors.grey3,
-                                    fontSize: 14.sp),
-                              )
-                            ]),
+                            const CustomCheckBox(),
                             const Spacer(),
                             GestureDetector(
                               onTap: () =>
@@ -162,46 +125,16 @@ class _LoginScreenState extends State<LoginScreen> {
                             widget: isLoading == true
                                 ? const CircularProgressIndicator(
                                     color: MyColors.white,
-                                    strokeCap: StrokeCap.round,
-                                  )
+                                    strokeCap: StrokeCap.round)
                                 : null,
                             onPressed: login,
                           )),
                       Padding(
                         padding: EdgeInsets.only(top: 16.h),
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            Text("Don’t have an account?",
-                                style: TextStyle(
-                                  fontFamily: "Poppins",
-                                  color: MyColors.grey3,
-                                  fontSize: 14.sp,
-                                  fontWeight: FontWeight.w400,
-                                )),
-                            GestureDetector(
-                              onTap: () {
-                                Navigator.pushNamed(context, MyRoutes.register);
-                              },
-                              child: Row(
-                                children: [
-                                  Text(" Sign Up",
-                                      style: TextStyle(
-                                        fontFamily: "Poppins",
-                                        decoration: TextDecoration.underline,
-                                        decorationColor: MyColors.green,
-                                        color: MyColors.green,
-                                        fontSize: 14.sp,
-                                        fontWeight: FontWeight.w500,
-                                      )),
-                                  const Icon(
-                                    Icons.arrow_outward,
-                                    color: MyColors.green,
-                                  )
-                                ],
-                              ),
-                            ),
-                          ],
+                        child: SignUpButton(
+                          title: " Sign Up",
+                          onTap: () => Navigator.pushNamed(
+                              context, MyRoutes.register),
                         ),
                       ),
                       Padding(
@@ -210,51 +143,7 @@ class _LoginScreenState extends State<LoginScreen> {
                       ),
                       Padding(
                           padding: EdgeInsets.only(top: 30.h),
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                              OutlinedButton(
-                                style: OutlinedButton.styleFrom(
-                                    foregroundColor: Colors.green,
-                                    side: BorderSide(
-                                        width: 3,
-                                        color: MyColors.green.withOpacity(0.3)),
-                                    shape: RoundedRectangleBorder(
-                                        borderRadius: BorderRadius.circular(8)),
-                                    alignment: Alignment.center,
-                                    fixedSize: Size(95.w, 50.h)),
-                                child: Image.asset("assets/images/google.png"),
-                                onPressed: () {},
-                              ),
-                              OutlinedButton(
-                                style: OutlinedButton.styleFrom(
-                                    foregroundColor: Colors.green,
-                                    side: BorderSide(
-                                        width: 3,
-                                        color: MyColors.green.withOpacity(0.3)),
-                                    shape: RoundedRectangleBorder(
-                                        borderRadius: BorderRadius.circular(8)),
-                                    alignment: Alignment.center,
-                                    fixedSize: Size(95.w, 50.h)),
-                                child:
-                                    Image.asset("assets/images/facebook.png"),
-                                onPressed: () {},
-                              ),
-                              OutlinedButton(
-                                style: OutlinedButton.styleFrom(
-                                    foregroundColor: Colors.green,
-                                    side: BorderSide(
-                                        width: 3,
-                                        color: MyColors.green.withOpacity(0.3)),
-                                    shape: RoundedRectangleBorder(
-                                        borderRadius: BorderRadius.circular(8)),
-                                    alignment: Alignment.center,
-                                    fixedSize: Size(95.w, 50.h)),
-                                child: Image.asset("assets/images/apple.png"),
-                                onPressed: () {},
-                              ),
-                            ],
-                          )),
+                          child: const SocialLoginCard()),
                     ],
                   ),
                 ),
