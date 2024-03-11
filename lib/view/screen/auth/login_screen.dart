@@ -55,11 +55,11 @@ class _LoginScreenState extends State<LoginScreen> {
       builder: (context, state) {
         return Scaffold(
           backgroundColor: MyColors.white,
-          appBar: AppBar(),
           body: Center(
             child: SingleChildScrollView(
               child: Padding(
-                padding: const EdgeInsets.all(18),
+                padding: EdgeInsets.only(
+                    top: 100.h, left: 18.w, right: 18.w, bottom: 18.h),
                 child: Form(
                   key: formKey,
                   child: Column(
@@ -117,7 +117,7 @@ class _LoginScreenState extends State<LoginScreen> {
                               Transform.scale(
                                 scale: 1.4,
                                 child: Checkbox(
-                                  activeColor:MyColors.green,
+                                  activeColor: MyColors.green,
                                   side: const BorderSide(
                                       color: MyColors.grey3, width: 1.1),
                                   shape: RoundedRectangleBorder(
@@ -130,7 +130,7 @@ class _LoginScreenState extends State<LoginScreen> {
                                   },
                                 ),
                               ),
-                               Text(
+                              Text(
                                 "Remember Me",
                                 style: TextStyle(
                                     fontFamily: "Poppins",
@@ -162,6 +162,7 @@ class _LoginScreenState extends State<LoginScreen> {
                             widget: isLoading == true
                                 ? const CircularProgressIndicator(
                                     color: MyColors.white,
+                                    strokeCap: StrokeCap.round,
                                   )
                                 : null,
                             onPressed: login,

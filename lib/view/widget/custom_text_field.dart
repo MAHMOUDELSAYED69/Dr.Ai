@@ -53,7 +53,7 @@ class _CustomTextFormFieldState extends State<CustomTextFormField> {
     return Column(children: [
       Container(
         alignment: Alignment.centerLeft,
-        padding: EdgeInsets.only(top: 16.h,bottom: 8.h),
+        padding: EdgeInsets.only(top: 16.h, bottom: 8.h),
         child: Text(widget.title ?? "",
             style: widget.titleTextStyle ??
                 TextStyle(
@@ -65,7 +65,7 @@ class _CustomTextFormFieldState extends State<CustomTextFormField> {
       TextFormField(
         style: widget.textFieldStyle ??
             TextStyle(
-                color: MyColors.black, fontSize: 16.sp, fontFamily: "Poppins"),
+                color: MyColors.black, fontSize: 14.sp, fontFamily: "Poppins"),
         cursorColor: widget.cursorColor ?? MyColors.green,
         keyboardType: widget.keyboardType,
         controller: widget.controller,
@@ -113,13 +113,14 @@ class _CustomTextFormFieldState extends State<CustomTextFormField> {
                       ? Icons.visibility_off
                       : Icons.visibility),
                   color: isTap == false ? MyColors.grey3 : MyColors.green,
-                  iconSize: 25.sp,
+                  iconSize: 23.sp,
                 )
               : null,
           contentPadding:
-              EdgeInsets.symmetric(vertical: 13.h, horizontal: 10.w),
+              EdgeInsets.symmetric(vertical: 12.h, horizontal: 10.w),
           filled: false //true
           ,
+
           fillColor: widget.fillColor ?? MyColors.green,
           hintText: widget.hintText,
           hintStyle: TextStyle(color: MyColors.grey3, fontSize: 14.sp),
