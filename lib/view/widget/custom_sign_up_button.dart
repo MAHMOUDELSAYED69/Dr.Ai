@@ -8,8 +8,10 @@ class SignUpButton extends StatelessWidget {
     super.key,
     required this.title,
     this.onTap,
+    this.subtitle,
   });
   final String title;
+  final String? subtitle;
   final void Function()? onTap;
   @override
   Widget build(BuildContext context) {
@@ -18,7 +20,7 @@ class SignUpButton extends StatelessWidget {
       child: Row(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          Text("Don’t have an account?",
+          Text(subtitle ?? "Don’t have an account? ",
               style: TextStyle(
                 fontFamily: "Poppins",
                 color: MyColors.grey3,

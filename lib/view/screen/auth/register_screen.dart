@@ -80,7 +80,6 @@ class _RegisterScreenState extends State<RegisterScreen> {
                         ))),
                     CustomTextFormField(
                       keyboardType: TextInputType.name,
-                      icon: MyImages.name,
                       title: "Full Name",
                       onSaved: (data) {
                         displayName = data;
@@ -88,7 +87,6 @@ class _RegisterScreenState extends State<RegisterScreen> {
                     ),
                     CustomTextFormField(
                       keyboardType: TextInputType.emailAddress,
-                      icon: MyImages.email,
                       title: "Email Address",
                       onSaved: (data) {
                         email = data;
@@ -96,7 +94,6 @@ class _RegisterScreenState extends State<RegisterScreen> {
                     ),
                     CustomTextFormField(
                       keyboardType: TextInputType.visiblePassword,
-                      icon: MyImages.password,
                       onSaved: (data) {
                         password = data;
                       },

@@ -1,6 +1,7 @@
 class MyRoutes {
   static const initialRoute = "/";
   static const login = "/login";
+  static const email = "/email";
   static const register = "/register";
   static const home = "/home";
   static const nav = "/nav";

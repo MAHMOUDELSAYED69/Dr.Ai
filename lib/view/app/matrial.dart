@@ -16,6 +16,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
+import '../screen/auth/email_screen.dart';
 import '../screen/nav_bar/maps_screen.dart';
 import '../screen/nav_bar/home_screen.dart';
 import '../screen/nav_bar/nav_bar_screen_.dart';
@@ -30,7 +31,7 @@ class MyApp extends StatefulWidget {
 
 class _MyAppState extends State<MyApp> {
   @override
-   initState() {
+  initState() {
     super.initState();
     FirebaseAuth.instance.authStateChanges().listen((User? user) {
       if (user == null) {
@@ -78,6 +79,7 @@ class _MyAppState extends State<MyApp> {
             routes: {
               MyRoutes.initialRoute: (context) => const SplashScreen(),
               MyRoutes.login: (context) => const LoginScreen(),
+              MyRoutes.email: (context) => const EmailScreen(),
               MyRoutes.register: (context) => const RegisterScreen(),
               MyRoutes.home: (context) => const HomeScreen(),
               MyRoutes.nav: (context) => const NavbarScreen(),

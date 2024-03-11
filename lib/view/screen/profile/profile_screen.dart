@@ -177,7 +177,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                 content: user.email.toString(),
                 scale: 2,
                 onTap: () {},
-                leadingImage: MyImages.email,
+                leadingImage: MyImages.edit,
                 trailingImage: MyImages.edit,
               ),
               CustomProfileCardButton(

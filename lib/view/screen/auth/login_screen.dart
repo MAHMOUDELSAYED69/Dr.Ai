@@ -132,9 +132,9 @@ class _LoginScreenState extends State<LoginScreen> {
                       Padding(
                         padding: EdgeInsets.only(top: 16.h),
                         child: SignUpButton(
-                          title: " Sign Up",
-                          onTap: () => Navigator.pushNamed(
-                              context, MyRoutes.register),
+                          title: "Sign Up",
+                          onTap: () =>
+                              Navigator.pushNamed(context, MyRoutes.email),
                         ),
                       ),
                       Padding(
@@ -142,7 +142,7 @@ class _LoginScreenState extends State<LoginScreen> {
                         child: const CustomDivider(title: "Log in with"),
                       ),
                       Padding(
-                          padding: EdgeInsets.only(top: 30.h),
+                          padding: EdgeInsets.only(top: 20.h),
                           child: const SocialLoginCard()),
                     ],
                   ),

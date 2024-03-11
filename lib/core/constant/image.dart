@@ -6,7 +6,7 @@ class MyImages {
   static const email = "assets/images/email.png";
   static const password = "assets/images/password.png";
   static const google = "assets/images/google.png";
-  static const name = "assets/images/fullname.png";
+  static const name = "assets/images/name.png";
   static const mic = "assets/images/mic.png";
   static const send = "assets/images/send.png";
   static const robot = "assets/images/robot.png";
@@ -24,4 +24,5 @@ class MyImages {
   static const healthA4 = "assets/images/heath_4.png";
   static const healthA5 = "assets/images/heath_5.png";
   static const healthA6 = "assets/images/heath_6.png";
+  
 }
