@@ -1,7 +1,6 @@
-
+import 'package:dr_ai/core/helper/extention.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-
 import '../../core/constant/color.dart';
 
 class CustomCheckBox extends StatefulWidget {
@@ -15,15 +14,14 @@ class _CustomCheckBoxState extends State<CustomCheckBox> {
   bool isChecked = false;
   @override
   Widget build(BuildContext context) {
-    return Row(children: [
+    return Row(
+      children: [
       Transform.scale(
-        scale: 1.4,
+        scale: 1.1.r,
         child: Checkbox(
-          activeColor: MyColors.green,
-          side: const BorderSide(color: MyColors.grey3, width: 1.1),
-          shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(3),
-          ),
+          activeColor: ColorManager.green,
+          side: context.checkboxTheme.side,
+          shape: context.checkboxTheme.shape,
           value: isChecked,
           onChanged: (value) {
             isChecked = value ?? false;
@@ -33,8 +31,7 @@ class _CustomCheckBoxState extends State<CustomCheckBox> {
       ),
       Text(
         "Remember Me",
-        style: TextStyle(
-            fontFamily: "Poppins", color: MyColors.grey3, fontSize: 14.sp),
+        style: context.textTheme.bodySmall,
       )
     ]);
   }

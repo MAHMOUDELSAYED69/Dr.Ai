@@ -1,7 +1,6 @@
 import 'package:dr_ai/core/constant/routes.dart';
 import 'package:dr_ai/view/screen/auth/login_screen.dart';
 import 'package:flutter/material.dart';
-
 import '../../view/screen/auth/email_screen.dart';
 import '../../view/screen/auth/register_screen.dart';
 import '../../view/screen/chat/chat_screen.dart';
@@ -38,10 +37,9 @@ class AppRouter {
     }
   }
 
-  static PageRouteBuilder _buildPageTransitionAnimation(Object screen) {
+  static PageRouteBuilder _buildPageTransitionAnimation(Widget screen) {
     return PageRouteBuilder(
-      pageBuilder: (context, animation, secondaryAnimation) =>
-          const RegisterScreen(),
+      pageBuilder: (context, animation, secondaryAnimation) => screen,
       transitionDuration: const Duration(milliseconds: 200),
       transitionsBuilder: (context, animation, secondaryAnimation, child) {
         return FadeTransition(

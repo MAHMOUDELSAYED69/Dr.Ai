@@ -1,3 +1,4 @@
+import 'package:dr_ai/core/helper/extention.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
@@ -21,12 +22,7 @@ class CustomDivider extends StatelessWidget {
         )),
         Text(
           title,
-          style: TextStyle(
-            fontFamily: "Poppins",
-            fontWeight: FontWeight.w400,
-            fontSize: 14.sp,
-            color: MyColors.grey3,
-          ),
+          style:context.textTheme.bodySmall
         ),
         const Expanded(
             child: Divider(

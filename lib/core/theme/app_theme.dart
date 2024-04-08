@@ -7,6 +7,53 @@ abstract class AppTheme {
   //!! LIGHT THEME
   static ThemeData get lightTheme {
     return ThemeData(
+      outlinedButtonTheme: OutlinedButtonThemeData(
+        style: ButtonStyle(
+          overlayColor:
+              MaterialStateProperty.all(ColorManager.green.withOpacity(0.1)),
+          foregroundColor: MaterialStateProperty.all(ColorManager.green),
+          side: MaterialStateProperty.all(
+            BorderSide(
+              width: 3,
+              color: ColorManager.green.withOpacity(0.3),
+            ),
+          ),
+          shape: MaterialStateProperty.all(
+            RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(8),
+            ),
+          ),
+          fixedSize: MaterialStateProperty.all(
+            Size(95.w, 50.h),
+          ),
+        ),
+      ),
+
+      elevatedButtonTheme: ElevatedButtonThemeData(
+        style: ButtonStyle(
+          foregroundColor: MaterialStateProperty.all(ColorManager.white),
+          backgroundColor: MaterialStateProperty.all(ColorManager.green),
+          shape: MaterialStateProperty.all(
+            RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(8), // Use 8 as default value
+            ),
+          ),
+          fixedSize: MaterialStateProperty.all(
+            Size(double.maxFinite, 48.h),
+          ),
+        ),
+      ),
+
+      checkboxTheme: CheckboxThemeData(
+        checkColor: const MaterialStatePropertyAll(ColorManager.white),
+        fillColor: const MaterialStatePropertyAll(ColorManager.white),
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(3.dm),
+        ),
+        side: BorderSide(color: ColorManager.grey, width: 1.dm),
+      ),
+      //
+
       iconTheme: const IconThemeData(color: ColorManager.grey),
       switchTheme: SwitchThemeData(
         trackOutlineColor: MaterialStateProperty.all(ColorManager.green),
@@ -66,9 +113,11 @@ abstract class AppTheme {
           fontWeight: FontWeight.w600,
         ),
         displaySmall: TextStyle(
+          decoration: TextDecoration.underline,
+          decorationColor: MyColors.green,
+          color: MyColors.green,
           fontSize: 14.sp,
-          color: ColorManager.grey,
-          fontWeight: FontWeight.w400,
+          fontWeight: FontWeight.w500,
         ),
       ),
       inputDecorationTheme: InputDecorationTheme(

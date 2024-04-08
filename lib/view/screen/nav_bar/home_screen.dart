@@ -167,14 +167,10 @@ class _HomeScreenState extends State<HomeScreen> {
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               children: [
                                 CustomButton(
-                                  borderRadius: 8,
-                                  fontSize: 12,
-                                  height: 33,
-                                  width: 140,
-                                  color: MyColors.green,
                                   title: "Start Chat",
                                   onPressed: () {
-                                    Navigator.pushNamed(context, RoutesManager.chat);
+                                    Navigator.pushNamed(
+                                        context, RoutesManager.chat);
                                   },
                                 ),
                                 const Gap(10),

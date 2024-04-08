@@ -203,27 +203,26 @@ class _ProfileScreenState extends State<ProfileScreen> {
               ),
               const Spacer(),
               CustomButton(
-                  height: 60,
-                  onPressed: logOut,
-                  widget: Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Image.asset(
-                        MyImages.logOut,
-                        scale: 4.2,
-                        color: MyColors.white,
-                      ),
-                      const SizedBox(width: 10),
-                      Text("Logout",
-                          style: GoogleFonts.roboto(
-                              textStyle: const TextStyle(
-                            color: MyColors.white,
-                            fontSize: 18,
-                            fontWeight: FontWeight.w500,
-                          )))
-                    ],
-                  ),
-                  color: MyColors.black),
+                onPressed: logOut,
+                widget: Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Image.asset(
+                      MyImages.logOut,
+                      scale: 4.2,
+                      color: MyColors.white,
+                    ),
+                    const SizedBox(width: 10),
+                    Text("Logout",
+                        style: GoogleFonts.roboto(
+                            textStyle: const TextStyle(
+                          color: MyColors.white,
+                          fontSize: 18,
+                          fontWeight: FontWeight.w500,
+                        )))
+                  ],
+                ),
+              ),
             ],
           )),
     );

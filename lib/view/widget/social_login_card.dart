@@ -1,7 +1,9 @@
+import 'package:dr_ai/core/constant/image.dart';
+import 'package:dr_ai/core/helper/extention.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 
-import '../../core/constant/color.dart';
 
 class SocialLoginCard extends StatelessWidget {
   const SocialLoginCard({
@@ -14,46 +16,29 @@ class SocialLoginCard extends StatelessWidget {
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
         OutlinedButton(
-          style: OutlinedButton.styleFrom(
-              foregroundColor: Colors.green,
-              side: BorderSide(
-                  width: 3,
-                  color: MyColors.green.withOpacity(0.3)),
-              shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(8)),
-              alignment: Alignment.center,
-              fixedSize: Size(95.w, 50.h)),
-          child: Image.asset("assets/images/google.png"),
+          style: context.outlinedButtonTheme.style,
+          child: _buildSVGIcon(ImageManager.googleIcon),
           onPressed: () {},
         ),
         OutlinedButton(
-          style: OutlinedButton.styleFrom(
-              foregroundColor: Colors.green,
-              side: BorderSide(
-                  width: 3,
-                  color: MyColors.green.withOpacity(0.3)),
-              shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(8)),
-              alignment: Alignment.center,
-              fixedSize: Size(95.w, 50.h)),
-          child:
-              Image.asset("assets/images/facebook.png"),
+          style: context.outlinedButtonTheme.style,
+          child: _buildSVGIcon(ImageManager.facebookIcon),
           onPressed: () {},
         ),
         OutlinedButton(
-          style: OutlinedButton.styleFrom(
-              foregroundColor: Colors.green,
-              side: BorderSide(
-                  width: 3,
-                  color: MyColors.green.withOpacity(0.3)),
-              shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(8)),
-              alignment: Alignment.center,
-              fixedSize: Size(95.w, 50.h)),
-          child: Image.asset("assets/images/apple.png"),
+          style: context.outlinedButtonTheme.style,
+          child: _buildSVGIcon(ImageManager.appleIcon),
           onPressed: () {},
         ),
       ],
+    );
+  }
+
+  SvgPicture _buildSVGIcon(String icon) {
+    return SvgPicture.asset(
+      icon,
+      width: 24.w,
+      height: 24.w,
     );
   }
 }

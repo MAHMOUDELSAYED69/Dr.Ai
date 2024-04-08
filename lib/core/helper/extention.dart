@@ -9,7 +9,11 @@ extension ThemeExtensions on BuildContext {
   AppBarTheme get appBarTheme => Theme.of(this).appBarTheme;
   InputDecorationTheme get inputDecoration =>
       Theme.of(this).inputDecorationTheme;
-
+  CheckboxThemeData get checkboxTheme => Theme.of(this).checkboxTheme;
+  ElevatedButtonThemeData get elevatedButtonTheme =>
+      Theme.of(this).elevatedButtonTheme;
+  OutlinedButtonThemeData get outlinedButtonTheme =>
+      Theme.of(this).outlinedButtonTheme;
 }
 
 //! SCREEN EXTENSION
