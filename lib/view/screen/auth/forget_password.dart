@@ -97,15 +97,7 @@ class _ForgetPasswordState extends State<ForgetPassword> {
                       onSaved: (data) {
                         email = data;
                       },
-                      textFieldStyle:
-                          const TextStyle(color: Colors.black, fontSize: 18),
                       title: "E-mail",
-                      titleTextStyle: const TextStyle(
-                          color: Colors.black,
-                          fontSize: 30,
-                          fontWeight: FontWeight.w600),
-                      fillColor: MyColors.white,
-                      isVisibleColor: MyColors.green,
                     ),
                     const SizedBox(height: 25),
                     CustomButton(

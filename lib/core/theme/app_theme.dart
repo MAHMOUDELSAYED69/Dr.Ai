@@ -125,38 +125,38 @@ abstract class AppTheme {
         filled: true,
         fillColor: ColorManager.white,
         focusedBorder: OutlineInputBorder(
-          borderRadius: BorderRadius.only(
-              bottomLeft: Radius.circular(20.dm),
-              bottomRight: Radius.circular(20.dm)),
-          borderSide: const BorderSide(
-            width: 2,
+          borderRadius: BorderRadius.all(
+            Radius.circular(8.dm),
+          ),
+          borderSide: BorderSide(
+            width: 1.7.w,
             color: ColorManager.green,
           ),
         ),
         enabledBorder: OutlineInputBorder(
-          borderRadius: BorderRadius.only(
-              bottomLeft: Radius.circular(20.dm),
-              bottomRight: Radius.circular(20.dm)),
-          borderSide: const BorderSide(
-            width: 3,
+          borderRadius: BorderRadius.all(
+            Radius.circular(8.dm),
+          ),
+          borderSide: BorderSide(
+            width: 1.7.w,
             color: ColorManager.grey,
           ),
         ),
         errorBorder: OutlineInputBorder(
-          borderRadius: BorderRadius.only(
-              bottomLeft: Radius.circular(20.dm),
-              bottomRight: Radius.circular(20.dm)),
-          borderSide: const BorderSide(
-            width: 3,
+          borderRadius: BorderRadius.all(
+            Radius.circular(8.dm),
+          ),
+          borderSide: BorderSide(
+            width: 2.w,
             color: ColorManager.error,
           ),
         ),
         focusedErrorBorder: OutlineInputBorder(
-          borderRadius: BorderRadius.only(
-              bottomLeft: Radius.circular(20.dm),
-              bottomRight: Radius.circular(20.dm)),
-          borderSide: const BorderSide(
-            width: 3,
+          borderRadius: BorderRadius.all(
+            Radius.circular(8.dm),
+          ),
+          borderSide: BorderSide(
+            width: 2.w,
             color: ColorManager.error,
           ),
         ),

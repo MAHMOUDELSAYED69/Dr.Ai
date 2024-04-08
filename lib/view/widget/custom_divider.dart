@@ -1,7 +1,5 @@
 import 'package:dr_ai/core/helper/extention.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
-
 import '../../core/constant/color.dart';
 
 class CustomDivider extends StatelessWidget {
@@ -16,17 +14,17 @@ class CustomDivider extends StatelessWidget {
       children: [
         const Expanded(
             child: Divider(
-          color: MyColors.grey3,
+          color: ColorManager.grey,
           thickness: 1,
           endIndent: 10,
         )),
         Text(
           title,
-          style:context.textTheme.bodySmall
+          style: context.textTheme.bodySmall,
         ),
         const Expanded(
             child: Divider(
-          color: MyColors.grey3,
+          color: ColorManager.grey,
           thickness: 1,
           indent: 10,
         )),

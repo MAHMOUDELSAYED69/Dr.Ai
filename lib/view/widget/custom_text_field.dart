@@ -1,4 +1,5 @@
 import 'package:dr_ai/core/constant/color.dart';
+import 'package:dr_ai/core/helper/extention.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
@@ -12,16 +13,12 @@ class CustomTextFormField extends StatefulWidget {
       this.onFieldSubmitted,
       this.validator,
       this.controller,
-      this.height,
-      this.width,
       this.keyboardType,
       this.icon,
       this.title,
       this.isVisible,
       this.fillColor,
       this.isVisibleColor,
-      this.titleTextStyle,
-      this.textFieldStyle,
       this.cursorColor});
   final String? hintText;
   final String? label;
@@ -30,8 +27,6 @@ class CustomTextFormField extends StatefulWidget {
   final ValueChanged<String>? onFieldSubmitted;
   final FormFieldValidator<String>? validator;
   final TextEditingController? controller;
-  final double? height;
-  final double? width;
   final TextInputType? keyboardType;
   final String? icon;
   final String? title;
@@ -39,8 +34,6 @@ class CustomTextFormField extends StatefulWidget {
   final Color? fillColor;
   final Color? isVisibleColor;
   final Color? cursorColor;
-  final TextStyle? titleTextStyle;
-  final TextStyle? textFieldStyle;
   @override
   State<CustomTextFormField> createState() => _CustomTextFormFieldState();
 }
@@ -54,19 +47,14 @@ class _CustomTextFormFieldState extends State<CustomTextFormField> {
       Container(
         alignment: Alignment.centerLeft,
         padding: EdgeInsets.only(top: 16.h, bottom: 8.h),
-        child: Text(widget.title ?? "",
-            style: widget.titleTextStyle ??
-                TextStyle(
-                    fontFamily: "Poppins",
-                    fontSize: 16.sp,
-                    fontWeight: FontWeight.w500,
-                    color: MyColors.black)),
+        child: Text(
+          widget.title ?? "",
+          style: context.textTheme.bodyMedium,
+        ),
       ),
       TextFormField(
-        style: widget.textFieldStyle ??
-            TextStyle(
-                color: MyColors.black, fontSize: 14.sp, fontFamily: "Poppins"),
-        cursorColor: widget.cursorColor ?? MyColors.green,
+        style: context.textTheme.bodySmall?.copyWith(color: ColorManager.black),
+        cursorColor: widget.cursorColor ?? ColorManager.green,
         keyboardType: widget.keyboardType,
         controller: widget.controller,
         obscureText: widget.isVisible == true ? isObscure : false,
@@ -92,17 +80,8 @@ class _CustomTextFormFieldState extends State<CustomTextFormField> {
         decoration: InputDecoration(
           isCollapsed: true,
           isDense: true,
-          errorStyle: TextStyle(
-              fontFamily: "Poppins",
-              fontSize: 14.sp,
-              fontWeight: FontWeight.w500),
-          // prefixIcon: widget.icon != null
-          //     ? Image.asset(
-          //         widget.icon!,
-          //         scale: 1.9.sp,
-          //         color: MyColors.black,
-          //       )
-          //     : null,
+          errorStyle:
+              context.textTheme.bodySmall?.copyWith(color: ColorManager.error),
           suffixIcon: widget.isVisible == true
               ? IconButton(
                   onPressed: () {
@@ -112,31 +91,22 @@ class _CustomTextFormFieldState extends State<CustomTextFormField> {
                   icon: Icon(isObscure == true
                       ? Icons.visibility_off
                       : Icons.visibility),
-                  color: isTap == false ? MyColors.grey3 : MyColors.green,
-                  iconSize: 23.sp,
+                  color:
+                      isTap == false ? ColorManager.grey : ColorManager.green,
+                  iconSize: 21.r,
                 )
               : null,
           contentPadding:
-              EdgeInsets.symmetric(vertical: 12.h, horizontal: 10.w),
-          filled: false //true
+              EdgeInsets.symmetric(vertical: 12.5.h, horizontal: 10.w),
+          filled: true //true
           ,
-
-          fillColor: widget.fillColor ?? MyColors.green,
+          fillColor: widget.fillColor ?? ColorManager.white,
           hintText: widget.hintText,
-          hintStyle: TextStyle(color: MyColors.grey3, fontSize: 14.sp),
-          enabledBorder: const OutlineInputBorder(
-            borderSide: BorderSide(color: MyColors.grey3, width: 2),
-            borderRadius: BorderRadius.all(Radius.circular(10)),
-          ),
-          focusedBorder: const OutlineInputBorder(
-              borderRadius: BorderRadius.all(Radius.circular(10)),
-              borderSide: BorderSide(color: MyColors.green, width: 2)),
-          errorBorder: const OutlineInputBorder(
-              borderRadius: BorderRadius.all(Radius.circular(10)),
-              borderSide: BorderSide(color: MyColors.red, width: 2)),
-          focusedErrorBorder: const OutlineInputBorder(
-              borderRadius: BorderRadius.all(Radius.circular(10)),
-              borderSide: BorderSide(color: MyColors.red, width: 2)),
+          hintStyle: context.textTheme.bodySmall,
+          enabledBorder: context.inputDecoration.enabledBorder,
+          focusedBorder: context.inputDecoration.focusedBorder,
+          errorBorder: context.inputDecoration.errorBorder,
+          focusedErrorBorder: context.inputDecoration.focusedErrorBorder,
         ),
       )
     ]);

@@ -1,3 +1,4 @@
+import 'package:dr_ai/core/helper/extention.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
@@ -20,25 +21,17 @@ class SignUpButton extends StatelessWidget {
       child: Row(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          Text(subtitle ?? "Don’t have an account? ",
-              style: TextStyle(
-                fontFamily: "Poppins",
-                color: MyColors.grey3,
-                fontSize: 14.sp,
-                fontWeight: FontWeight.w400,
-              )),
-          Text(title,
-              style: TextStyle(
-                fontFamily: "Poppins",
-                decoration: TextDecoration.underline,
-                decorationColor: MyColors.green,
-                color: MyColors.green,
-                fontSize: 14.sp,
-                fontWeight: FontWeight.w500,
-              )),
+          Text(
+            subtitle ?? "Don’t have an account? ",
+            style: context.textTheme.bodySmall,
+          ),
+          Text(
+            title,
+            style: context.textTheme.displaySmall,
+          ),
           const Icon(
             Icons.arrow_outward,
-            color: MyColors.green,
+            color: ColorManager.green,
           )
         ],
       ),

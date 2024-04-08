@@ -107,6 +107,7 @@ class _LoginScreenState extends State<LoginScreen> {
                 const CustomDivider(title: "Log in with"),
                 Gap(16.h),
                 const SocialLoginCard(),
+                Gap(16.h),
               ],
             ),
           ),
