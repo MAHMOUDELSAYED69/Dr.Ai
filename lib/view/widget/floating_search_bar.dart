@@ -1,5 +1,3 @@
-import 'dart:developer';
-
 import 'package:dr_ai/data/model/place_suggetion.dart';
 import 'package:dr_ai/logic/maps/maps_cubit.dart';
 import 'package:flutter/material.dart';

@@ -24,5 +24,20 @@ class MyImages {
   static const healthA4 = "assets/images/heath_4.png";
   static const healthA5 = "assets/images/heath_5.png";
   static const healthA6 = "assets/images/heath_6.png";
-  
+}
+
+class ImageManager {
+  ImageManager._();
+  static const String splashLogo = "assets/images/logo_dr_ai.svg";
+  static const String googleIcon = "assets/images/google_icon.svg";
+  static const String facebookIcon = "assets/images/facebook_icon.svg";
+  static const String appleIcon = "assets/images/apple_icon.svg";
+  static const String emailIcon = "assets/images/email_icon.svg";
+  static const String passwordIcon = "assets/images/password_icon.svg";
+  static const String userIcon = "assets/images/user_icon.svg";
+  static const String errorIcon = "assets/images/error_icon.svg";
+  static const String congratulationIcon = "assets/images/congratulation_icon.svg";
+  static const String ambulanceIcon = "assets/images/ambulance_icon.svg";
+  static const String policeIcon = "assets/images/police_icon.svg";
+  static const String firefightingIcon = "assets/images/firefighting_icon.svg";
 }
