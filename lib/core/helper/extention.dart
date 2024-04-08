@@ -9,6 +9,7 @@ extension ThemeExtensions on BuildContext {
   AppBarTheme get appBarTheme => Theme.of(this).appBarTheme;
   InputDecorationTheme get inputDecoration =>
       Theme.of(this).inputDecorationTheme;
+
 }
 
 //! SCREEN EXTENSION

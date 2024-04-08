@@ -41,7 +41,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
     FirebaseService.logOut();
     scaffoldSnackBar(context, "Log out");
     Navigator.pushNamedAndRemoveUntil(
-        context, MyRoutes.login, (route) => false);
+        context, RoutesManager.login, (route) => false);
   }
 
   @override

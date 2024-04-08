@@ -95,7 +95,7 @@ class _LoginScreenState extends State<LoginScreen> {
                             if (FirebaseAuth
                                 .instance.currentUser!.emailVerified) {
                               Navigator.pushNamedAndRemoveUntil(
-                                  context, MyRoutes.nav, (route) => false);
+                                  context, RoutesManager.nav, (route) => false);
                             }
                           }
                           if (state is LoginFailure) {
@@ -117,7 +117,7 @@ class _LoginScreenState extends State<LoginScreen> {
                       )),
                   SignUpButton(
                     title: "Sign Up",
-                    onTap: () => Navigator.pushNamed(context, MyRoutes.email),
+                    onTap: () => Navigator.pushNamed(context, RoutesManager.email),
                   ),
                   const CustomDivider(title: "Log in with"),
                   const SocialLoginCard(),

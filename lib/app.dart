@@ -16,11 +16,14 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
-import '../screen/auth/email_screen.dart';
-import '../screen/nav_bar/maps_screen.dart';
-import '../screen/nav_bar/home_screen.dart';
-import '../screen/nav_bar/nav_bar_screen_.dart';
-import '../screen/profile/profile_screen.dart';
+import 'core/helper/responsive.dart';
+import 'core/router/app_router.dart';
+import 'core/theme/app_theme.dart';
+import 'view/screen/auth/email_screen.dart';
+import 'view/screen/nav_bar/maps_screen.dart';
+import 'view/screen/nav_bar/home_screen.dart';
+import 'view/screen/nav_bar/nav_bar_screen_.dart';
+import 'view/screen/profile/profile_screen.dart';
 
 class MyApp extends StatefulWidget {
   const MyApp({super.key});
@@ -44,6 +47,7 @@ class _MyAppState extends State<MyApp> {
 
   @override
   Widget build(BuildContext context) {
+    ScreenSize.init(context);
     return MultiBlocProvider(
       providers: [
         BlocProvider(
@@ -75,17 +79,20 @@ class _MyAppState extends State<MyApp> {
         child: Builder(builder: (_) {
           return MaterialApp(
             debugShowCheckedModeBanner: false,
-            initialRoute: MyRoutes.initialRoute,
+            title: 'Dr AI',
+            theme: AppTheme.lightTheme,
+            initialRoute: RoutesManager.initialRoute,
+            onGenerateRoute: AppRouter.onGenerateRoute,
             routes: {
-              MyRoutes.initialRoute: (context) => const SplashScreen(),
-              MyRoutes.login: (context) => const LoginScreen(),
-              MyRoutes.email: (context) => const EmailScreen(),
-              MyRoutes.register: (context) => const RegisterScreen(),
-              MyRoutes.home: (context) => const HomeScreen(),
-              MyRoutes.nav: (context) => const NavbarScreen(),
-              MyRoutes.chat: (context) => const ChatScreen(),
-              MyRoutes.profile: (context) => const ProfileScreen(),
-              MyRoutes.maps: (context) => const MapScreen(),
+              RoutesManager.initialRoute: (context) => const SplashScreen(),
+              RoutesManager.login: (context) => const LoginScreen(),
+              RoutesManager.email: (context) => const EmailScreen(),
+              RoutesManager.register: (context) => const RegisterScreen(),
+              RoutesManager.home: (context) => const HomeScreen(),
+              RoutesManager.nav: (context) => const NavbarScreen(),
+              RoutesManager.chat: (context) => const ChatScreen(),
+              RoutesManager.profile: (context) => const ProfileScreen(),
+              RoutesManager.maps: (context) => const MapScreen(),
             },
           );
         }),
