@@ -1,4 +1,5 @@
 import 'package:dr_ai/core/constant/routes.dart';
+import 'package:dr_ai/core/helper/extention.dart';
 import 'package:dr_ai/core/helper/scaffold_snakbar.dart';
 import 'package:dr_ai/logic/auth/login/login_cubit.dart';
 import 'package:dr_ai/view/screen/auth/forget_password.dart';
@@ -30,97 +31,80 @@ class _LoginScreenState extends State<LoginScreen> {
   login() {
     if (formKey.currentState!.validate()) {
       formKey.currentState!.save();
-      BlocProvider.of<LoginCubit>(context)
-          .userLogin(email: email!, password: password!);
+      context.bloc<LoginCubit>().userLogin(email: email!, password: password!);
     }
   }
 
   @override
   Widget build(BuildContext context) {
-    return BlocConsumer<LoginCubit, LoginState>(
-      listener: (context, state) async {
-        if (state is LoginLoading) {
-          isLoading = true;
-        }
-        if (state is LoginSuccess) {
-          isLoading = false;
-          FocusScope.of(context).unfocus();
-          if (FirebaseAuth.instance.currentUser!.emailVerified) {
-            Navigator.pushNamedAndRemoveUntil(
-                context, MyRoutes.nav, (route) => false);
-          }
-        }
-        if (state is LoginFailure) {
-          isLoading = false;
-          scaffoldSnackBar(context, state.message);
-        }
-      },
-      builder: (context, state) {
-        return Scaffold(
-          backgroundColor: MyColors.white,
-          body: Center(
-            child: SingleChildScrollView(
-              child: Padding(
-                padding: EdgeInsets.only(
-                    top: 100.h, left: 18.w, right: 18.w, bottom: 18.h),
-                child: Form(
-                  key: formKey,
-                  child: Column(
-                    children: [
-                      const CustomTextSpan(
-                          fontSize: 32, textOne: "Welcome ", textTwo: "back"),
-                      SizedBox(height: 8.h),
-                      Text(
-                        "Please enter your email & password to access your account.",
-                        textAlign: TextAlign.center,
-                        style: TextStyle(
-                            fontSize: 16.sp,
-                            color: MyColors.grey3,
-                            fontWeight: FontWeight.w400,
-                            fontFamily: "Poppins"),
-                      ),
-                      CustomTextFormField(
-                        keyboardType: TextInputType.emailAddress,
-                        onSaved: (data) {
-                          email = data;
-                        },
-                        hintText: "Enter your Email",
-                        title: "Email",
-                      ),
-                      CustomTextFormField(
-                        keyboardType: TextInputType.visiblePassword,
-                        onSaved: (data) {
-                          password = data;
-                        },
-                        hintText: "Enter Your Password",
-                        isVisible: true,
-                        title: "Password",
-                      ),
-                      Padding(
-                        padding: EdgeInsets.only(top: 8.h),
-                        child: Row(
-                          children: [
-                            const CustomCheckBox(),
-                            const Spacer(),
-                            GestureDetector(
-                              onTap: () =>
-                                  showForgetPasswordBottomSheet(context),
-                              child: Text("Forgot Password?",
-                                  style: TextStyle(
-                                    fontFamily: "Poppins",
-                                    decoration: TextDecoration.underline,
-                                    decorationColor: MyColors.green,
-                                    color: MyColors.green,
-                                    fontSize: 14.sp,
-                                    fontWeight: FontWeight.w500,
-                                  )),
-                            ),
-                          ],
+    return Scaffold(
+      backgroundColor: MyColors.white,
+      body: Center(
+        child: SingleChildScrollView(
+          child: Padding(
+            padding: EdgeInsets.only(
+                top: 100.h, left: 18.w, right: 18.w, bottom: 18.h),
+            child: Form(
+              key: formKey,
+              child: Column(
+                children: [
+                  const CustomTextSpan(
+                      fontSize: 32, textOne: "Welcome ", textTwo: "back"),
+                  SizedBox(height: 8.h),
+                  Text(
+                    "Please enter your email & password to access your account.",
+                    textAlign: TextAlign.center,
+                    style: TextStyle(
+                        fontSize: 16.sp,
+                        color: MyColors.grey3,
+                        fontWeight: FontWeight.w400,
+                        fontFamily: "Poppins"),
+                  ),
+                  _buildEmailAndPasswordFields(),
+                  Padding(
+                    padding: EdgeInsets.only(top: 8.h),
+                    child: Row(
+                      children: [
+                        const CustomCheckBox(),
+                        const Spacer(),
+                        GestureDetector(
+                          onTap: () => showForgetPasswordBottomSheet(context),
+                          child: Text("Forgot Password?",
+                              style: TextStyle(
+                                fontFamily: "Poppins",
+                                decoration: TextDecoration.underline,
+                                decorationColor: MyColors.green,
+                                color: MyColors.green,
+                                fontSize: 14.sp,
+                                fontWeight: FontWeight.w500,
+                              )),
                         ),
-                      ),
-                      Padding(
-                          padding: const EdgeInsets.only(top: 38),
-                          child: CustomButton(
+                      ],
+                    ),
+                  ),
+                  Padding(
+                      padding: const EdgeInsets.only(top: 38),
+                      child: BlocConsumer<LoginCubit, LoginState>(
+                        listener: (context, state) async {
+                          if (state is LoginLoading) {
+                            isLoading = true;
+                          }
+                          if (state is LoginSuccess) {
+                            isLoading = false;
+                            FocusScope.of(context).unfocus();
+                            if (FirebaseAuth
+                                .instance.currentUser!.emailVerified) {
+                              Navigator.pushNamedAndRemoveUntil(
+                                  context, MyRoutes.nav, (route) => false);
+                            }
+                          }
+                          if (state is LoginFailure) {
+                            isLoading = false;
+                            scaffoldSnackBar(context, state.message);
+                          }
+                        },
+                        builder: (context, state) {
+                          return CustomButton(
                             title: isLoading == false ? "Login" : null,
                             widget: isLoading == true
                                 ? const CircularProgressIndicator(
@@ -128,30 +112,43 @@ class _LoginScreenState extends State<LoginScreen> {
                                     strokeCap: StrokeCap.round)
                                 : null,
                             onPressed: login,
-                          )),
-                      Padding(
-                        padding: EdgeInsets.only(top: 16.h),
-                        child: SignUpButton(
-                          title: "Sign Up",
-                          onTap: () =>
-                              Navigator.pushNamed(context, MyRoutes.email),
-                        ),
-                      ),
-                      Padding(
-                        padding: EdgeInsets.only(top: 30.h),
-                        child: const CustomDivider(title: "Log in with"),
-                      ),
-                      Padding(
-                          padding: EdgeInsets.only(top: 20.h),
-                          child: const SocialLoginCard()),
-                    ],
+                          );
+                        },
+                      )),
+                  SignUpButton(
+                    title: "Sign Up",
+                    onTap: () => Navigator.pushNamed(context, MyRoutes.email),
                   ),
-                ),
+                  const CustomDivider(title: "Log in with"),
+                  const SocialLoginCard(),
+                ],
               ),
             ),
           ),
-        );
-      },
+        ),
+      ),
     );
+  }
+
+  Widget _buildEmailAndPasswordFields() {
+    return Column(children: [
+      CustomTextFormField(
+        keyboardType: TextInputType.emailAddress,
+        onSaved: (data) {
+          email = data;
+        },
+        hintText: "Enter your Email",
+        title: "Email",
+      ),
+      CustomTextFormField(
+        keyboardType: TextInputType.visiblePassword,
+        onSaved: (data) {
+          password = data;
+        },
+        hintText: "Enter Your Password",
+        isVisible: true,
+        title: "Password",
+      )
+    ]);
   }
 }
