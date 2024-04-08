@@ -1,11 +1,13 @@
 import 'dart:developer';
 import 'package:dr_ai/core/constant/color.dart';
+import 'package:dr_ai/core/helper/extention.dart';
 import 'package:dr_ai/core/helper/scaffold_snakbar.dart';
 import 'package:dr_ai/view/widget/custom_button.dart';
 import 'package:dr_ai/view/widget/custom_text_field.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:google_fonts/google_fonts.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:gap/gap.dart';
 import '../../../logic/auth/forget_password/forget_password_cubit.dart';
 
 class ForgetPassword extends StatefulWidget {
@@ -53,58 +55,51 @@ class _ForgetPasswordState extends State<ForgetPassword> {
           mainAxisSize: MainAxisSize.min,
           children: [
             Container(
-              margin: const EdgeInsets.symmetric(vertical: 19),
-              width: 145,
-              height: 5,
+              margin: EdgeInsets.symmetric(vertical: 18.h),
+              width: context.width / 3,
+              height: 4.h,
               decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(74),
-                  color: MyColors.grey1.withOpacity(0.40)),
+                  borderRadius: BorderRadius.circular(74.dm),
+                  color: ColorManager.grey.withOpacity(0.40)),
             ),
             Padding(
               padding: const EdgeInsets.only(bottom: 56),
               child: Container(
                 padding: EdgeInsets.only(
-                    left: 16,
-                    right: 16,
+                    left: 16.w,
+                    right: 16.w,
                     bottom: MediaQuery.viewInsetsOf(context).bottom,
-                    top: 20),
+                    top: 10.h),
                 child: Column(
                   mainAxisSize: MainAxisSize.min,
                   children: [
                     Text(
                       "Forgot Password",
-                      style: GoogleFonts.roboto(
-                        textStyle: const TextStyle(
-                          fontSize: 32,
-                          fontWeight: FontWeight.w600,
-                        ),
-                      ),
+                      style: context.textTheme.bodyLarge,
                     ),
-                    const SizedBox(height: 16),
+                    Gap(16.h),
                     Text(
                       "Enter Your email for the verification processes, we will send a 4-digit code to your email.",
                       textAlign: TextAlign.center,
-                      style: GoogleFonts.roboto(
-                        textStyle: const TextStyle(
-                          color: MyColors.grey1,
-                          fontSize: 18,
-                          fontWeight: FontWeight.w600,
-                        ),
+                      style: context.textTheme.bodySmall?.copyWith(
+                        fontSize: 16.sp,
                       ),
                     ),
+                    Gap(8.h),
                     CustomTextFormField(
+                      hintText: "Enter your Email",
                       keyboardType: TextInputType.emailAddress,
                       onSaved: (data) {
                         email = data;
                       },
                       title: "E-mail",
                     ),
-                    const SizedBox(height: 25),
+                    Gap(24.h),
                     CustomButton(
                       title: isLoading == false ? "Send link" : null,
                       widget: isLoading == true
                           ? const CircularProgressIndicator(
-                              color: MyColors.white,
+                              color: ColorManager.white,
                             )
                           : null,
                       onPressed: resetPassword,
@@ -122,10 +117,14 @@ class _ForgetPasswordState extends State<ForgetPassword> {
 
 void showForgetPasswordBottomSheet(BuildContext context) {
   showModalBottomSheet(
-    shape: const RoundedRectangleBorder(
-        borderRadius: BorderRadius.only(
-            topRight: Radius.circular(35), topLeft: Radius.circular(35))),
-    backgroundColor: Colors.white,
+    shape: RoundedRectangleBorder(
+      borderRadius: BorderRadius.only(
+        topRight: Radius.circular(20.dm),
+        topLeft: Radius.circular(20.dm),
+      ),
+    ),
+    backgroundColor: ColorManager.white,
+    elevation: 0,
     context: context,
     isScrollControlled: true,
     builder: (BuildContext context) {

@@ -31,6 +31,7 @@ abstract class AppTheme {
 
       elevatedButtonTheme: ElevatedButtonThemeData(
         style: ButtonStyle(
+          overlayColor: MaterialStateProperty.all(ColorManager.white.withOpacity(0.2)),
           foregroundColor: MaterialStateProperty.all(ColorManager.white),
           backgroundColor: MaterialStateProperty.all(ColorManager.green),
           shape: MaterialStateProperty.all(

@@ -4,7 +4,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
-
 class SocialLoginCard extends StatelessWidget {
   const SocialLoginCard({
     super.key,
@@ -12,21 +11,26 @@ class SocialLoginCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final style = context.outlinedButtonTheme.style?.copyWith(
+      fixedSize: MaterialStateProperty.all(
+        Size(context.width / 3.8, context.height * 0.07),
+      ),
+    );
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
         OutlinedButton(
-          style: context.outlinedButtonTheme.style,
+          style: style,
           child: _buildSVGIcon(ImageManager.googleIcon),
           onPressed: () {},
         ),
         OutlinedButton(
-          style: context.outlinedButtonTheme.style,
+          style: style,
           child: _buildSVGIcon(ImageManager.facebookIcon),
           onPressed: () {},
         ),
         OutlinedButton(
-          style: context.outlinedButtonTheme.style,
+          style: style,
           child: _buildSVGIcon(ImageManager.appleIcon),
           onPressed: () {},
         ),
