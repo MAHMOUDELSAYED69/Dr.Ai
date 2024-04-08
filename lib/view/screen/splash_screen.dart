@@ -23,6 +23,22 @@ class _SplashScreenState extends State<SplashScreen> {
     getToLoginScreen();
   }
 
+  void getToLoginScreen() {
+    Future.delayed(
+      const Duration(
+        milliseconds: 1500,
+      ),
+      () {
+        Navigator.pushReplacementNamed(
+            context,
+            (FirebaseAuth.instance.currentUser != null &&
+                    FirebaseAuth.instance.currentUser!.emailVerified)
+                ? MyRoutes.nav
+                : MyRoutes.login);
+      },
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     BlocProvider.of<LogOutCubit>(context).logOut();
@@ -34,30 +50,14 @@ class _SplashScreenState extends State<SplashScreen> {
           alignment: Alignment.center,
           children: [
             SvgPicture.asset(
-              "assets/images/logo_dr_ai.svg",
-              width: ScreenSize.width/3,
-              height: ScreenSize.width/3,
+              ImageManager.splashLogo,
+              width: ScreenSize.width / 3,
+              height: ScreenSize.width / 3,
             ),
             const BuidLoadingIndicator(),
           ],
         ),
       ),
-    );
-  }
-
-  void getToLoginScreen() {
-    Future.delayed(
-      const Duration(
-        seconds: 3,
-      ),
-      () {
-        Navigator.pushReplacementNamed(
-            context,
-            (FirebaseAuth.instance.currentUser != null &&
-                    FirebaseAuth.instance.currentUser!.emailVerified)
-                ? MyRoutes.nav
-                : MyRoutes.login);
-      },
     );
   }
 }
