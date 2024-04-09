@@ -1,6 +1,7 @@
 import 'dart:developer';
 
 import 'package:dr_ai/core/helper/extention.dart';
+import 'package:dr_ai/logic/validation/formvalidation_cubit.dart';
 import 'package:dr_ai/view/widget/custom_button.dart';
 import 'package:dr_ai/view/widget/custom_divider.dart';
 import 'package:dr_ai/view/widget/custom_sign_up_button.dart';
@@ -56,12 +57,14 @@ class _EmailScreenState extends State<EmailScreen> {
               Form(
                 key: formKey,
                 child: CustomTextFormField(
-                  title: "Email",
-                  hintText: "Enter your Email",
-                  onSaved: (data) {
-                    email = data;
-                  },
-                ),
+                    title: "Email",
+                    hintText: "Enter Your Email",
+                    onSaved: (data) {
+                      email = data;
+                    },
+                    validator: (value) => context
+                        .bloc<FormvalidationCubit>()
+                        .validateEmail(value)),
               ),
               Gap(context.height / 8.5),
               CustomButton(

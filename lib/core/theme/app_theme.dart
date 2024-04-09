@@ -7,6 +7,12 @@ abstract class AppTheme {
   //!! LIGHT THEME
   static ThemeData get lightTheme {
     return ThemeData(
+      textSelectionTheme: TextSelectionThemeData(
+        cursorColor: ColorManager.green,
+        selectionColor: ColorManager.green.withOpacity(0.3),
+        selectionHandleColor: ColorManager.green,
+      ),
+
       outlinedButtonTheme: OutlinedButtonThemeData(
         style: ButtonStyle(
           overlayColor:
@@ -31,7 +37,8 @@ abstract class AppTheme {
 
       elevatedButtonTheme: ElevatedButtonThemeData(
         style: ButtonStyle(
-          overlayColor: MaterialStateProperty.all(ColorManager.white.withOpacity(0.2)),
+          overlayColor:
+              MaterialStateProperty.all(ColorManager.white.withOpacity(0.2)),
           foregroundColor: MaterialStateProperty.all(ColorManager.white),
           backgroundColor: MaterialStateProperty.all(ColorManager.green),
           shape: MaterialStateProperty.all(

@@ -54,7 +54,7 @@ class FormvalidationCubit extends Cubit<FormvalidationState> {
   bool _hasDigit(String value) => value.contains(RegExp(r'\d'));
   bool _hasValidEmail(String email) {
     final RegExp emailRegex = RegExp(
-        r"^[a-zA-Z0-9.a-zA-Z0-9.!#$%&\'*+-/=?^_`{|}~]+'r'@[a-zA-Z0-9]+\.[a-zA-Z]{2,}$");
+        r"^[a-zA-Z0-9.a-zA-Z0-9.!#$%&\'*+-/=?^_`{|}~]+@[a-zA-Z0-9]+\.[a-zA-Z]{2,}$");
     return emailRegex.hasMatch(email);
   }
 }
