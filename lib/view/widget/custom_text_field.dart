@@ -20,7 +20,9 @@ class CustomTextFormField extends StatefulWidget {
       this.fillColor,
       this.isVisibleColor,
       this.cursorColor,
-      this.obscureText});
+      this.obscureText,
+      this.dropDownVisible,
+      this.onDropDownSelected});
   final String? hintText;
   final String? label;
   final FormFieldSetter<String>? onSaved;
@@ -36,6 +38,8 @@ class CustomTextFormField extends StatefulWidget {
   final Color? isVisibleColor;
   final Color? cursorColor;
   final bool? obscureText;
+  final bool? dropDownVisible;
+  final void Function()? onDropDownSelected;
   @override
   State<CustomTextFormField> createState() => _CustomTextFormFieldState();
 }
@@ -43,6 +47,7 @@ class CustomTextFormField extends StatefulWidget {
 class _CustomTextFormFieldState extends State<CustomTextFormField> {
   bool isTap = false;
   bool isObscure = true;
+  bool isDropDown = false;
   @override
   Widget build(BuildContext context) {
     return Column(children: [
@@ -87,18 +92,11 @@ class _CustomTextFormFieldState extends State<CustomTextFormField> {
           errorStyle: context.textTheme.bodySmall
               ?.copyWith(color: ColorManager.error, fontSize: 14.spMin),
           suffixIcon: widget.isVisible == true
-              ? IconButton(
-                  onPressed: () {
-                    isObscure = !isObscure;
-                    setState(() {});
-                  },
-                  icon: Icon(isObscure == true
-                      ? Icons.visibility_off
-                      : Icons.visibility),
-                  color: isTap ? ColorManager.green : ColorManager.grey,
-                  iconSize: 21.r,
-                )
-              : null,
+              ? _buildSuffixIcon(Icons.visibility_off, Icons.visibility)
+              : widget.dropDownVisible == true
+                  ? _buildSuffixIcon(
+                      Icons.keyboard_arrow_down, Icons.keyboard_arrow_up)
+                  : null,
           contentPadding:
               EdgeInsets.symmetric(vertical: 12.h, horizontal: 10.w),
           filled: true //true
@@ -113,5 +111,22 @@ class _CustomTextFormFieldState extends State<CustomTextFormField> {
         ),
       )
     ]);
+  }
+
+  Widget _buildSuffixIcon(IconData icon1, IconData icon2) {
+    return Builder(
+      builder: (contxt) => IconButton(
+        onPressed: () {
+          isObscure = !isObscure;
+          setState(() {});
+          if (widget.dropDownVisible == true) {
+            widget.onDropDownSelected!();
+          }
+        },
+        icon: Icon(isObscure == true ? icon1 : icon2),
+        color: isTap ? ColorManager.green : ColorManager.grey,
+        iconSize: 21.r,
+      ),
+    );
   }
 }

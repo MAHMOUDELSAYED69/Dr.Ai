@@ -1,3 +1,5 @@
+import 'package:dr_ai/core/constant/color.dart';
+import 'package:dr_ai/logic/validation/formvalidation_cubit.dart';
 import 'package:flutter/material.dart';
 import 'dart:developer';
 import 'package:dr_ai/core/helper/extention.dart';
@@ -75,6 +77,7 @@ class _CreateProfileState extends State<CreateProfile> {
   }
 
   Widget _buildCreateProfileFields() {
+    final cubit = context.bloc<FormvalidationCubit>();
     return Form(
       key: formKey,
       child: Column(
@@ -86,6 +89,7 @@ class _CreateProfileState extends State<CreateProfile> {
             onSaved: (data) {
               _name = data;
             },
+            validator: (value) => cubit.nameValidator(value),
           ),
           CustomTextFormField(
             keyboardType: TextInputType.phone,
@@ -94,6 +98,7 @@ class _CreateProfileState extends State<CreateProfile> {
             onSaved: (data) {
               _phoneNumber = int.parse(data!);
             },
+            validator: (value) => cubit.phoneNumberValidator(value),
           ),
           CustomTextFormField(
             keyboardType: TextInputType.name,
@@ -104,11 +109,15 @@ class _CreateProfileState extends State<CreateProfile> {
             },
           ),
           CustomTextFormField(
+            dropDownVisible: true,
             keyboardType: TextInputType.name,
             title: "Choose you Gender",
             hintText: "Select your Gender",
             onSaved: (data) {
               _gender = data;
+            },
+            onDropDownSelected: () {
+              log("DropDown Selected");
             },
           ),
           CustomTextFormField(
@@ -126,6 +135,7 @@ class _CreateProfileState extends State<CreateProfile> {
             onSaved: (data) {
               _height = double.parse(data!);
             },
+            validator: (value) => cubit.heightValidator(value),
           ),
           CustomTextFormField(
             keyboardType: TextInputType.name,
@@ -134,6 +144,7 @@ class _CreateProfileState extends State<CreateProfile> {
             onSaved: (data) {
               _weight = double.parse(data!);
             },
+            validator: (value) => cubit.weightValidator(value),
           ),
           CustomTextFormField(
             keyboardType: TextInputType.name,
@@ -153,6 +164,34 @@ class _CreateProfileState extends State<CreateProfile> {
           ),
         ],
       ),
+    );
+  }
+
+  String? dropdownValue;
+
+  Widget _buildDropDownbutton() {
+    return DropdownButton<String>(
+      value: dropdownValue,
+      icon: const Icon(Icons.arrow_downward),
+      iconSize: 24,
+      elevation: 16,
+      style: context.textTheme.bodySmall,
+      underline: Container(
+        height: 2,
+        color: ColorManager.black,
+      ),
+      onChanged: (String? newValue) {
+        setState(() {
+          dropdownValue = newValue;
+        });
+      },
+      items: <String>['Male', 'Female', 'Other']
+          .map<DropdownMenuItem<String>>((String value) {
+        return DropdownMenuItem<String>(
+          value: value,
+          child: Text(value),
+        );
+      }).toList(),
     );
   }
 }
