@@ -2,6 +2,7 @@ import 'package:dr_ai/core/constant/routes.dart';
 import 'package:dr_ai/view/screen/auth/login_screen.dart';
 import 'package:dr_ai/view/screen/auth/password_screen.dart';
 import 'package:flutter/material.dart';
+import '../../view/screen/auth/create_profile.dart';
 import '../../view/screen/auth/email_screen.dart';
 import '../../view/screen/auth/register_screen.dart';
 import '../../view/screen/chat/chat_screen.dart';
@@ -28,8 +29,8 @@ abstract class AppRouter {
         return PageTransitionManager.materialPageRoute(const EmailScreen());
       case RouteManager.password:
         return PageTransitionManager.materialPageRoute(const PasswordScreen());
-      // case RouteManager.information:
-      //   return PageTransitionManager.materialPageRoute(const EmailScreen());
+      case RouteManager.information:
+        return PageTransitionManager.materialPageRoute(const CreateProfile());
       case RouteManager.nav:
         return PageTransitionManager.materialPageRoute(const NavbarScreen());
       case RouteManager.chat:

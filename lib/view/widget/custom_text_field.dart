@@ -19,7 +19,8 @@ class CustomTextFormField extends StatefulWidget {
       this.isVisible,
       this.fillColor,
       this.isVisibleColor,
-      this.cursorColor});
+      this.cursorColor,
+      this.obscureText});
   final String? hintText;
   final String? label;
   final FormFieldSetter<String>? onSaved;
@@ -34,6 +35,7 @@ class CustomTextFormField extends StatefulWidget {
   final Color? fillColor;
   final Color? isVisibleColor;
   final Color? cursorColor;
+  final bool? obscureText;
   @override
   State<CustomTextFormField> createState() => _CustomTextFormFieldState();
 }
@@ -57,7 +59,8 @@ class _CustomTextFormFieldState extends State<CustomTextFormField> {
         cursorColor: widget.cursorColor ?? ColorManager.green,
         keyboardType: widget.keyboardType,
         controller: widget.controller,
-        obscureText: widget.isVisible == true ? isObscure : false,
+        obscureText: widget.obscureText ??
+            (widget.isVisible == true ? isObscure : false),
         validator: widget.validator ??
             (value) {
               if (value!.isEmpty) {
@@ -81,10 +84,8 @@ class _CustomTextFormFieldState extends State<CustomTextFormField> {
           isCollapsed: true,
           isDense: true,
           errorMaxLines: 2,
-          errorStyle: context.textTheme.bodySmall?.copyWith(
-            color: ColorManager.error,
-          fontSize: 14.spMin
-          ),
+          errorStyle: context.textTheme.bodySmall
+              ?.copyWith(color: ColorManager.error, fontSize: 14.spMin),
           suffixIcon: widget.isVisible == true
               ? IconButton(
                   onPressed: () {
@@ -94,7 +95,7 @@ class _CustomTextFormFieldState extends State<CustomTextFormField> {
                   icon: Icon(isObscure == true
                       ? Icons.visibility_off
                       : Icons.visibility),
-                  color: isTap == true ? ColorManager.green : ColorManager.grey,
+                  color: isTap ? ColorManager.green : ColorManager.grey,
                   iconSize: 21.r,
                 )
               : null,

@@ -25,13 +25,13 @@ class LoginScreen extends StatefulWidget {
 
 class _LoginScreenState extends State<LoginScreen> {
   GlobalKey<FormState> formKey = GlobalKey<FormState>();
-  String? email;
-  String? password;
-  bool isLoading = false;
+  String? _email;
+  String? _password;
+  bool _isLoading = false;
   login() {
     if (formKey.currentState!.validate()) {
       formKey.currentState!.save();
-      context.bloc<LoginCubit>().userLogin(email: email!, password: password!);
+      context.bloc<LoginCubit>().userLogin(email: _email!, password: _password!);
     }
   }
 
@@ -71,10 +71,10 @@ class _LoginScreenState extends State<LoginScreen> {
                 BlocConsumer<LoginCubit, LoginState>(
                   listener: (context, state) async {
                     if (state is LoginLoading) {
-                      isLoading = true;
+                      _isLoading = true;
                     }
                     if (state is LoginSuccess) {
-                      isLoading = false;
+                      _isLoading = false;
                       FocusScope.of(context).unfocus();
                       if (FirebaseAuth.instance.currentUser!.emailVerified) {
                         Navigator.pushNamedAndRemoveUntil(
@@ -82,14 +82,14 @@ class _LoginScreenState extends State<LoginScreen> {
                       }
                     }
                     if (state is LoginFailure) {
-                      isLoading = false;
+                      _isLoading = false;
                       scaffoldSnackBar(context, state.message);
                     }
                   },
                   builder: (context, state) {
                     return CustomButton(
-                      title: isLoading == false ? "Login" : null,
-                      widget: isLoading == true
+                      title: _isLoading == false ? "Login" : null,
+                      widget: _isLoading == true
                           ? const ButtonLoadingIndicator()
                           : null,
                       onPressed: login,
@@ -120,7 +120,7 @@ class _LoginScreenState extends State<LoginScreen> {
       CustomTextFormField(
         keyboardType: TextInputType.emailAddress,
         onSaved: (data) {
-          email = data;
+          _email = data;
         },
         hintText: "Enter your Email",
         title: "Email",
@@ -128,7 +128,7 @@ class _LoginScreenState extends State<LoginScreen> {
       CustomTextFormField(
         keyboardType: TextInputType.visiblePassword,
         onSaved: (data) {
-          password = data;
+          _password = data;
         },
         hintText: "Enter Your Password",
         isVisible: true,

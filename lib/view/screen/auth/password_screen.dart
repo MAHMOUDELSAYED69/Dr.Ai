@@ -3,10 +3,8 @@ import 'dart:developer';
 import 'package:dr_ai/core/helper/extention.dart';
 import 'package:dr_ai/logic/validation/formvalidation_cubit.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:gap/gap.dart';
-
 import '../../../core/constant/routes.dart';
 import '../../widget/custom_button.dart';
 import '../../widget/custom_text_field.dart';
@@ -28,8 +26,8 @@ class _PasswordScreenState extends State<PasswordScreen> {
     formKey = GlobalKey<FormState>();
   }
 
-  String? password;
-  String? confirmPassword;
+  String? _password;
+  String? _confirmPassword;
 
   @override
   Widget build(BuildContext context) {
@@ -40,8 +38,10 @@ class _PasswordScreenState extends State<PasswordScreen> {
           child: Column(
             children: [
               Gap(context.height / 8),
-              const CustomTextSpan(
-                  textOne: "Welcome to ", textTwo: "Doctor AI", fontSize: 24),
+              CustomTextSpan(
+                  textOne: "Welcome to ",
+                  textTwo: "Doctor AI",
+                  fontSize: 24.sp),
               Gap(8.h),
               Text(
                 "Please enter your email and we will send a confirmation link to your email",
@@ -51,7 +51,7 @@ class _PasswordScreenState extends State<PasswordScreen> {
               ),
               Gap(26.h),
               const MyStepperForm(stepReachedNumber: 1),
-              _buildPasswordAndConfirmPasswordField(),
+              _buildPasswordAndConfirmPasswordFields(),
               Gap(context.height / 8.5),
               CustomButton(
                 title: "Submit",
@@ -60,7 +60,7 @@ class _PasswordScreenState extends State<PasswordScreen> {
                     formKey.currentState!.save();
 
                     log("Sccess");
-                    // Navigator.pushNamed(context, RouteManager.information);
+                    Navigator.pushNamed(context, RouteManager.information);
                   }
                 },
               ),
@@ -72,25 +72,27 @@ class _PasswordScreenState extends State<PasswordScreen> {
     );
   }
 
-  Widget _buildPasswordAndConfirmPasswordField() {
+  Widget _buildPasswordAndConfirmPasswordFields() {
     return Form(
       key: formKey,
       child: Column(
         children: [
           CustomTextFormField(
+            isVisible: true,
             title: "Password",
             hintText: "Enter Your password",
             onSaved: (data) {
-              password = data;
+              _password = data;
             },
             validator: (value) =>
                 context.bloc<FormvalidationCubit>().validatePassword(value),
           ),
           CustomTextFormField(
+            obscureText: true,
             title: "Confirm Password",
             hintText: "Enter Your Confirm Password",
             onSaved: (data) {
-              confirmPassword = data;
+              _confirmPassword = data;
             },
             validator: (value) => context
                 .bloc<FormvalidationCubit>()
