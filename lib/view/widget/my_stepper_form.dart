@@ -9,18 +9,20 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
 class MyStepperForm extends StatefulWidget {
-  const MyStepperForm({super.key, this.onStepReached});
-  final void Function(int)? onStepReached;
+  const MyStepperForm({super.key, required this.stepReachedNumber});
+  final int stepReachedNumber;
   @override
   MyStepperFormState createState() => MyStepperFormState();
 }
 
 class MyStepperFormState extends State<MyStepperForm> {
-  int activeStep = 1;
+  int activeStep = 0;
 
   @override
   Widget build(BuildContext context) {
     return EasyStepper(
+      padding: EdgeInsets.zero,
+      enableStepTapping: false,
       activeStep: activeStep,
       lineStyle: LineStyle(
         lineLength: context.width / 6,
@@ -35,7 +37,7 @@ class MyStepperFormState extends State<MyStepperForm> {
       borderThickness: 3.dm,
       activeStepBorderColor: ColorManager.green,
       defaultStepBorderType: BorderType.normal,
-      stepRadius: 28,
+      stepRadius: 24.r,
       finishedStepBorderColor: ColorManager.green,
       finishedStepTextColor: Colors.deepOrange,
       finishedStepBackgroundColor: ColorManager.white,
@@ -88,8 +90,8 @@ class MyStepperFormState extends State<MyStepperForm> {
           ),
         ),
       ],
-      onStepReached:
-          widget.onStepReached ?? (index) => setState(() => activeStep = index),
+      onStepReached: (_) =>
+          setState(() => activeStep = widget.stepReachedNumber),
     );
   }
 }
