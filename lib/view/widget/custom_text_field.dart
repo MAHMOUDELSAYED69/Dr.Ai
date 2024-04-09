@@ -80,8 +80,11 @@ class _CustomTextFormFieldState extends State<CustomTextFormField> {
         decoration: InputDecoration(
           isCollapsed: true,
           isDense: true,
-          errorStyle:
-              context.textTheme.bodySmall?.copyWith(color: ColorManager.error),
+          errorMaxLines: 2,
+          errorStyle: context.textTheme.bodySmall?.copyWith(
+            color: ColorManager.error,
+          fontSize: 14.spMin
+          ),
           suffixIcon: widget.isVisible == true
               ? IconButton(
                   onPressed: () {

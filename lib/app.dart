@@ -7,6 +7,7 @@ import 'package:dr_ai/logic/auth/register/register_cubit.dart';
 import 'package:dr_ai/logic/chat/chat_cubit.dart';
 import 'package:dr_ai/logic/image/image_cubit.dart';
 import 'package:dr_ai/logic/maps/maps_cubit.dart';
+import 'package:dr_ai/logic/validation/formvalidation_cubit.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
@@ -59,6 +60,9 @@ class _MyAppState extends State<MyApp> {
         ),
         BlocProvider(
           create: (context) => MapsCubit(),
+        ),
+        BlocProvider(
+          create: (context) => FormvalidationCubit(),
         ),
       ],
       child: ScreenUtilInit(

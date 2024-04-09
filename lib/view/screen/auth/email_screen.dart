@@ -23,10 +23,16 @@ class EmailScreen extends StatefulWidget {
   State<EmailScreen> createState() => _EmailScreenState();
 }
 
-GlobalKey<FormState> formKey = GlobalKey<FormState>();
-String? email;
-
 class _EmailScreenState extends State<EmailScreen> {
+  @override
+  void initState() {
+    super.initState();
+    formKey = GlobalKey<FormState>();
+  }
+
+  late GlobalKey<FormState> formKey;
+  String? email;
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(

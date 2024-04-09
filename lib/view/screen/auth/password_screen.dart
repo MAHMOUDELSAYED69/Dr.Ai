@@ -1,12 +1,103 @@
-import 'package:flutter/material.dart';
+import 'dart:developer';
 
-class PasswordScreen extends StatelessWidget {
+import 'package:dr_ai/core/helper/extention.dart';
+import 'package:dr_ai/logic/validation/formvalidation_cubit.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:gap/gap.dart';
+
+import '../../../core/constant/routes.dart';
+import '../../widget/custom_button.dart';
+import '../../widget/custom_text_field.dart';
+import '../../widget/custom_text_span.dart';
+import '../../widget/my_stepper_form.dart';
+
+class PasswordScreen extends StatefulWidget {
   const PasswordScreen({super.key});
+
+  @override
+  State<PasswordScreen> createState() => _PasswordScreenState();
+}
+
+class _PasswordScreenState extends State<PasswordScreen> {
+  late GlobalKey<FormState> formKey;
+  @override
+  void initState() {
+    super.initState();
+    formKey = GlobalKey<FormState>();
+  }
+
+  String? password;
+  String? confirmPassword;
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Container(),
+      body: SingleChildScrollView(
+        child: Padding(
+          padding: EdgeInsets.symmetric(horizontal: 18.w, vertical: 18.h),
+          child: Column(
+            children: [
+              Gap(context.height / 8),
+              const CustomTextSpan(
+                  textOne: "Welcome to ", textTwo: "Doctor AI", fontSize: 24),
+              Gap(8.h),
+              Text(
+                "Please enter your email and we will send a confirmation link to your email",
+                textAlign: TextAlign.center,
+                style:
+                    context.textTheme.bodySmall?.copyWith(fontSize: 16.spMin),
+              ),
+              Gap(26.h),
+              const MyStepperForm(stepReachedNumber: 1),
+              _buildPasswordAndConfirmPasswordField(),
+              Gap(context.height / 8.5),
+              CustomButton(
+                title: "Submit",
+                onPressed: () {
+                  if (formKey.currentState!.validate()) {
+                    formKey.currentState!.save();
+
+                    log("Sccess");
+                    // Navigator.pushNamed(context, RouteManager.information);
+                  }
+                },
+              ),
+              Gap(24.h),
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+
+  Widget _buildPasswordAndConfirmPasswordField() {
+    return Form(
+      key: formKey,
+      child: Column(
+        children: [
+          CustomTextFormField(
+            title: "Password",
+            hintText: "Enter Your password",
+            onSaved: (data) {
+              password = data;
+            },
+            validator: (value) =>
+                context.bloc<FormvalidationCubit>().validatePassword(value),
+          ),
+          CustomTextFormField(
+            title: "Confirm Password",
+            hintText: "Enter Your Confirm Password",
+            onSaved: (data) {
+              confirmPassword = data;
+            },
+            validator: (value) => context
+                .bloc<FormvalidationCubit>()
+                .validateConfirmPassword(value),
+          ),
+        ],
+      ),
     );
   }
 }

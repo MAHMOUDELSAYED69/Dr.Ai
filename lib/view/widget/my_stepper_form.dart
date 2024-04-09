@@ -17,6 +17,11 @@ class MyStepperForm extends StatefulWidget {
 
 class MyStepperFormState extends State<MyStepperForm> {
   int activeStep = 0;
+  @override
+  void initState() {
+    activeStep = widget.stepReachedNumber;
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -90,8 +95,8 @@ class MyStepperFormState extends State<MyStepperForm> {
           ),
         ),
       ],
-      onStepReached: (_) =>
-          setState(() => activeStep = widget.stepReachedNumber),
+      // onStepReached: (_) =>
+      //     setState(() => activeStep = widget.stepReachedNumber),
     );
   }
 }
