@@ -1,4 +1,4 @@
-abstract class RoutesManager {
+abstract class RouteManager {
   static const initialRoute = "/";
   static const login = "/login";
   static const email = "/email";

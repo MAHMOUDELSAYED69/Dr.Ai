@@ -30,8 +30,8 @@ class _SplashScreenState extends State<SplashScreen> {
             context,
             (FirebaseAuth.instance.currentUser != null &&
                     FirebaseAuth.instance.currentUser!.emailVerified)
-                ? RoutesManager.nav
-                : RoutesManager.login);
+                ? RouteManager.nav
+                : RouteManager.login);
       },
     );
   }

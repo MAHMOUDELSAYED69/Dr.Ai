@@ -15,23 +15,23 @@ abstract class AppRouter {
   AppRouter._();
   static Route<dynamic>? onGenerateRoute(RouteSettings settings) {
     switch (settings.name) {
-      case RoutesManager.initialRoute:
+      case RouteManager.initialRoute:
         return PageTransitionManager.fadeTransition(const SplashScreen());
-      case RoutesManager.login:
+      case RouteManager.login:
         return PageTransitionManager.fadeTransition(const LoginScreen());
-      case RoutesManager.register:
+      case RouteManager.register:
         return PageTransitionManager.fadeTransition(const RegisterScreen());
-      case RoutesManager.home:
-        return PageTransitionManager.fadeTransition(const HomeScreen());
-      case RoutesManager.email:
-        return PageTransitionManager.fadeTransition(const EmailScreen());
-      case RoutesManager.nav:
+      case RouteManager.home:
+        return PageTransitionManager.materialPageRoute(const HomeScreen());
+      case RouteManager.email:
+        return PageTransitionManager.materialPageRoute(const EmailScreen());
+      case RouteManager.nav:
         return PageTransitionManager.materialPageRoute(const NavbarScreen());
-      case RoutesManager.chat:
+      case RouteManager.chat:
         return PageTransitionManager.fadeTransition(const ChatScreen());
-      case RoutesManager.profile:
+      case RouteManager.profile:
         return PageTransitionManager.materialPageRoute(const ProfileScreen());
-      case RoutesManager.maps:
+      case RouteManager.maps:
         return PageTransitionManager.fadeTransition(const MapScreen());
       default:
         return null;

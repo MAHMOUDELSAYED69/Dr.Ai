@@ -45,7 +45,7 @@ class _NavbarScreenState extends State<NavbarScreen> {
           scale: 2.5,
         ),
         onPressed: () {
-          Navigator.pushNamed(context, RoutesManager.chat);
+          Navigator.pushNamed(context, RouteManager.chat);
         },
       ),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,

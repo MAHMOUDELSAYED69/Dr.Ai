@@ -70,7 +70,7 @@ class _MyAppState extends State<MyApp> {
             debugShowCheckedModeBanner: false,
             title: 'Dr AI',
             theme: AppTheme.lightTheme,
-            initialRoute: RoutesManager.initialRoute,
+            initialRoute: RouteManager.initialRoute,
             onGenerateRoute: AppRouter.onGenerateRoute,
           );
         }),

@@ -33,6 +33,7 @@ dependencies:
   cloud_firestore: ^4.13.3
   cupertino_icons: ^1.0.2
   dio: ^5.4.0
+  easy_stepper: ^0.8.3
   firebase_auth: ^4.15.0
   firebase_core: ^2.24.0
   flutter:
@@ -49,7 +50,7 @@ dependencies:
   google_sign_in: ^6.1.6
   image_picker: ^1.0.4
   loading_indicator: ^3.1.1
-  lottie: ^3.1.0
+  lottie: ^2.4.0
   material_floating_search_bar_2: ^0.5.0
   meta: ^1.10.0
   modal_progress_hud_nsn: ^0.5.1

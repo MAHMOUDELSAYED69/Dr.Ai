@@ -8,6 +8,15 @@ part 'register_state.dart';
 
 class RegisterCubit extends Cubit<RegisterState> {
   RegisterCubit() : super(RegisterInitial());
+  Future<void> userVerifyEmail() async {
+    emit(RegisterLoading());
+    try {
+      await FirebaseService.emailVerify();
+      emit(VerifyEmailSuccess());
+    } on FirebaseAuthException catch (err) {
+      emit(RegisterFailure(message: err.code));
+    }
+  }
 
   Future<void> userRegister({
     required String email,

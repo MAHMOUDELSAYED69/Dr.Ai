@@ -39,7 +39,7 @@ class _HomeScreenState extends State<HomeScreen> {
             children: [
               GestureDetector(
                 onTap: () {
-                  Navigator.pushNamed(context, RoutesManager.profile);
+                  Navigator.pushNamed(context, RouteManager.profile);
                 },
                 child: BlocConsumer<ImageCubit, ImageState>(
                   listener: (context, state) {
@@ -173,7 +173,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                   title: "Start Chat",
                                   onPressed: () {
                                     Navigator.pushNamed(
-                                        context, RoutesManager.chat);
+                                        context, RouteManager.chat);
                                   },
                                 ),
                                 const Gap(10),

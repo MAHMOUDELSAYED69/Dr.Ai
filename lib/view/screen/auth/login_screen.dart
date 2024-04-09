@@ -52,7 +52,7 @@ class _LoginScreenState extends State<LoginScreen> {
                 Text(
                   "Please enter your email & password to access your account.",
                   textAlign: TextAlign.center,
-                  style: context.textTheme.bodySmall?.copyWith(fontSize: 16.sp),
+                  style: context.textTheme.bodySmall?.copyWith(fontSize: 16.spMin),
                 ),
                 Gap(20.h),
                 _buildEmailAndPasswordFields(),
@@ -78,7 +78,7 @@ class _LoginScreenState extends State<LoginScreen> {
                       FocusScope.of(context).unfocus();
                       if (FirebaseAuth.instance.currentUser!.emailVerified) {
                         Navigator.pushNamedAndRemoveUntil(
-                            context, RoutesManager.nav, (route) => false);
+                            context, RouteManager.nav, (route) => false);
                       }
                     }
                     if (state is LoginFailure) {
@@ -100,7 +100,7 @@ class _LoginScreenState extends State<LoginScreen> {
                 SignUpButton(
                   title: "Sign Up",
                   onTap: () =>
-                      Navigator.pushNamed(context, RoutesManager.email),
+                      Navigator.pushNamed(context, RouteManager.email),
                 ),
                 Gap(32.h),
                 const CustomDivider(title: "Log in with"),
