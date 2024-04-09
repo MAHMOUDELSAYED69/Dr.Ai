@@ -91,13 +91,12 @@ class _CustomTextFormFieldState extends State<CustomTextFormField> {
                   icon: Icon(isObscure == true
                       ? Icons.visibility_off
                       : Icons.visibility),
-                  color:
-                      isTap == false ? ColorManager.grey : ColorManager.green,
+                  color: isTap == true ? ColorManager.green : ColorManager.grey,
                   iconSize: 21.r,
                 )
               : null,
           contentPadding:
-              EdgeInsets.symmetric(vertical: 12.5.h, horizontal: 10.w),
+              EdgeInsets.symmetric(vertical: 12.h, horizontal: 10.w),
           filled: true //true
           ,
           fillColor: widget.fillColor ?? ColorManager.white,

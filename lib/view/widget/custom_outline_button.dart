@@ -29,7 +29,7 @@ class CustomOutlineButton extends StatelessWidget {
             Text("  $title",
                 style: GoogleFonts.roboto(
                     textStyle: const TextStyle(
-                  color: MyColors.black,
+                  color: ColorManager.black,
                   fontSize: 18,
                   fontWeight: FontWeight.w600,
                 ))),

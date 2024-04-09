@@ -1,5 +1,6 @@
 import 'package:dr_ai/core/helper/extention.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class CustomButton extends StatelessWidget {
   const CustomButton({
@@ -17,8 +18,8 @@ class CustomButton extends StatelessWidget {
   Widget build(BuildContext context) {
     return ElevatedButton(
         style: context.elevatedButtonTheme.style?.copyWith(
-          fixedSize: MaterialStateProperty.all(
-              size ?? Size(context.width, context.height * 0.06)),
+          fixedSize:
+              MaterialStateProperty.all(size ?? Size(context.width, 44.h)),
         ),
         onPressed: onPressed,
         child: widget ??

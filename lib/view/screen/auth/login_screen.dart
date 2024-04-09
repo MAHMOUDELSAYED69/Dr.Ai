@@ -10,7 +10,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:gap/gap.dart';
-import '../../../core/constant/color.dart';
+import '../../widget/button_loading_indicator.dart';
 import '../../widget/custom_divider.dart';
 import '../../widget/custom_sign_up_button.dart';
 import '../../widget/custom_text_span.dart';
@@ -90,8 +90,7 @@ class _LoginScreenState extends State<LoginScreen> {
                     return CustomButton(
                       title: isLoading == false ? "Login" : null,
                       widget: isLoading == true
-                          ? const CircularProgressIndicator(
-                              color: MyColors.white, strokeCap: StrokeCap.round)
+                          ? const ButtonLoadingIndicator()
                           : null,
                       onPressed: login,
                     );

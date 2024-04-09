@@ -2,6 +2,7 @@ import 'dart:developer';
 import 'package:dr_ai/core/constant/color.dart';
 import 'package:dr_ai/core/helper/extention.dart';
 import 'package:dr_ai/core/helper/scaffold_snakbar.dart';
+import 'package:dr_ai/view/widget/button_loading_indicator.dart';
 import 'package:dr_ai/view/widget/custom_button.dart';
 import 'package:dr_ai/view/widget/custom_text_field.dart';
 import 'package:flutter/material.dart';
@@ -32,86 +33,87 @@ class _ForgetPasswordState extends State<ForgetPassword> {
 
   @override
   Widget build(BuildContext context) {
-    return BlocConsumer<ForgetPasswordCubit, ForgetPasswordState>(
-        listener: (context, state) {
-      if (state is ForgetPasswordLoading) {
-        isLoading = true;
-      }
-      if (state is ForgetPasswordSuccess) {
-        isLoading = false;
-        Navigator.pop(context);
-        FocusScope.of(context).unfocus();
-        scaffoldSnackBar(context, "Check your E-mail");
-      }
-      if (state is ForgetPasswordFailure) {
-        isLoading = false;
-        scaffoldSnackBar(context, "There was an Error please try agin later!");
-        log(state.message);
-      }
-    }, builder: (context, state) {
-      return Form(
-        key: formKey,
-        child: Column(
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            Container(
-              margin: EdgeInsets.symmetric(vertical: 18.h),
-              width: context.width / 3,
-              height: 4.h,
-              decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(74.dm),
-                  color: ColorManager.grey.withOpacity(0.40)),
-            ),
-            Padding(
-              padding: const EdgeInsets.only(bottom: 56),
-              child: Container(
-                padding: EdgeInsets.only(
-                    left: 16.w,
-                    right: 16.w,
-                    bottom: MediaQuery.viewInsetsOf(context).bottom,
-                    top: 10.h),
-                child: Column(
-                  mainAxisSize: MainAxisSize.min,
-                  children: [
-                    Text(
-                      "Forgot Password",
-                      style: context.textTheme.bodyLarge,
+    return Form(
+      key: formKey,
+      child: Column(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          Container(
+            margin: EdgeInsets.symmetric(vertical: 18.h),
+            width: context.width / 3,
+            height: 4.h,
+            decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(74.dm),
+                color: ColorManager.grey.withOpacity(0.40)),
+          ),
+          Padding(
+            padding: const EdgeInsets.only(bottom: 56),
+            child: Container(
+              padding: EdgeInsets.only(
+                  left: 16.w,
+                  right: 16.w,
+                  bottom: MediaQuery.viewInsetsOf(context).bottom,
+                  top: 10.h),
+              child: Column(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  Text(
+                    "Forgot Password",
+                    style: context.textTheme.bodyLarge,
+                  ),
+                  Gap(16.h),
+                  Text(
+                    "Enter Your email for the verification processes, we will send an email to reset your password.",
+                    textAlign: TextAlign.center,
+                    style: context.textTheme.bodySmall?.copyWith(
+                      fontSize: 16.sp,
                     ),
-                    Gap(16.h),
-                    Text(
-                      "Enter Your email for the verification processes, we will send a 4-digit code to your email.",
-                      textAlign: TextAlign.center,
-                      style: context.textTheme.bodySmall?.copyWith(
-                        fontSize: 16.sp,
-                      ),
-                    ),
-                    Gap(8.h),
-                    CustomTextFormField(
-                      hintText: "Enter your Email",
-                      keyboardType: TextInputType.emailAddress,
-                      onSaved: (data) {
-                        email = data;
-                      },
-                      title: "E-mail",
-                    ),
-                    Gap(24.h),
-                    CustomButton(
-                      title: isLoading == false ? "Send link" : null,
-                      widget: isLoading == true
-                          ? const CircularProgressIndicator(
-                              color: ColorManager.white,
-                            )
-                          : null,
-                      onPressed: resetPassword,
-                    ),
-                  ],
-                ),
+                  ),
+                  Gap(8.h),
+                  CustomTextFormField(
+                    hintText: "Enter your Email",
+                    keyboardType: TextInputType.emailAddress,
+                    onSaved: (data) {
+                      email = data;
+                    },
+                    title: "E-mail",
+                  ),
+                  Gap(24.h),
+                  BlocConsumer<ForgetPasswordCubit, ForgetPasswordState>(
+                    listener: (context, state) {
+                      if (state is ForgetPasswordLoading) {
+                        isLoading = true;
+                      }
+                      if (state is ForgetPasswordSuccess) {
+                        isLoading = false;
+                        Navigator.pop(context);
+                        FocusScope.of(context).unfocus();
+                        scaffoldSnackBar(context, "Check your E-mail");
+                      }
+                      if (state is ForgetPasswordFailure) {
+                        isLoading = false;
+                        scaffoldSnackBar(context,
+                            "There was an Error please try agin later!");
+                        log(state.message);
+                      }
+                    },
+                    builder: (context, state) {
+                      return CustomButton(
+                        title: isLoading == false ? "Send link" : null,
+                        widget: isLoading == true
+                            ? const ButtonLoadingIndicator()
+                            : null,
+                        onPressed: resetPassword,
+                      );
+                    },
+                  ),
+                ],
               ),
             ),
-          ],
-        ),
-      );
-    });
+          ),
+        ],
+      ),
+    );
   }
 }
 
