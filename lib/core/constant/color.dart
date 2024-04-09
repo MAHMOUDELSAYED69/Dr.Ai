@@ -14,7 +14,7 @@ class MyColors {
   static const blue = Colors.blue;
 }
 
-class ColorManager {
+abstract class ColorManager {
   ColorManager._();
   static const Color green = Color(0xff00A859);
   static const Color grey = Color(0xff92929D);

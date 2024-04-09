@@ -9,7 +9,7 @@ class MessageWebService {
 
   static Future postData({required Map<String, dynamic> data}) async {
     try {
-      final response = await dio.post(MyApiUrl.pyDrAi, data: data);
+      final response = await dio.post(ApiUrlManager.pyDrAi, data: data);
 
       log('[${response.statusCode}] Data posted successfully!');
       log("DATA: ${response.data}");

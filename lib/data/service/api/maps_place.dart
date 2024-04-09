@@ -9,13 +9,13 @@ class PlacesWebservices {
   static Future fetchPlaceSuggestions(String place, String sessionToken) async {
     try {
       Response response = await dio.get(
-        MyApiUrl.placeSuggetion,
+        ApiUrlManager.placeSuggetion,
         queryParameters: {
           'radius': 5000,
           'input': place,
           'types': 'hospital',
           'components': 'country:eg',
-          'key': MyApiUrl.googleMap,
+          'key': ApiUrlManager.googleMap,
           'sessiontoken': sessionToken,
         },
       );
@@ -41,11 +41,11 @@ class PlacesWebservices {
   static Future fetchPlaceLocation(String placeId, String sessionToken) async {
     try {
       Response response = await dio.get(
-        MyApiUrl.placeLocation,
+        ApiUrlManager.placeLocation,
         queryParameters: {
           'place_id': placeId,
           'fields': 'geometry',
-          'key': MyApiUrl.googleMap,
+          'key': ApiUrlManager.googleMap,
           'sessiontoken': sessionToken,
         },
       );
@@ -61,11 +61,11 @@ class PlacesWebservices {
   static Future getPlaceDirections(LatLng origin, LatLng destination) async {
     try {
       Response response = await dio.get(
-        MyApiUrl.directions,
+        ApiUrlManager.directions,
         queryParameters: {
           'origin': '${origin.latitude},${origin.longitude}',
           'destination': '${destination.latitude},${destination.longitude}',
-          'key': MyApiUrl.googleMap, 
+          'key': ApiUrlManager.googleMap, 
         },
       );
       return response.data;

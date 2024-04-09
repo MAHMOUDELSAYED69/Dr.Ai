@@ -26,7 +26,7 @@ class MyImages {
   static const healthA6 = "assets/images/heath_6.png";
 }
 
-class ImageManager {
+abstract class ImageManager {
   ImageManager._();
   static const String splashLogo = "assets/images/logo_dr_ai.svg";
   static const String googleIcon = "assets/images/google_icon.svg";

@@ -2,6 +2,7 @@ import 'dart:developer';
 import 'dart:io';
 import 'package:dr_ai/core/constant/image.dart';
 import 'package:dr_ai/core/constant/routes.dart';
+import 'package:dr_ai/core/helper/extention.dart';
 import 'package:dr_ai/core/helper/responsive.dart';
 import 'package:dr_ai/logic/other/contact_func.dart';
 import 'package:dr_ai/view/widget/custom_button.dart';
@@ -167,6 +168,8 @@ class _HomeScreenState extends State<HomeScreen> {
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               children: [
                                 CustomButton(
+                                  size: Size(context.width * 0.4,
+                                      context.height * 0.055),
                                   title: "Start Chat",
                                   onPressed: () {
                                     Navigator.pushNamed(

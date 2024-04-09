@@ -9,44 +9,32 @@ import '../../view/screen/nav_bar/maps_screen.dart';
 import '../../view/screen/nav_bar/nav_bar_screen_.dart';
 import '../../view/screen/profile/profile_screen.dart';
 import '../../view/screen/splash_screen.dart';
+import 'page_transition.dart';
 
-class AppRouter {
+abstract class AppRouter {
   AppRouter._();
   static Route<dynamic>? onGenerateRoute(RouteSettings settings) {
     switch (settings.name) {
       case RoutesManager.initialRoute:
-        return _buildPageTransitionAnimation(const SplashScreen());
+        return PageTransitionManager.fadeTransition(const SplashScreen());
       case RoutesManager.login:
-        return _buildPageTransitionAnimation(const LoginScreen());
+        return PageTransitionManager.fadeTransition(const LoginScreen());
       case RoutesManager.register:
-        return _buildPageTransitionAnimation(const RegisterScreen());
+        return PageTransitionManager.fadeTransition(const RegisterScreen());
       case RoutesManager.home:
-        return _buildPageTransitionAnimation(const HomeScreen());
+        return PageTransitionManager.fadeTransition(const HomeScreen());
       case RoutesManager.email:
-        return _buildPageTransitionAnimation(const EmailScreen());
+        return PageTransitionManager.fadeTransition(const EmailScreen());
       case RoutesManager.nav:
-        return _buildPageTransitionAnimation(const NavbarScreen());
+        return PageTransitionManager.materialPageRoute(const NavbarScreen());
       case RoutesManager.chat:
-        return _buildPageTransitionAnimation(const ChatScreen());
+        return PageTransitionManager.fadeTransition(const ChatScreen());
       case RoutesManager.profile:
-        return _buildPageTransitionAnimation(const ProfileScreen());
+        return PageTransitionManager.materialPageRoute(const ProfileScreen());
       case RoutesManager.maps:
-        return _buildPageTransitionAnimation(const MapScreen());
+        return PageTransitionManager.fadeTransition(const MapScreen());
       default:
         return null;
     }
-  }
-
-  static PageRouteBuilder _buildPageTransitionAnimation(Widget screen) {
-    return PageRouteBuilder(
-      pageBuilder: (context, animation, secondaryAnimation) => screen,
-      transitionDuration: const Duration(milliseconds: 200),
-      transitionsBuilder: (context, animation, secondaryAnimation, child) {
-        return FadeTransition(
-          opacity: animation,
-          child: child,
-        );
-      },
-    );
   }
 }
