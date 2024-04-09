@@ -29,6 +29,10 @@ class FormvalidationCubit extends Cubit<FormvalidationState> {
     return null;
   }
 
+  bool _hasUpperCase(String value) => value.contains(RegExp(r'[A-Z]'));
+  bool _hasLowerCase(String value) => value.contains(RegExp(r'[a-z]'));
+  bool _hasDigit(String value) => value.contains(RegExp(r'\d'));
+
   String? validateConfirmPassword(String? value) {
     if (value == null || value.isEmpty) {
       return 'Please confirm your password';
@@ -53,12 +57,50 @@ class FormvalidationCubit extends Cubit<FormvalidationState> {
     return null;
   }
 
-  bool _hasUpperCase(String value) => value.contains(RegExp(r'[A-Z]'));
-  bool _hasLowerCase(String value) => value.contains(RegExp(r'[a-z]'));
-  bool _hasDigit(String value) => value.contains(RegExp(r'\d'));
   bool _hasValidEmail(String email) {
     final RegExp emailRegex = RegExp(
         r"^[a-zA-Z0-9.a-zA-Z0-9.!#$%&\'*+-/=?^_`{|}~]+@[a-zA-Z0-9]+\.[a-zA-Z]{2,}$");
     return emailRegex.hasMatch(email);
+  }
+
+  String? nameValidator(String? value) {
+    if (value == null || value.isEmpty) {
+      return 'Name cannot be empty';
+    }
+    if (!RegExp(r"^[a-zA-Z]+(([',. -][a-zA-Z ])?[a-zA-Z]*)*$")
+        .hasMatch(value)) {
+      return 'Please enter a valid name';
+    }
+    return null;
+  }
+
+  String? phoneNumberValidator(String? value) {
+    if (value == null || value.isEmpty) {
+      return 'Phone number cannot be empty';
+    }
+    if (!RegExp(r"^\d{10}$").hasMatch(value)) {
+      return 'Please enter a valid phone number';
+    }
+    return null;
+  }
+
+  String? heightValidator(String? value) {
+    if (value == null || value.isEmpty) {
+      return 'Height cannot be empty';
+    }
+    if (!RegExp(r"^\d+(\.\d+)?$").hasMatch(value)) {
+      return 'Please enter a valid height in CM';
+    }
+    return null;
+  }
+
+  String? weightValidator(String? value) {
+    if (value == null || value.isEmpty) {
+      return 'Weight cannot be empty';
+    }
+    if (!RegExp(r"^\d+(\.\d+)?$").hasMatch(value)) {
+      return 'Please enter a valid weight in KG';
+    }
+    return null;
   }
 }
