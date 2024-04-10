@@ -20,21 +20,21 @@ abstract class AppRouter {
       case RouteManager.initialRoute:
         return PageTransitionManager.fadeTransition(const SplashScreen());
       case RouteManager.login:
-        return PageTransitionManager.fadeTransition(const LoginScreen());
+        return PageTransitionManager.materialPageRoute(const LoginScreen());
       case RouteManager.register:
-        return PageTransitionManager.fadeTransition(const RegisterScreen());
+        return PageTransitionManager.materialPageRoute(const RegisterScreen());
       case RouteManager.home:
         return PageTransitionManager.materialPageRoute(const HomeScreen());
       case RouteManager.email:
         return PageTransitionManager.materialPageRoute(const EmailScreen());
       case RouteManager.password:
-        return PageTransitionManager.materialPageRoute(const PasswordScreen());
+        return PageTransitionManager.fadeTransition(const PasswordScreen());
       case RouteManager.information:
-        return PageTransitionManager.materialPageRoute(const CreateProfile());
+        return PageTransitionManager.fadeTransition(const CreateProfile());
       case RouteManager.nav:
         return PageTransitionManager.materialPageRoute(const NavbarScreen());
       case RouteManager.chat:
-        return PageTransitionManager.fadeTransition(const ChatScreen());
+        return PageTransitionManager.materialPageRoute(const ChatScreen());
       case RouteManager.profile:
         return PageTransitionManager.materialPageRoute(const ProfileScreen());
       case RouteManager.maps:

@@ -33,18 +33,19 @@ class _PasswordScreenState extends State<PasswordScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: context.theme.scaffoldBackgroundColor,
       body: SingleChildScrollView(
         child: Padding(
           padding: EdgeInsets.symmetric(horizontal: 18.w, vertical: 18.h),
           child: Column(
             children: [
-               Gap(context.height * 0.03),
+              Gap(context.height * 0.03),
               const Backbutton(),
               Gap(context.height * 0.032),
               CustomTextSpan(
-                  textOne: "Welcome to ",
-                  textTwo: "Doctor AI",
-                  fontSize: 24.sp),
+                  textOne: "Create a ",
+                  textTwo: "Password",
+                  fontSize: 24.spMin),
               Gap(8.h),
               Text(
                 "Please enter your email and we will send a confirmation link to your email",
@@ -76,6 +77,7 @@ class _PasswordScreenState extends State<PasswordScreen> {
   }
 
   Widget _buildPasswordAndConfirmPasswordFields() {
+    final cubit = context.bloc<FormvalidationCubit>();
     return Form(
       key: formKey,
       child: Column(
@@ -87,8 +89,7 @@ class _PasswordScreenState extends State<PasswordScreen> {
             onSaved: (data) {
               _password = data;
             },
-            validator: (value) =>
-                context.bloc<FormvalidationCubit>().validatePassword(value),
+            validator: (value) => cubit.validatePassword(value),
           ),
           CustomTextFormField(
             obscureText: true,
@@ -97,9 +98,7 @@ class _PasswordScreenState extends State<PasswordScreen> {
             onSaved: (data) {
               _confirmPassword = data;
             },
-            validator: (value) => context
-                .bloc<FormvalidationCubit>()
-                .validateConfirmPassword(value),
+            validator: (value) => cubit.validateConfirmPassword(value),
           ),
         ],
       ),

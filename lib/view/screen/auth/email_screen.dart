@@ -38,6 +38,7 @@ class _EmailScreenState extends State<EmailScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: context.theme.scaffoldBackgroundColor,
       body: SingleChildScrollView(
         child: Padding(
           padding: EdgeInsets.symmetric(horizontal: 18.w, vertical: 18.h),
@@ -46,8 +47,10 @@ class _EmailScreenState extends State<EmailScreen> {
               Gap(context.height * 0.03),
               const Backbutton(),
               Gap(context.height * 0.032),
-              const CustomTextSpan(
-                  textOne: "Welcome to ", textTwo: "Doctor AI", fontSize: 24),
+              CustomTextSpan(
+                  textOne: "Welcome to ",
+                  textTwo: "Doctor AI",
+                  fontSize: 24.spMin),
               Gap(8.h),
               Text(
                 "Please enter your email and we will send a confirmation link to your email",
