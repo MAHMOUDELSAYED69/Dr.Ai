@@ -78,7 +78,7 @@ class FormvalidationCubit extends Cubit<FormvalidationState> {
     if (value == null || value.isEmpty) {
       return 'Phone number cannot be empty';
     }
-    // This regex allows for optional country code, and 10 or more digits.
+  
     if (!RegExp(r"^\+?\d{10,12}$").hasMatch(value)) {
       return 'Please enter a valid phone number';
     }

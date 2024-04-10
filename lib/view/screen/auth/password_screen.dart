@@ -6,6 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:gap/gap.dart';
 import '../../../core/constant/routes.dart';
+import '../../widget/black_button.dart';
 import '../../widget/custom_button.dart';
 import '../../widget/custom_text_field.dart';
 import '../../widget/custom_text_span.dart';
@@ -37,7 +38,9 @@ class _PasswordScreenState extends State<PasswordScreen> {
           padding: EdgeInsets.symmetric(horizontal: 18.w, vertical: 18.h),
           child: Column(
             children: [
-              Gap(context.height / 8),
+               Gap(context.height * 0.03),
+              const Backbutton(),
+              Gap(context.height * 0.032),
               CustomTextSpan(
                   textOne: "Welcome to ",
                   textTwo: "Doctor AI",

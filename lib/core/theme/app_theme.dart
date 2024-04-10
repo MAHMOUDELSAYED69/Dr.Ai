@@ -62,7 +62,7 @@ abstract class AppTheme {
       ),
       //
 
-      iconTheme: const IconThemeData(color: ColorManager.grey),
+      iconTheme: const IconThemeData(color: ColorManager.black),
       switchTheme: SwitchThemeData(
         trackOutlineColor: MaterialStateProperty.all(ColorManager.green),
         thumbColor: MaterialStateProperty.all(ColorManager.white),

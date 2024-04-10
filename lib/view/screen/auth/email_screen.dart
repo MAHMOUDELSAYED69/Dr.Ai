@@ -15,6 +15,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:gap/gap.dart';
 
 import '../../../core/constant/routes.dart';
+import '../../widget/black_button.dart';
 import '../../widget/my_stepper_form.dart';
 
 class EmailScreen extends StatefulWidget {
@@ -42,7 +43,9 @@ class _EmailScreenState extends State<EmailScreen> {
           padding: EdgeInsets.symmetric(horizontal: 18.w, vertical: 18.h),
           child: Column(
             children: [
-              Gap(context.height / 8),
+              Gap(context.height * 0.03),
+              const Backbutton(),
+              Gap(context.height * 0.032),
               const CustomTextSpan(
                   textOne: "Welcome to ", textTwo: "Doctor AI", fontSize: 24),
               Gap(8.h),

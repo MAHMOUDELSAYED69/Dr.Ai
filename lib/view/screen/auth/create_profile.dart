@@ -6,6 +6,7 @@ import 'package:dr_ai/core/helper/extention.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:gap/gap.dart';
 import '../../../core/constant/routes.dart';
+import '../../widget/black_button.dart';
 import '../../widget/custom_button.dart';
 import '../../widget/custom_text_field.dart';
 import '../../widget/custom_text_span.dart';
@@ -44,7 +45,9 @@ class _CreateProfileState extends State<CreateProfile> {
           padding: EdgeInsets.symmetric(horizontal: 18.w, vertical: 18.h),
           child: Column(
             children: [
-              Gap(context.height / 8),
+              Gap(context.height * 0.03),
+              const Backbutton(),
+              Gap(context.height * 0.032),
               CustomTextSpan(
                   textOne: "Create ", textTwo: "Profile", fontSize: 24.sp),
               Gap(8.h),

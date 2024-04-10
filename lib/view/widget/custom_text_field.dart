@@ -69,7 +69,7 @@ class _CustomTextFormFieldState extends State<CustomTextFormField> {
         validator: widget.validator ??
             (value) {
               if (value!.isEmpty) {
-                return "please fill out the field!";
+                return "Field cannot be empty";
               } else {
                 return null;
               }
