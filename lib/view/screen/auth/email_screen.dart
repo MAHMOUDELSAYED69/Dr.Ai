@@ -58,7 +58,7 @@ class _EmailScreenState extends State<EmailScreen> {
                 style:
                     context.textTheme.bodySmall?.copyWith(fontSize: 16.spMin),
               ),
-              Gap(18.h),
+              Gap(26.h),
               const MyStepperForm(stepReachedNumber: 0),
               Form(
                 key: formKey,

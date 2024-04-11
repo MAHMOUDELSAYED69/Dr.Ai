@@ -8,6 +8,7 @@ import 'package:gap/gap.dart';
 import '../../../core/constant/routes.dart';
 import '../../widget/black_button.dart';
 import '../../widget/custom_button.dart';
+import '../../widget/custom_drop_down.dart';
 import '../../widget/custom_text_field.dart';
 import '../../widget/custom_text_span.dart';
 import '../../widget/my_stepper_form.dart';
@@ -36,6 +37,18 @@ class _CreateProfileState extends State<CreateProfile> {
   double? _weight;
   String? _chronicDiseases;
   String? _familyHistoryOfChronicDiseases;
+  List<String> genderList = ['Male', 'Female', 'Other'];
+  List<String> bodyTypesList = [
+    'A+',
+    'A-',
+    'B+',
+    'B-',
+    'AB+',
+    'AB-',
+    'O+',
+    'O-',
+    'Unknown',
+  ];
 
   @override
   Widget build(BuildContext context) {
@@ -50,7 +63,7 @@ class _CreateProfileState extends State<CreateProfile> {
               const Backbutton(),
               Gap(context.height * 0.032),
               CustomTextSpan(
-                  textOne: "Create ", textTwo: "Profile", fontSize: 24.sp),
+                  textOne: "Create ", textTwo: "Profile", fontSize: 24.spMin),
               Gap(8.h),
               Text(
                 "Please enter your data and you can be changed it again from within the settings",
@@ -68,6 +81,7 @@ class _CreateProfileState extends State<CreateProfile> {
                   if (formKey.currentState!.validate()) {
                     formKey.currentState!.save();
                     log("Sccess");
+                    log("$_name $_phoneNumber $_dob $_gender $_bloodType $_height $_weight $_chronicDiseases $_familyHistoryOfChronicDiseases");
                     Navigator.pushNamed(context, RouteManager.information);
                   }
                 },
@@ -112,24 +126,22 @@ class _CreateProfileState extends State<CreateProfile> {
               _dob = data;
             },
           ),
-          CustomTextFormField(
-            dropDownVisible: true,
-            keyboardType: TextInputType.name,
-            title: "Choose you Gender",
-            hintText: "Select your Gender",
-            onSaved: (data) {
-              _gender = data;
-            },
-            onDropDownSelected: () {
-              log("DropDown Selected");
+          CustomDropdown(
+            fieldTitle: "Select your Gender",
+            title: "Gender",
+            dropDownList: genderList,
+            onChanged: (value) {
+              _gender = value;
+              log(_gender ?? "Empty");
             },
           ),
-          CustomTextFormField(
-            keyboardType: TextInputType.name,
+          CustomDropdown(
+            fieldTitle: "Select your blood type",
             title: "blood type",
-            hintText: "Select your blood type",
-            onSaved: (data) {
-              _bloodType = data;
+            dropDownList: bodyTypesList,
+            onChanged: (value) {
+              _bloodType = value;
+              log(_bloodType ?? "Empty");
             },
           ),
           CustomTextFormField(
