@@ -6,9 +6,9 @@ import '../../core/constant/color.dart';
 
 class Item {
   final String name;
-  final Icon? icon;
+  final IconData? icon;
 
-  const Item(this.name, {this.icon});
+  const Item(this.name, [this.icon]);
 }
 
 class CustomDropDownField extends StatefulWidget {
@@ -58,7 +58,7 @@ class CustomDropDownFieldState extends State<CustomDropDownField> {
             errorStyle: context.textTheme.bodySmall
                 ?.copyWith(color: ColorManager.error, fontSize: 14.spMin),
             contentPadding:
-                EdgeInsets.symmetric(vertical: 12.h, horizontal: 10.w),
+                EdgeInsets.symmetric(vertical: 14.h, horizontal: 10.w),
             filled: true,
             fillColor: ColorManager.white,
             hintText: widget.hintText,
@@ -75,22 +75,22 @@ class CustomDropDownFieldState extends State<CustomDropDownField> {
             });
           },
           onSaved: widget.onSaved,
-          items:  widget.items.map((Item user) {
-            return   DropdownMenuItem<Item>(
+          items: widget.items.map((Item user) {
+            return DropdownMenuItem<Item>(
               value: user,
-              child:   Row(
-                children: [
-                  
-                 
-                  Text(
-                    user.name,
-                    style: context.textTheme.bodySmall
-                        ?.copyWith(color: ColorManager.black),
-                        
-                  ),
-                      const SizedBox(width: 10),
-                  if (user.icon != null) user.icon!,
-                ],
+              child: Padding(
+                padding: EdgeInsets.symmetric(horizontal: 5.w),
+                child: Row(
+                  children: [
+                    if (user.icon != null) Icon(user.icon),
+                    SizedBox(width: 10.w),
+                    Text(
+                      user.name,
+                      style: context.textTheme.bodySmall
+                          ?.copyWith(color: ColorManager.black),
+                    ),
+                  ],
+                ),
               ),
             );
           }).toList(),

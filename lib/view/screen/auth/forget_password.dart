@@ -72,7 +72,7 @@ class _ForgetPasswordState extends State<ForgetPassword> {
                   ),
                   Gap(8.h),
                   CustomTextFormField(
-                    title: "E-mail",
+                    title: "Email",
                     hintText: "Enter your Email",
                     keyboardType: TextInputType.emailAddress,
                     onSaved: (data) {

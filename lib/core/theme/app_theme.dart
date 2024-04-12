@@ -94,29 +94,29 @@ abstract class AppTheme {
       ),
       textTheme: TextTheme(
         bodyLarge: TextStyle(
-          fontSize: 24.sp,
+          fontSize: 24.spMin,
           color: ColorManager.black,
           fontWeight: FontWeight.w600,
         ),
         bodyMedium: TextStyle(
-          fontSize: 16.sp,
+          fontSize: 16.spMin,
           color: ColorManager.black,
           fontWeight: FontWeight.w500,
         ),
         bodySmall: TextStyle(
-          fontSize: 14.sp,
+          fontSize: 14.spMin,
           color: ColorManager.grey,
           fontWeight: FontWeight.w400,
         ),
         //* GREEN
         displayLarge: TextStyle(
-          fontSize: 24.sp,
+          fontSize: 24.spMin,
           color: ColorManager.green,
           fontWeight: FontWeight.w600,
         ),
         //! For button
         displayMedium: TextStyle(
-          fontSize: 16.sp,
+          fontSize: 16.spMin,
           color: ColorManager.white,
           fontWeight: FontWeight.w600,
         ),
@@ -124,12 +124,12 @@ abstract class AppTheme {
           decoration: TextDecoration.underline,
           decorationColor: MyColors.green,
           color: MyColors.green,
-          fontSize: 14.sp,
+          fontSize: 14.spMin,
           fontWeight: FontWeight.w500,
         ),
       ),
       inputDecorationTheme: InputDecorationTheme(
-        hintStyle: TextStyle(fontSize: 14.sp),
+        hintStyle: TextStyle(fontSize: 14.spMin),
         filled: true,
         fillColor: ColorManager.white,
         focusedBorder: OutlineInputBorder(

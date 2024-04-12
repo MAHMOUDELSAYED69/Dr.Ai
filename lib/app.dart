@@ -8,7 +8,6 @@ import 'package:dr_ai/logic/chat/chat_cubit.dart';
 import 'package:dr_ai/logic/image/image_cubit.dart';
 import 'package:dr_ai/logic/maps/maps_cubit.dart';
 import 'package:dr_ai/logic/validation/formvalidation_cubit.dart';
-import 'package:dr_ai/view/screen/auth/create_profile.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
@@ -73,6 +72,10 @@ class _MyAppState extends State<MyApp> {
         splitScreenMode: true,
         child: Builder(builder: (_) {
           return MaterialApp(
+            themeAnimationStyle: AnimationStyle(
+              duration: const Duration(microseconds: 250),
+              curve: Curves.linear,
+            ),
             debugShowCheckedModeBanner: false,
             title: 'Dr AI',
             theme: AppTheme.lightTheme,

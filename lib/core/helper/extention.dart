@@ -1,3 +1,5 @@
+
+
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -21,6 +23,10 @@ extension MediaQueryExtensions on BuildContext {
   double get height => MediaQuery.sizeOf(this).height;
   double get width => MediaQuery.sizeOf(this).width;
 }
+
+ extension FontSizeExtensions on BuildContext {
+   double get p => MediaQuery.sizeOf(this).width*0.05;
+ }
 
 //! BLOC EXTENSION
 extension CubitExtension<T extends Cubit<Object>> on BuildContext {

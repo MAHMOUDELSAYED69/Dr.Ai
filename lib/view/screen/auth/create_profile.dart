@@ -4,7 +4,6 @@ import 'dart:developer';
 import 'package:dr_ai/core/helper/extention.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:gap/gap.dart';
-import '../../../core/constant/routes.dart';
 import '../../widget/black_button.dart';
 import '../../widget/custom_button.dart';
 import '../../widget/custom_drop_down_field.dart';
@@ -37,9 +36,9 @@ class _CreateProfileState extends State<CreateProfile> {
   String? _chronicDiseases;
   String? _familyHistoryOfChronicDiseases;
   List<Item> genderList = const [
-    Item("Male"),
-    Item("Female"),
-    Item("Other"),
+    Item("Male", Icons.male),
+    Item("Female", Icons.female),
+    Item("Other", Icons.not_interested_outlined),
   ];
   List<Item> bloodTypesList = const [
     Item('A+'),
@@ -121,7 +120,7 @@ class _CreateProfileState extends State<CreateProfile> {
             validator: cubit.phoneNumberValidator,
           ),
           CustomTextFormField(
-            keyboardType: TextInputType.number,
+            keyboardType: TextInputType.datetime,
             title: "Date of birth",
             hintText: "Enter your Date of birth",
             onSaved: (data) {
