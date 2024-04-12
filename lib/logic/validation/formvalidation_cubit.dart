@@ -1,6 +1,6 @@
 import 'package:bloc/bloc.dart';
 import 'package:meta/meta.dart';
-
+import 'package:intl/intl.dart';
 part 'formvalidation_state.dart';
 
 class FormvalidationCubit extends Cubit<FormvalidationState> {
@@ -78,7 +78,7 @@ class FormvalidationCubit extends Cubit<FormvalidationState> {
     if (value == null || value.isEmpty) {
       return 'Phone number cannot be empty';
     }
-  
+
     if (!RegExp(r"^\+?\d{10,12}$").hasMatch(value)) {
       return 'Please enter a valid phone number';
     }
@@ -105,5 +105,39 @@ class FormvalidationCubit extends Cubit<FormvalidationState> {
     return null;
   }
 
-  
+  String? validateDateOfBirth(String? value) {
+    if (value == null || value.isEmpty) {
+      return 'Date of birth cannot be empty';
+    }
+
+    final dateFormat = RegExp(r'^\d{2}/\d{2}/\d{4}$');
+    if (!dateFormat.hasMatch(value)) {
+      return 'Enter date of birth in the format DD/MM/YYYY';
+    }
+
+    try {
+      final date = DateFormat('dd/MM/yyyy').parseStrict(value);
+      final today = DateTime.now();
+
+      if (date.isAfter(today)) {
+        return 'Date of birth cannot be in the future';
+      }
+
+      final age = today.year - date.year;
+      if (date.month > today.month ||
+          (date.month == today.month && date.day > today.day)) {
+        if (age - 1 < 18) {
+          return 'You must be at least 18 years old';
+        }
+      } else {
+        if (age < 18) {
+          return 'You must be at least 18 years old';
+        }
+      }
+    } catch (e) {
+      return 'Invalid date of birth';
+    }
+
+    return null;
+  }
 }

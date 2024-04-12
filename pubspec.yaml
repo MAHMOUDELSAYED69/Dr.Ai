@@ -49,11 +49,13 @@ dependencies:
   google_maps_flutter: ^2.5.3
   google_sign_in: ^6.1.6
   image_picker: ^1.0.4
+  intl: ^0.19.0
   loading_indicator: ^3.1.1
   lottie: ^2.4.0
   material_floating_search_bar_2: ^0.5.0
   meta: ^1.10.0
   modal_progress_hud_nsn: ^0.5.1
+  nepali_date_picker: ^6.0.0
   shared_preferences: ^2.2.2
   url_launcher: ^6.2.4
   uuid: ^4.3.3

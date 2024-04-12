@@ -125,6 +125,7 @@ class _CreateProfileState extends State<CreateProfile> {
             onSaved: (data) {
               _dob = data;
             },
+            validator: (value) => cubit.validateDateOfBirth(value),
           ),
           CustomDropdown(
             fieldTitle: "Select your Gender",
