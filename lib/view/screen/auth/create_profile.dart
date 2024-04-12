@@ -1,4 +1,3 @@
-import 'package:dr_ai/core/constant/color.dart';
 import 'package:dr_ai/logic/validation/formvalidation_cubit.dart';
 import 'package:flutter/material.dart';
 import 'dart:developer';
@@ -8,7 +7,7 @@ import 'package:gap/gap.dart';
 import '../../../core/constant/routes.dart';
 import '../../widget/black_button.dart';
 import '../../widget/custom_button.dart';
-import '../../widget/custom_drop_down.dart';
+import '../../widget/custom_drop_down_field.dart';
 import '../../widget/custom_text_field.dart';
 import '../../widget/custom_text_span.dart';
 import '../../widget/my_stepper_form.dart';
@@ -37,17 +36,21 @@ class _CreateProfileState extends State<CreateProfile> {
   double? _weight;
   String? _chronicDiseases;
   String? _familyHistoryOfChronicDiseases;
-  List<String> genderList = ['Male', 'Female', 'Other'];
-  List<String> bodyTypesList = [
-    'A+',
-    'A-',
-    'B+',
-    'B-',
-    'AB+',
-    'AB-',
-    'O+',
-    'O-',
-    'Unknown',
+  List<Item> genderList = const [
+    Item("Male"),
+    Item("Female"),
+    Item("Other"),
+  ];
+  List<Item> bloodTypesList = const [
+    Item('A+'),
+    Item('A-'),
+    Item('B+'),
+    Item('B-'),
+    Item('AB+'),
+    Item('AB-'),
+    Item('O+'),
+    Item('O-'),
+    Item('Unknown'),
   ];
 
   @override
@@ -119,7 +122,7 @@ class _CreateProfileState extends State<CreateProfile> {
             validator: (value) => cubit.phoneNumberValidator(value),
           ),
           CustomTextFormField(
-            keyboardType: TextInputType.name,
+            keyboardType: TextInputType.number,
             title: "Date of birth",
             hintText: "Enter your Date of birth",
             onSaved: (data) {
@@ -127,26 +130,23 @@ class _CreateProfileState extends State<CreateProfile> {
             },
             validator: (value) => cubit.validateDateOfBirth(value),
           ),
-          CustomDropdown(
-            fieldTitle: "Select your Gender",
+          CustomDropDownField(
+            hintText: "Enter your Gender",
             title: "Gender",
-            dropDownList: genderList,
-            onChanged: (value) {
-              _gender = value;
-              log(_gender ?? "Empty");
+            items: genderList,
+            onSaved: (data) {
+              _gender = data.toString();
             },
           ),
-          CustomDropdown(
-            fieldTitle: "Select your blood type",
-            title: "blood type",
-            dropDownList: bodyTypesList,
-            onChanged: (value) {
-              _bloodType = value;
-              log(_bloodType ?? "Empty");
-            },
-          ),
+          CustomDropDownField(
+              hintText: "Enter your Blood Type",
+              title: "Blood Type",
+              items: bloodTypesList,
+              onSaved: (data) {
+                _bloodType = data.toString();
+              }),
           CustomTextFormField(
-            keyboardType: TextInputType.name,
+            keyboardType: TextInputType.number,
             title: "Height ( CM )",
             hintText: "Enter your height",
             onSaved: (data) {
@@ -155,7 +155,7 @@ class _CreateProfileState extends State<CreateProfile> {
             validator: (value) => cubit.heightValidator(value),
           ),
           CustomTextFormField(
-            keyboardType: TextInputType.name,
+            keyboardType: TextInputType.number,
             title: "Weight ( KG )",
             hintText: "Enter your weight",
             onSaved: (data) {
@@ -181,34 +181,6 @@ class _CreateProfileState extends State<CreateProfile> {
           ),
         ],
       ),
-    );
-  }
-
-  String? dropdownValue;
-
-  Widget _buildDropDownbutton() {
-    return DropdownButton<String>(
-      value: dropdownValue,
-      icon: const Icon(Icons.arrow_downward),
-      iconSize: 24,
-      elevation: 16,
-      style: context.textTheme.bodySmall,
-      underline: Container(
-        height: 2,
-        color: ColorManager.black,
-      ),
-      onChanged: (String? newValue) {
-        setState(() {
-          dropdownValue = newValue;
-        });
-      },
-      items: <String>['Male', 'Female', 'Other']
-          .map<DropdownMenuItem<String>>((String value) {
-        return DropdownMenuItem<String>(
-          value: value,
-          child: Text(value),
-        );
-      }).toList(),
     );
   }
 }
