@@ -83,6 +83,7 @@ class _PasswordScreenState extends State<PasswordScreen> {
       child: Column(
         children: [
           CustomTextFormField(
+            keyboardType: TextInputType.visiblePassword,
             isVisible: true,
             title: "Password",
             hintText: "Enter Your password",
@@ -92,6 +93,7 @@ class _PasswordScreenState extends State<PasswordScreen> {
             validator: (value) => cubit.validatePassword(value),
           ),
           CustomTextFormField(
+            keyboardType: TextInputType.visiblePassword,
             obscureText: true,
             title: "Confirm Password",
             hintText: "Enter Your Confirm Password",

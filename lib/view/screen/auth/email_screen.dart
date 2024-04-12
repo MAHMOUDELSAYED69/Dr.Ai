@@ -63,6 +63,7 @@ class _EmailScreenState extends State<EmailScreen> {
               Form(
                 key: formKey,
                 child: CustomTextFormField(
+                    keyboardType: TextInputType.emailAddress,
                     title: "Email",
                     hintText: "Enter Your Email",
                     onSaved: (data) {

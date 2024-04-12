@@ -10,6 +10,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:gap/gap.dart';
+import '../../../logic/validation/formvalidation_cubit.dart';
 import '../../widget/button_loading_indicator.dart';
 import '../../widget/custom_divider.dart';
 import '../../widget/custom_sign_up_button.dart';
@@ -116,12 +117,14 @@ class _LoginScreenState extends State<LoginScreen> {
   }
 
   Widget _buildEmailAndPasswordFields() {
+    final cubit = context.bloc<FormvalidationCubit>();
     return Column(children: [
       CustomTextFormField(
         keyboardType: TextInputType.emailAddress,
         onSaved: (data) {
           _email = data;
         },
+        validator: (value) => cubit.validateEmail(value),
         hintText: "Enter your Email",
         title: "Email",
       ),
@@ -130,6 +133,7 @@ class _LoginScreenState extends State<LoginScreen> {
         onSaved: (data) {
           _password = data;
         },
+        validator: (value) => cubit.validatePassword(value),
         hintText: "Enter Your Password",
         isVisible: true,
         title: "Password",
