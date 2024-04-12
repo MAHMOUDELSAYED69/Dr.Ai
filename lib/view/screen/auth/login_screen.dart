@@ -32,7 +32,9 @@ class _LoginScreenState extends State<LoginScreen> {
   login() {
     if (formKey.currentState!.validate()) {
       formKey.currentState!.save();
-      context.bloc<LoginCubit>().userLogin(email: _email!, password: _password!);
+      context
+          .bloc<LoginCubit>()
+          .userLogin(email: _email!, password: _password!);
     }
   }
 
@@ -53,7 +55,8 @@ class _LoginScreenState extends State<LoginScreen> {
                 Text(
                   "Please enter your email & password to access your account.",
                   textAlign: TextAlign.center,
-                  style: context.textTheme.bodySmall?.copyWith(fontSize: 16.spMin),
+                  style:
+                      context.textTheme.bodySmall?.copyWith(fontSize: 16.spMin),
                 ),
                 Gap(20.h),
                 _buildEmailAndPasswordFields(),
@@ -100,8 +103,7 @@ class _LoginScreenState extends State<LoginScreen> {
                 Gap(16.h),
                 SignUpButton(
                   title: "Sign Up",
-                  onTap: () =>
-                      Navigator.pushNamed(context, RouteManager.email),
+                  onTap: () => Navigator.pushNamed(context, RouteManager.email),
                 ),
                 Gap(32.h),
                 const CustomDivider(title: "Log in with"),
@@ -124,7 +126,7 @@ class _LoginScreenState extends State<LoginScreen> {
         onSaved: (data) {
           _email = data;
         },
-        validator: (value) => cubit.validateEmail(value),
+        validator: cubit.validateEmail,
         hintText: "Enter your Email",
         title: "Email",
       ),
@@ -133,7 +135,7 @@ class _LoginScreenState extends State<LoginScreen> {
         onSaved: (data) {
           _password = data;
         },
-        validator: (value) => cubit.validatePassword(value),
+        validator: cubit.validatePassword,
         hintText: "Enter Your Password",
         isVisible: true,
         title: "Password",

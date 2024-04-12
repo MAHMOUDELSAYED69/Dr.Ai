@@ -90,7 +90,7 @@ class _PasswordScreenState extends State<PasswordScreen> {
             onSaved: (data) {
               _password = data;
             },
-            validator: (value) => cubit.validatePassword(value),
+            validator: cubit.validatePassword,
           ),
           CustomTextFormField(
             keyboardType: TextInputType.visiblePassword,
@@ -100,7 +100,7 @@ class _PasswordScreenState extends State<PasswordScreen> {
             onSaved: (data) {
               _confirmPassword = data;
             },
-            validator: (value) => cubit.validateConfirmPassword(value),
+            validator: cubit.validateConfirmPassword,
           ),
         ],
       ),

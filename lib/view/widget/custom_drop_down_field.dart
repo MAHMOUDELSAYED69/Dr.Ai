@@ -80,13 +80,16 @@ class CustomDropDownFieldState extends State<CustomDropDownField> {
               value: user,
               child:   Row(
                 children: [
-                  if (user.icon != null) user.icon!,
-                  const SizedBox(width: 10),
+                  
+                 
                   Text(
                     user.name,
                     style: context.textTheme.bodySmall
                         ?.copyWith(color: ColorManager.black),
+                        
                   ),
+                      const SizedBox(width: 10),
+                  if (user.icon != null) user.icon!,
                 ],
               ),
             );

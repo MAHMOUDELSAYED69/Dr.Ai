@@ -10,6 +10,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:gap/gap.dart';
 import '../../../logic/auth/forget_password/forget_password_cubit.dart';
+import '../../../logic/validation/formvalidation_cubit.dart';
 
 class ForgetPassword extends StatefulWidget {
   const ForgetPassword({super.key});
@@ -71,13 +72,14 @@ class _ForgetPasswordState extends State<ForgetPassword> {
                   ),
                   Gap(8.h),
                   CustomTextFormField(
-                    
+                    title: "E-mail",
                     hintText: "Enter your Email",
                     keyboardType: TextInputType.emailAddress,
                     onSaved: (data) {
                       email = data;
                     },
-                    title: "E-mail",
+                    validator:
+                        context.bloc<FormvalidationCubit>().validateEmail,
                   ),
                   Gap(24.h),
                   BlocConsumer<ForgetPasswordCubit, ForgetPasswordState>(

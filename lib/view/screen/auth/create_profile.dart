@@ -84,8 +84,7 @@ class _CreateProfileState extends State<CreateProfile> {
                   if (formKey.currentState!.validate()) {
                     formKey.currentState!.save();
                     log("Sccess");
-                    log("$_name $_phoneNumber $_dob $_gender $_bloodType $_height $_weight $_chronicDiseases $_familyHistoryOfChronicDiseases");
-                    Navigator.pushNamed(context, RouteManager.information);
+                    log("$_name\n$_phoneNumber\n$_dob\n$_gender\n$_bloodType\n$_height\n$_weight\n$_chronicDiseases\n$_familyHistoryOfChronicDiseases");
                   }
                 },
               ),
@@ -110,7 +109,7 @@ class _CreateProfileState extends State<CreateProfile> {
             onSaved: (data) {
               _name = data;
             },
-            validator: (value) => cubit.nameValidator(value),
+            validator: cubit.nameValidator,
           ),
           CustomTextFormField(
             keyboardType: TextInputType.phone,
@@ -119,7 +118,7 @@ class _CreateProfileState extends State<CreateProfile> {
             onSaved: (data) {
               _phoneNumber = int.parse(data!);
             },
-            validator: (value) => cubit.phoneNumberValidator(value),
+            validator: cubit.phoneNumberValidator,
           ),
           CustomTextFormField(
             keyboardType: TextInputType.number,
@@ -128,14 +127,14 @@ class _CreateProfileState extends State<CreateProfile> {
             onSaved: (data) {
               _dob = data;
             },
-            validator: (value) => cubit.validateDateOfBirth(value),
+            validator: cubit.validateDateOfBirth,
           ),
           CustomDropDownField(
             hintText: "Enter your Gender",
             title: "Gender",
             items: genderList,
             onSaved: (data) {
-              _gender = data.toString();
+              _gender = data!.name.toString();
             },
           ),
           CustomDropDownField(
@@ -143,7 +142,7 @@ class _CreateProfileState extends State<CreateProfile> {
               title: "Blood Type",
               items: bloodTypesList,
               onSaved: (data) {
-                _bloodType = data.toString();
+                _bloodType = data!.name.toString();
               }),
           CustomTextFormField(
             keyboardType: TextInputType.number,
@@ -152,7 +151,7 @@ class _CreateProfileState extends State<CreateProfile> {
             onSaved: (data) {
               _height = double.parse(data!);
             },
-            validator: (value) => cubit.heightValidator(value),
+            validator: cubit.heightValidator,
           ),
           CustomTextFormField(
             keyboardType: TextInputType.number,
@@ -161,7 +160,7 @@ class _CreateProfileState extends State<CreateProfile> {
             onSaved: (data) {
               _weight = double.parse(data!);
             },
-            validator: (value) => cubit.weightValidator(value),
+            validator: cubit.weightValidator,
           ),
           CustomTextFormField(
             keyboardType: TextInputType.name,

@@ -16,6 +16,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'core/helper/responsive.dart';
 import 'core/router/app_router.dart';
 import 'core/theme/app_theme.dart';
+
 class MyApp extends StatefulWidget {
   const MyApp({super.key});
 
@@ -75,9 +76,8 @@ class _MyAppState extends State<MyApp> {
             debugShowCheckedModeBanner: false,
             title: 'Dr AI',
             theme: AppTheme.lightTheme,
-            home: CreateProfile(),
-            // initialRoute: RouteManager.initialRoute,
-            // onGenerateRoute: AppRouter.onGenerateRoute,
+            initialRoute: RouteManager.initialRoute,
+            onGenerateRoute: AppRouter.onGenerateRoute,
           );
         }),
       ),

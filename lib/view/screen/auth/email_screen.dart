@@ -63,15 +63,14 @@ class _EmailScreenState extends State<EmailScreen> {
               Form(
                 key: formKey,
                 child: CustomTextFormField(
-                    keyboardType: TextInputType.emailAddress,
-                    title: "Email",
-                    hintText: "Enter Your Email",
-                    onSaved: (data) {
-                      email = data;
-                    },
-                    validator: (value) => context
-                        .bloc<FormvalidationCubit>()
-                        .validateEmail(value)),
+                  keyboardType: TextInputType.emailAddress,
+                  title: "Email",
+                  hintText: "Enter Your Email",
+                  onSaved: (data) {
+                    email = data;
+                  },
+                  validator: context.bloc<FormvalidationCubit>().validateEmail,
+                ),
               ),
               Gap(context.height / 8.5),
               CustomButton(
