@@ -5,9 +5,9 @@ abstract class SignUpState {}
 
 class SignUpInitial extends SignUpState {}
 
-//? verify email
-class VerifyEmailLoading extends SignUpState {}
+class SignUpLoading extends SignUpState {}
 
+//? verify email
 class VerifyEmailSuccess extends SignUpState {}
 
 class VerifyEmailFailure extends SignUpState {
@@ -16,8 +16,6 @@ class VerifyEmailFailure extends SignUpState {
 }
 
 //? create password
-class CreatePasswordLoading extends SignUpState {}
-
 class CreatePasswordSuccess extends SignUpState {}
 
 class CreatePasswordFailure extends SignUpState {
@@ -26,8 +24,6 @@ class CreatePasswordFailure extends SignUpState {
 }
 
 //? create profile
-class CreateProfileLoading extends SignUpState {}
-
 class CreateProfileSuccess extends SignUpState {}
 
 class CreateProfileFailure extends SignUpState {

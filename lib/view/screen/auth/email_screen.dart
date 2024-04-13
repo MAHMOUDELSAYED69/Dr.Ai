@@ -1,7 +1,6 @@
 import 'dart:developer';
-
-import 'package:dr_ai/core/helper/custom_dialog.dart';
 import 'package:dr_ai/core/helper/extention.dart';
+import 'package:dr_ai/logic/auth/sign_up/sign_up_cubit.dart';
 import 'package:dr_ai/logic/validation/formvalidation_cubit.dart';
 import 'package:dr_ai/view/widget/custom_button.dart';
 import 'package:dr_ai/view/widget/custom_divider.dart';
@@ -34,7 +33,7 @@ class _EmailScreenState extends State<EmailScreen> {
   }
 
   late GlobalKey<FormState> formKey;
-  String? email;
+  String? _email;
 
   @override
   Widget build(BuildContext context) {
@@ -68,7 +67,7 @@ class _EmailScreenState extends State<EmailScreen> {
                   title: "Email",
                   hintText: "Enter Your Email",
                   onSaved: (data) {
-                    email = data;
+                    _email = data;
                   },
                   validator: context.bloc<FormvalidationCubit>().validateEmail,
                 ),
@@ -79,11 +78,9 @@ class _EmailScreenState extends State<EmailScreen> {
                 onPressed: () {
                   if (formKey.currentState!.validate()) {
                     formKey.currentState!.save();
-
-                    log("Sccess");
+                    context.bloc<SignUpCubit>().email = _email!;
                     Navigator.pushNamed(context, RouteManager.password);
                   }
-              
                 },
               ),
               Gap(16.h),

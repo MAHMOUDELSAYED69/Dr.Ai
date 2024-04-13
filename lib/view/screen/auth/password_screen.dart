@@ -1,6 +1,7 @@
 import 'dart:developer';
 
 import 'package:dr_ai/core/helper/extention.dart';
+import 'package:dr_ai/logic/auth/sign_up/sign_up_cubit.dart';
 import 'package:dr_ai/logic/validation/formvalidation_cubit.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -62,8 +63,7 @@ class _PasswordScreenState extends State<PasswordScreen> {
                 onPressed: () {
                   if (formKey.currentState!.validate()) {
                     formKey.currentState!.save();
-
-                    log("Sccess");
+                    context.bloc<SignUpCubit>().password = _password!;
                     Navigator.pushNamed(context, RouteManager.information);
                   }
                 },

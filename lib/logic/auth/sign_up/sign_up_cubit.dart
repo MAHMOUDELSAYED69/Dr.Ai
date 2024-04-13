@@ -8,9 +8,8 @@ class SignUpCubit extends Cubit<SignUpState> {
   SignUpCubit() : super(SignUpInitial());
   String email = '';
   String password = '';
-  
   Future<void> verifyEmail() async {
-    emit(CreateProfileLoading());
+    emit(SignUpLoading());
     try {
       await FirebaseService.emailVerify();
       emit(VerifyEmailSuccess());
@@ -19,11 +18,11 @@ class SignUpCubit extends Cubit<SignUpState> {
     }
   }
 
-  Future<void> createPassword(String password) async {
-    emit(CreateProfileLoading());
+  Future<void> createPassword() async {
+    emit(SignUpLoading());
     try {
       await FirebaseAuth.instance.createUserWithEmailAndPassword(
-        email: FirebaseAuth.instance.currentUser?.email ?? email,
+        email: email,
         password: password,
       );
       emit(CreatePasswordSuccess());
@@ -38,11 +37,11 @@ class SignUpCubit extends Cubit<SignUpState> {
       required String dob,
       required String gender,
       required String bloodType,
-      required double height,
-      required double weight,
+      required String height,
+      required String weight,
       required String chronicDiseases,
       required String familyHistoryOfChronicDiseases}) async {
-    emit(CreateProfileLoading());
+    emit(SignUpLoading());
     try {
       await FirebaseService.storeUserData(
           name: name,

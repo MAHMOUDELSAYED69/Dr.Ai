@@ -6,19 +6,23 @@ import 'package:firebase_auth/firebase_auth.dart';
 
 class FirebaseService {
   static final FirebaseFirestore _firestore = FirebaseFirestore.instance;
-
+  static final FirebaseAuth _auth = FirebaseAuth.instance;
   static Future<void> storeUserData({
+    // required String email,
+    // required String uid,
     required String name,
     required String phoneNumber,
     required String dob,
     required String gender,
     required String bloodType,
-    required double height,
-    required double weight,
+    required String height,
+    required String weight,
     required String chronicDiseases,
     required String familyHistoryOfChronicDiseases,
   }) async {
     Map<String, dynamic> userData = {
+      'email': _auth.currentUser!.email,
+      'uid': _auth.currentUser!.uid,
       'name': name,
       'phoneNumber': phoneNumber,
       'dob': dob,
@@ -30,7 +34,10 @@ class FirebaseService {
       'familyHistoryOfChronicDiseases': familyHistoryOfChronicDiseases,
     };
 
-    await _firestore.collection('users').doc(phoneNumber).set(userData);
+    await _firestore
+        .collection('users')
+        .doc(_auth.currentUser!.email)
+        .set(userData);
   }
 
   //! REGISTER

@@ -23,9 +23,11 @@ class CustomDialog extends StatelessWidget {
       required this.subtitle,
       required this.buttonTitle,
       required this.onPressed,
-      required this.image});
+      required this.image,
+      this.errorMessage});
   final String title;
   final String subtitle;
+  final String? errorMessage;
   final String buttonTitle;
   final VoidCallback onPressed;
 
@@ -58,13 +60,20 @@ class CustomDialog extends StatelessWidget {
           SvgPicture.asset(image),
           Gap(18.h),
           Text(title, style: context.textTheme.bodyLarge),
-       
           Gap(8.h),
           Text(
             subtitle,
             textAlign: TextAlign.center,
             style: context.textTheme.bodySmall,
           ),
+          (errorMessage != null)
+              ? Text(
+                  errorMessage!,
+                  textAlign: TextAlign.center,
+                  style: context.textTheme.bodySmall
+                      ?.copyWith(color: ColorManager.error),
+                )
+              : const SizedBox(),
           Gap(24.h),
           CustomButton(
             title: buttonTitle,

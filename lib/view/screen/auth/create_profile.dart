@@ -1,7 +1,10 @@
+import 'package:dr_ai/core/helper/scaffold_snakbar.dart';
+import 'package:dr_ai/logic/auth/sign_up/sign_up_cubit.dart';
 import 'package:dr_ai/logic/validation/formvalidation_cubit.dart';
+import 'package:dr_ai/view/widget/button_loading_indicator.dart';
 import 'package:flutter/material.dart';
-import 'dart:developer';
 import 'package:dr_ai/core/helper/extention.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:gap/gap.dart';
 import '../../../core/constant/image.dart';
@@ -27,13 +30,14 @@ class _CreateProfileState extends State<CreateProfile> {
     formKey = GlobalKey<FormState>();
   }
 
+  bool _isLoading = false;
   String? _name;
-  int? _phoneNumber;
+  String? _phoneNumber;
   String? _dob;
   String? _gender;
   String? _bloodType;
-  double? _height;
-  double? _weight;
+  String? _height;
+  String? _weight;
   String? _chronicDiseases;
   String? _familyHistoryOfChronicDiseases;
   List<Item> genderList = const [
@@ -78,23 +82,64 @@ class _CreateProfileState extends State<CreateProfile> {
               const MyStepperForm(stepReachedNumber: 2),
               _buildCreateProfileFields(),
               Gap(18.h),
-              CustomButton(
-                title: "Submit",
-                onPressed: () {
-                  if (formKey.currentState!.validate()) {
-                    formKey.currentState!.save();
-                    log("Sccess");
-                    log("$_name\n$_phoneNumber\n$_dob\n$_gender\n$_bloodType\n$_height\n$_weight\n$_chronicDiseases\n$_familyHistoryOfChronicDiseases");
+              BlocConsumer<SignUpCubit, SignUpState>(
+                listener: (context, state) {
+                  if (state is SignUpLoading) {
+                    _isLoading = true;
+                  }
+                  if (state is VerifyEmailSuccess) {
+                    _isLoading = false;
                     context.showCustomDialog(
                       dismiss: false,
                       title: "Congratulation!",
-                      subtitle: "Your account has been created",
+                      subtitle:
+                          "Your account has been created\n verify your email to login",
                       buttonTitle: "Login",
                       image: ImageManager.congratulationIcon,
                       onPressed: () =>
                           Navigator.popUntil(context, (route) => route.isFirst),
                     );
                   }
+                  if (state is CreateProfileFailure) {
+                    _isLoading = false;
+                    scaffoldSnackBar(context, state.errorMessage);
+                  }
+                  if (state is VerifyEmailFailure) {
+                    _isLoading = false;
+                    scaffoldSnackBar(context, state.errorMessage);
+                  }
+                  if (state is CreateProfileFailure) {
+                    _isLoading = false;
+                    scaffoldSnackBar(context, state.errorMessage);
+                  }
+                },
+                builder: (context, state) {
+                  final cubit = context.bloc<SignUpCubit>();
+                  return CustomButton(
+                    widget: _isLoading == true
+                        ? const ButtonLoadingIndicator()
+                        : null,
+                    title: "Submit",
+                    onPressed: () async {
+                      if (formKey.currentState!.validate()) {
+                        formKey.currentState!.save();
+                        await cubit.createPassword();
+                        await cubit.createProfile(
+                          name: _name!,
+                          phoneNumber: _phoneNumber!,
+                          dob: _dob!,
+                          gender: _gender!,
+                          bloodType: _bloodType!,
+                          height: _height!,
+                          weight: _weight!,
+                          chronicDiseases: _chronicDiseases!,
+                          familyHistoryOfChronicDiseases:
+                              _familyHistoryOfChronicDiseases!,
+                        );
+                        await cubit.verifyEmail();
+                      }
+                    },
+                  );
                 },
               ),
               Gap(18.h),
@@ -125,7 +170,7 @@ class _CreateProfileState extends State<CreateProfile> {
             title: "phone Number",
             hintText: "Enter your phone Number",
             onSaved: (data) {
-              _phoneNumber = int.parse(data!);
+              _phoneNumber = data!;
             },
             validator: cubit.phoneNumberValidator,
           ),
@@ -158,7 +203,7 @@ class _CreateProfileState extends State<CreateProfile> {
             title: "Height ( CM )",
             hintText: "Enter your height",
             onSaved: (data) {
-              _height = double.parse(data!);
+              _height = data!;
             },
             validator: cubit.heightValidator,
           ),
@@ -167,7 +212,7 @@ class _CreateProfileState extends State<CreateProfile> {
             title: "Weight ( KG )",
             hintText: "Enter your weight",
             onSaved: (data) {
-              _weight = double.parse(data!);
+              _weight = data!;
             },
             validator: cubit.weightValidator,
           ),
