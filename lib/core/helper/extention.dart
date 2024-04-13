@@ -24,10 +24,6 @@ extension MediaQueryExtensions on BuildContext {
   double get width => MediaQuery.sizeOf(this).width;
 }
 
- extension FontSizeExtensions on BuildContext {
-   double get p => MediaQuery.sizeOf(this).width*0.05;
- }
-
 //! BLOC EXTENSION
 extension CubitExtension<T extends Cubit<Object>> on BuildContext {
   // ignore: avoid_shadowing_type_parameters

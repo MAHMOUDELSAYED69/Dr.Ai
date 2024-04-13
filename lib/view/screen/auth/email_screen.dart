@@ -1,5 +1,6 @@
 import 'dart:developer';
 
+import 'package:dr_ai/core/helper/custom_dialog.dart';
 import 'package:dr_ai/core/helper/extention.dart';
 import 'package:dr_ai/logic/validation/formvalidation_cubit.dart';
 import 'package:dr_ai/view/widget/custom_button.dart';
@@ -76,18 +77,20 @@ class _EmailScreenState extends State<EmailScreen> {
               CustomButton(
                 title: "Send",
                 onPressed: () {
-                  if (formKey.currentState!.validate()) {
-                    formKey.currentState!.save();
-                    //TODO: send email
-                    log("Sccess");
-                    Navigator.pushNamed(context, RouteManager.password);
-                  }
+                  // if (formKey.currentState!.validate()) {
+                  //   formKey.currentState!.save();
+
+                  //   log("Sccess");
+                  //   Navigator.pushNamed(context, RouteManager.password);
+                  // }
+                  showDialog(
+                    context: context, builder: (_) => CustomDialog());
                 },
               ),
               Gap(16.h),
               SignUpButton(
                 title: "Sign in",
-                subtitle: "Enter your Email",
+                subtitle: "Enter your Email ",
                 onTap: () => Navigator.pop(context),
               ),
               Gap(32.h),

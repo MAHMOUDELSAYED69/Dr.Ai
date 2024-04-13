@@ -92,7 +92,7 @@ class _CustomTextFormFieldState extends State<CustomTextFormField> {
               ? _buildSuffixIcon(Icons.visibility_off, Icons.visibility)
               : null,
           contentPadding:
-              EdgeInsets.symmetric(vertical: 14.h, horizontal: 10.w),
+              EdgeInsets.symmetric(vertical: 13.h, horizontal: 10.w),
           filled: true //true
           ,
           fillColor: widget.fillColor ?? ColorManager.white,

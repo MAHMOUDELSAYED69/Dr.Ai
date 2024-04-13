@@ -58,7 +58,7 @@ class CustomDropDownFieldState extends State<CustomDropDownField> {
             errorStyle: context.textTheme.bodySmall
                 ?.copyWith(color: ColorManager.error, fontSize: 14.spMin),
             contentPadding:
-                EdgeInsets.symmetric(vertical: 14.h, horizontal: 10.w),
+                EdgeInsets.symmetric(vertical: 13.h, horizontal: 10.w),
             filled: true,
             fillColor: ColorManager.white,
             hintText: widget.hintText,
@@ -83,7 +83,7 @@ class CustomDropDownFieldState extends State<CustomDropDownField> {
                 child: Row(
                   children: [
                     if (user.icon != null) Icon(user.icon),
-                    SizedBox(width: 10.w),
+                    if (user.icon != null) SizedBox(width: 10.w),
                     Text(
                       user.name,
                       style: context.textTheme.bodySmall
