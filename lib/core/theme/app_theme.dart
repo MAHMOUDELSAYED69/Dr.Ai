@@ -83,7 +83,7 @@ abstract class AppTheme {
         centerTitle: true,
         titleTextStyle: TextStyle(
           color: ColorManager.black,
-          fontSize: 20.sp,
+          fontSize: 20.spMin,
         ),
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.only(

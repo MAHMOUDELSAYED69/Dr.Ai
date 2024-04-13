@@ -9,11 +9,13 @@ class CustomButton extends StatelessWidget {
     this.onPressed,
     this.widget,
     this.size,
+    this.fontSize,
   });
   final String? title;
   final void Function()? onPressed;
   final Size? size;
   final Widget? widget;
+  final double? fontSize;
   @override
   Widget build(BuildContext context) {
     return ElevatedButton(
@@ -25,7 +27,9 @@ class CustomButton extends StatelessWidget {
         child: widget ??
             Text(
               title ?? "",
-              style: context.textTheme.displayMedium,
+              style: context.textTheme.displayMedium?.copyWith(
+                fontSize: fontSize ?? 16.spMin,
+              ),
             ));
   }
 }
