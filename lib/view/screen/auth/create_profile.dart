@@ -103,15 +103,15 @@ class _CreateProfileState extends State<CreateProfile> {
                   }
                   if (state is CreateProfileFailure) {
                     _isLoading = false;
-                    scaffoldSnackBar(context, state.errorMessage);
+                    customSnackBar(context, state.errorMessage);
                   }
                   if (state is VerifyEmailFailure) {
                     _isLoading = false;
-                    scaffoldSnackBar(context, state.errorMessage);
+                    customSnackBar(context, state.errorMessage);
                   }
                   if (state is CreateProfileFailure) {
                     _isLoading = false;
-                    scaffoldSnackBar(context, state.errorMessage);
+                    customSnackBar(context, state.errorMessage);
                   }
                 },
                 builder: (context, state) {

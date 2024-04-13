@@ -52,7 +52,7 @@ class _HomeScreenState extends State<HomeScreen> {
                     }
                     if (state is ImageFailure) {
                       isImageLoading = false;
-                      scaffoldSnackBar(context,
+                      customSnackBar(context,
                           "There was an error please try again later!");
                       log(state.message);
                     }

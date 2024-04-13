@@ -49,11 +49,11 @@ class _RegisterScreenState extends State<RegisterScreen> {
 
           Navigator.pop(context);
           FocusScope.of(context).unfocus();
-          scaffoldSnackBar(context, "Verify your E-mail and Login");
+          customSnackBar(context, "Verify your E-mail and Login");
         }
         if (state is RegisterFailure) {
           isLoading = false;
-          scaffoldSnackBar(context, state.message);
+          customSnackBar(context, state.message);
         }
       },
       builder: (context, state) {

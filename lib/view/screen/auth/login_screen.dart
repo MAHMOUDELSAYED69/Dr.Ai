@@ -87,7 +87,7 @@ class _LoginScreenState extends State<LoginScreen> {
                     }
                     if (state is SignInFailure) {
                       _isLoading = false;
-                      scaffoldSnackBar(context, state.message);
+                      customSnackBar(context, state.message);
                     }
                   },
                   builder: (context, state) {

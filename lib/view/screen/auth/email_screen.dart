@@ -1,4 +1,4 @@
-import 'dart:developer';
+
 import 'package:dr_ai/core/helper/extention.dart';
 import 'package:dr_ai/logic/auth/sign_up/sign_up_cubit.dart';
 import 'package:dr_ai/logic/validation/formvalidation_cubit.dart';
@@ -7,13 +7,10 @@ import 'package:dr_ai/view/widget/custom_divider.dart';
 import 'package:dr_ai/view/widget/custom_sign_up_button.dart';
 import 'package:dr_ai/view/widget/custom_text_field.dart';
 import 'package:dr_ai/view/widget/custom_text_span.dart';
-
 import 'package:dr_ai/view/widget/social_login_card.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-
 import 'package:gap/gap.dart';
-
 import '../../../core/constant/routes.dart';
 import '../../widget/black_button.dart';
 import '../../widget/my_stepper_form.dart';
@@ -78,6 +75,7 @@ class _EmailScreenState extends State<EmailScreen> {
                 onPressed: () {
                   if (formKey.currentState!.validate()) {
                     formKey.currentState!.save();
+
                     context.bloc<SignUpCubit>().email = _email!;
                     Navigator.pushNamed(context, RouteManager.password);
                   }

@@ -39,7 +39,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
   void logOut() {
     CacheData.clearData(clearData: true);
     FirebaseService.logOut();
-    scaffoldSnackBar(context, "Log out");
+    customSnackBar(context, "Log out");
     Navigator.pushNamedAndRemoveUntil(
         context, RouteManager.login, (route) => false);
   }
@@ -83,7 +83,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                     }
                     if (state is ImageFailure) {
                       isImageLoading = false;
-                      scaffoldSnackBar(context,
+                      customSnackBar(context,
                           "There was an error please try again later!");
                       log(state.message);
                     }

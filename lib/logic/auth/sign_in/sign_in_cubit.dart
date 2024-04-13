@@ -24,6 +24,7 @@ class SignInCubit extends Cubit<SignInState> {
       }
     } on FirebaseAuthException catch (err) {
       emit(SignInFailure(message: err.code));
+      
     } catch (err) {
       emit(SignInFailure(message: err.toString()));
     }

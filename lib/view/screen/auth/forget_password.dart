@@ -91,11 +91,11 @@ class _ForgetPasswordState extends State<ForgetPassword> {
                         isLoading = false;
                         Navigator.pop(context);
                         FocusScope.of(context).unfocus();
-                        scaffoldSnackBar(context, "Check your E-mail");
+                        customSnackBar(context, "Check your E-mail");
                       }
                       if (state is ForgetPasswordFailure) {
                         isLoading = false;
-                        scaffoldSnackBar(context,
+                        customSnackBar(context,
                             "There was an Error please try agin later!");
                         log(state.message);
                       }

@@ -8,7 +8,8 @@ class FormvalidationCubit extends Cubit<FormvalidationState> {
   String email = '';
   String password = '';
   String confirmPassword = '';
-  String? validatePassword(String? value) {
+
+  String? validatePassword(String? value, [String? firebaseException]) {
     if (value == null || value.isEmpty) {
       return 'Please enter a password';
     }
@@ -24,7 +25,13 @@ class FormvalidationCubit extends Cubit<FormvalidationState> {
     if (!_hasDigit(value)) {
       return 'Password must have at least one number';
     }
+    // if (firebaseException != null ||
+    //     firebaseException != '' ||
+    //     firebaseException?.isNotEmpty == true) {
+    //   return validateFirebaseException(firebaseException);
+    // }
     password = value;
+
     emit(PasswordValidationSuccess());
     return null;
   }
@@ -41,11 +48,12 @@ class FormvalidationCubit extends Cubit<FormvalidationState> {
       return 'Passwords do not match';
     }
     confirmPassword = value;
+
     emit(ConfirmPasswordValidationSuccess());
     return null;
   }
 
-  String? validateEmail(String? value) {
+  String? validateEmail(String? value, [String? firebaseException]) {
     if (value == null || value.isEmpty) {
       return 'Please enter an email address';
     }
@@ -53,6 +61,11 @@ class FormvalidationCubit extends Cubit<FormvalidationState> {
       return 'Please enter a valid email address';
     }
     email = value;
+    // if (firebaseException != null ||
+    //     firebaseException != '' ||
+    //     firebaseException?.isNotEmpty == true) {
+    //   return validateFirebaseException(firebaseException);
+    // }
     emit(EmailValidationSuccess());
     return null;
   }
@@ -138,6 +151,46 @@ class FormvalidationCubit extends Cubit<FormvalidationState> {
       return 'Invalid date of birth';
     }
 
+    return null;
+  }
+
+  String? validateFirebaseException(String? value) {
+    if (value != null) {
+      switch (value) {
+        case 'invalid-email':
+          return 'The email address is not valid.';
+        case 'user-disabled':
+          return 'The user account has been disabled by an administrator.';
+        case 'user-not-found':
+          return 'No user found for that email.';
+        case 'wrong-password':
+          return 'Wrong password provided for that user.';
+        case 'account-exists-with-different-credential':
+          return 'An account already exists with the same email address but different sign-in credentials.';
+        case 'email-already-in-use':
+          return 'The email address is already in use by another account.';
+        case 'operation-not-allowed':
+          return 'Email/password accounts are not enabled.';
+        case 'requires-recent-login':
+          return 'This operation is sensitive and requires recent authentication. Log in again before retrying this request.';
+        case 'invalid-credential':
+          return 'The provided credential is not valid.';
+        case 'invalid-verification-code':
+          return 'The verification code is invalid.';
+        case 'invalid-verification-id':
+          return 'The verification ID is invalid.';
+        case 'user-mismatch':
+          return 'The provided credentials do not correspond to the previously signed in user.';
+        case 'weak-password':
+          return 'The password must be 6 characters long or more.';
+        case 'network-request-failed':
+          return 'A network error (such as timeout, interrupted connection or unreachable host) has occurred.';
+        case 'too-many-requests':
+          return 'Too many requests. Try again later.\n بطل سبام ياعرص';
+        default:
+          return value;
+      }
+    }
     return null;
   }
 }
