@@ -4,6 +4,7 @@ import 'dart:developer';
 import 'package:dr_ai/core/helper/extention.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:gap/gap.dart';
+import '../../../core/constant/image.dart';
 import '../../widget/black_button.dart';
 import '../../widget/custom_button.dart';
 import '../../widget/custom_drop_down_field.dart';
@@ -84,6 +85,15 @@ class _CreateProfileState extends State<CreateProfile> {
                     formKey.currentState!.save();
                     log("Sccess");
                     log("$_name\n$_phoneNumber\n$_dob\n$_gender\n$_bloodType\n$_height\n$_weight\n$_chronicDiseases\n$_familyHistoryOfChronicDiseases");
+                    context.showCustomDialog(
+                      dismiss: false,
+                      title: "Congratulation!",
+                      subtitle: "Your account has been created",
+                      buttonTitle: "Login",
+                      image: ImageManager.congratulationIcon,
+                      onPressed: () =>
+                          Navigator.popUntil(context, (route) => route.isFirst),
+                    );
                   }
                 },
               ),

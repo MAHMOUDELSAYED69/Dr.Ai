@@ -77,14 +77,13 @@ class _EmailScreenState extends State<EmailScreen> {
               CustomButton(
                 title: "Send",
                 onPressed: () {
-                  // if (formKey.currentState!.validate()) {
-                  //   formKey.currentState!.save();
+                  if (formKey.currentState!.validate()) {
+                    formKey.currentState!.save();
 
-                  //   log("Sccess");
-                  //   Navigator.pushNamed(context, RouteManager.password);
-                  // }
-                  showDialog(
-                    context: context, builder: (_) => CustomDialog());
+                    log("Sccess");
+                    Navigator.pushNamed(context, RouteManager.password);
+                  }
+              
                 },
               ),
               Gap(16.h),

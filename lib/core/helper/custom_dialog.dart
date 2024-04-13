@@ -1,5 +1,4 @@
 import 'package:dr_ai/core/constant/color.dart';
-import 'package:dr_ai/core/constant/image.dart';
 import 'package:dr_ai/core/helper/extention.dart';
 import 'package:dr_ai/view/widget/custom_button.dart';
 import 'package:flutter/material.dart';
@@ -18,7 +17,19 @@ void alertMessage(context, {String? message}) {
 }
 
 class CustomDialog extends StatelessWidget {
-  const CustomDialog({super.key});
+  const CustomDialog(
+      {super.key,
+      required this.title,
+      required this.subtitle,
+      required this.buttonTitle,
+      required this.onPressed,
+      required this.image});
+  final String title;
+  final String subtitle;
+  final String buttonTitle;
+  final VoidCallback onPressed;
+
+  final String image;
 
   @override
   Widget build(BuildContext context) {
@@ -44,19 +55,20 @@ class CustomDialog extends StatelessWidget {
       child: Column(
         mainAxisSize: MainAxisSize.min,
         children: [
-          SvgPicture.asset(ImageManager.congratulationIcon),
-          Text("Congratulations!", style: context.textTheme.bodyLarge),
+          SvgPicture.asset(image),
           Gap(18.h),
+          Text(title, style: context.textTheme.bodyLarge),
+       
+          Gap(8.h),
           Text(
-            "Your account has been created",
+            subtitle,
             textAlign: TextAlign.center,
             style: context.textTheme.bodySmall,
           ),
           Gap(24.h),
           CustomButton(
-            title: "Login",
-            onPressed: () =>
-                Navigator.popUntil(context, (route) => route.isFirst),
+            title: buttonTitle,
+            onPressed: onPressed,
           ),
         ],
       ),

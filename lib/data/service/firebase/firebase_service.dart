@@ -5,6 +5,34 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
 class FirebaseService {
+  static final FirebaseFirestore _firestore = FirebaseFirestore.instance;
+
+  static Future<void> storeUserData({
+    required String name,
+    required String phoneNumber,
+    required String dob,
+    required String gender,
+    required String bloodType,
+    required double height,
+    required double weight,
+    required String chronicDiseases,
+    required String familyHistoryOfChronicDiseases,
+  }) async {
+    Map<String, dynamic> userData = {
+      'name': name,
+      'phoneNumber': phoneNumber,
+      'dob': dob,
+      'gender': gender,
+      'bloodType': bloodType,
+      'height': height,
+      'weight': weight,
+      'chronicDiseases': chronicDiseases,
+      'familyHistoryOfChronicDiseases': familyHistoryOfChronicDiseases,
+    };
+
+    await _firestore.collection('users').doc(phoneNumber).set(userData);
+  }
+
   //! REGISTER
   static Future<void> register(
       {required String email,
@@ -24,7 +52,7 @@ class FirebaseService {
       'uid': userCredential.user!.uid,
       'email': userCredential.user!.email,
       'name': userCredential.user!.displayName,
-      'image': userCredential.user?.photoURL,
+      //  'image': userCredential.user?.photoURL,
       'time': DateTime.now().toString(),
     });
   }
@@ -45,7 +73,7 @@ class FirebaseService {
       'uid': userCredential.user!.uid,
       'email': userCredential.user!.email,
       'name': userCredential.user!.displayName,
-      'image': userCredential.user?.photoURL,
+      //   'image': userCredential.user?.photoURL,
       'time': DateTime.now().toString(),
     }, SetOptions(merge: true));
   }

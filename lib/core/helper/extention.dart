@@ -1,7 +1,7 @@
-
-
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+
+import 'custom_dialog.dart';
 
 //! THEME EXTENSION
 extension ThemeExtensions on BuildContext {
@@ -33,6 +33,28 @@ extension CubitExtension<T extends Cubit<Object>> on BuildContext {
     } catch (_) {
       throw Exception('Cannot find bloc of type $T.');
     }
+  }
+}
+
+extension DialogExtension on BuildContext {
+  Future<void> showCustomDialog(
+      {required String title,
+      required String subtitle,
+      required String buttonTitle,
+      required String image,
+      required VoidCallback onPressed,
+      bool dismiss = true}) async {
+    return showDialog(
+      barrierDismissible: dismiss,
+      context: this,
+      builder: (_) => CustomDialog(
+        title: title,
+        subtitle: subtitle,
+        buttonTitle: buttonTitle,
+        image: image,
+        onPressed: onPressed,
+      ),
+    );
   }
 }
 
