@@ -2,7 +2,7 @@ import 'dart:developer';
 import 'package:dr_ai/core/constant/routes.dart';
 import 'package:dr_ai/logic/auth/forget_password/forget_password_cubit.dart';
 import 'package:dr_ai/logic/auth/log_out/log_out_cubit.dart';
-import 'package:dr_ai/logic/auth/login/login_cubit.dart';
+import 'package:dr_ai/logic/auth/sign_in/sign_in_cubit.dart';
 import 'package:dr_ai/logic/auth/register/register_cubit.dart';
 import 'package:dr_ai/logic/auth/sign_up/sign_up_cubit.dart';
 import 'package:dr_ai/logic/chat/chat_cubit.dart';
@@ -46,7 +46,7 @@ class _MyAppState extends State<MyApp> {
           create: (context) => SignUpCubit(),
         ),
         BlocProvider(
-          create: (context) => LoginCubit(),
+          create: (context) => SignInCubit(),
         ),
         BlocProvider(
           create: (context) => RegisterCubit(),

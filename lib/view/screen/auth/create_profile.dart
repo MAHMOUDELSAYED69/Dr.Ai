@@ -89,11 +89,12 @@ class _CreateProfileState extends State<CreateProfile> {
                   }
                   if (state is VerifyEmailSuccess) {
                     _isLoading = false;
+                    FocusScope.of(context).unfocus();
                     context.showCustomDialog(
                       dismiss: false,
                       title: "Congratulation!",
-                      subtitle:
-                          "Your account has been created\n verify your email to login",
+                      subtitle: "Your account has been created",
+                      errorMessage: "verify your email to login",
                       buttonTitle: "Login",
                       image: ImageManager.congratulationIcon,
                       onPressed: () =>

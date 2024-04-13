@@ -43,6 +43,7 @@ extension DialogExtension on BuildContext {
       required String buttonTitle,
       required String image,
       required VoidCallback onPressed,
+      String? errorMessage,
       bool dismiss = true}) async {
     return showDialog(
       barrierDismissible: dismiss,
@@ -50,6 +51,7 @@ extension DialogExtension on BuildContext {
       builder: (_) => CustomDialog(
         title: title,
         subtitle: subtitle,
+        errorMessage: errorMessage,
         buttonTitle: buttonTitle,
         image: image,
         onPressed: onPressed,

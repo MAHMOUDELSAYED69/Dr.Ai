@@ -1,7 +1,7 @@
 import 'package:dr_ai/core/constant/routes.dart';
 import 'package:dr_ai/core/helper/extention.dart';
 import 'package:dr_ai/core/helper/scaffold_snakbar.dart';
-import 'package:dr_ai/logic/auth/login/login_cubit.dart';
+import 'package:dr_ai/logic/auth/sign_in/sign_in_cubit.dart';
 import 'package:dr_ai/view/screen/auth/forget_password.dart';
 import 'package:dr_ai/view/widget/custom_button.dart';
 import 'package:dr_ai/view/widget/custom_text_field.dart';
@@ -33,8 +33,8 @@ class _LoginScreenState extends State<LoginScreen> {
     if (formKey.currentState!.validate()) {
       formKey.currentState!.save();
       context
-          .bloc<LoginCubit>()
-          .userLogin(email: _email!, password: _password!);
+          .bloc<SignInCubit>()
+          .userSignIn(email: _email!, password: _password!);
     }
   }
 
@@ -72,12 +72,12 @@ class _LoginScreenState extends State<LoginScreen> {
                   ),
                 ),
                 Gap(32.h),
-                BlocConsumer<LoginCubit, LoginState>(
+                BlocConsumer<SignInCubit, SignInState>(
                   listener: (context, state) async {
-                    if (state is LoginLoading) {
+                    if (state is SignInLoading) {
                       _isLoading = true;
                     }
-                    if (state is LoginSuccess) {
+                    if (state is SignInSuccess) {
                       _isLoading = false;
                       FocusScope.of(context).unfocus();
                       if (FirebaseAuth.instance.currentUser!.emailVerified) {
@@ -85,14 +85,14 @@ class _LoginScreenState extends State<LoginScreen> {
                             context, RouteManager.nav, (route) => false);
                       }
                     }
-                    if (state is LoginFailure) {
+                    if (state is SignInFailure) {
                       _isLoading = false;
                       scaffoldSnackBar(context, state.message);
                     }
                   },
                   builder: (context, state) {
                     return CustomButton(
-                      title: _isLoading == false ? "Login" : null,
+                      title: "Login",
                       widget: _isLoading == true
                           ? const ButtonLoadingIndicator()
                           : null,
