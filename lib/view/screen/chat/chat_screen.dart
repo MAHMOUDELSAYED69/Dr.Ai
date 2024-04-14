@@ -6,10 +6,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:gap/gap.dart';
 import '../../../core/constant/color.dart';
 import '../../../data/model/chat_message_model.dart';
-import '../../widget/chat_buble.dart';
+import '../../widget/chat_bubble.dart';
 
 class ChatScreen extends StatefulWidget {
   const ChatScreen({Key? key}) : super(key: key);
@@ -21,16 +20,13 @@ class ChatScreen extends StatefulWidget {
 class _ChatScreenState extends State<ChatScreen> {
   bool _isSenderLoading = false;
   bool _isReceiverLoading = false;
-  List<ChatMessageModel> chatMessageMode = [];
+  List<ChatMessageModel> _chatMessageMode = [];
   late TextEditingController _controller;
 
   void _sendMessage() {
     if (_controller.text.isNotEmpty) {
       BlocProvider.of<ChatCubit>(context)
           .sendMessage(message: _controller.text);
-      setState(() {
-        _isSenderLoading = true;
-      });
     }
   }
 
@@ -61,7 +57,7 @@ class _ChatScreenState extends State<ChatScreen> {
         }
         if (state is ChatReceiveSuccess) {
           _isReceiverLoading = false;
-          chatMessageMode = state.response;
+          _chatMessageMode = state.response;
         }
         if (state is ChatFailure) {
           _isSenderLoading = false;
@@ -87,23 +83,27 @@ class _ChatScreenState extends State<ChatScreen> {
               child: _buildChatTextField(context),
             ),
           ),
-          body: ListView.builder(
-            physics: const BouncingScrollPhysics(),
-            itemCount: chatMessageMode.length + (_isReceiverLoading ? 1 : 0),
-            reverse: true,
-            itemBuilder: (context, index) {
-              if (_isReceiverLoading && index == 0) {
-                return const ChatBubbleForLoading();
-              } else {
-                final chatIndex = _isReceiverLoading ? index - 1 : index;
-                final chatMessage = chatMessageMode[chatIndex];
-                return chatMessage.isUser
-                    ? ChatBubbleForGuest(message: chatMessage.message)
-                    : ChatBubbleForDrAi(message: chatMessage.message);
-              }
-            },
-          ),
+          body: _buildMessages(),
         );
+      },
+    );
+  }
+
+  Widget _buildMessages() {
+    return ListView.builder(
+      physics: const BouncingScrollPhysics(),
+      itemCount: _chatMessageMode.length + (_isReceiverLoading ? 1 : 0),
+      reverse: true,
+      itemBuilder: (context, index) {
+        if (_isReceiverLoading && index == 0) {
+          return const ChatBubbleForLoading();
+        } else {
+          final chatIndex = _isReceiverLoading ? index - 1 : index;
+          final chatMessage = _chatMessageMode[chatIndex];
+          return chatMessage.isUser
+              ? ChatBubbleForGuest(message: chatMessage.message)
+              : ChatBubbleForDrAi(message: chatMessage.message);
+        }
       },
     );
   }

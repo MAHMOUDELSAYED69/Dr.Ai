@@ -47,8 +47,6 @@ abstract class ImageManager {
   static const String chatIcon = "assets/images/chat_icon.svg";
   static const String trueIcon = "assets/images/true_icon.svg";
   static const String recordIcon = "assets/images/record_icon.svg";
-  static const String sendIcon = "assets/images/send_icon.svg";
-  static const String sendIcon2 = "assets/images/send_icon_2.svg";
   //? PNG
   static const String robotIcon = "assets/images/robot.png";
 }
