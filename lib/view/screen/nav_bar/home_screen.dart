@@ -1,12 +1,10 @@
 import 'package:dr_ai/core/constant/image.dart';
 import 'package:dr_ai/core/constant/routes.dart';
 import 'package:dr_ai/core/helper/extention.dart';
-import 'package:dr_ai/view/screen/chat/chat_screen.dart';
 import 'package:dr_ai/view/widget/custom_button.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:gap/gap.dart';
-import 'package:persistent_bottom_nav_bar/persistent_tab_view.dart';
 import '../../../core/constant/color.dart';
 import '../../widget/contact_card.dart';
 
@@ -62,14 +60,7 @@ class HomeScreen extends StatelessWidget {
                         size: Size(context.width * 0.375, 33.h),
                         title: "Start Chat",
                         onPressed: () {
-                          PersistentNavBarNavigator.pushDynamicScreen(
-                            context,
-                            screen: MaterialPageRoute(
-                                builder: (context) => const ChatScreen()),
-                            withNavBar: false,
-                          );
-
-                          // context.push(const ChatScreen());
+                         Navigator.pushNamed(context, RouteManager.chat);
                         },
                       ),
                     ],

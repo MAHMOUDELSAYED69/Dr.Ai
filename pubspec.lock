@@ -752,22 +752,6 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "0.5.1"
-  nepali_date_picker:
-    dependency: "direct main"
-    description:
-      name: nepali_date_picker
-      sha256: "25166424b87169bebe649692a481cf901bdd5c2b4ff8e044cc6b559405684b2b"
-      url: "https://pub.dev"
-    source: hosted
-    version: "6.0.0"
-  nepali_utils:
-    dependency: transitive
-    description:
-      name: nepali_utils
-      sha256: "2521f17341671a8daa5c19eaddcc52bde5462fe962fd4e5495ce68823c9a86e3"
-      url: "https://pub.dev"
-    source: hosted
-    version: "3.0.4"
   nested:
     dependency: transitive
     description:
@@ -840,14 +824,6 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "2.2.1"
-  persistent_bottom_nav_bar:
-    dependency: "direct main"
-    description:
-      name: persistent_bottom_nav_bar
-      sha256: e2e031e3366fde01511e372a9a19d720a9b252bb456e5c8d77a30d7a4a2ddfb0
-      url: "https://pub.dev"
-    source: hosted
-    version: "5.0.2"
   petitparser:
     dependency: transitive
     description:
