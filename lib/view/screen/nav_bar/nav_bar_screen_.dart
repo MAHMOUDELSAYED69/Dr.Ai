@@ -107,3 +107,60 @@ class _NavbarScreenState extends State<NavbarScreen> {
     );
   }
 }
+// class NavbarScreen extends StatefulWidget {
+//   const NavbarScreen({super.key});
+
+//   @override
+//   State<NavbarScreen> createState() => _NavbarScreenState();
+// }
+
+// class _NavbarScreenState extends State<NavbarScreen> {
+//   final List<IconData> iconList = const [
+//     Icons.home,
+//     Icons.nfc,
+//     Icons.map,
+//     Icons.person
+//   ];
+//   final List<Widget> classSwitch = [
+//     const HomeScreen(),
+//     const NFCScreen(),
+//     const MapScreen(),
+//     const AccountScreen(),
+//   ];
+//   int _bottomNavIndex = 0;
+//   @override
+//   Widget build(BuildContext context) {
+//     return Scaffold(
+//       resizeToAvoidBottomInset: false,
+//       body: SizedBox(
+//         width: double.infinity,
+//         height: double.infinity,
+//         child: IndexedStack(
+//           index: _bottomNavIndex,
+//           children: classSwitch,
+//         ),
+//       ),
+//       bottomNavigationBar: AnimatedBottomNavigationBar(
+//        splashRadius: 20,
+//         gapWidth: 0,
+//         backgroundColor: ColorManager.white,
+//         icons: iconList,
+//         elevation: 15,
+//         shadow:
+//             Shadow(blurRadius: 20, color: ColorManager.grey.withOpacity(0.2)),
+//         inactiveColor: ColorManager.grey,
+//         activeColor: ColorManager.green,
+//         activeIndex: _bottomNavIndex,
+//         gapLocation: GapLocation.center,
+//         height: 50.h,
+//         iconSize: 25.r,
+//         leftCornerRadius: 20.dm,
+//         rightCornerRadius: 20.dm,
+//         onTap: (index) {
+//           setState(() => _bottomNavIndex = index);
+//         },
+//         //other params
+//       ),
+//     );
+//   }
+// }

@@ -76,21 +76,11 @@ abstract class AppTheme {
       useMaterial3: true,
       brightness: Brightness.light,
       scaffoldBackgroundColor: ColorManager.white,
-      appBarTheme: AppBarTheme(
-        color: ColorManager.white,
-        iconTheme: const IconThemeData(color: ColorManager.black),
+      appBarTheme: const AppBarTheme(
+        backgroundColor: ColorManager.white,
+        titleSpacing: 0,
+        iconTheme: IconThemeData(color: ColorManager.black),
         elevation: 0,
-        centerTitle: true,
-        titleTextStyle: TextStyle(
-          color: ColorManager.black,
-          fontSize: 20.spMin,
-        ),
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.only(
-            bottomLeft: Radius.circular(20.dm),
-            bottomRight: Radius.circular(20.dm),
-          ),
-        ),
       ),
       textTheme: TextTheme(
         bodyLarge: TextStyle(
