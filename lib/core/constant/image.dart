@@ -42,6 +42,10 @@ abstract class ImageManager {
   static const String ambulanceIcon = "assets/images/ambulance_icon.svg";
   static const String policeIcon = "assets/images/police_icon.svg";
   static const String firefightingIcon = "assets/images/firefighting_icon.svg";
+  static const String mapIcon = "assets/images/map_icon.svg";
+  static const String nfcIcon = "assets/images/nfc_icon.svg";
+  static const String chatIcon = "assets/images/chat_icon.svg";
+  static const String trueIcon = "assets/images/true_icon.svg";
   //? PNG
   static const String robotIcon = "assets/images/robot.png";
 }

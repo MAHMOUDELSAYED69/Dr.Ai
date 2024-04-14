@@ -18,7 +18,6 @@ class ContactCard extends StatelessWidget {
   final String image;
   final String title;
   final String number;
-
   @override
   Widget build(BuildContext context) {
     return Expanded(

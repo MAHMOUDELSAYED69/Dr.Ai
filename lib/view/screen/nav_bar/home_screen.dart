@@ -1,10 +1,12 @@
 import 'package:dr_ai/core/constant/image.dart';
 import 'package:dr_ai/core/constant/routes.dart';
 import 'package:dr_ai/core/helper/extention.dart';
+import 'package:dr_ai/view/screen/chat/chat_screen.dart';
 import 'package:dr_ai/view/widget/custom_button.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:gap/gap.dart';
+import 'package:persistent_bottom_nav_bar/persistent_tab_view.dart';
 import '../../../core/constant/color.dart';
 import '../../widget/contact_card.dart';
 
@@ -15,19 +17,16 @@ class HomeScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: context.theme.scaffoldBackgroundColor,
-      body: Center(
-        child: SingleChildScrollView(
-          child: Padding(
-            padding: EdgeInsets.symmetric(horizontal: 16.w, vertical: 18.h),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.center,
-              children: [
-                Gap(32.h),
-                _buildChatCard(context),
-                Gap(32.h),
-                _buidContactsCard(),
-              ],
-            ),
+      body: SingleChildScrollView(
+        child: Padding(
+          padding: EdgeInsets.symmetric(horizontal: 16.w, vertical: 18.h),
+          child: Column(
+            children: [
+              Gap(32.h),
+              _buildChatCard(context),
+              Gap(32.h),
+              _buidContactsCard(),
+            ],
           ),
         ),
       ),
@@ -63,7 +62,14 @@ class HomeScreen extends StatelessWidget {
                         size: Size(context.width * 0.375, 33.h),
                         title: "Start Chat",
                         onPressed: () {
-                          Navigator.pushNamed(context, RouteManager.chat);
+                          PersistentNavBarNavigator.pushDynamicScreen(
+                            context,
+                            screen: MaterialPageRoute(
+                                builder: (context) => const ChatScreen()),
+                            withNavBar: false,
+                          );
+
+                          // context.push(const ChatScreen());
                         },
                       ),
                     ],
