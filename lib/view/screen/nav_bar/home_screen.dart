@@ -59,7 +59,8 @@ class HomeScreen extends StatelessWidget {
                       CustomButton(
                         size: Size(context.width * 0.375, 33.h),
                         title: "Start Chat",
-                        onPressed: () => Navigator.pushNamed(context, RouteManager.chat),
+                        onPressed: () =>
+                            Navigator.pushNamed(context, RouteManager.chat),
                       ),
                     ],
                   ),

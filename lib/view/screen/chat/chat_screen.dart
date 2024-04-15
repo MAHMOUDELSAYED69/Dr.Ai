@@ -71,6 +71,7 @@ class _ChatScreenState extends State<ChatScreen> {
             title: Text(
               "Doctor AI Chat",
               style: context.textTheme.bodyMedium?.copyWith(fontSize: 18.spMin),
+              // textScaler: TextScaler.noScaling,
             ),
             shape: context.appBarTheme.shape,
           ),

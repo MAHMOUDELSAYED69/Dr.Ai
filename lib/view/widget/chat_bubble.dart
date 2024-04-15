@@ -9,29 +9,30 @@ class ChatBubbleForLoading extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Align(
-      alignment: Alignment.centerLeft,
+      alignment: AlignmentDirectional.centerStart,
       child: Container(
-          height: 36.h,
-          width: 60,
-          padding: EdgeInsets.all(12.w),
-          margin: EdgeInsets.only(
-              left: 16.w, top: 7.h, bottom: 7.h, right: context.width / 4),
-          decoration: BoxDecoration(
-            borderRadius: BorderRadius.only(
-              bottomLeft: Radius.circular(16.r),
-              topRight: Radius.circular(16.r),
-              bottomRight: Radius.circular(16.r),
-            ),
-            color: ColorManager.grey.withOpacity(0.25),
+        height: 38.h,
+        width: 60.w,
+        padding: EdgeInsets.all(12.w),
+        margin: EdgeInsets.only(
+            left: 16.w, top: 7.h, bottom: 7.h, right: context.width / 4),
+        decoration: BoxDecoration(
+          borderRadius: BorderRadius.only(
+            bottomLeft: Radius.circular(16.r),
+            topRight: Radius.circular(16.r),
+            bottomRight: Radius.circular(16.r),
           ),
-          child: const LoadingIndicator(
-            indicatorType: Indicator.ballPulse,
-            colors: [
-              ColorManager.green,
-              ColorManager.white,
-              ColorManager.green,
-            ],
-          )),
+          color: ColorManager.grey.withOpacity(0.25),
+        ),
+        child: const LoadingIndicator(
+          indicatorType: Indicator.ballPulseSync,
+          colors: [
+            ColorManager.green,
+            ColorManager.white,
+            ColorManager.selver,
+          ],
+        ),
+      ),
     );
   }
 }
@@ -46,7 +47,7 @@ class ChatBubbleForDrAi extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Align(
-      alignment: Alignment.centerLeft,
+      alignment: AlignmentDirectional.centerStart,
       child: Container(
         padding: EdgeInsets.all(12.w),
         margin: EdgeInsets.only(
@@ -79,7 +80,7 @@ class ChatBubbleForGuest extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Align(
-      alignment: Alignment.centerRight,
+      alignment: AlignmentDirectional.centerEnd,
       child: Container(
         padding: EdgeInsets.all(12.w),
         margin: EdgeInsets.only(

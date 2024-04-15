@@ -1,5 +1,3 @@
-import 'dart:developer';
-
 import 'package:dr_ai/core/helper/extention.dart';
 import 'package:dr_ai/logic/auth/sign_up/sign_up_cubit.dart';
 import 'package:dr_ai/logic/validation/formvalidation_cubit.dart';
