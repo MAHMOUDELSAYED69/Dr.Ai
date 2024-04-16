@@ -74,19 +74,28 @@ class _MyAppState extends State<MyApp> {
         designSize: const Size(360, 690),
         minTextAdapt: true,
         splitScreenMode: true,
-        child: Builder(builder: (_) {
-          return MaterialApp(
-            themeAnimationStyle: AnimationStyle(
-              duration: const Duration(microseconds: 250),
-              curve: Curves.linear,
-            ),
-            debugShowCheckedModeBanner: false,
-            title: 'Dr AI',
-            theme: AppTheme.lightTheme,
-            initialRoute: RouteManager.initialRoute,
-            onGenerateRoute: AppRouter.onGenerateRoute,
-          );
-        }),
+        child: Builder(
+            builder: (_) => MaterialApp(
+                  builder: (context, widget) {
+                    final mediaQueryData = MediaQuery.of(context);
+                    final scaledMediaQueryData = mediaQueryData.copyWith(
+                      textScaler: TextScaler.noScaling,
+                    );
+                    return MediaQuery(
+                      data: scaledMediaQueryData,
+                      child: widget!,
+                    );
+                  },
+                  themeAnimationStyle: AnimationStyle(
+                    duration: const Duration(microseconds: 250),
+                    curve: Curves.linear,
+                  ),
+                  debugShowCheckedModeBanner: false,
+                  title: 'Dr AI',
+                  theme: AppTheme.lightTheme,
+                  initialRoute: RouteManager.initialRoute,
+                  onGenerateRoute: AppRouter.onGenerateRoute,
+                )),
       ),
     );
   }

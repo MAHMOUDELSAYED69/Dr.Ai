@@ -11,7 +11,7 @@ class ChatBubbleForLoading extends StatelessWidget {
     return Align(
       alignment: AlignmentDirectional.centerStart,
       child: Container(
-        height: 38.h,
+        height: 37.h,
         width: 60.w,
         padding: EdgeInsets.all(12.w),
         margin: EdgeInsets.only(
