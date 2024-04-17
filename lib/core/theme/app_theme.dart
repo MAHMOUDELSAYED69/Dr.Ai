@@ -77,10 +77,17 @@ abstract class AppTheme {
       brightness: Brightness.light,
       scaffoldBackgroundColor: ColorManager.white,
       appBarTheme: const AppBarTheme(
-        backgroundColor: ColorManager.white,
+        backgroundColor: ColorManager.green,
+        scrolledUnderElevation: 0,
         titleSpacing: 0,
         iconTheme: IconThemeData(color: ColorManager.black),
         elevation: 0,
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.only(
+            bottomLeft: Radius.elliptical(20, 10),
+            bottomRight: Radius.elliptical(20, 10),
+          ),
+        ),
       ),
       textTheme: TextTheme(
         bodyLarge: TextStyle(

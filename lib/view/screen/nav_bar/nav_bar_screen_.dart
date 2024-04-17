@@ -73,8 +73,7 @@ class _NavbarScreenState extends State<NavbarScreen> {
 
         activeIndex: _bottomNavIndex,
         gapLocation: GapLocation.center,
-        height: 55.h,
-
+        height: 65.h,
         leftCornerRadius: 20.dm,
         rightCornerRadius: 20.dm,
         onTap: (index) {
