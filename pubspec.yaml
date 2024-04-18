@@ -48,6 +48,8 @@ dependencies:
   google_fonts: ^6.1.0
   google_maps_flutter: ^2.5.3
   google_sign_in: ^6.1.6
+  hive: ^2.2.3
+  hive_flutter: ^1.1.0
   image_picker: ^1.0.4
   intl: ^0.19.0
   loading_indicator: ^3.1.1
@@ -55,13 +57,14 @@ dependencies:
   material_floating_search_bar_2: ^0.5.0
   meta: ^1.10.0
   modal_progress_hud_nsn: ^0.5.1
-
   shared_preferences: ^2.2.2
   url_launcher: ^6.2.4
   uuid: ^4.3.3
 
 dev_dependencies:
   flutter_launcher_icons: "^0.13.1"
+  build_runner: ^2.4.9
+  hive_generator: ^2.0.1
   flutter_lints: ^2.0.0
   flutter_test:
     sdk: flutter

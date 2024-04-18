@@ -1,6 +1,7 @@
 import 'package:dr_ai/core/constant/color.dart';
 import 'package:dr_ai/core/constant/fonts.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 abstract class AppTheme {
@@ -76,16 +77,17 @@ abstract class AppTheme {
       useMaterial3: true,
       brightness: Brightness.light,
       scaffoldBackgroundColor: ColorManager.white,
-      appBarTheme: const AppBarTheme(
+      appBarTheme: AppBarTheme(
         backgroundColor: ColorManager.green,
         scrolledUnderElevation: 0,
         titleSpacing: 0,
-        iconTheme: IconThemeData(color: ColorManager.black),
+        iconTheme: const IconThemeData(color: ColorManager.black),
         elevation: 0,
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.only(
-            bottomLeft: Radius.elliptical(20, 10),
-            bottomRight: Radius.elliptical(20, 10),
+        shadowColor: ColorManager.black.withOpacity(0.3),
+        shape: LinearBorder.bottom(
+          side: BorderSide(
+            width: 1.h,
+            color: ColorManager.grey.withOpacity(0.5),
           ),
         ),
       ),
