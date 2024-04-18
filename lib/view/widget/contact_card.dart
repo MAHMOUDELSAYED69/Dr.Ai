@@ -1,11 +1,12 @@
 import 'package:dr_ai/core/helper/extention.dart';
+import 'package:dr_ai/logic/launch_uri/launch_uri_cubit.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:gap/gap.dart';
 
 import '../../core/constant/color.dart';
-import '../../logic/other/contact_func.dart';
+
 
 class ContactCard extends StatelessWidget {
   const ContactCard({
@@ -22,7 +23,8 @@ class ContactCard extends StatelessWidget {
   Widget build(BuildContext context) {
     return Expanded(
       child: InkWell(
-        onTap: () => OtherMethod.openContactsApp(phoneNumber: number),
+        onTap: () =>
+            context.bloc<LaunchUriCubit>().openContactsApp(phoneNumber: number),
         child: Card(
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(12.dm),

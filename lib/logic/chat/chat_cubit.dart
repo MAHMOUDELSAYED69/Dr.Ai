@@ -11,7 +11,7 @@ part 'chat_state.dart';
 
 class ChatCubit extends Cubit<ChatState> {
   ChatCubit() : super(ChatInitial());
-  dynamic response;
+  dynamic _response;
   final _firestore = FirebaseFirestore.instance
       .collection('chat_history')
       .doc(FirebaseAuth.instance.currentUser!.uid)
@@ -26,10 +26,10 @@ class ChatCubit extends Cubit<ChatState> {
       await _firestore.add(chatMessageModel.toJson());
       emit(ChatSendSuccess());
       emit(ChatReceiverLoading());
-      response = await MessageWebService.postData(data: {'content': message});
-      log(response.toString());
+      _response = await MessageWebService.postData(data: {'content': message});
+      log(_response.toString());
       await recivedMessage();
-      response = null;
+      _response = null;
       emit(ChatSendSuccess());
     } on Exception catch (err) {
       emit(ChatFailure(message: err.toString()));
@@ -38,10 +38,10 @@ class ChatCubit extends Cubit<ChatState> {
 
   Future<void> recivedMessage() async {
     try {
-      if (response != null) {
+      if (_response != null) {
         ChatMessageModel chatMessageModel = ChatMessageModel(
             isUser: false,
-            message: response ?? "ERROR",
+            message: _response ?? "ERROR",
             timeTamp: DateTime.now().toString());
         await _firestore.add(chatMessageModel.toJson());
       }
