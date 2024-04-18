@@ -21,3 +21,15 @@ class ChatFailure extends ChatState {
   final String message;
   ChatFailure({required this.message});
 }
+
+class ClearChatLoading extends ChatState {}
+
+class ClearChatSuccess extends ChatState {
+  final String message;
+  ClearChatSuccess({required this.message});
+}
+
+class ClearChatFailure extends ChatState {
+  final String message;
+  ClearChatFailure({required this.message});
+}

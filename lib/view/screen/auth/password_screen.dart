@@ -47,7 +47,7 @@ class _PasswordScreenState extends State<PasswordScreen> {
                   fontSize: 24.spMin),
               Gap(8.h),
               Text(
-                "Please enter your email and we will send a confirmation link to your email",
+                "Set a strong password to keep your account secure",
                 textAlign: TextAlign.center,
                 style:
                     context.textTheme.bodySmall?.copyWith(fontSize: 16.spMin),

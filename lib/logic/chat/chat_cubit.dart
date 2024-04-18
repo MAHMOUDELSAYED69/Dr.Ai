@@ -12,6 +12,10 @@ part 'chat_state.dart';
 class ChatCubit extends Cubit<ChatState> {
   ChatCubit() : super(ChatInitial());
   dynamic response;
+  final _firestore = FirebaseFirestore.instance
+      .collection('chat_history')
+      .doc(FirebaseAuth.instance.currentUser!.uid)
+      .collection('messages');
   Future<void> sendMessage({required String message}) async {
     emit(ChatSenderLoading());
     try {
@@ -19,11 +23,7 @@ class ChatCubit extends Cubit<ChatState> {
           isUser: true,
           message: message.trim(),
           timeTamp: DateTime.now().toString());
-      await FirebaseFirestore.instance
-          .collection('chat_history')
-          .doc(FirebaseAuth.instance.currentUser!.uid)
-          .collection('messages')
-          .add(chatMessageModel.toJson());
+      await _firestore.add(chatMessageModel.toJson());
       emit(ChatSendSuccess());
       emit(ChatReceiverLoading());
       response = await MessageWebService.postData(data: {'content': message});
@@ -43,16 +43,9 @@ class ChatCubit extends Cubit<ChatState> {
             isUser: false,
             message: response ?? "ERROR",
             timeTamp: DateTime.now().toString());
-        await FirebaseFirestore.instance
-            .collection('chat_history')
-            .doc(FirebaseAuth.instance.currentUser!.uid)
-            .collection('messages')
-            .add(chatMessageModel.toJson());
+        await _firestore.add(chatMessageModel.toJson());
       }
-      FirebaseFirestore.instance
-          .collection('chat_history')
-          .doc(FirebaseAuth.instance.currentUser!.uid)
-          .collection('messages')
+      _firestore
           .orderBy(
             'timeTamp',
             descending: true,
@@ -68,6 +61,19 @@ class ChatCubit extends Cubit<ChatState> {
     } on FirebaseException catch (err) {
       emit(ChatFailure(message: err.toString()));
       log(err.toString());
+    }
+  }
+
+  Future<void> clearMessages() async {
+    emit(ClearChatLoading());
+    try {
+      final QuerySnapshot querySnapshot = await _firestore.get();
+      for (QueryDocumentSnapshot doc in querySnapshot.docs) {
+        await doc.reference.delete();
+      }
+      emit(ClearChatSuccess(message: "All messages deleted successfully."));
+    } on Exception catch (err) {
+      emit(ClearChatFailure(message: err.toString()));
     }
   }
 }
