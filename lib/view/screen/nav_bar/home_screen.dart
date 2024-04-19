@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:dr_ai/core/constant/image.dart';
 import 'package:dr_ai/core/constant/routes.dart';
 import 'package:dr_ai/core/helper/extention.dart';
@@ -9,6 +11,7 @@ import '../../../core/cache/cache.dart';
 import '../../../core/constant/color.dart';
 import '../../../core/helper/scaffold_snakbar.dart';
 import '../../../data/service/firebase/firebase_service.dart';
+import '../../../logic/chat/chat_cubit.dart';
 import '../../widget/contact_card.dart';
 
 class HomeScreen extends StatelessWidget {
@@ -78,8 +81,11 @@ class HomeScreen extends StatelessWidget {
                       CustomButton(
                         size: Size(context.width * 0.375, 33.h),
                         title: "Start Chat",
-                        onPressed: () =>
-                            Navigator.pushNamed(context, RouteManager.chat),
+                        onPressed: () {
+                          context.bloc<ChatCubit>().startListeningToMessages();
+                          log("start .....");
+                          Navigator.pushNamed(context, RouteManager.chat);
+                        },
                       ),
                     ],
                   ),
