@@ -48,6 +48,17 @@ abstract class ImageManager {
   static const String trueIcon = "assets/images/true_icon.svg";
   static const String recordIcon = "assets/images/record_icon.svg";
   static const String editIcon = "assets/images/edit_icon.svg";
+  // static const String logoutIcon = "assets/images/logout_icon.svg";
+  static const String languageIcon = "assets/images/language_icon.svg";
+  static const String rateUsIcon = "assets/images/rate_us_icon.svg";
+  static const String darkModeIcon = "assets/images/dark_mode_icon.svg";
+  static const String deteteAccountIcon  = "assets/images/delete_account_icon.svg";
+  static const String changePasswordIcon  = "assets/images/change_password_icon.svg";
+  static const String aboutUsIcon  = "assets/images/about_us_icon.svg";
+
+  
+
+
   //? PNG
   static const String robotIcon = "assets/images/robot.png";
 }
