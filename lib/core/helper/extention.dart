@@ -43,13 +43,17 @@ extension DialogExtension on BuildContext {
       required String buttonTitle,
       required String image,
       required VoidCallback onPressed,
+      Color? secondButtoncolor,
       String? errorMessage,
+      Widget? widget,
       bool dismiss = true}) async {
     return showDialog(
       barrierDismissible: dismiss,
       context: this,
       builder: (_) => CustomDialog(
+        secondButtoncolor: secondButtoncolor,
         title: title,
+        widget: widget,
         subtitle: subtitle,
         errorMessage: errorMessage,
         buttonTitle: buttonTitle,

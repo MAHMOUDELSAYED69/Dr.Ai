@@ -4,6 +4,7 @@ import 'package:dr_ai/core/constant/color.dart';
 import 'package:dr_ai/core/constant/image.dart';
 import 'package:dr_ai/core/helper/extention.dart';
 import 'package:dr_ai/logic/account/account_cubit.dart';
+import 'package:dr_ai/view/widget/button_loading_indicator.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -27,10 +28,23 @@ class _AccountScreenState extends State<AccountScreen> {
     context.bloc<AccountCubit>().getprofileData();
   }
 
+  bool _islogoutLoading = false;
   @override
   Widget build(BuildContext context) {
+    final cubit = context.bloc<AccountCubit>();
     final divider = Divider(color: ColorManager.grey, thickness: 1.w);
-    return BlocBuilder<AccountCubit, AccountState>(
+    return BlocConsumer<AccountCubit, AccountState>(
+      listener: (context, state) {
+        if (state is AccountLogoutLoading) {
+          _islogoutLoading = true;
+        }
+        if (state is AccountLogoutSuccess) {
+          _islogoutLoading = false;
+          Navigator.pushNamedAndRemoveUntil(
+              context, RouteManager.login, (route) => false);
+          customSnackBar(context, state.message);
+        }
+      },
       builder: (context, state) {
         if (state is AccountSuccess) {
           final userData = state.userDataModel;
@@ -76,10 +90,16 @@ class _AccountScreenState extends State<AccountScreen> {
                       iconData: Icons.logout,
                       color: ColorManager.error,
                       onPressed: () {
-                        FirebaseService.logOut();
-                        customSnackBar(context, "Log out");
-                        Navigator.pushNamedAndRemoveUntil(
-                            context, RouteManager.login, (route) => false);
+                        context.showCustomDialog(
+                            secondButtoncolor: ColorManager.error,
+                            title: "Logout?!",
+                            subtitle: "Are you sure you want to logout?",
+                            buttonTitle: "Logout",
+                            widget: _islogoutLoading
+                                ? const ButtonLoadingIndicator()
+                                : null,
+                            image: ImageManager.errorIcon,
+                            onPressed: () async => await cubit.logout());
                       },
                     ),
                   ],

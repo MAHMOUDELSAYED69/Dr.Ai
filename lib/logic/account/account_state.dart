@@ -19,8 +19,10 @@ class AccountFailure extends AccountState {
   AccountFailure({required this.message});
 }
 
-class AccountLogout extends AccountState {
+class AccountLogoutLoading extends AccountState {}
+
+class AccountLogoutSuccess extends AccountState {
   final String message;
 
-  AccountLogout({required this.message});
+  AccountLogoutSuccess({required this.message});
 }

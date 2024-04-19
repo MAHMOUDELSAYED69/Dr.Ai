@@ -31,7 +31,7 @@ class HomeScreen extends StatelessWidget {
               Gap(32.h),
               _buidContactsCard(),
               Gap(32.h),
-              _buildLogoutButton(context)
+          
             ],
           ),
         ),
@@ -39,19 +39,19 @@ class HomeScreen extends StatelessWidget {
     );
   }
 
-  _buildLogoutButton(BuildContext context) {
-    return CustomButton(
-      onPressed: () {
-        CacheData.clearData(clearData: true);
-        FirebaseService.logOut();
-        customSnackBar(context, "Log out");
-        Navigator.pushNamedAndRemoveUntil(
-            context, RouteManager.login, (route) => false);
-      },
-      backgroundColor: ColorManager.error,
-      title: "Logout",
-    );
-  }
+  // _buildLogoutButton(BuildContext context) {
+  //   return CustomButton(
+  //     onPressed: () {
+  //       CacheData.clearData(clearData: true);
+  //       FirebaseService.logOut();
+  //       customSnackBar(context, "Log out");
+  //       Navigator.pushNamedAndRemoveUntil(
+  //           context, RouteManager.login, (route) => false);
+  //     },
+  //     backgroundColor: ColorManager.error,
+  //     title: "Logout",
+  //   );
+  // }
 
   Widget _buildChatCard(BuildContext context) {
     return Card(

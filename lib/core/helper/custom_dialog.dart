@@ -17,20 +17,24 @@ void alertMessage(context, {String? message}) {
 }
 
 class CustomDialog extends StatelessWidget {
-  const CustomDialog(
-      {super.key,
-      required this.title,
-      required this.subtitle,
-      required this.buttonTitle,
-      required this.onPressed,
-      required this.image,
-      this.errorMessage});
+  const CustomDialog({
+    super.key,
+    required this.title,
+    required this.subtitle,
+    required this.buttonTitle,
+    required this.onPressed,
+    required this.image,
+    this.errorMessage,
+    this.secondButtoncolor,
+    this.widget,
+  });
   final String title;
   final String subtitle;
   final String? errorMessage;
   final String buttonTitle;
   final VoidCallback onPressed;
-
+  final Color? secondButtoncolor;
+  final Widget? widget;
   final String image;
 
   @override
@@ -75,7 +79,16 @@ class CustomDialog extends StatelessWidget {
                 )
               : const SizedBox(),
           Gap(24.h),
+          secondButtoncolor != null
+              ? CustomButton(
+                  title: "Cancel",
+                  onPressed: () => context.pop(),
+                )
+              : const SizedBox(),
+          Gap(12.h),
           CustomButton(
+            widget: widget,
+            backgroundColor: secondButtoncolor,
             title: buttonTitle,
             onPressed: onPressed,
           ),

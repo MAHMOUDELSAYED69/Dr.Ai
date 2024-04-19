@@ -26,7 +26,12 @@ class AccountCubit extends Cubit<AccountState> {
   }
 
   Future<void> logout() async {
-    await FirebaseAuth.instance.signOut();
-    emit(AccountLogout(message: "Logout successfully"));
+    emit(AccountLogoutLoading());
+    try {
+      await FirebaseAuth.instance.signOut();
+      emit(AccountLogoutSuccess(message: "Logout successfully"));
+    } on Exception catch (err) {
+      emit(AccountFailure(message: err.toString()));
+    }
   }
 }
