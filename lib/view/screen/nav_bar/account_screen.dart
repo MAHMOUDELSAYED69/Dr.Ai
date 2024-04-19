@@ -7,7 +7,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:gap/gap.dart';
-
 import '../../../core/constant/routes.dart';
 import '../../../core/helper/scaffold_snakbar.dart';
 import '../../../data/service/firebase/firebase_service.dart';
@@ -75,6 +74,7 @@ class AccountScreen extends StatelessWidget {
       IconData? iconData,
       VoidCallback? onPressed}) {
     return ListTile(
+      onTap: onPressed,
       contentPadding:
           EdgeInsets.only(left: 12.w, right: 4.w, bottom: 5.h, top: 5.h),
       title: Text(title, style: context.textTheme.bodyMedium),
@@ -95,8 +95,8 @@ class AccountScreen extends StatelessWidget {
             ? SvgPicture.asset(
                 image!,
                 color: color ?? ColorManager.green,
-                width: 24.w,
-                height: 24.w,
+                width: 20.w,
+                height: 20.w,
               )
             : Icon(
                 iconData,
@@ -120,7 +120,7 @@ class AccountScreen extends StatelessWidget {
           height: 50.w,
           width: 50.w,
           decoration: BoxDecoration(
-            color: ColorManager.white,
+            color: ColorManager.green.withOpacity(0.1),
             borderRadius: BorderRadius.circular(8.dm),
             border: Border.all(
               width: 1.5.w,
@@ -129,8 +129,8 @@ class AccountScreen extends StatelessWidget {
           ),
           child: Text(
             "M",
-            style: context.textTheme.bodyLarge,
-          ),
+            style: context.textTheme.displayLarge,
+          ), 
         ),
         title: Text(
           "Mahmoud",
