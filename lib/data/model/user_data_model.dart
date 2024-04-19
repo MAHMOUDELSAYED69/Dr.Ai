@@ -10,6 +10,7 @@ class UserDataModel {
   String weight;
   String chronicDiseases;
   String familyHistoryOfChronicDiseases;
+
   UserDataModel({
     required this.email,
     required this.uid,
@@ -52,4 +53,5 @@ class UserDataModel {
       'familyHistoryOfChronicDiseases': familyHistoryOfChronicDiseases,
     };
   }
+  
 }

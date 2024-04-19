@@ -17,6 +17,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'core/helper/responsive.dart';
 import 'core/router/app_router.dart';
 import 'core/theme/app_theme.dart';
+import 'logic/account/account_cubit.dart';
 
 class MyApp extends StatefulWidget {
   const MyApp({super.key});
@@ -72,6 +73,9 @@ class _MyAppState extends State<MyApp> {
         ),
         BlocProvider(
           create: (context) => LaunchUriCubit(),
+        ),
+        BlocProvider(
+          create: (context) => AccountCubit(),
         ),
       ],
       child: ScreenUtilInit(

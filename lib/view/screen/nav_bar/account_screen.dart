@@ -3,7 +3,9 @@
 import 'package:dr_ai/core/constant/color.dart';
 import 'package:dr_ai/core/constant/image.dart';
 import 'package:dr_ai/core/helper/extention.dart';
+import 'package:dr_ai/logic/account/account_cubit.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:gap/gap.dart';
@@ -11,59 +13,83 @@ import '../../../core/constant/routes.dart';
 import '../../../core/helper/scaffold_snakbar.dart';
 import '../../../data/service/firebase/firebase_service.dart';
 
-class AccountScreen extends StatelessWidget {
+class AccountScreen extends StatefulWidget {
   const AccountScreen({super.key});
+
+  @override
+  State<AccountScreen> createState() => _AccountScreenState();
+}
+
+class _AccountScreenState extends State<AccountScreen> {
+  @override
+  void initState() {
+    super.initState();
+    context.bloc<AccountCubit>().getprofileData();
+  }
 
   @override
   Widget build(BuildContext context) {
     final divider = Divider(color: ColorManager.grey, thickness: 1.w);
-    return Scaffold(
-      backgroundColor: context.theme.scaffoldBackgroundColor,
-      body: SingleChildScrollView(
-        child: Padding(
-          padding: EdgeInsets.symmetric(horizontal: 12.w, vertical: 18.h),
-          child: Column(
-            children: [
-              Gap(10.h),
-              _buildUserCard(context),
-              Gap(20.h),
-              _buildProfileCard(context,
-                  title: "Edit Profile", image: ImageManager.userIcon),
-              divider,
-              _buildProfileCard(context,
-                  title: "Languages", image: ImageManager.languageIcon),
-              divider,
-              _buildProfileCard(context,
-                  title: "Change Password",
-                  image: ImageManager.changePasswordIcon),
-              divider,
-              _buildProfileCard(context,
-                  title: "About Us", image: ImageManager.aboutUsIcon),
-              divider,
-              _buildProfileCard(context,
-                  title: "Rate Us", image: ImageManager.rateUsIcon),
-              divider,
-              _buildProfileCard(context,
-                  title: "Delete Account",
-                  image: ImageManager.deteteAccountIcon,
-                  color: ColorManager.error),
-              divider,
-              _buildProfileCard(
-                context,
-                title: "logout",
-                iconData: Icons.logout,
-                color: ColorManager.error,
-                onPressed: () {
-                  FirebaseService.logOut();
-                  customSnackBar(context, "Log out");
-                  Navigator.pushNamedAndRemoveUntil(
-                      context, RouteManager.login, (route) => false);
-                },
+    return BlocBuilder<AccountCubit, AccountState>(
+      builder: (context, state) {
+        if (state is AccountSuccess) {
+          final userData = state.userDataModel;
+          return Scaffold(
+            backgroundColor: context.theme.scaffoldBackgroundColor,
+            body: SingleChildScrollView(
+              child: Padding(
+                padding: EdgeInsets.symmetric(horizontal: 12.w, vertical: 18.h),
+                child: Column(
+                  children: [
+                    Gap(10.h),
+                    _buildUserCard(
+                      context,
+                      char: userData.name[0],
+                      email: userData.email,
+                      name: userData.name,
+                    ),
+                    Gap(20.h),
+                    _buildProfileCard(context,
+                        title: "Edit Profile", image: ImageManager.userIcon),
+                    divider,
+                    _buildProfileCard(context,
+                        title: "Languages", image: ImageManager.languageIcon),
+                    divider,
+                    _buildProfileCard(context,
+                        title: "Change Password",
+                        image: ImageManager.changePasswordIcon),
+                    divider,
+                    _buildProfileCard(context,
+                        title: "About Us", image: ImageManager.aboutUsIcon),
+                    divider,
+                    _buildProfileCard(context,
+                        title: "Rate Us", image: ImageManager.rateUsIcon),
+                    divider,
+                    _buildProfileCard(context,
+                        title: "Delete Account",
+                        image: ImageManager.deteteAccountIcon,
+                        color: ColorManager.error),
+                    divider,
+                    _buildProfileCard(
+                      context,
+                      title: "logout",
+                      iconData: Icons.logout,
+                      color: ColorManager.error,
+                      onPressed: () {
+                        FirebaseService.logOut();
+                        customSnackBar(context, "Log out");
+                        Navigator.pushNamedAndRemoveUntil(
+                            context, RouteManager.login, (route) => false);
+                      },
+                    ),
+                  ],
+                ),
               ),
-            ],
-          ),
-        ),
-      ),
+            ),
+          );
+        }
+        return Container();
+      },
     );
   }
 
@@ -107,7 +133,8 @@ class AccountScreen extends StatelessWidget {
     );
   }
 
-  Widget _buildUserCard(BuildContext context) {
+  Widget _buildUserCard(BuildContext context,
+      {required String char, required String email, required String name}) {
     return Card(
       elevation: 0,
       shape: RoundedRectangleBorder(
@@ -128,16 +155,17 @@ class AccountScreen extends StatelessWidget {
             ),
           ),
           child: Text(
-            "M",
+            char,
             style: context.textTheme.displayLarge,
-          ), 
+          ),
         ),
         title: Text(
-          "Mahmoud",
+          name,
           style: context.textTheme.bodyMedium,
+          overflow: TextOverflow.ellipsis,
         ),
         subtitle: Text(
-          "5h9pY@example.com",
+          email,
           style: context.textTheme.bodySmall,
           overflow: TextOverflow.ellipsis,
         ),
