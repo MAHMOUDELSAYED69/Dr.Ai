@@ -74,18 +74,25 @@ class CustomDialog extends StatelessWidget {
               ? Text(
                   errorMessage!,
                   textAlign: TextAlign.center,
-                  style: context.textTheme.bodySmall
-                      ?.copyWith(color: ColorManager.error),
+                  style: context.textTheme.bodySmall?.copyWith(
+                    color: ColorManager.error,
+                    fontWeight: FontWeight.bold,
+                    fontStyle: FontStyle.italic,
+                  ),
                 )
               : const SizedBox(),
-          Gap(24.h),
+          Gap(22.h),
           secondButtoncolor != null
-              ? CustomButton(
-                  title: "Cancel",
-                  onPressed: () => context.pop(),
+              ? Column(
+                  children: [
+                    CustomButton(
+                      title: "Cancel",
+                      onPressed: () => context.pop(),
+                    ),
+                    Gap(12.h),
+                  ],
                 )
               : const SizedBox(),
-          Gap(12.h),
           CustomButton(
             widget: widget,
             backgroundColor: secondButtoncolor,
