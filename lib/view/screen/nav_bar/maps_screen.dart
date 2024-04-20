@@ -8,6 +8,7 @@ import 'package:dr_ai/view/widget/directions_details_card.dart';
 import 'package:dr_ai/view/widget/floating_search_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import '../../../logic/maps/maps_cubit.dart';
@@ -116,9 +117,21 @@ class _MapScreenState extends State<MapScreen> {
           children: [
             position != null
                 ? buildMap()
-                : const Center(
-                    child: CircularProgressIndicator(
-                      color: ColorManager.green,
+                : Container(
+                    alignment: Alignment.center,
+                    width: 50.w,
+                    height: 50.w,
+                    decoration: const BoxDecoration(
+                      color: ColorManager.white,
+                      shape: BoxShape.circle,
+                    ),
+                    child: SizedBox(
+                      width: 25.w,
+                      height: 25.w,
+                      child: const CircularProgressIndicator(
+                        strokeCap: StrokeCap.round,
+                        color: ColorManager.green,
+                      ),
                     ),
                   ),
             buildSelectedPlaceLocation(),

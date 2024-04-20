@@ -1,5 +1,7 @@
+import 'package:dr_ai/core/helper/extention.dart';
 import 'package:dr_ai/data/model/place_directions.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import '../../core/constant/color.dart';
 
@@ -17,70 +19,56 @@ class DistanceAndTime extends StatelessWidget {
     return Visibility(
       visible: isTimeAndDistanceVisible,
       child: Positioned(
-        top: 0,
-        bottom: 570,
+        top: context.height * 0.13,
         left: 0,
         right: 0,
         child: Row(
           children: [
-            Flexible(
-              flex: 1,
-              child: Card(
-                elevation: 6,
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(8),
-                ),
-                margin: const EdgeInsets.fromLTRB(20, 50, 20, 0),
-                color: MyColors.white,
-                child: ListTile(
-                  dense: true,
-                  horizontalTitleGap: 0,
-                  leading: const Icon(
-                    Icons.access_time_filled,
-                    color: MyColors.green,
-                    size: 30,
-                  ),
-                  title: Text(
-                    placeDirections?.totalDuration ?? "Empty",
-                    style: const TextStyle(color: Colors.black, fontSize: 18),
-                    textAlign: TextAlign.center,
-                    overflow: TextOverflow.ellipsis,
-                    maxLines: 1,
-                  ),
-                ),
-              ),
+            const Spacer(),
+            Expanded(
+              flex: 6,
+              child: _buildDetailsCard(context,
+                  data: placeDirections?.totalDuration,
+                  iconData: Icons.access_time_filled),
             ),
-            const SizedBox(
-              width: 30,
+            const Spacer(),
+            Expanded(
+              flex: 6,
+              child: _buildDetailsCard(context,
+                  data: placeDirections?.totalDistance,
+                  iconData: Icons.directions_car_filled),
             ),
-            Flexible(
-              flex: 1,
-              child: Card(
-                elevation: 6,
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(8),
-                ),
-                margin: const EdgeInsets.fromLTRB(20, 50, 20, 0),
-                color: MyColors.white,
-                child: ListTile(
-                  dense: true,
-                  horizontalTitleGap: 0,
-                  leading: const Icon(
-                    Icons.directions_car_filled,
-                    color: MyColors.green,
-                    size: 30,
-                  ),
-                  title: Text(
-                    placeDirections?.totalDistance ?? "Empty",
-                    style: const TextStyle(color: MyColors.black, fontSize: 18),
-                    textAlign: TextAlign.center,
-                    overflow: TextOverflow.ellipsis,
-                    maxLines: 1,
-                  ),
-                ),
-              ),
-            ),
+            const Spacer(),
           ],
+        ),
+      ),
+    );
+  }
+
+  Widget _buildDetailsCard(BuildContext context,
+      {String? data, IconData? iconData}) {
+    return Card(
+      elevation: 0,
+      shape: RoundedRectangleBorder(
+        side:
+            BorderSide(width: 2.w, color: ColorManager.black.withOpacity(0.2)),
+        borderRadius: BorderRadius.circular(8.dm),
+      ),
+      color: ColorManager.white,
+      child: ListTile(
+        dense: true,
+        horizontalTitleGap: 0,
+        leading: Icon(
+          iconData,
+          color: ColorManager.green,
+          size: 20.r,
+        ),
+        title: Text(
+          data ?? "Empty",
+          style: context.textTheme.bodyMedium,
+          textAlign: TextAlign.center,
+          overflow: TextOverflow.ellipsis,
+          maxLines: 1,
         ),
       ),
     );

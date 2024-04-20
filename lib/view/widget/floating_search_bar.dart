@@ -125,23 +125,26 @@ class MyFloatingSearchBarState extends State<MyFloatingSearchBar> {
               );
             }
             if (state is MapsLoading) {
-              return Align(
-                alignment: Alignment.topCenter,
-                child: Container(
-                  alignment: Alignment.center,
-                  width: 50.w,
-                  height: 50.w,
-                  decoration: const BoxDecoration(
-                    color: ColorManager.white,
-                    shape: BoxShape.circle,
-                  ),
-                  child: SizedBox(
-                    width: 25.w,
-                    height: 25.w,
-                    child: const CircularProgressIndicator(
-                      strokeCap: StrokeCap.round,
-                      color: ColorManager.green,
-                      
+              return Padding(
+                padding: EdgeInsets.only(top: 15.h),
+                child: Align(
+                  alignment: Alignment.topCenter,
+                  child: Container(
+                    alignment: Alignment.center,
+                    width: 50.w,
+                    height: 50.w,
+                    decoration: const BoxDecoration(
+                      color: ColorManager.white,
+                      shape: BoxShape.circle,
+                    ),
+                    child: SizedBox(
+                      width: 25.w,
+                      height: 25.w,
+                      child: const CircularProgressIndicator(
+                        strokeCap: StrokeCap.round,
+                        color: ColorManager.green,
+                        
+                      ),
                     ),
                   ),
                 ),
