@@ -45,6 +45,7 @@ class AccountCubit extends Cubit<AccountState> {
     try {
       await CacheData.clearData(clearData: true);
       await FirebaseAuth.instance.currentUser!.delete();
+      await FirebaseAuth.instance.signOut();
       emit(AccountDeleteSuccess(
         message: "Account deleted successfully",
       ));

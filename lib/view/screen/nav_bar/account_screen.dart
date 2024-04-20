@@ -48,6 +48,11 @@ class _AccountScreenState extends State<AccountScreen> {
               context, RouteManager.login, (route) => false);
           customSnackBar(context, state.message);
         }
+        if (state is AccountDeleteSuccess) {
+          Navigator.pushNamedAndRemoveUntil(
+              context, RouteManager.login, (route) => false);
+          customSnackBar(context, state.message);
+        }
       },
       builder: (context, state) {
         return Scaffold(

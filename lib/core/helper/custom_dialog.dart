@@ -89,7 +89,7 @@ class CustomDialog extends StatelessWidget {
                   children: [
                     Expanded(
                       child: CustomButton(
-                        size: Size.fromHeight(38.h),
+                        size: Size.fromHeight(42.w),
                         title: "Cancel",
                         onPressed: () => context.pop(),
                       ),
@@ -97,7 +97,7 @@ class CustomDialog extends StatelessWidget {
                     Gap(5.w),
                     Expanded(
                       child: CustomButton(
-                        size: Size.fromHeight(38.h),
+                        size: Size.fromHeight(42.w),
                         widget: widget ,
                         backgroundColor: secondButtoncolor,
                         title: buttonTitle,
@@ -107,11 +107,11 @@ class CustomDialog extends StatelessWidget {
                   ],
                 )
               : CustomButton(
-                  size: Size.fromHeight(38.h),
+                  size: Size(context.width, 42.w),
                   widget: widget,
                   title: buttonTitle,
                   onPressed: onPressed,
-                ),
+                ), 
         ],
       ),
     );

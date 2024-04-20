@@ -118,7 +118,7 @@ class _MapScreenState extends State<MapScreen> {
                 ? buildMap()
                 : const Center(
                     child: CircularProgressIndicator(
-                      color: MyColors.green,
+                      color: ColorManager.green,
                     ),
                   ),
             buildSelectedPlaceLocation(),
@@ -136,12 +136,12 @@ class _MapScreenState extends State<MapScreen> {
           ],
         ),
         floatingActionButton: FloatingActionButton(
-          backgroundColor: MyColors.green,
+          backgroundColor: ColorManager.green,
           heroTag: 1,
           onPressed: goToMyCurrentLocation,
           child: const Icon(
             Icons.zoom_in_map_rounded,
-            color: MyColors.white,
+            color: ColorManager.white,
           ),
         ));
   }

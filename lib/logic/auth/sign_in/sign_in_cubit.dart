@@ -23,8 +23,7 @@ class SignInCubit extends Cubit<SignInState> {
                 "Email not verified, check your email for verification link"));
       }
     } on FirebaseAuthException catch (err) {
-      emit(SignInFailure(message: err.code));
-      
+      emit(SignInFailure(message: err.message ?? err.code));
     } catch (err) {
       emit(SignInFailure(message: err.toString()));
     }

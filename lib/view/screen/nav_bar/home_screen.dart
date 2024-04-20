@@ -1,5 +1,3 @@
-import 'dart:developer';
-
 import 'package:dr_ai/core/constant/image.dart';
 import 'package:dr_ai/core/constant/routes.dart';
 import 'package:dr_ai/core/helper/extention.dart';
@@ -30,7 +28,7 @@ class HomeScreen extends StatelessWidget {
               Gap(32.h),
           
             ],
-          ),
+          ), 
         ),
       ),
     );
@@ -62,11 +60,10 @@ class HomeScreen extends StatelessWidget {
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       CustomButton(
-                        size: Size(context.width * 0.375, 33.h),
+                        size: Size(context.width * 0.375, 42.w),
                         title: "Start Chat",
                         onPressed: () {
                           context.bloc<ChatCubit>().startListeningToMessages();
-                          log("start .....");
                           Navigator.pushNamed(context, RouteManager.chat);
                         },
                       ),
