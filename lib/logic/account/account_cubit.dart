@@ -39,4 +39,17 @@ class AccountCubit extends Cubit<AccountState> {
       emit(AccountFailure(message: err.toString()));
     }
   }
+
+  Future<void> deleteAccount() async {
+    emit(AccountDeleteLoading());
+    try {
+      await CacheData.clearData(clearData: true);
+      await FirebaseAuth.instance.currentUser!.delete();
+      emit(AccountDeleteSuccess(
+        message: "Account deleted successfully",
+      ));
+    } on Exception catch (err) {
+      emit(AccountFailure(message: err.toString()));
+    }
+  }
 }

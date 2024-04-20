@@ -63,7 +63,9 @@ class CustomDialog extends StatelessWidget {
         children: [
           SvgPicture.asset(image),
           Gap(18.h),
-          Text(title, style: context.textTheme.bodyLarge),
+          Text(title,
+              style: context.textTheme.bodyLarge
+                  ?.copyWith(color: secondButtoncolor)),
           Gap(8.h),
           Text(
             subtitle,
@@ -83,22 +85,33 @@ class CustomDialog extends StatelessWidget {
               : const SizedBox(),
           Gap(22.h),
           secondButtoncolor != null
-              ? Column(
+              ? Row(
                   children: [
-                    CustomButton(
-                      title: "Cancel",
-                      onPressed: () => context.pop(),
+                    Expanded(
+                      child: CustomButton(
+                        size: Size.fromHeight(38.h),
+                        title: "Cancel",
+                        onPressed: () => context.pop(),
+                      ),
                     ),
-                    Gap(12.h),
+                    Gap(5.w),
+                    Expanded(
+                      child: CustomButton(
+                        size: Size.fromHeight(38.h),
+                        widget: widget ,
+                        backgroundColor: secondButtoncolor,
+                        title: buttonTitle,
+                        onPressed: onPressed,
+                      ),
+                    ),
                   ],
                 )
-              : const SizedBox(),
-          CustomButton(
-            widget: widget,
-            backgroundColor: secondButtoncolor,
-            title: buttonTitle,
-            onPressed: onPressed,
-          ),
+              : CustomButton(
+                  size: Size.fromHeight(38.h),
+                  widget: widget,
+                  title: buttonTitle,
+                  onPressed: onPressed,
+                ),
         ],
       ),
     );

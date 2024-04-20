@@ -3,6 +3,7 @@
 import 'package:dr_ai/core/constant/color.dart';
 import 'package:dr_ai/core/constant/image.dart';
 import 'package:dr_ai/core/helper/extention.dart';
+import 'package:dr_ai/data/model/user_data_model.dart';
 import 'package:dr_ai/logic/account/account_cubit.dart';
 import 'package:dr_ai/view/widget/button_loading_indicator.dart';
 import 'package:flutter/material.dart';
@@ -12,7 +13,6 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:gap/gap.dart';
 import '../../../core/constant/routes.dart';
 import '../../../core/helper/scaffold_snakbar.dart';
-import '../../../data/service/firebase/firebase_service.dart';
 
 class AccountScreen extends StatefulWidget {
   const AccountScreen({super.key});
@@ -29,12 +29,16 @@ class _AccountScreenState extends State<AccountScreen> {
   }
 
   bool _islogoutLoading = false;
+  UserDataModel? userData;
   @override
   Widget build(BuildContext context) {
     final cubit = context.bloc<AccountCubit>();
     final divider = Divider(color: ColorManager.grey, thickness: 1.w);
     return BlocConsumer<AccountCubit, AccountState>(
       listener: (context, state) {
+        if (state is AccountSuccess) {
+          userData = state.userDataModel;
+        }
         if (state is AccountLogoutLoading) {
           _islogoutLoading = true;
         }
@@ -46,69 +50,65 @@ class _AccountScreenState extends State<AccountScreen> {
         }
       },
       builder: (context, state) {
-        if (state is AccountSuccess) {
-          final userData = state.userDataModel;
-          return Scaffold(
-            backgroundColor: context.theme.scaffoldBackgroundColor,
-            body: SingleChildScrollView(
-              child: Padding(
-                padding: EdgeInsets.symmetric(horizontal: 12.w, vertical: 18.h),
-                child: Column(
-                  children: [
-                    Gap(10.h),
-                    _buildUserCard(
-                      context,
-                      char: userData.name[0],
-                      email: userData.email,
-                      name: userData.name,
-                    ),
-                    Gap(20.h),
-                    _buildProfileCard(context,
-                        title: "Edit Profile", image: ImageManager.userIcon),
-                    divider,
-                    _buildProfileCard(context,
-                        title: "Languages", image: ImageManager.languageIcon),
-                    divider,
-                    _buildProfileCard(context,
-                        title: "Change Password",
-                        image: ImageManager.changePasswordIcon),
-                    divider,
-                    _buildProfileCard(context,
-                        title: "About Us", image: ImageManager.aboutUsIcon),
-                    divider,
-                    _buildProfileCard(context,
-                        title: "Rate Us", image: ImageManager.rateUsIcon),
-                    divider,
-                    _buildProfileCard(context,
-                        title: "Delete Account",
-                        image: ImageManager.deteteAccountIcon,
-                        color: ColorManager.error),
-                    divider,
-                    _buildProfileCard(
-                      context,
-                      title: "logout",
-                      iconData: Icons.logout,
+        return Scaffold(
+          backgroundColor: context.theme.scaffoldBackgroundColor,
+          body: SingleChildScrollView(
+            child: Padding(
+              padding: EdgeInsets.symmetric(horizontal: 12.w, vertical: 18.h),
+              child: Column(
+                children: [
+                  Gap(10.h),
+                  _buildUserCard(
+                    context,
+                    char: userData?.name[0].toUpperCase() ?? "",
+                    email: userData?.email ?? "",
+                    name: userData?.name ?? "",
+                  ),
+                  Gap(20.h),
+                  _buildProfileCard(context,
+                      title: "Edit Profile", image: ImageManager.userIcon),
+                  divider,
+                  _buildProfileCard(context,
+                      title: "Languages", image: ImageManager.languageIcon),
+                  divider,
+                  _buildProfileCard(context,
+                      title: "Change Password",
+                      image: ImageManager.changePasswordIcon),
+                  divider,
+                  _buildProfileCard(context,
+                      title: "About Us", image: ImageManager.aboutUsIcon),
+                  divider,
+                  _buildProfileCard(context,
+                      title: "Rate Us", image: ImageManager.rateUsIcon),
+                  divider,
+                  _buildProfileCard(context,
+                      title: "Delete Account",
+                      image: ImageManager.deteteAccountIcon,
                       color: ColorManager.error,
-                      onPressed: () {
-                        context.showCustomDialog(
-                            secondButtoncolor: ColorManager.error,
-                            title: "Logout?!",
-                            subtitle: "Are you sure you want to logout?",
-                            buttonTitle: "Logout",
-                            widget: _islogoutLoading
-                                ? const ButtonLoadingIndicator()
-                                : null,
-                            image: ImageManager.errorIcon,
-                            onPressed: () async => await cubit.logout());
-                      },
-                    ),
-                  ],
-                ),
+                      
+                      ),
+                  divider,
+                  _buildProfileCard(
+                    context,
+                    title: "logout",
+                    iconData: Icons.logout,
+                    color: ColorManager.error,
+                    onPressed: () => context.showCustomDialog(
+                        secondButtoncolor: ColorManager.error,
+                        title: "Logout?!",
+                        subtitle: "Are you sure you want to logout?",
+                        buttonTitle: "Logout",
+                        widget: _islogoutLoading == true
+                            ? const ButtonLoadingIndicator()
+                            : null,
+                        image: ImageManager.errorIcon,
+                        onPressed: () async => await cubit.logout()),
+                  ),
+                ],
               ),
             ),
-          );
-        }
-        return Container();
+          ),
+        );
       },
     );
   }
