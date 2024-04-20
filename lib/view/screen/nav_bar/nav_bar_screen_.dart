@@ -67,7 +67,6 @@ class _NavbarScreenState extends State<NavbarScreen> {
         splashRadius: 20,
         gapWidth: 0,
         backgroundColor: ColorManager.white,
-
         elevation: 15,
         shadow:
             Shadow(blurRadius: 20, color: ColorManager.grey.withOpacity(0.2)),

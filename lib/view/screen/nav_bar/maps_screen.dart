@@ -1,6 +1,7 @@
 import 'dart:async';
 import 'dart:developer';
 import 'package:dr_ai/core/constant/color.dart';
+import 'package:dr_ai/core/helper/extention.dart';
 import 'package:dr_ai/core/helper/location.dart';
 import 'package:dr_ai/data/model/place_directions.dart';
 import 'package:dr_ai/data/model/place_location.dart';
@@ -35,13 +36,20 @@ class _MapScreenState extends State<MapScreen> {
     });
   }
 
+  Future<void> _goToSearchedPlaceLocation() async {
+    final GoogleMapController controller = await mapController.future;
+    controller
+        .animateCamera(CameraUpdate.newCameraPosition(_goToSearchedForPlace));
+  }
+
   Completer<GoogleMapController> mapController = Completer();
   static Position? _position;
-  static final CameraPosition _myCurrrentPositionCameraPosition = CameraPosition(
-      bearing: 0,
-      target: LatLng(_position!.latitude, _position!.longitude),
-      tilt: 0.0,
-      zoom: 17);
+  static final CameraPosition _myCurrrentPositionCameraPosition =
+      CameraPosition(
+          bearing: 0,
+          target: LatLng(_position!.latitude, _position!.longitude),
+          tilt: 0.0,
+          zoom: 17);
 
 //!
   Set<Marker> _markers = {};
@@ -58,23 +66,26 @@ class _MapScreenState extends State<MapScreen> {
           children: [
             _position != null
                 ? _buildMap()
-                : Container(
+                : Align(
                     alignment: Alignment.center,
-                    width: 50.w,
-                    height: 50.w,
-                    decoration: const BoxDecoration(
-                      color: ColorManager.white,
-                      shape: BoxShape.circle,
-                    ),
-                    child: SizedBox(
-                      width: 25.w,
-                      height: 25.w,
-                      child: const CircularProgressIndicator(
-                        strokeCap: StrokeCap.round,
-                        color: ColorManager.green,
+                  child: Container(
+                      alignment: Alignment.center,
+                      width: 50.w,
+                      height: 50.w,
+                      decoration:  BoxDecoration(
+                        color: ColorManager.green.withOpacity(0.5),
+                        shape: BoxShape.circle,
+                      ),
+                      child: SizedBox(
+                        width: 25.w,
+                        height: 25.w,
+                        child: const CircularProgressIndicator(
+                          strokeCap: StrokeCap.round,
+                          color: ColorManager.white,
+                        ),
                       ),
                     ),
-                  ),
+                ),
             _buildSelectedPlaceLocation(),
             _isSearchedPlaceMarkerClicked && _placeDirections != null
                 ? DistanceAndTime(
@@ -93,7 +104,7 @@ class _MapScreenState extends State<MapScreen> {
                     splashColor: ColorManager.white.withOpacity(0.3),
                     backgroundColor: ColorManager.green,
                     heroTag: 2,
-                    onPressed: _goToMySearchedForLocation,
+                    onPressed: _goToSearchedPlaceLocation,
                     child: const Icon(
                       Icons.location_searching_outlined,
                       color: ColorManager.white,
@@ -141,9 +152,9 @@ class _MapScreenState extends State<MapScreen> {
         Circle(
           circleId: const CircleId("current_location"),
           center: LatLng(_position!.latitude, _position!.longitude),
-          radius: 50.r,
-          fillColor: ColorManager.green.withOpacity(0.3),
-          strokeColor: ColorManager.green.withOpacity(0.7),
+          radius: 70.r,
+          fillColor: ColorManager.blue.withOpacity(0.3),
+          strokeColor: ColorManager.blue.withOpacity(0.7),
           strokeWidth: 2,
         ),
       },
@@ -254,10 +265,10 @@ class _MapScreenState extends State<MapScreen> {
 
   /// call
   Future<void> _getDirections() async {
-    await BlocProvider.of<MapsCubit>(context).getPlaceDirections(
-      origin: LatLng(_position!.latitude, _position!.longitude),
-      destination: LatLng(_selectedPlace.lat, _selectedPlace.lng),
-    );
+    await context.bloc<MapsCubit>().getPlaceDirections(
+          origin: LatLng(_position!.latitude, _position!.longitude),
+          destination: LatLng(_selectedPlace.lat, _selectedPlace.lng),
+        );
     setState(() {});
   }
 }

@@ -24,18 +24,23 @@ class MyFloatingSearchBarState extends State<MyFloatingSearchBar> {
 
   void Function(String)? onQueryChanged(query) {
     final sessionToken = const Uuid().v4();
-    BlocProvider.of<MapsCubit>(context)
-        .getPlaceSuggetions(place: query, sessionToken: sessionToken);
+    context.bloc<MapsCubit>().getPlaceSuggetions(
+        place: query.toString().trim(), sessionToken: sessionToken);
     return null;
   }
 
-  List<PlaceSuggestionModel> placeSuggestionList = [];
+  List<PlaceSuggestionModel> _placeSuggestionList = [];
   @override
   Widget build(BuildContext context) {
     final isPortrait =
         MediaQuery.of(context).orientation == Orientation.portrait;
 
     return FloatingSearchBar(
+      onFocusChanged: (isFocused) {
+        if (!isFocused) {
+          searchBarController.close();
+        }
+      },
       isScrollControlled: true,
       queryStyle:
           context.textTheme.bodySmall?.copyWith(color: ColorManager.black),
@@ -76,12 +81,12 @@ class MyFloatingSearchBarState extends State<MyFloatingSearchBar> {
         return BlocBuilder<MapsCubit, MapsState>(
           builder: (context, state) {
             if (state is MapsLoadedSuggestionsSuccess) {
-              placeSuggestionList = state.placeSuggestionList;
+              _placeSuggestionList = state.placeSuggestionList;
               return ListView.builder(
                 padding: EdgeInsets.only(
                     top: 10.h, bottom: MediaQuery.viewInsetsOf(context).bottom),
                 shrinkWrap: true,
-                itemCount: placeSuggestionList.length,
+                itemCount: _placeSuggestionList.length,
                 itemBuilder: (context, index) => Card(
                   child: ListTile(
                     trailing: Icon(
@@ -95,21 +100,21 @@ class MyFloatingSearchBarState extends State<MyFloatingSearchBar> {
                       color: ColorManager.green,
                     ),
                     title: Text(
-                      placeSuggestionList[index].mainText,
+                      _placeSuggestionList[index].mainText,
                       textAlign: TextAlign.center,
                       style: context.textTheme.bodyMedium,
                     ),
                     subtitle: Text(
-                      placeSuggestionList[index].secondaryText,
+                      _placeSuggestionList[index].secondaryText,
                       textAlign: TextAlign.center,
                       style: context.textTheme.bodySmall
                           ?.copyWith(color: ColorManager.black),
                     ),
                     onTap: () {
                       final sessionToken = const Uuid().v4();
-                      BlocProvider.of<MapsCubit>(context).getPlaceLocation(
-                          placeId: placeSuggestionList[index].placeId,
-                          description: placeSuggestionList[index].description,
+                      context.bloc<MapsCubit>().getPlaceLocation(
+                          placeId: _placeSuggestionList[index].placeId,
+                          description: _placeSuggestionList[index].description,
                           sessionToken: sessionToken);
                       //  widget.onPressed();
                       searchBarController.close();
