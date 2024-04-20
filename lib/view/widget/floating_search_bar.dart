@@ -12,9 +12,9 @@ import '../../core/constant/color.dart';
 class MyFloatingSearchBar extends StatefulWidget {
   const MyFloatingSearchBar({
     super.key,
-    required this.onPressed,
+
   });
-  final void Function() onPressed;
+  
 
   @override
   MyFloatingSearchBarState createState() => MyFloatingSearchBarState();
@@ -23,9 +23,6 @@ class MyFloatingSearchBar extends StatefulWidget {
 class MyFloatingSearchBarState extends State<MyFloatingSearchBar> {
   FloatingSearchBarController searchBarController =
       FloatingSearchBarController();
-  void getDirections() {
-    widget.onPressed();
-  }
 
   void Function(String)? onQueryChanged(query) {
     final sessionToken = const Uuid().v4();
@@ -71,7 +68,7 @@ class MyFloatingSearchBarState extends State<MyFloatingSearchBar> {
           child: CircularButton(
               icon: Icon(Icons.apartment_rounded,
                   color: ColorManager.green, size: 25.r),
-              onPressed: widget.onPressed),
+              onPressed: () {}),
         ),
         FloatingSearchBarAction.searchToClear(
           showIfClosed: false,
