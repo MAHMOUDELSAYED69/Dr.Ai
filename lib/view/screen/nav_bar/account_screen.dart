@@ -93,7 +93,7 @@ class _AccountScreenState extends State<AccountScreen> {
                     color: ColorManager.error,
                     onPressed: () => context.showCustomDialog(
                         secondButtoncolor: ColorManager.error,
-                        title: "delete Account?!",
+                        title: "Delete Account?!",
                         subtitle:
                             "Are you sure you want to delete your account?",
                         buttonTitle: "Delete",

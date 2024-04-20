@@ -26,14 +26,14 @@ class DistanceAndTime extends StatelessWidget {
           children: [
             const Spacer(),
             Expanded(
-              flex: 6,
+              flex: 8,
               child: _buildDetailsCard(context,
                   data: placeDirections?.totalDuration,
                   iconData: Icons.access_time_filled),
             ),
             const Spacer(),
             Expanded(
-              flex: 6,
+              flex: 8,
               child: _buildDetailsCard(context,
                   data: placeDirections?.totalDistance,
                   iconData: Icons.directions_car_filled),
@@ -51,7 +51,7 @@ class DistanceAndTime extends StatelessWidget {
       elevation: 0,
       shape: RoundedRectangleBorder(
         side:
-            BorderSide(width: 2.w, color: ColorManager.black.withOpacity(0.2)),
+            BorderSide(width: 2.w, color: ColorManager.black.withOpacity(0.17)),
         borderRadius: BorderRadius.circular(8.dm),
       ),
       color: ColorManager.white,

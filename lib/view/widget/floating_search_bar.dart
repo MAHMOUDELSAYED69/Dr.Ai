@@ -12,9 +12,7 @@ import '../../core/constant/color.dart';
 class MyFloatingSearchBar extends StatefulWidget {
   const MyFloatingSearchBar({
     super.key,
-    required this.onPressed,
   });
-  final void Function() onPressed;
 
   @override
   MyFloatingSearchBarState createState() => MyFloatingSearchBarState();
@@ -23,9 +21,6 @@ class MyFloatingSearchBar extends StatefulWidget {
 class MyFloatingSearchBarState extends State<MyFloatingSearchBar> {
   FloatingSearchBarController searchBarController =
       FloatingSearchBarController();
-  void getDirections() {
-    widget.onPressed();
-  }
 
   void Function(String)? onQueryChanged(query) {
     final sessionToken = const Uuid().v4();
@@ -50,7 +45,7 @@ class MyFloatingSearchBarState extends State<MyFloatingSearchBar> {
       borderRadius: BorderRadius.circular(12.dm),
       backgroundColor: ColorManager.white,
       iconColor: ColorManager.green,
-      height: 50.w,
+      height: 45.h,
       hintStyle:
           context.textTheme.bodySmall?.copyWith(color: ColorManager.black),
       hint: 'Find a hospital...',
@@ -71,7 +66,7 @@ class MyFloatingSearchBarState extends State<MyFloatingSearchBar> {
           child: CircularButton(
               icon: Icon(Icons.apartment_rounded,
                   color: ColorManager.green, size: 25.r),
-              onPressed: widget.onPressed),
+              onPressed: () {}),
         ),
         FloatingSearchBarAction.searchToClear(
           showIfClosed: false,
@@ -126,7 +121,7 @@ class MyFloatingSearchBarState extends State<MyFloatingSearchBar> {
             }
             if (state is MapsLoading) {
               return Padding(
-                padding: EdgeInsets.only(top: 15.h),
+                padding: EdgeInsets.only(top: 25.h),
                 child: Align(
                   alignment: Alignment.topCenter,
                   child: Container(
@@ -143,7 +138,6 @@ class MyFloatingSearchBarState extends State<MyFloatingSearchBar> {
                       child: const CircularProgressIndicator(
                         strokeCap: StrokeCap.round,
                         color: ColorManager.green,
-                        
                       ),
                     ),
                   ),

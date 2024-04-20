@@ -65,7 +65,7 @@ class CustomDialog extends StatelessWidget {
           Gap(18.h),
           Text(title,
               style: context.textTheme.bodyLarge
-                  ?.copyWith(color: secondButtoncolor)),
+                  ?.copyWith(color: secondButtoncolor ,fontSize: 18.spMin)),
           Gap(8.h),
           Text(
             subtitle,
