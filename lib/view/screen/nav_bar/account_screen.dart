@@ -81,12 +81,23 @@ class _AccountScreenState extends State<AccountScreen> {
                   _buildProfileCard(context,
                       title: "Rate Us", image: ImageManager.rateUsIcon),
                   divider,
-                  _buildProfileCard(context,
-                      title: "Delete Account",
-                      image: ImageManager.deteteAccountIcon,
-                      color: ColorManager.error,
-                      
-                      ),
+                  _buildProfileCard(
+                    context,
+                    title: "Delete Account",
+                    image: ImageManager.deteteAccountIcon,
+                    color: ColorManager.error,
+                    onPressed: () => context.showCustomDialog(
+                        secondButtoncolor: ColorManager.error,
+                        title: "delete Account?!",
+                        subtitle:
+                            "Are you sure you want to delete your account?",
+                        buttonTitle: "Delete",
+                        widget: _islogoutLoading == true
+                            ? const ButtonLoadingIndicator()
+                            : null,
+                        image: ImageManager.errorIcon,
+                        onPressed: () async => await cubit.deleteAccount()),
+                  ),
                   divider,
                   _buildProfileCard(
                     context,

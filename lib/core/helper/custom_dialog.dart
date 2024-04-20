@@ -61,7 +61,7 @@ class CustomDialog extends StatelessWidget {
       child: Column(
         mainAxisSize: MainAxisSize.min,
         children: [
-          SvgPicture.asset(image),
+          SvgPicture.asset(image,width: 125.w,height: 125.w,),
           Gap(18.h),
           Text(title,
               style: context.textTheme.bodyLarge
