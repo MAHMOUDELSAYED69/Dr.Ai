@@ -6,14 +6,37 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:gap/gap.dart';
 
-void alertMessage(context, {String? message}) {
+void alertMessage(BuildContext context, {String? message}) {
   showDialog(
     context: context,
-    builder: (context) => AlertDialog(
+    builder: (_) => AlertDialog(
       title: const Icon(Icons.warning_amber),
       content: Text(message ?? "there was an error please try again later!"),
     ),
   );
+}
+
+void customDialog(BuildContext context,
+    {required String title,
+    required String subtitle,
+    required String buttonTitle,
+    required VoidCallback onPressed,
+    required String image,
+    String? errorMessage,
+    Color? secondButtoncolor,
+    Widget? widget}) {
+  showDialog(
+      context: context,
+      builder: (_) => CustomDialog(
+            title: title,
+            subtitle: subtitle,
+            buttonTitle: buttonTitle,
+            onPressed: onPressed,
+            image: image,
+            errorMessage: errorMessage,
+            secondButtoncolor: secondButtoncolor,
+            widget: widget,
+          ));
 }
 
 class CustomDialog extends StatelessWidget {
@@ -61,11 +84,15 @@ class CustomDialog extends StatelessWidget {
       child: Column(
         mainAxisSize: MainAxisSize.min,
         children: [
-          SvgPicture.asset(image,width: 125.w,height: 125.w,),
+          SvgPicture.asset(
+            image,
+            width: 125.w,
+            height: 125.w,
+          ),
           Gap(18.h),
           Text(title,
               style: context.textTheme.bodyLarge
-                  ?.copyWith(color: secondButtoncolor ,fontSize: 18.spMin)),
+                  ?.copyWith(color: secondButtoncolor, fontSize: 18.spMin)),
           Gap(8.h),
           Text(
             subtitle,
@@ -98,7 +125,7 @@ class CustomDialog extends StatelessWidget {
                     Expanded(
                       child: CustomButton(
                         size: Size.fromHeight(42.w),
-                        widget: widget ,
+                        widget: widget,
                         backgroundColor: secondButtoncolor,
                         title: buttonTitle,
                         onPressed: onPressed,
@@ -111,7 +138,7 @@ class CustomDialog extends StatelessWidget {
                   widget: widget,
                   title: buttonTitle,
                   onPressed: onPressed,
-                ), 
+                ),
         ],
       ),
     );

@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-import 'custom_dialog.dart';
-
 //! THEME EXTENSION
 extension ThemeExtensions on BuildContext {
   ThemeData get theme => Theme.of(this);
@@ -36,33 +34,33 @@ extension CubitExtension<T extends Cubit<Object>> on BuildContext {
   }
 }
 
-extension DialogExtension on BuildContext {
-  Future<void> showCustomDialog(
-      {required String title,
-      required String subtitle,
-      required String buttonTitle,
-      required String image,
-      required VoidCallback onPressed,
-      Color? secondButtoncolor,
-      String? errorMessage,
-      Widget? widget,
-      bool dismiss = true}) async {
-    return showDialog(
-      barrierDismissible: dismiss,
-      context: this,
-      builder: (_) => CustomDialog(
-        secondButtoncolor: secondButtoncolor,
-        title: title,
-        widget: widget,
-        subtitle: subtitle,
-        errorMessage: errorMessage,
-        buttonTitle: buttonTitle,
-        image: image,
-        onPressed: onPressed,
-      ),
-    );
-  }
-}
+// extension DialogExtension on BuildContext {
+//   Future<void> showCustomDialog(
+//       {required String title,
+//       required String subtitle,
+//       required String buttonTitle,
+//       required String image,
+//       required VoidCallback onPressed,
+//       Color? secondButtoncolor,
+//       String? errorMessage,
+//       Widget? widget,
+//       bool dismiss = true}) async {
+//     return showDialog(
+//       barrierDismissible: dismiss,
+//       context: this,
+//       builder: (_) => CustomDialog(
+//         secondButtoncolor: secondButtoncolor,
+//         title: title,
+//         widget: widget,
+//         subtitle: subtitle,
+//         errorMessage: errorMessage,
+//         buttonTitle: buttonTitle,
+//         image: image,
+//         onPressed: onPressed,
+//       ),
+//     );
+//   }
+// }
 
 //! NAVIGATOR EXTENSION
 extension NavigatorExtensions on BuildContext {

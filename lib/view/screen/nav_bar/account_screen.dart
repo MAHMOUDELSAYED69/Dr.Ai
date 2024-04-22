@@ -2,6 +2,7 @@
 
 import 'package:dr_ai/core/constant/color.dart';
 import 'package:dr_ai/core/constant/image.dart';
+import 'package:dr_ai/core/helper/custom_dialog.dart';
 import 'package:dr_ai/core/helper/extention.dart';
 import 'package:dr_ai/data/model/user_data_model.dart';
 import 'package:dr_ai/logic/account/account_cubit.dart';
@@ -94,7 +95,8 @@ class _AccountScreenState extends State<AccountScreen> {
                     title: "Delete Account",
                     image: ImageManager.deteteAccountIcon,
                     color: ColorManager.error,
-                    onPressed: () => context.showCustomDialog(
+                    onPressed: () => customDialog(
+                        context,
                         secondButtoncolor: ColorManager.error,
                         title: "Delete Account?!",
                         subtitle:
@@ -107,22 +109,20 @@ class _AccountScreenState extends State<AccountScreen> {
                         onPressed: () async => await cubit.deleteAccount()),
                   ),
                   divider,
-                  _buildProfileCard(
-                    context,
-                    title: "logout",
-                    iconData: Icons.logout,
-                    color: ColorManager.error,
-                    onPressed: () => context.showCustomDialog(
-                        secondButtoncolor: ColorManager.error,
-                        title: "Logout?!",
-                        subtitle: "Are you sure you want to logout?",
-                        buttonTitle: "Logout",
-                        widget: _islogoutLoading == true
-                            ? const ButtonLoadingIndicator()
-                            : null,
-                        image: ImageManager.errorIcon,
-                        onPressed: () async => await cubit.logout()),
-                  ),
+                  _buildProfileCard(context,
+                      title: "logout",
+                      iconData: Icons.logout,
+                      color: ColorManager.error,
+                      onPressed: () => customDialog(context,
+                          title: "Logout?!",
+                          subtitle: "Are you sure you want to logout?",
+                          buttonTitle: "Logout",
+                          secondButtoncolor: ColorManager.error,
+                          onPressed: () async => await cubit.logout(),
+                          image: ImageManager.errorIcon,
+                          widget: _islogoutLoading == true
+                              ? const ButtonLoadingIndicator()
+                              : null)),
                 ],
               ),
             ),

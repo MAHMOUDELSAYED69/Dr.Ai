@@ -55,7 +55,7 @@ class AccountCubit extends Cubit<AccountState> {
   }
 
   //? update user data
-  void updateUserData({required UserDataModel userDataModel}) async {
+  Future<void> updateUserData({required UserDataModel userDataModel}) async {
     emit(AccountLoading());
     try {
       await _firestore
@@ -67,10 +67,9 @@ class AccountCubit extends Cubit<AccountState> {
       emit(AccountFailure(message: err.toString()));
     }
   }
- 
 
- //? update password
-  void updatePassword({required String newPassword}) async {
+  //? update password
+  Future<void> updatePassword({required String newPassword}) async {
     emit(AccountLoading());
     try {
       await FirebaseAuth.instance.currentUser!.updatePassword(newPassword);
