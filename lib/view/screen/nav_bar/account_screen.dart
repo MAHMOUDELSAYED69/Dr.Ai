@@ -62,7 +62,7 @@ class _AccountScreenState extends State<AccountScreen> {
               padding: EdgeInsets.symmetric(horizontal: 12.w, vertical: 18.h),
               child: Column(
                 children: [
-                  Gap(10.h),
+                  Gap(15.h),
                   _buildUserCard(
                     context,
                     char: userData?.name[0].toUpperCase() ?? "",
@@ -72,6 +72,9 @@ class _AccountScreenState extends State<AccountScreen> {
                   Gap(20.h),
                   _buildProfileCard(context,
                       title: "Edit Profile", image: ImageManager.userIcon),
+                  divider,
+                  _buildProfileCard(context,
+                      title: "Dark Mode", image: ImageManager.darkModeIcon),
                   divider,
                   _buildProfileCard(context,
                       title: "Languages", image: ImageManager.languageIcon),

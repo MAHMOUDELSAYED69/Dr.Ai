@@ -53,4 +53,29 @@ class AccountCubit extends Cubit<AccountState> {
       emit(AccountFailure(message: err.toString()));
     }
   }
+
+  //? update user data
+  void updateUserData({required UserDataModel userDataModel}) async {
+    emit(AccountLoading());
+    try {
+      await _firestore
+          .collection('users')
+          .doc(FirebaseAuth.instance.currentUser!.email)
+          .update(userDataModel.toJson());
+      emit(AccountSuccess(userDataModel: userDataModel));
+    } on Exception catch (err) {
+      emit(AccountFailure(message: err.toString()));
+    }
+  }
+ 
+
+ //? update password
+  void updatePassword({required String newPassword}) async {
+    emit(AccountLoading());
+    try {
+      await FirebaseAuth.instance.currentUser!.updatePassword(newPassword);
+    } on Exception catch (err) {
+      emit(AccountFailure(message: err.toString()));
+    }
+  }
 }

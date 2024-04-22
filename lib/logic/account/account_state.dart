@@ -4,7 +4,8 @@ part of 'account_cubit.dart';
 abstract class AccountState {}
 
 class AccountInitial extends AccountState {}
- //? user data
+
+//? user data
 class AccountLoading extends AccountState {}
 
 class AccountSuccess extends AccountState {
@@ -18,7 +19,8 @@ class AccountFailure extends AccountState {
 
   AccountFailure({required this.message});
 }
-//? Logout 
+
+//? Logout
 class AccountLogoutLoading extends AccountState {}
 
 class AccountLogoutSuccess extends AccountState {
@@ -26,6 +28,7 @@ class AccountLogoutSuccess extends AccountState {
 
   AccountLogoutSuccess({required this.message});
 }
+
 //? Delete Account
 class AccountDeleteLoading extends AccountState {}
 
@@ -33,4 +36,19 @@ class AccountDeleteSuccess extends AccountState {
   final String message;
 
   AccountDeleteSuccess({required this.message});
+}
+
+//? Update Password
+class AccountUpdatePasswordLoading extends AccountState {}
+
+class AccountUpdatePasswordSuccess extends AccountState {
+  final String message;
+
+  AccountUpdatePasswordSuccess({required this.message});
+}
+
+class AccountUpdatePasswordFailure extends AccountState {
+  final String message;
+
+  AccountUpdatePasswordFailure({required this.message});
 }
