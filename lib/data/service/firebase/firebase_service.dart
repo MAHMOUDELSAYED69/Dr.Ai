@@ -36,7 +36,7 @@ class FirebaseService {
 
     await _firestore
         .collection('users')
-        .doc(_auth.currentUser!.email)
+        .doc(_auth.currentUser!.uid)
         .set(userData);
   }
 

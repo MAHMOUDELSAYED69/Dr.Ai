@@ -38,6 +38,17 @@ class AccountDeleteSuccess extends AccountState {
   AccountDeleteSuccess({required this.message});
 }
 
+//? Update profile
+class ProfileUpdateLoading extends AccountState {}
+
+class ProfileUpdateSuccess extends AccountState {}
+
+class ProfileUpdateFailure extends AccountState {
+  final String message;
+
+  ProfileUpdateFailure({required this.message});
+}
+
 //? Update Password
 class AccountUpdatePasswordLoading extends AccountState {}
 

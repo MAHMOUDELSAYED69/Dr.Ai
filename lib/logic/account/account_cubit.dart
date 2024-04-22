@@ -1,5 +1,3 @@
-import 'dart:developer';
-
 import 'package:bloc/bloc.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:dr_ai/core/cache/cache.dart';
@@ -17,11 +15,11 @@ class AccountCubit extends Cubit<AccountState> {
     try {
       _firestore
           .collection('users')
-          .doc(FirebaseAuth.instance.currentUser!.email)
+          .doc(FirebaseAuth.instance.currentUser!.uid)
           .snapshots()
           .listen((event) {
         UserDataModel userDataModel = UserDataModel.fromJson(event.data()!);
-        log(userDataModel.name.toString());
+        CacheData.setData(key: "name", value: userDataModel.name);
         emit(AccountSuccess(userDataModel: userDataModel));
       });
     } on Exception catch (err) {
@@ -53,20 +51,37 @@ class AccountCubit extends Cubit<AccountState> {
       emit(AccountFailure(message: err.toString()));
     }
   }
+  //? update user name
 
-  //? update user data
-  Future<void> updateUserData({required UserDataModel userDataModel}) async {
-    emit(AccountLoading());
+  Future<void> updateUserName({required String newName}) async {
+    emit(ProfileUpdateLoading());
     try {
       await _firestore
           .collection('users')
-          .doc(FirebaseAuth.instance.currentUser!.email)
-          .update(userDataModel.toJson());
-      emit(AccountSuccess(userDataModel: userDataModel));
+          .doc(FirebaseAuth.instance.currentUser!.uid)
+          .update({'name': newName});
+      emit(ProfileUpdateSuccess());
     } on Exception catch (err) {
-      emit(AccountFailure(message: err.toString()));
+      emit(ProfileUpdateFailure(message: err.toString()));
     }
   }
+
+  // //? update email
+  // Future<void> updateEmail({required String newEmail}) async {
+  //   emit(ProfileUpdateLoading());
+  //   try {
+  //     await FirebaseService.updateEmailWithReauth(newEmail: newEmail, password: );
+      
+  //     await _firestore
+  //         .collection('users')
+  //         .doc(FirebaseAuth.instance.currentUser!.email)
+  //         .update({'email': newEmail});
+
+  //     emit(ProfileUpdateSuccess());
+  //   } on Exception catch (err) {
+  //     emit(ProfileUpdateFailure(message: err.toString()));
+  //   }
+  // }
 
   //? update password
   Future<void> updatePassword({required String newPassword}) async {

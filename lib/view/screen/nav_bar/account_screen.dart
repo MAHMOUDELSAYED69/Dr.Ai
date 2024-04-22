@@ -2,6 +2,7 @@
 
 import 'package:dr_ai/core/constant/color.dart';
 import 'package:dr_ai/core/constant/image.dart';
+import 'package:dr_ai/core/helper/custom_bottomsheet.dart';
 import 'package:dr_ai/core/helper/custom_dialog.dart';
 import 'package:dr_ai/core/helper/extention.dart';
 import 'package:dr_ai/data/model/user_data_model.dart';
@@ -95,8 +96,7 @@ class _AccountScreenState extends State<AccountScreen> {
                     title: "Delete Account",
                     image: ImageManager.deteteAccountIcon,
                     color: ColorManager.error,
-                    onPressed: () => customDialog(
-                        context,
+                    onPressed: () => customDialog(context,
                         secondButtoncolor: ColorManager.error,
                         title: "Delete Account?!",
                         subtitle:
@@ -212,7 +212,7 @@ class _AccountScreenState extends State<AccountScreen> {
             EdgeInsets.only(left: 12.w, right: 4.w, bottom: 5.h, top: 5.h),
         trailing: IconButton(
             padding: EdgeInsets.zero,
-            onPressed: () {},
+            onPressed: () => showEditProfileBottomSheet(context),
             icon: SvgPicture.asset(
               ImageManager.editIcon,
               width: 20.w,

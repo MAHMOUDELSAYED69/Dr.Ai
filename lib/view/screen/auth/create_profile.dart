@@ -8,6 +8,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:gap/gap.dart';
 import '../../../core/constant/image.dart';
+import '../../../core/helper/custom_dialog.dart';
 import '../../widget/black_button.dart';
 import '../../widget/custom_button.dart';
 import '../../widget/custom_drop_down_field.dart';
@@ -90,7 +91,8 @@ class _CreateProfileState extends State<CreateProfile> {
                   if (state is VerifyEmailSuccess) {
                     _isLoading = false;
                     FocusScope.of(context).unfocus();
-                    context.showCustomDialog(
+                    customDialog(
+                      context,
                       dismiss: false,
                       title: "Congratulation!",
                       subtitle: "Your account has been created",

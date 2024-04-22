@@ -24,9 +24,11 @@ void customDialog(BuildContext context,
     required String image,
     String? errorMessage,
     Color? secondButtoncolor,
-    Widget? widget}) {
+    Widget? widget,
+    bool? dismiss}) {
   showDialog(
       context: context,
+      barrierDismissible: dismiss ?? true,
       builder: (_) => CustomDialog(
             title: title,
             subtitle: subtitle,
