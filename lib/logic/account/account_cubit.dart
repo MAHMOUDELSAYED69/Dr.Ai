@@ -1,10 +1,14 @@
+import 'dart:developer';
+import 'dart:io';
+
 import 'package:bloc/bloc.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:dr_ai/core/cache/cache.dart';
 import 'package:dr_ai/data/model/user_data_model.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:image_picker/image_picker.dart';
 import 'package:meta/meta.dart';
-
+import 'package:firebase_storage/firebase_storage.dart';
 part 'account_state.dart';
 
 class AccountCubit extends Cubit<AccountState> {
@@ -71,7 +75,7 @@ class AccountCubit extends Cubit<AccountState> {
   //   emit(ProfileUpdateLoading());
   //   try {
   //     await FirebaseService.updateEmailWithReauth(newEmail: newEmail, password: );
-      
+
   //     await _firestore
   //         .collection('users')
   //         .doc(FirebaseAuth.instance.currentUser!.email)
@@ -90,6 +94,53 @@ class AccountCubit extends Cubit<AccountState> {
       await FirebaseAuth.instance.currentUser!.updatePassword(newPassword);
     } on Exception catch (err) {
       emit(AccountFailure(message: err.toString()));
+    }
+  }
+
+  Future<void> loadPhoto() async {
+    emit(AccountUpdateImageLoading());
+    try {
+      String fileName = '${FirebaseAuth.instance.currentUser!.uid}.jpg';
+      Reference storageRef =
+          FirebaseStorage.instance.ref().child(fileName);
+
+      try {
+        final url = await storageRef.getDownloadURL();
+        emit(AccountLoadedImage(urlImage: url));
+      } catch (err) {
+        log('Error occurred while loading the image: $err');
+      }
+    } catch (err) {
+      log(err.toString());
+      emit(AccountUpdateImageFailure(message: err.toString()));
+    }
+  }
+
+  Future<void> uploadUserPhoto() async {
+    emit(AccountUpdateImageLoading());
+    try {
+      final returnImage =
+          await ImagePicker().pickImage(source: ImageSource.camera);
+      if (returnImage != null) {
+        String fileName =
+            '${FirebaseAuth.instance.currentUser!.uid}.jpg';
+        // String fileName =
+        //     '${FirebaseAuth.instance.currentUser!.uid}_${DateTime.now().millisecondsSinceEpoch}.jpg';
+        Reference storageRef = FirebaseStorage.instance.ref().child(fileName);
+        UploadTask uploadTask = storageRef.putFile(File(returnImage.path));
+        await uploadTask.whenComplete(() async {
+          String downloadUrl = await storageRef.getDownloadURL();
+          await CacheData.setData(key: "image", value: downloadUrl);
+          emit(AccountUpdateImageSuccess(urlImage: downloadUrl));
+        });
+      } else {
+        log("Image picking cancelled by user.");
+        emit(AccountUpdateImageFailure(
+            message: 'Image picking cancelled by user.'));
+      }
+    } catch (err) {
+      log(err.toString());
+      emit(AccountUpdateImageFailure(message: err.toString()));
     }
   }
 }

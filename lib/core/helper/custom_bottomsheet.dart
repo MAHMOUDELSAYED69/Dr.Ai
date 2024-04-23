@@ -105,12 +105,15 @@ class _BuildbuttomSheetState extends State<BuildbuttomSheet> {
                       size: Size.fromHeight(42.w),
                       title: "Update Profile",
                       onPressed: () {
-                        if (formKey.currentState!.validate() &&
-                            CacheData.getdata(key: "name") !=
-                                nameController.text) {
-                          accountCubit.updateUserName(
-                            newName: nameController.text,
-                          );
+                        if (formKey.currentState!.validate()) {
+                          if (CacheData.getdata(key: "name") ==
+                              nameController.text) {
+                            context.pop();
+                          } else {
+                            accountCubit.updateUserName(
+                              newName: nameController.text,
+                            );
+                          }
                         }
                       },
                     ),
