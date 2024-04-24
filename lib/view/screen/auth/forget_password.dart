@@ -82,12 +82,16 @@ class _ForgetPasswordState extends State<ForgetPassword> {
                       if (state is ForgetPasswordSuccess) {
                         Navigator.pop(context);
                         FocusScope.of(context).unfocus();
-                        customSnackBar(context, "Check your E-mail");
+                        customSnackBar(context, "Check your E-mail for link");
                         _isLoading = false;
                       }
                       if (state is ForgetPasswordFailure) {
-                        customSnackBar(context,
-                            "There was an Error please try agin later!");
+                        Navigator.pop(context);
+                        FocusScope.of(context).unfocus();
+                        customSnackBar(
+                            context,
+                            "There was an Error please try agin later!",
+                            ColorManager.error);
                         log(state.message);
                         _isLoading = false;
                       }
@@ -115,7 +119,6 @@ class _ForgetPasswordState extends State<ForgetPassword> {
 
 void showForgetPasswordBottomSheet(BuildContext context) {
   showModalBottomSheet(
-    
     showDragHandle: true,
     shape: RoundedRectangleBorder(
       borderRadius: BorderRadius.only(

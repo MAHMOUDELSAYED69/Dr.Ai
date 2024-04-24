@@ -7,7 +7,6 @@ import 'package:dr_ai/core/helper/custom_dialog.dart';
 import 'package:dr_ai/core/helper/extention.dart';
 import 'package:dr_ai/data/model/user_data_model.dart';
 import 'package:dr_ai/logic/account/account_cubit.dart';
-import 'package:dr_ai/view/widget/button_loading_indicator.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';

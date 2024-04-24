@@ -1,5 +1,6 @@
 import 'dart:developer';
 
+import 'package:dr_ai/core/constant/color.dart';
 import 'package:dr_ai/core/constant/routes.dart';
 import 'package:dr_ai/core/helper/extention.dart';
 import 'package:dr_ai/core/helper/scaffold_snakbar.dart';
@@ -89,7 +90,7 @@ class _LoginScreenState extends State<LoginScreen> {
                       }
                     }
                     if (state is SignInFailure) {
-                      customSnackBar(context, state.message);
+                      customSnackBar(context, state.message,ColorManager.error);
                       _isLoading = false;
                     }
                   },
