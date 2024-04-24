@@ -8,7 +8,6 @@ import 'package:dr_ai/logic/auth/sign_in/sign_in_cubit.dart';
 import 'package:dr_ai/view/screen/auth/forget_password.dart';
 import 'package:dr_ai/view/widget/custom_button.dart';
 import 'package:dr_ai/view/widget/custom_text_field.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -83,14 +82,20 @@ class _LoginScreenState extends State<LoginScreen> {
                     }
                     if (state is SignInSuccess) {
                       FocusScope.of(context).unfocus();
-                      if (FirebaseAuth.instance.currentUser!.emailVerified) {
-                        Navigator.pushNamedAndRemoveUntil(
-                            context, RouteManager.nav, (route) => false);
-                        _isLoading = false;
-                      }
+
+                      Navigator.pushNamedAndRemoveUntil(
+                          context, RouteManager.nav, (route) => false);
+                      _isLoading = false;
+                    }
+                    if (state is EmailNotVerified) {
+                      FocusScope.of(context).unfocus();
+                      customSnackBar(context, state.message,ColorManager.error,5);
+                      _isLoading =false;
                     }
                     if (state is SignInFailure) {
-                      customSnackBar(context, state.message,ColorManager.error);
+                      FocusScope.of(context).unfocus();
+                      customSnackBar(
+                          context, state.message, ColorManager.error);
                       _isLoading = false;
                     }
                   },

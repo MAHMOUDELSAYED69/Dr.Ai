@@ -154,6 +154,60 @@ class FormvalidationCubit extends Cubit<FormvalidationState> {
     return null;
   }
 
+  String? validateDay(String? value) {
+    if (value == null || value.isEmpty) {
+      return 'Day cannot be empty';
+    }
+
+    final dayFormat = RegExp(r'^\d{2}$');
+    if (!dayFormat.hasMatch(value)) {
+      return 'Enter a valid day (DD)';
+    }
+
+    final day = int.tryParse(value);
+    if (day == null || day < 1 || day > 31) {
+      return 'Invalid day';
+    }
+
+    return null;
+  }
+
+  String? validateMonth(String? value) {
+    if (value == null || value.isEmpty) {
+      return 'Month cannot be empty';
+    }
+
+    final monthFormat = RegExp(r'^\d{2}$');
+    if (!monthFormat.hasMatch(value)) {
+      return 'Enter a valid month (MM)';
+    }
+
+    final month = int.tryParse(value);
+    if (month == null || month < 1 || month > 12) {
+      return 'Invalid month';
+    }
+
+    return null;
+  }
+
+  String? validateYear(String? value) {
+    if (value == null || value.isEmpty) {
+      return 'Year cannot be empty';
+    }
+
+    final yearFormat = RegExp(r'^\d{4}$');
+    if (!yearFormat.hasMatch(value)) {
+      return 'Enter a valid year (YYYY)';
+    }
+
+    final year = int.tryParse(value);
+    if (year == null || year < 1900 || year > DateTime.now().year) {
+      return 'Invalid year';
+    }
+
+    return null;
+  }
+
   String? validateFirebaseException(String? value) {
     if (value != null) {
       switch (value) {

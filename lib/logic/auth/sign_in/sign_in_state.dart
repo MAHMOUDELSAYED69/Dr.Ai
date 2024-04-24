@@ -7,8 +7,8 @@ class SignInInitial extends SignInState {}
 
 class SignInLoading extends SignInState {}
 
-class SignInNotVerified extends SignInState {
-  SignInNotVerified({required this.message});
+class EmailNotVerified extends SignInState {
+  EmailNotVerified({required this.message});
   final String message;
 }
 

@@ -20,7 +20,7 @@ class CustomTextFormField extends StatefulWidget {
     this.fillColor,
     this.isVisibleColor,
     this.cursorColor,
-    this.obscureText,
+    this.obscureText, this.initialValue,
   });
   final String? hintText;
   final String? label;
@@ -37,6 +37,7 @@ class CustomTextFormField extends StatefulWidget {
   final Color? isVisibleColor;
   final Color? cursorColor;
   final bool? obscureText;
+  final String? initialValue; 
   @override
   State<CustomTextFormField> createState() => _CustomTextFormFieldState();
 }
@@ -56,6 +57,7 @@ class _CustomTextFormFieldState extends State<CustomTextFormField> {
         ),
       ),
       TextFormField(
+        initialValue: widget.initialValue,
         style: context.textTheme.bodySmall?.copyWith(color: ColorManager.black),
         cursorColor: widget.cursorColor ?? ColorManager.green,
         keyboardType: widget.keyboardType,

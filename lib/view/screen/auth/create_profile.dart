@@ -4,6 +4,7 @@ import 'package:dr_ai/logic/validation/formvalidation_cubit.dart';
 import 'package:dr_ai/view/widget/button_loading_indicator.dart';
 import 'package:flutter/material.dart';
 import 'package:dr_ai/core/helper/extention.dart';
+
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:gap/gap.dart';
@@ -90,6 +91,7 @@ class _CreateProfileState extends State<CreateProfile> {
                   }
                   if (state is VerifyEmailSuccess) {
                     FocusScope.of(context).unfocus();
+                    _isLoading = false;
                     customDialog(
                       context,
                       dismiss: false,
@@ -104,7 +106,6 @@ class _CreateProfileState extends State<CreateProfile> {
                       onPressed: () =>
                           Navigator.popUntil(context, (route) => route.isFirst),
                     );
-                    _isLoading = false;
                   }
                   if (state is CreateProfileFailure) {
                     customSnackBar(context, state.errorMessage);
@@ -182,6 +183,7 @@ class _CreateProfileState extends State<CreateProfile> {
             validator: cubit.phoneNumberValidator,
           ),
           CustomTextFormField(
+            initialValue: "dd/mm/yyyy",
             keyboardType: TextInputType.datetime,
             title: "Date of birth",
             hintText: "Enter your Date of birth",
