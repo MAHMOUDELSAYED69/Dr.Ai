@@ -58,6 +58,7 @@ class _BuildbuttomSheetState extends State<BuildbuttomSheet> {
   Widget build(BuildContext context) {
     final validator = context.bloc<FormvalidationCubit>();
     final accountCubit = context.read<AccountCubit>();
+
     return BlocConsumer<AccountCubit, AccountState>(
       listener: (context, state) {
         if (state is ProfileUpdateLoading) {
@@ -67,13 +68,6 @@ class _BuildbuttomSheetState extends State<BuildbuttomSheet> {
           customSnackBar(
               context, "Profile Updated Successfully", ColorManager.green);
           context.pop();
-        }
-        if (state is AccountLoadingImage) {
-          _isImageLoading = true;
-        }
-        if (state is AccountLoadedImage) {
-          _userImage = state.urlImage;
-          _isImageLoading = false;
         }
         if (state is ProfileUpdateFailure) {
           customSnackBar(context, state.message);
@@ -85,28 +79,7 @@ class _BuildbuttomSheetState extends State<BuildbuttomSheet> {
           child: Column(
             mainAxisSize: MainAxisSize.min,
             children: [
-              GestureDetector(
-                onTap: () async {
-                  await accountCubit.uploadUserPhoto();
-                  setState(() {});
-                },
-                child: CircleAvatar(
-                  radius: 50.w,
-                  backgroundColor: ColorManager.green,
-                  backgroundImage: _userImage != null
-                      ? NetworkImage(_userImage!)
-                      : CacheData.getdata(key: "image") != null
-                          ? NetworkImage(CacheData.getdata(key: "image"))
-                          : null,
-                  child: _isImageLoading == true
-                      ? const ButtonLoadingIndicator()
-                      : Icon(
-                          Icons.image,
-                          color: ColorManager.white,
-                          size: 30.r,
-                        ),
-                ),
-              ),
+            
               Form(
                 key: formKey,
                 child: CustomTextFormField(

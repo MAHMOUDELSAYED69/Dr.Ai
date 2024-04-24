@@ -64,31 +64,31 @@ class AccountUpdatePasswordFailure extends AccountState {
   AccountUpdatePasswordFailure({required this.message});
 }
 
-//? update image
-class AccountUpdateImageLoading extends AccountState {}
+// //? update image
+// class AccountUpdateImageLoading extends AccountState {}
 
-class AccountUpdateImageSuccess extends AccountState {
-  final String? urlImage;
+// class AccountUpdateImageSuccess extends AccountState {
+//   final String? urlImage;
 
-  AccountUpdateImageSuccess({this.urlImage});
-}
+//   AccountUpdateImageSuccess({this.urlImage});
+// }
 
-class AccountUpdateImageFailure extends AccountState {
-  final String message;
+// class AccountUpdateImageFailure extends AccountState {
+//   final String message;
 
-  AccountUpdateImageFailure({required this.message});
-}
+//   AccountUpdateImageFailure({required this.message});
+// }
 
-class AccountLoadingImage extends AccountState {}
+// class AccountLoadingImage extends AccountState {}
 
-class AccountLoadedImage extends AccountState {
-  final String urlImage;
+// class AccountLoadedImage extends AccountState {
+//   final String urlImage;
 
-  AccountLoadedImage({required this.urlImage});
-}
+//   AccountLoadedImage({required this.urlImage});
+// }
 
-class AccountLoadedFailure extends AccountState {
-  final String message;
+// class AccountLoadedFailure extends AccountState {
+//   final String message;
 
-  AccountLoadedFailure({required this.message});
-}
+//   AccountLoadedFailure({required this.message});
+// }

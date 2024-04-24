@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:dr_ai/core/constant/routes.dart';
 import 'package:dr_ai/core/helper/extention.dart';
 import 'package:dr_ai/core/helper/scaffold_snakbar.dart';
@@ -36,6 +38,7 @@ class _LoginScreenState extends State<LoginScreen> {
           .bloc<SignInCubit>()
           .userSignIn(email: _email!, password: _password!);
     }
+    log("on pressed");
   }
 
   @override
@@ -78,21 +81,22 @@ class _LoginScreenState extends State<LoginScreen> {
                       _isLoading = true;
                     }
                     if (state is SignInSuccess) {
-                      _isLoading = false;
                       FocusScope.of(context).unfocus();
                       if (FirebaseAuth.instance.currentUser!.emailVerified) {
                         Navigator.pushNamedAndRemoveUntil(
                             context, RouteManager.nav, (route) => false);
+                        _isLoading = false;
                       }
                     }
                     if (state is SignInFailure) {
-                      _isLoading = false;
                       customSnackBar(context, state.message);
+                      _isLoading = false;
                     }
                   },
                   builder: (context, state) {
                     return CustomButton(
                       title: "Login",
+                      isDisabled: _isLoading,
                       widget: _isLoading == true
                           ? const ButtonLoadingIndicator()
                           : null,

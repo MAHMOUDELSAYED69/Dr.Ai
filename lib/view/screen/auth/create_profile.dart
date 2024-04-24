@@ -89,7 +89,6 @@ class _CreateProfileState extends State<CreateProfile> {
                     _isLoading = true;
                   }
                   if (state is VerifyEmailSuccess) {
-                    _isLoading = false;
                     FocusScope.of(context).unfocus();
                     customDialog(
                       context,
@@ -105,23 +104,25 @@ class _CreateProfileState extends State<CreateProfile> {
                       onPressed: () =>
                           Navigator.popUntil(context, (route) => route.isFirst),
                     );
+                    _isLoading = false;
                   }
                   if (state is CreateProfileFailure) {
-                    _isLoading = false;
                     customSnackBar(context, state.errorMessage);
+                    _isLoading = false;
                   }
                   if (state is VerifyEmailFailure) {
-                    _isLoading = false;
                     customSnackBar(context, state.errorMessage);
+                    _isLoading = false;
                   }
                   if (state is CreateProfileFailure) {
-                    _isLoading = false;
                     customSnackBar(context, state.errorMessage);
+                    _isLoading = false;
                   }
                 },
                 builder: (context, state) {
                   final cubit = context.bloc<SignUpCubit>();
                   return CustomButton(
+                    isDisabled: _isLoading,
                     widget: _isLoading == true
                         ? const ButtonLoadingIndicator()
                         : null,

@@ -2,6 +2,8 @@ import 'package:dr_ai/core/helper/extention.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
+import '../../core/constant/color.dart';
+
 class CustomButton extends StatelessWidget {
   const CustomButton({
     super.key,
@@ -11,9 +13,11 @@ class CustomButton extends StatelessWidget {
     this.size,
     this.fontSize,
     this.backgroundColor,
+    this.isDisabled,
   });
+  final bool? isDisabled;
   final String? title;
-  final void Function()? onPressed;
+  final VoidCallback? onPressed;
   final Size? size;
   final Widget? widget;
   final double? fontSize;
@@ -22,11 +26,12 @@ class CustomButton extends StatelessWidget {
   Widget build(BuildContext context) {
     return ElevatedButton(
         style: context.elevatedButtonTheme.style?.copyWith(
-          backgroundColor: MaterialStatePropertyAll(backgroundColor),
+          backgroundColor: MaterialStatePropertyAll(
+              isDisabled == true ? ColorManager.grey : backgroundColor),
           fixedSize:
               MaterialStateProperty.all(size ?? Size(context.width, 44.h)),
         ),
-        onPressed: onPressed,
+        onPressed: isDisabled == true ? null : onPressed,
         child: widget ??
             Text(
               title ?? "",

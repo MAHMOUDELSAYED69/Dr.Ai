@@ -22,7 +22,7 @@ class ForgetPassword extends StatefulWidget {
 class _ForgetPasswordState extends State<ForgetPassword> {
   GlobalKey<FormState> formKey = GlobalKey();
   String? email;
-  bool isLoading = false;
+  bool _isLoading = false;
 
   resetPassword() {
     if (formKey.currentState!.validate()) {
@@ -39,14 +39,6 @@ class _ForgetPasswordState extends State<ForgetPassword> {
       child: Column(
         mainAxisSize: MainAxisSize.min,
         children: [
-          Container(
-            margin: EdgeInsets.symmetric(vertical: 18.h),
-            width: context.width / 3,
-            height: 4.h,
-            decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(74.dm),
-                color: ColorManager.grey.withOpacity(0.40)),
-          ),
           Padding(
             padding: const EdgeInsets.only(bottom: 56),
             child: Container(
@@ -64,7 +56,7 @@ class _ForgetPasswordState extends State<ForgetPassword> {
                   ),
                   Gap(16.h),
                   Text(
-                    "Enter Your email for the verification processes, we will send an email to reset your password.",
+                    "Please enter your email, and we will send you a confirmation link to reset your password.",
                     textAlign: TextAlign.center,
                     style: context.textTheme.bodySmall?.copyWith(
                       fontSize: 16.sp,
@@ -85,25 +77,26 @@ class _ForgetPasswordState extends State<ForgetPassword> {
                   BlocConsumer<ForgetPasswordCubit, ForgetPasswordState>(
                     listener: (context, state) {
                       if (state is ForgetPasswordLoading) {
-                        isLoading = true;
+                        _isLoading = true;
                       }
                       if (state is ForgetPasswordSuccess) {
-                        isLoading = false;
                         Navigator.pop(context);
                         FocusScope.of(context).unfocus();
                         customSnackBar(context, "Check your E-mail");
+                        _isLoading = false;
                       }
                       if (state is ForgetPasswordFailure) {
-                        isLoading = false;
                         customSnackBar(context,
                             "There was an Error please try agin later!");
                         log(state.message);
+                        _isLoading = false;
                       }
                     },
                     builder: (context, state) {
                       return CustomButton(
-                        title: isLoading == false ? "Send link" : null,
-                        widget: isLoading == true
+                        isDisabled: _isLoading,
+                        title: _isLoading == false ? "Send link" : null,
+                        widget: _isLoading == true
                             ? const ButtonLoadingIndicator()
                             : null,
                         onPressed: resetPassword,
@@ -122,6 +115,8 @@ class _ForgetPasswordState extends State<ForgetPassword> {
 
 void showForgetPasswordBottomSheet(BuildContext context) {
   showModalBottomSheet(
+    
+    showDragHandle: true,
     shape: RoundedRectangleBorder(
       borderRadius: BorderRadius.only(
         topRight: Radius.circular(20.dm),

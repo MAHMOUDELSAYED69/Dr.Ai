@@ -7,7 +7,7 @@ void customSnackBar(BuildContext context, [String? message ,Color? color]) {
   ScaffoldMessenger.of(context).showSnackBar(SnackBar(
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12.dm)),
       duration: const Duration(seconds: 2),
-      backgroundColor:(color ?? ColorManager.grey).withOpacity(0.9),
+      backgroundColor:(color ?? ColorManager.green).withOpacity(0.9),
       behavior: SnackBarBehavior.floating,
       content: Center(
         child: Text(

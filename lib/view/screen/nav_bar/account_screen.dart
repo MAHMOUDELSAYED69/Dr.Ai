@@ -14,9 +14,6 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:gap/gap.dart';
 
-import '../../../core/constant/routes.dart';
-import '../../../core/helper/scaffold_snakbar.dart';
-
 class AccountScreen extends StatefulWidget {
   const AccountScreen({super.key});
 
@@ -31,42 +28,16 @@ class _AccountScreenState extends State<AccountScreen> {
     context.bloc<AccountCubit>().getprofileData();
   }
 
-  bool _islogoutLoading = false;
-  bool _isImageLoading = false;
   UserDataModel? _userData;
-  String? _userImage;
   @override
   Widget build(BuildContext context) {
     final cubit = context.bloc<AccountCubit>();
+
     final divider = Divider(color: ColorManager.grey, thickness: 1.w);
     return BlocConsumer<AccountCubit, AccountState>(
       listener: (context, state) {
         if (state is AccountSuccess) {
           _userData = state.userDataModel;
-        }
-        if (state is AccountLogoutLoading) {
-          _islogoutLoading = true;
-        }
-        if (state is AccountLoadingImage) {
-          _isImageLoading = true;
-        }
-        if (state is AccountLoadedImage) {
-          _userImage = state.urlImage;
-          _isImageLoading = false;
-        }
-        if (state is AccountLoadedFailure) {
-          _isImageLoading = false;
-        }
-        if (state is AccountLogoutSuccess) {
-          _islogoutLoading = false;
-          Navigator.pushNamedAndRemoveUntil(
-              context, RouteManager.login, (route) => false);
-          customSnackBar(context, state.message);
-        }
-        if (state is AccountDeleteSuccess) {
-          Navigator.pushNamedAndRemoveUntil(
-              context, RouteManager.login, (route) => false);
-          customSnackBar(context, state.message);
         }
       },
       builder: (context, state) {
@@ -115,9 +86,6 @@ class _AccountScreenState extends State<AccountScreen> {
                         subtitle:
                             "Are you sure you want to delete your account?",
                         buttonTitle: "Delete",
-                        widget: _islogoutLoading == true
-                            ? const ButtonLoadingIndicator()
-                            : null,
                         image: ImageManager.errorIcon,
                         onPressed: () async => await cubit.deleteAccount()),
                   ),
@@ -126,16 +94,15 @@ class _AccountScreenState extends State<AccountScreen> {
                       title: "logout",
                       iconData: Icons.logout,
                       color: ColorManager.error,
-                      onPressed: () => customDialog(context,
-                          title: "Logout?!",
-                          subtitle: "Are you sure you want to logout?",
-                          buttonTitle: "Logout",
-                          secondButtoncolor: ColorManager.error,
-                          onPressed: () async => await cubit.logout(),
-                          image: ImageManager.errorIcon,
-                          widget: _islogoutLoading == true
-                              ? const ButtonLoadingIndicator()
-                              : null)),
+                      onPressed: () => customDialog(
+                            context,
+                            title: "Logout?!",
+                            subtitle: "Are you sure you want to logout?",
+                            buttonTitle: "Logout",
+                            secondButtoncolor: ColorManager.error,
+                            onPressed: () async => await cubit.logout(),
+                            image: ImageManager.errorIcon,
+                          )),
                 ],
               ),
             ),
@@ -195,35 +162,21 @@ class _AccountScreenState extends State<AccountScreen> {
       ),
       child: ListTile(
         leading: Container(
-          alignment: Alignment.center,
-          height: 50.w,
-          width: 50.w,
-          decoration: BoxDecoration(
-            image: _userImage != null
-                ? DecorationImage(
-                    image: NetworkImage(
-                      _userImage!,
-                    ),
-                    fit: BoxFit.cover)
-                : null,
-            color: ColorManager.green.withOpacity(0.1),
-            borderRadius: BorderRadius.circular(8.dm),
-            border: Border.all(
-              width: 1.5.w,
-              color: ColorManager.green,
+            alignment: Alignment.center,
+            height: 50.w,
+            width: 50.w,
+            decoration: BoxDecoration(
+              color: ColorManager.green.withOpacity(0.1),
+              borderRadius: BorderRadius.circular(8.dm),
+              border: Border.all(
+                width: 1.5.w,
+                color: ColorManager.green,
+              ),
             ),
-          ),
-          child: _isImageLoading == true
-              ? const ButtonLoadingIndicator(
-                  color: ColorManager.green,
-                )
-              : _userImage == null
-                  ? Text(
-                      char,
-                      style: context.textTheme.displayLarge,
-                    )
-                  : null,
-        ),
+            child: Text(
+              char,
+              style: context.textTheme.displayLarge,
+            )),
         title: Text(
           name,
           style: context.textTheme.bodyMedium,

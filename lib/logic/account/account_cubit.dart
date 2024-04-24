@@ -1,14 +1,9 @@
-import 'dart:developer';
-import 'dart:io';
-
 import 'package:bloc/bloc.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:dr_ai/core/cache/cache.dart';
 import 'package:dr_ai/data/model/user_data_model.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:image_picker/image_picker.dart';
 import 'package:meta/meta.dart';
-import 'package:firebase_storage/firebase_storage.dart';
 part 'account_state.dart';
 
 class AccountCubit extends Cubit<AccountState> {
@@ -48,6 +43,7 @@ class AccountCubit extends Cubit<AccountState> {
       await CacheData.clearData(clearData: true);
       await FirebaseAuth.instance.currentUser!.delete();
       await FirebaseAuth.instance.signOut();
+      await Future.delayed(const Duration(seconds: 1));
       emit(AccountDeleteSuccess(
         message: "Account deleted successfully",
       ));
@@ -97,44 +93,44 @@ class AccountCubit extends Cubit<AccountState> {
     }
   }
 
-  Future<void> loadPhoto() async {
-    emit(AccountLoadingImage());
-    try {
-      String fileName = '${FirebaseAuth.instance.currentUser!.uid}.jpg';
-      Reference storageRef = FirebaseStorage.instance.ref().child(fileName);
+  // Future<void> loadPhoto() async {
+  //   emit(AccountLoadingImage());
+  //   try {
+  //     String fileName = '${FirebaseAuth.instance.currentUser!.uid}.jpg';
+  //     Reference storageRef = FirebaseStorage.instance.ref().child(fileName);
 
-      final url = await storageRef.getDownloadURL();
-      await CacheData.setData(key: "image", value: url);
+  //     final url = await storageRef.getDownloadURL();
+  //     await CacheData.setData(key: "image", value: url);
 
-      emit(AccountLoadedImage(urlImage: url));
-    } catch (err) {
-      emit(AccountLoadedFailure(message: err.toString()));
-      log('Error occurred while loading the image: $err');
-      log(err.toString());
-    }
-  }
+  //     emit(AccountLoadedImage(urlImage: url));
+  //   } catch (err) {
+  //     emit(AccountLoadedFailure(message: err.toString()));
+  //     log('Error occurred while loading the image: $err');
+  //     log(err.toString());
+  //   }
+  // }
 
-  Future<void> uploadUserPhoto() async {
-    emit(AccountUpdateImageLoading());
-    try {
-      final returnImage =
-          await ImagePicker().pickImage(source: ImageSource.camera);
-      if (returnImage != null) {
-        String fileName = '${FirebaseAuth.instance.currentUser!.uid}.jpg';
-        // String fileName =
-        //     '${FirebaseAuth.instance.currentUser!.uid}_${DateTime.now().millisecondsSinceEpoch}.jpg';
-        Reference storageRef = FirebaseStorage.instance.ref().child(fileName);
-        storageRef.putFile(File(returnImage.path));
-        await loadPhoto();
-        emit(AccountUpdateImageSuccess());
-      } else {
-        log("Image picking cancelled by user.");
-        emit(AccountUpdateImageFailure(
-            message: 'Image picking cancelled by user.'));
-      }
-    } catch (err) {
-      log(err.toString());
-      emit(AccountUpdateImageFailure(message: err.toString()));
-    }
-  }
+  // Future<void> uploadUserPhoto() async {
+  //   emit(AccountUpdateImageLoading());
+  //   try {
+  //     final returnImage =
+  //         await ImagePicker().pickImage(source: ImageSource.camera);
+  //     if (returnImage != null) {
+  //       String fileName = '${FirebaseAuth.instance.currentUser!.uid}.jpg';
+  //       // String fileName =
+  //       //     '${FirebaseAuth.instance.currentUser!.uid}_${DateTime.now().millisecondsSinceEpoch}.jpg';
+  //       Reference storageRef = FirebaseStorage.instance.ref().child(fileName);
+  //       storageRef.putFile(File(returnImage.path));
+  //       await loadPhoto();
+  //       emit(AccountUpdateImageSuccess());
+  //     } else {
+  //       log("Image picking cancelled by user.");
+  //       emit(AccountUpdateImageFailure(
+  //           message: 'Image picking cancelled by user.'));
+  //     }
+  //   } catch (err) {
+  //     log(err.toString());
+  //     emit(AccountUpdateImageFailure(message: err.toString()));
+  //   }
+  // }
 }

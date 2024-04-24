@@ -45,11 +45,10 @@ class _RegisterScreenState extends State<RegisterScreen> {
           isLoading = true;
         }
         if (state is RegisterSuccess) {
-          isLoading = false;
-
           Navigator.pop(context);
           FocusScope.of(context).unfocus();
           customSnackBar(context, "Verify your E-mail and Login");
+          isLoading = false;
         }
         if (state is RegisterFailure) {
           isLoading = false;
