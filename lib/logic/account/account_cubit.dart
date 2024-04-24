@@ -98,21 +98,19 @@ class AccountCubit extends Cubit<AccountState> {
   }
 
   Future<void> loadPhoto() async {
-    emit(AccountUpdateImageLoading());
+    emit(AccountLoadingImage());
     try {
       String fileName = '${FirebaseAuth.instance.currentUser!.uid}.jpg';
-      Reference storageRef =
-          FirebaseStorage.instance.ref().child(fileName);
+      Reference storageRef = FirebaseStorage.instance.ref().child(fileName);
 
-      try {
-        final url = await storageRef.getDownloadURL();
-        emit(AccountLoadedImage(urlImage: url));
-      } catch (err) {
-        log('Error occurred while loading the image: $err');
-      }
+      final url = await storageRef.getDownloadURL();
+      await CacheData.setData(key: "image", value: url);
+
+      emit(AccountLoadedImage(urlImage: url));
     } catch (err) {
+      emit(AccountLoadedFailure(message: err.toString()));
+      log('Error occurred while loading the image: $err');
       log(err.toString());
-      emit(AccountUpdateImageFailure(message: err.toString()));
     }
   }
 
@@ -122,17 +120,13 @@ class AccountCubit extends Cubit<AccountState> {
       final returnImage =
           await ImagePicker().pickImage(source: ImageSource.camera);
       if (returnImage != null) {
-        String fileName =
-            '${FirebaseAuth.instance.currentUser!.uid}.jpg';
+        String fileName = '${FirebaseAuth.instance.currentUser!.uid}.jpg';
         // String fileName =
         //     '${FirebaseAuth.instance.currentUser!.uid}_${DateTime.now().millisecondsSinceEpoch}.jpg';
         Reference storageRef = FirebaseStorage.instance.ref().child(fileName);
-        UploadTask uploadTask = storageRef.putFile(File(returnImage.path));
-        await uploadTask.whenComplete(() async {
-          String downloadUrl = await storageRef.getDownloadURL();
-          await CacheData.setData(key: "image", value: downloadUrl);
-          emit(AccountUpdateImageSuccess(urlImage: downloadUrl));
-        });
+        storageRef.putFile(File(returnImage.path));
+        await loadPhoto();
+        emit(AccountUpdateImageSuccess());
       } else {
         log("Image picking cancelled by user.");
         emit(AccountUpdateImageFailure(

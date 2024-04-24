@@ -68,9 +68,9 @@ class AccountUpdatePasswordFailure extends AccountState {
 class AccountUpdateImageLoading extends AccountState {}
 
 class AccountUpdateImageSuccess extends AccountState {
-  final String urlImage;
+  final String? urlImage;
 
-  AccountUpdateImageSuccess({required this.urlImage});
+  AccountUpdateImageSuccess({this.urlImage});
 }
 
 class AccountUpdateImageFailure extends AccountState {
@@ -78,10 +78,17 @@ class AccountUpdateImageFailure extends AccountState {
 
   AccountUpdateImageFailure({required this.message});
 }
+
 class AccountLoadingImage extends AccountState {}
+
 class AccountLoadedImage extends AccountState {
   final String urlImage;
 
   AccountLoadedImage({required this.urlImage});
 }
 
+class AccountLoadedFailure extends AccountState {
+  final String message;
+
+  AccountLoadedFailure({required this.message});
+}

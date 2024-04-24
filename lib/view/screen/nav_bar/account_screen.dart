@@ -13,6 +13,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:gap/gap.dart';
+
 import '../../../core/constant/routes.dart';
 import '../../../core/helper/scaffold_snakbar.dart';
 
@@ -31,7 +32,9 @@ class _AccountScreenState extends State<AccountScreen> {
   }
 
   bool _islogoutLoading = false;
-  UserDataModel? userData;
+  bool _isImageLoading = false;
+  UserDataModel? _userData;
+  String? _userImage;
   @override
   Widget build(BuildContext context) {
     final cubit = context.bloc<AccountCubit>();
@@ -39,10 +42,20 @@ class _AccountScreenState extends State<AccountScreen> {
     return BlocConsumer<AccountCubit, AccountState>(
       listener: (context, state) {
         if (state is AccountSuccess) {
-          userData = state.userDataModel;
+          _userData = state.userDataModel;
         }
         if (state is AccountLogoutLoading) {
           _islogoutLoading = true;
+        }
+        if (state is AccountLoadingImage) {
+          _isImageLoading = true;
+        }
+        if (state is AccountLoadedImage) {
+          _userImage = state.urlImage;
+          _isImageLoading = false;
+        }
+        if (state is AccountLoadedFailure) {
+          _isImageLoading = false;
         }
         if (state is AccountLogoutSuccess) {
           _islogoutLoading = false;
@@ -67,9 +80,9 @@ class _AccountScreenState extends State<AccountScreen> {
                   Gap(15.h),
                   _buildUserCard(
                     context,
-                    char: userData?.name[0].toUpperCase() ?? "",
-                    email: userData?.email ?? "",
-                    name: userData?.name ?? "",
+                    char: _userData?.name[0].toUpperCase() ?? "",
+                    email: _userData?.email ?? "",
+                    name: _userData?.name ?? "",
                   ),
                   Gap(20.h),
                   _buildProfileCard(context,
@@ -186,6 +199,13 @@ class _AccountScreenState extends State<AccountScreen> {
           height: 50.w,
           width: 50.w,
           decoration: BoxDecoration(
+            image: _userImage != null
+                ? DecorationImage(
+                    image: NetworkImage(
+                      _userImage!,
+                    ),
+                    fit: BoxFit.cover)
+                : null,
             color: ColorManager.green.withOpacity(0.1),
             borderRadius: BorderRadius.circular(8.dm),
             border: Border.all(
@@ -193,10 +213,16 @@ class _AccountScreenState extends State<AccountScreen> {
               color: ColorManager.green,
             ),
           ),
-          child: Text(
-            char,
-            style: context.textTheme.displayLarge,
-          ),
+          child: _isImageLoading == true
+              ? const ButtonLoadingIndicator(
+                  color: ColorManager.green,
+                )
+              : _userImage == null
+                  ? Text(
+                      char,
+                      style: context.textTheme.displayLarge,
+                    )
+                  : null,
         ),
         title: Text(
           name,

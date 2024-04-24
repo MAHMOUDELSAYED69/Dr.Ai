@@ -53,6 +53,7 @@ class _NavbarScreenState extends State<NavbarScreen> {
   int _bottomNavIndex = 0;
   @override
   Widget build(BuildContext context) {
+    context.bloc<AccountCubit>().loadPhoto();
     return Scaffold(
       resizeToAvoidBottomInset: false,
       body: SizedBox(

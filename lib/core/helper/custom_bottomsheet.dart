@@ -52,6 +52,8 @@ class _BuildbuttomSheetState extends State<BuildbuttomSheet> {
   TextEditingController passwordController = TextEditingController();
   GlobalKey<FormState> formKey = GlobalKey<FormState>();
   bool _isLoading = false;
+  bool _isImageLoading = false;
+  String? _userImage;
   @override
   Widget build(BuildContext context) {
     final validator = context.bloc<FormvalidationCubit>();
@@ -66,6 +68,13 @@ class _BuildbuttomSheetState extends State<BuildbuttomSheet> {
               context, "Profile Updated Successfully", ColorManager.green);
           context.pop();
         }
+        if (state is AccountLoadingImage) {
+          _isImageLoading = true;
+        }
+        if (state is AccountLoadedImage) {
+          _userImage = state.urlImage;
+          _isImageLoading = false;
+        }
         if (state is ProfileUpdateFailure) {
           customSnackBar(context, state.message);
         }
@@ -76,6 +85,28 @@ class _BuildbuttomSheetState extends State<BuildbuttomSheet> {
           child: Column(
             mainAxisSize: MainAxisSize.min,
             children: [
+              GestureDetector(
+                onTap: () async {
+                  await accountCubit.uploadUserPhoto();
+                  setState(() {});
+                },
+                child: CircleAvatar(
+                  radius: 50.w,
+                  backgroundColor: ColorManager.green,
+                  backgroundImage: _userImage != null
+                      ? NetworkImage(_userImage!)
+                      : CacheData.getdata(key: "image") != null
+                          ? NetworkImage(CacheData.getdata(key: "image"))
+                          : null,
+                  child: _isImageLoading == true
+                      ? const ButtonLoadingIndicator()
+                      : Icon(
+                          Icons.image,
+                          color: ColorManager.white,
+                          size: 30.r,
+                        ),
+                ),
+              ),
               Form(
                 key: formKey,
                 child: CustomTextFormField(
@@ -103,7 +134,7 @@ class _BuildbuttomSheetState extends State<BuildbuttomSheet> {
                           : null,
                       backgroundColor: ColorManager.error,
                       size: Size.fromHeight(42.w),
-                      title: "Update Profile",
+                      title: "Update",
                       onPressed: () {
                         if (formKey.currentState!.validate()) {
                           if (CacheData.getdata(key: "name") ==
