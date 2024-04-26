@@ -33,3 +33,4 @@ class ClearChatFailure extends ChatState {
   final String message;
   ClearChatFailure({required this.message});
 }
+

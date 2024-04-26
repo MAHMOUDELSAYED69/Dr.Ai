@@ -27,7 +27,7 @@ class CustomButton extends StatelessWidget {
     return ElevatedButton(
         style: context.elevatedButtonTheme.style?.copyWith(
           backgroundColor: MaterialStatePropertyAll(
-              isDisabled == true ? ColorManager.grey : backgroundColor),
+              isDisabled == true ? ColorManager.darkGrey : backgroundColor),
           fixedSize:
               MaterialStateProperty.all(size ?? Size(context.width, 44.h)),
         ),

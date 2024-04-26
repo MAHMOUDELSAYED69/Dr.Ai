@@ -7,18 +7,19 @@ import 'package:gap/gap.dart';
 
 import '../../core/constant/color.dart';
 
-
 class ContactCard extends StatelessWidget {
   const ContactCard({
     super.key,
     required this.image,
     required this.title,
     required this.number,
+    required this.color,
   });
 
   final String image;
   final String title;
   final String number;
+  final Color color;
   @override
   Widget build(BuildContext context) {
     return Expanded(
@@ -37,7 +38,20 @@ class ContactCard extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.center,
                 mainAxisSize: MainAxisSize.min,
                 children: [
-                  SvgPicture.asset(image),
+                  Container(
+                      width: 42.w,
+                      height: 42.w,
+                      decoration: BoxDecoration(
+                          color: (color).withOpacity(0.3),
+                          borderRadius: BorderRadius.circular(6.dm)),
+                      alignment: Alignment.center,
+                      padding: EdgeInsets.all(8.w),
+                      child: SvgPicture.asset(
+                        image,
+                        width: 20.w,
+                        height: 20.w,
+                      )),
+                  // SvgPicture.asset(image),
                   Gap(8.h),
                   Text(
                     title,

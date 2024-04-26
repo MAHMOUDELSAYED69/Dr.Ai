@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:bloc/bloc.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:dr_ai/core/cache/cache.dart';
@@ -40,13 +42,27 @@ class AccountCubit extends Cubit<AccountState> {
   Future<void> deleteAccount() async {
     emit(AccountDeleteLoading());
     try {
+      // await FirebaseFirestore.instance
+      //     .collection('chat_history')
+      //     .doc(FirebaseAuth.instance.currentUser!.uid)
+      //     .delete()
+      //     .then((value) => log("DELETED CHAT HISTORY"));
+      await FirebaseFirestore.instance
+          .collection('users')
+          .doc(FirebaseAuth.instance.currentUser!.uid)
+          .delete();
+      log("DELETED USER DATA");
       await CacheData.clearData(clearData: true);
+      log("DELETED CACHE DATA");
       await FirebaseAuth.instance.currentUser!.delete();
+      log("DELETED USER ACCOUNT");
       await FirebaseAuth.instance.signOut();
+      log("LOGGED OUT");
       await Future.delayed(const Duration(seconds: 1));
       emit(AccountDeleteSuccess(
         message: "Account deleted successfully",
       ));
+      log("ACCOUNT DELETED SUCCESSFULLY");
     } on Exception catch (err) {
       emit(AccountFailure(message: err.toString()));
     }

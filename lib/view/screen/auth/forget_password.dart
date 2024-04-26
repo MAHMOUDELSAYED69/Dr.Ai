@@ -82,8 +82,9 @@ class _ForgetPasswordState extends State<ForgetPassword> {
                       if (state is ForgetPasswordSuccess) {
                         Navigator.pop(context);
                         FocusScope.of(context).unfocus();
-                        customSnackBar(context, "Check your E-mail for link");
-                        _isLoading = false;
+                        customSnackBar(context, "Check your E-mail for link",
+                            ColorManager.darkGrey, 3);
+                        _isLoading = false; 
                       }
                       if (state is ForgetPasswordFailure) {
                         Navigator.pop(context);

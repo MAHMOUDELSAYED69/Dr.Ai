@@ -2,79 +2,77 @@ import 'dart:async';
 import 'dart:developer';
 import 'package:bloc/bloc.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:dr_ai/data/model/chat_message_model.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:meta/meta.dart';
+import 'package:flutter/material.dart';
+import '../../data/model/chat_message_model.dart';
 import '../../data/service/api/py_message.dart';
 
 part 'chat_state.dart';
+
 class ChatCubit extends Cubit<ChatState> {
-  final FirebaseFirestore _firestoreInstance = FirebaseFirestore.instance;
-  final FirebaseAuth _authInstance = FirebaseAuth.instance;
-  late final CollectionReference _messagesCollection;
+  CollectionReference? _messagesCollection;
   StreamSubscription<QuerySnapshot>? _messagesSubscription;
 
   ChatCubit() : super(ChatInitial()) {
-    _messagesCollection = _firestoreInstance
-        .collection('chat_history')
-        .doc(_authInstance.currentUser!.uid)
-        .collection('messages');
-    startListeningToMessages();
-  }
-  void startListeningToMessages() {
-    _messagesSubscription = _messagesCollection
-        .orderBy('timeTamp', descending: true)
-        .snapshots()
-        .listen((snapshot) {
-      final messages = snapshot.docs
-          .map((doc) =>
-              ChatMessageModel.fromJson(doc.data() as Map<String, dynamic>))
-          .toList();
-      emit(ChatReceiveSuccess(response: messages));
-    }, onError: (error) {
-      emit(ChatFailure(message: error.toString()));
+    FirebaseAuth.instance.authStateChanges().listen((user) {
+      if (user != null) {
+
+        _messagesCollection = FirebaseFirestore.instance
+            .collection('chat_history')
+            .doc(user.uid)
+            .collection('messages');
+        startListeningToMessages();
+      } else {
+        _messagesSubscription?.cancel();
+        _messagesCollection = null; 
+      }
     });
   }
 
+  void startListeningToMessages() {
+    if (_messagesCollection != null) {
+      _messagesSubscription?.cancel();
+      _messagesSubscription = _messagesCollection!
+          .orderBy('timeTamp', descending: true)
+          .snapshots()
+          .listen((snapshot) {
+        final messages = snapshot.docs
+            .map((doc) =>
+                ChatMessageModel.fromJson(doc.data() as Map<String, dynamic>))
+            .toList();
+        emit(ChatReceiveSuccess(response: messages));
+      }, onError: (error) {
+        emit(ChatFailure(message: error.toString()));
+      });
+    }
+  }
+
   Future<void> sendMessage({required String message}) async {
-    emit(ChatSenderLoading());
-    try {
-      final chatMessageModel = ChatMessageModel(
-          isUser: true,
-          message: message.trim(),
-          timeTamp: DateTime.now().toString());
-      await _messagesCollection.add(chatMessageModel.toJson());
-      emit(ChatSendSuccess());
-      emit(ChatReceiverLoading());
-      final response =
-          await MessageWebService.postData(data: {'content': message});
-      log(response.toString());
-      await _messagesCollection.add(ChatMessageModel(
-        isUser: false,
-        message: response ?? "ERROR",
-        timeTamp: DateTime.now().toString(),
-      ).toJson());
-      emit(ChatSendSuccess());
-    } on Exception catch (err) {
-      emit(ChatFailure(message: err.toString()));
-    }
-  }
+    if (_messagesCollection != null) {
+      emit(ChatSenderLoading());
+      try {
+        final chatMessageModel = ChatMessageModel(
+            isUser: true,
+            message: message.trim(),
+            timeTamp: DateTime.now().toString());
+        await _messagesCollection!.add(chatMessageModel.toJson());
+        emit(ChatSendSuccess());
 
-  Future<void> clearMessages() async {
-    emit(ClearChatLoading());
-    final batch = _firestoreInstance.batch();
-    final querySnapshot = await _messagesCollection.get();
-    for (final doc in querySnapshot.docs) {
-      batch.delete(doc.reference);
+        //send message to bot
+        emit(ChatReceiverLoading());
+        final response =
+            await MessageWebService.postData(data: {'content': message});
+        log(response.toString());
+        await _messagesCollection!.add(ChatMessageModel(
+          isUser: false,
+          message: response ?? "ERROR",
+          timeTamp: DateTime.now().toString(),
+        ).toJson());
+        emit(ChatSendSuccess());
+      } on Exception catch (err) {
+        emit(ChatFailure(message: err.toString()));
+      }
     }
-    await batch.commit();
-    emit(ClearChatSuccess(message: "All messages deleted successfully."));
-  }
-
-  @override
-  Future<void> close() {
-    _messagesSubscription?.cancel();
-    return super.close();
   }
 }
 

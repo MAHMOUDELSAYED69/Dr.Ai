@@ -79,6 +79,7 @@ class _LoginScreenState extends State<LoginScreen> {
                   listener: (context, state) async {
                     if (state is SignInLoading) {
                       _isLoading = true;
+                      
                     }
                     if (state is SignInSuccess) {
                       FocusScope.of(context).unfocus();
@@ -88,9 +89,10 @@ class _LoginScreenState extends State<LoginScreen> {
                       _isLoading = false;
                     }
                     if (state is EmailNotVerified) {
+                      _isLoading = false;
                       FocusScope.of(context).unfocus();
-                      customSnackBar(context, state.message,ColorManager.error,5);
-                      _isLoading =false;
+                      customSnackBar(
+                          context, state.message, ColorManager.error, 5);
                     }
                     if (state is SignInFailure) {
                       FocusScope.of(context).unfocus();

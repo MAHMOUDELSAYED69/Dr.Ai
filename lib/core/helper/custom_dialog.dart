@@ -106,8 +106,10 @@ class _CustomDialogState extends State<CustomDialog> {
         }
         if (state is AccountDeleteSuccess) {
           _isDeleteAccountLoading = false;
+       
           Navigator.pushNamedAndRemoveUntil(
               context, RouteManager.login, (route) => false);
+
           customSnackBar(context, state.message, ColorManager.error);
         }
       },

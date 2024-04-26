@@ -14,7 +14,7 @@ class SignUpCubit extends Cubit<SignUpState> {
       await FirebaseService.emailVerify();
       emit(VerifyEmailSuccess());
     } on Exception catch (err) {
-      emit(CreateProfileFailure(errorMessage: err.toString()));
+      emit(VerifyEmailFailure(errorMessage: err.toString()));
     }
   }
 
