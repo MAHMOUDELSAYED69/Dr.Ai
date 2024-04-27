@@ -79,7 +79,6 @@ class _LoginScreenState extends State<LoginScreen> {
                   listener: (context, state) async {
                     if (state is SignInLoading) {
                       _isLoading = true;
-                      
                     }
                     if (state is SignInSuccess) {
                       FocusScope.of(context).unfocus();
