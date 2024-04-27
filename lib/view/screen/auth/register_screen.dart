@@ -1,6 +1,6 @@
 import 'package:dr_ai/core/constant/image.dart';
 import 'package:dr_ai/core/helper/scaffold_snakbar.dart';
-import 'package:dr_ai/logic/auth/google/login_with_google.dart';
+import 'package:dr_ai/logic/auth/social_auth/social_auth.dart';
 import 'package:dr_ai/logic/auth/register/register_cubit.dart';
 import 'package:dr_ai/view/widget/custom_button.dart';
 import 'package:dr_ai/view/widget/custom_divider.dart';
@@ -149,7 +149,6 @@ class _RegisterScreenState extends State<RegisterScreen> {
                     const Padding(
                       padding: EdgeInsets.only(top: 37),
                       child: CustomOutlineButton(
-                        onPressed: GoogleService.signInWithGoogle,
                         title: "Google",
                         icon: MyImages.google,
                       ),

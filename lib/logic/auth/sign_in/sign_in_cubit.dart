@@ -65,12 +65,8 @@ class SignInCubit extends Cubit<SignInState> {
                 "Email not verified, check your email for verification link"));
       }
     } on FirebaseAuthException catch (err) {
-      if (err.code == "too-many-requests") {
-        emit(SignInFailure(message: dotenv.env["spamMessage"]!));
-      } else {
-        final errMessage = _validateFirebaseException(err.code);
-        emit(SignInFailure(message: errMessage ?? err.code));
-      }
+      final errMessage = _validateFirebaseException(err.code);
+      emit(SignInFailure(message: errMessage ?? err.code));
     } catch (err) {
       emit(SignInFailure(message: err.toString()));
     }

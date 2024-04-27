@@ -1,8 +1,11 @@
 import 'package:dr_ai/core/constant/image.dart';
 import 'package:dr_ai/core/helper/extention.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+
+import '../../logic/auth/social_auth/social_auth.dart';
 
 class SocialLoginCard extends StatelessWidget {
   const SocialLoginCard({
@@ -22,7 +25,7 @@ class SocialLoginCard extends StatelessWidget {
         OutlinedButton(
           style: style,
           child: _buildSVGIcon(ImageManager.googleIcon),
-          onPressed: () {},
+          onPressed: () => context.bloc<SocialAuthCubit>().signInWithGoogle(),
         ),
         OutlinedButton(
           style: style,

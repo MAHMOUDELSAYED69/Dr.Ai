@@ -1,6 +1,7 @@
 import 'dart:developer';
 import 'package:dr_ai/core/constant/routes.dart';
 import 'package:dr_ai/logic/auth/forget_password/forget_password_cubit.dart';
+import 'package:dr_ai/logic/auth/social_auth/social_auth.dart';
 import 'package:dr_ai/logic/auth/log_out/log_out_cubit.dart';
 import 'package:dr_ai/logic/auth/sign_in/sign_in_cubit.dart';
 import 'package:dr_ai/logic/auth/register/register_cubit.dart';
@@ -76,6 +77,9 @@ class _MyAppState extends State<MyApp> {
         ),
         BlocProvider(
           create: (context) => AccountCubit(),
+        ),
+        BlocProvider(
+          create: (context) => SocialAuthCubit(),
         ),
       ],
       child: ScreenUtilInit(
