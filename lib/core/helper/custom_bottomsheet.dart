@@ -1,6 +1,7 @@
 import 'package:dr_ai/core/cache/cache.dart';
 import 'package:dr_ai/core/helper/extention.dart';
 import 'package:dr_ai/core/helper/scaffold_snakbar.dart';
+import 'package:dr_ai/data/model/user_data_model.dart';
 import 'package:dr_ai/logic/account/account_cubit.dart';
 import 'package:dr_ai/view/widget/button_loading_indicator.dart';
 import 'package:dr_ai/view/widget/custom_button.dart';
@@ -49,11 +50,8 @@ class BuildbuttomSheet extends StatefulWidget {
 class _BuildbuttomSheetState extends State<BuildbuttomSheet> {
   TextEditingController nameController =
       TextEditingController(text: CacheData.getdata(key: "name"));
-  TextEditingController passwordController = TextEditingController();
   GlobalKey<FormState> formKey = GlobalKey<FormState>();
   bool _isLoading = false;
-  bool _isImageLoading = false;
-  String? _userImage;
   @override
   Widget build(BuildContext context) {
     final validator = context.bloc<FormvalidationCubit>();
@@ -79,7 +77,6 @@ class _BuildbuttomSheetState extends State<BuildbuttomSheet> {
           child: Column(
             mainAxisSize: MainAxisSize.min,
             children: [
-            
               Form(
                 key: formKey,
                 child: CustomTextFormField(

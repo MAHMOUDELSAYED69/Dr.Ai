@@ -1,11 +1,14 @@
 import 'package:dr_ai/core/helper/extention.dart';
+import 'package:dr_ai/logic/account/account_cubit.dart';
 import 'package:dr_ai/view/widget/custom_button.dart';
 import 'package:dr_ai/view/widget/custom_text_field.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:gap/gap.dart';
 
 import '../../../core/constant/color.dart';
+import '../../../data/model/user_data_model.dart';
 import '../../../logic/validation/formvalidation_cubit.dart';
 import '../../widget/custom_drop_down_field.dart';
 
@@ -17,6 +20,7 @@ class EditProfileScreen extends StatefulWidget {
 }
 
 class _EditProfileScreenState extends State<EditProfileScreen> {
+  @override
   final GlobalKey<FormState> formKey = GlobalKey<FormState>();
   String? _name;
   String? _email;
@@ -28,31 +32,47 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
   String? _weight;
   String? _chronicDiseases;
   String? _familyHistoryOfChronicDiseases;
+  UserDataModel? _userData;
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        backgroundColor: context.theme.scaffoldBackgroundColor,
-        title: const Text("Edit Profile"),
-      ),
-      body: SingleChildScrollView(
-        child: Padding(
-          padding: EdgeInsets.symmetric(horizontal: 18.w),
-          child: Column(
-            children: [
-              _buildUserCard(context, char: "M", name: "Mahmoud El Sayed"),
-              _buildUserProfileDataFields(context),
-              Gap(32.h),
-              CustomButton(
-                title: "Update",
-                onPressed: () {},
-              ),
-              Gap(32.h),
-            ],
+    return BlocConsumer<AccountCubit, AccountState>(
+      listener: (context, state) {
+        if (state is AccountSuccess) {
+          _userData = state.userDataModel;
+        }
+      },
+      builder: (context, state) {
+        return Scaffold(
+          appBar: AppBar(
+            backgroundColor: context.theme.scaffoldBackgroundColor,
+            title: const Text("Edit Profile"),
           ),
-        ),
-      ),
+          body: SingleChildScrollView(
+            child: Padding(
+              padding: EdgeInsets.symmetric(horizontal: 18.w),
+              child: Column(
+                children: [
+                  _buildUserCard(context, char: "M", name: "Mahmoud El Sayed"),
+                  _buildUserProfileDataFields(context),
+                  Gap(32.h),
+                  CustomButton(
+                    title: "Update",
+                    onPressed: () {
+                      if (formKey.currentState!.validate()) {
+                        formKey.currentState!.save();
+                        context.bloc(); //TODO: update profile
+                        context.pop();
+                      }
+                    },
+                  ),
+                  Gap(32.h),
+                ],
+              ),
+            ),
+          ),
+        );
+      },
     );
   }
 
@@ -96,6 +116,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
       child: Column(
         children: [
           CustomTextFormField(
+          initialValue: _userData?.name,
             keyboardType: TextInputType.name,
             title: "Name",
             hintText: "Enter your Name",
@@ -105,6 +126,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
             validator: cubit.nameValidator,
           ),
           CustomTextFormField(
+            initialValue: _userData?.phoneNumber,
             keyboardType: TextInputType.phone,
             title: "phone Number",
             hintText: "Enter your phone Number",
@@ -114,7 +136,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
             validator: cubit.phoneNumberValidator,
           ),
           CustomTextFormField(
-            initialValue: "dd/mm/yyyy",
+            initialValue: _userData?.dob,
             keyboardType: TextInputType.datetime,
             title: "Date of birth",
             hintText: "Enter your Date of birth",
@@ -123,8 +145,8 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
             },
             validator: cubit.validateDateOfBirth,
           ),
-     
           CustomTextFormField(
+            initialValue: _userData?.height,
             keyboardType: TextInputType.number,
             title: "Height ( CM )",
             hintText: "Enter your height",
@@ -134,6 +156,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
             validator: cubit.heightValidator,
           ),
           CustomTextFormField(
+            initialValue: _userData?.weight,
             keyboardType: TextInputType.number,
             title: "Weight ( KG )",
             hintText: "Enter your weight",
@@ -143,6 +166,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
             validator: cubit.weightValidator,
           ),
           CustomTextFormField(
+            initialValue: _userData?.chronicDiseases,
             keyboardType: TextInputType.name,
             title: "chronic diseases",
             hintText: "Enter your chronic diseases",
@@ -151,6 +175,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
             },
           ),
           CustomTextFormField(
+            initialValue: _userData?.familyHistoryOfChronicDiseases,
             keyboardType: TextInputType.name,
             title: "Family history of chronic diseases",
             hintText: "Enter your Family history of chronic diseases",
