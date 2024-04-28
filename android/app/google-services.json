@@ -1,6 +1,7 @@
 {
   "project_info": {
     "project_number": "473927393143",
+    "firebase_url": "https://dr-ai-e14d1-default-rtdb.firebaseio.com",
     "project_id": "dr-ai-e14d1",
     "storage_bucket": "dr-ai-e14d1.appspot.com"
   },
@@ -12,7 +13,12 @@
           "package_name": "com.example.dr_ai"
         }
       },
-      "oauth_client": [],
+      "oauth_client": [
+        {
+          "client_id": "473927393143-4a36efa15i3l4ap4mdhui6lh3u6vu65p.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
       "api_key": [
         {
           "current_key": "AIzaSyBeoCC8wUy2hrY8H4Ioim2t9x5coPMe9JY"
@@ -20,7 +26,19 @@
       ],
       "services": {
         "appinvite_service": {
-          "other_platform_oauth_client": []
+          "other_platform_oauth_client": [
+            {
+              "client_id": "473927393143-4a36efa15i3l4ap4mdhui6lh3u6vu65p.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "473927393143-cs8ntgs7m0d6h05rj41bief3vjqs5uen.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.example.drAi.RunnerTests"
+              }
+            }
+          ]
         }
       }
     }

@@ -7,6 +7,9 @@
         android:enableOnBackInvokedCallback="true">
         <meta-data android:name="com.google.android.geo.API_KEY"
             android:value="AIzaSyAk44ARDYlyxejknsj1k55m2N5o6aPY2Ws" />
+        <meta-data
+            android:name="com.google.android.gms.applicationId"
+            android:value="YOUR_GOOGLE_APP_ID" />       
         <activity
             android:name=".MainActivity"
             android:exported="true"
