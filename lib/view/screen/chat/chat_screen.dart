@@ -67,10 +67,7 @@ class _ChatScreenState extends State<ChatScreen> {
       builder: (context, state) {
         return Scaffold(
           appBar: AppBar(
-            title: Text(
-              "Doctor AI Chat",
-              style: context.textTheme.bodyMedium?.copyWith(fontSize: 18.spMin),
-            ),
+            title: const Text("Doctor AI Chat"),
             shape: context.appBarTheme.shape,
           ),
           bottomNavigationBar: Padding(

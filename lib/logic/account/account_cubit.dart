@@ -82,6 +82,37 @@ class AccountCubit extends Cubit<AccountState> {
     }
   }
 
+  Future<void> updateProfile({
+    String? name,
+    String? email,
+    String? phone,
+    String? dob,
+    String? height,
+    String? weight,
+    String? chronicDiseases,
+    String? familyHistoryOfChronicDiseases,
+  }) async {
+    emit(ProfileUpdateLoading());
+    try {
+      await _firestore
+          .collection('users')
+          .doc(FirebaseAuth.instance.currentUser!.uid)
+          .update({
+        'name': name,
+        'email': email,
+        'phoneNumber': phone,
+        'dob': dob,
+        'height': height,
+        'weight': weight,
+        'chronicDiseases': chronicDiseases,
+        'familyHistoryOfChronicDiseases': familyHistoryOfChronicDiseases
+      });
+      emit(ProfileUpdateSuccess());
+    } on Exception catch (err) {
+      emit(ProfileUpdateFailure(message: err.toString()));
+    }
+  }
+
   // //? update email
   // Future<void> updateEmail({required String newEmail}) async {
   //   emit(ProfileUpdateLoading());
@@ -99,15 +130,15 @@ class AccountCubit extends Cubit<AccountState> {
   //   }
   // }
 
-  //? update password
-  Future<void> updatePassword({required String newPassword}) async {
-    emit(AccountLoading());
-    try {
-      await FirebaseAuth.instance.currentUser!.updatePassword(newPassword);
-    } on Exception catch (err) {
-      emit(AccountFailure(message: err.toString()));
-    }
-  }
+  // //? update password
+  // Future<void> updatePassword({required String newPassword}) async {
+  //   emit(AccountLoading());
+  //   try {
+  //     await FirebaseAuth.instance.currentUser!.updatePassword(newPassword);
+  //   } on Exception catch (err) {
+  //     emit(AccountFailure(message: err.toString()));
+  //   }
+  // }
 
   // Future<void> loadPhoto() async {
   //   emit(AccountLoadingImage());

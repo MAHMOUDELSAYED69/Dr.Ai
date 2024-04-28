@@ -8,6 +8,6 @@ abstract class RouteManager {
   static const home = "/home";
   static const nav = "/nav";
   static const chat = "/chat";
-  static const profile = "/profile";
+  static const editProfile = "/editProfile";
   static const maps = "/maps";
 }

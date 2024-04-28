@@ -55,8 +55,13 @@ class _AccountScreenState extends State<AccountScreen> {
                     name: _userData?.name ?? "",
                   ),
                   Gap(20.h),
-                  _buildProfileCard(context,
-                      title: "Edit Profile", image: ImageManager.userIcon),
+                  _buildProfileCard(
+                    context,
+                    title: "Edit Profile",
+                    image: ImageManager.userIcon,
+                    onPressed: () =>
+                        Navigator.pushNamed(context, "/editProfile"),
+                  ),
                   divider,
                   _buildProfileCard(context,
                       title: "Dark Mode", image: ImageManager.darkModeIcon),

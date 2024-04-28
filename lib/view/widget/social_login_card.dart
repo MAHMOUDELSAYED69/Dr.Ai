@@ -29,12 +29,12 @@ class SocialLoginCard extends StatelessWidget {
         OutlinedButton(
           style: style,
           child: _buildSVGIcon(ImageManager.facebookIcon),
-          onPressed: () {},
+          onPressed: () => context.bloc<SocialAuthCubit>().signInWithFacebook(),
         ),
         OutlinedButton(
           style: style,
           child: _buildSVGIcon(ImageManager.appleIcon),
-          onPressed: () {},
+           onPressed: () => context.bloc<SocialAuthCubit>().signInWithApple(),
         ),
       ],
     );

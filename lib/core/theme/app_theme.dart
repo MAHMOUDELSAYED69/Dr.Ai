@@ -77,20 +77,28 @@ abstract class AppTheme {
       useMaterial3: true,
       brightness: Brightness.light,
       scaffoldBackgroundColor: ColorManager.white,
+      //* APP BAR
       appBarTheme: AppBarTheme(
+        titleTextStyle: TextStyle(
+          color: ColorManager.black,
+          fontSize: 20.spMin,
+          fontWeight: FontWeight.w500,
+        ),
         backgroundColor: ColorManager.green,
         scrolledUnderElevation: 0,
         titleSpacing: 0,
         iconTheme: const IconThemeData(color: ColorManager.black),
         elevation: 0,
         shadowColor: ColorManager.black.withOpacity(0.3),
-        shape: LinearBorder.bottom(
-          side: BorderSide(
-            width: 1.h,
-            color: ColorManager.grey.withOpacity(0.5),
-          ),
-        ),
+        // shape: LinearBorder.bottom(
+        //   side: BorderSide(
+        //     width: 1.h,
+        //     color: ColorManager.grey.withOpacity(0.5),
+        //   ),
+        // ),
       ),
+
+      //* TEXT
       textTheme: TextTheme(
         bodyLarge: TextStyle(
           fontSize: 24.spMin,
@@ -107,7 +115,7 @@ abstract class AppTheme {
           color: ColorManager.grey,
           fontWeight: FontWeight.w400,
         ),
-        //* GREEN
+
         displayLarge: TextStyle(
           fontSize: 24.spMin,
           color: ColorManager.green,
@@ -127,6 +135,7 @@ abstract class AppTheme {
           fontWeight: FontWeight.w500,
         ),
       ),
+      //* INPUT DECORATION
       inputDecorationTheme: InputDecorationTheme(
         hintStyle: TextStyle(fontSize: 14.spMin),
         filled: true,

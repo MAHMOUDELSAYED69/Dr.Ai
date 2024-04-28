@@ -9,7 +9,7 @@ import '../../view/screen/chat/chat_screen.dart';
 import '../../view/screen/nav_bar/home_screen.dart';
 import '../../view/screen/nav_bar/maps_screen.dart';
 import '../../view/screen/nav_bar/nav_bar_screen_.dart';
-import '../../view/screen/profile/profile_screen.dart';
+import '../../view/screen/profile/edit_profile.dart';
 import '../../view/screen/splash_screen.dart';
 import 'page_transition.dart';
 
@@ -35,8 +35,9 @@ abstract class AppRouter {
         return PageTransitionManager.materialPageRoute(const NavbarScreen());
       case RouteManager.chat:
         return PageTransitionManager.fadeTransition(const ChatScreen());
-      case RouteManager.profile:
-        return PageTransitionManager.materialPageRoute(const ProfileScreen());
+      case RouteManager.editProfile:
+        return PageTransitionManager.materialPageRoute(
+            const EditProfileScreen());
       case RouteManager.maps:
         return PageTransitionManager.fadeTransition(const MapScreen());
       default:
