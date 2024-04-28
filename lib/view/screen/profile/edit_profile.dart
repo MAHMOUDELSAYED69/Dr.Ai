@@ -6,11 +6,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:gap/gap.dart';
-
+import '../../../core/cache/cache.dart';
 import '../../../core/constant/color.dart';
-import '../../../data/model/user_data_model.dart';
 import '../../../logic/validation/formvalidation_cubit.dart';
-import '../../widget/custom_drop_down_field.dart';
 
 class EditProfileScreen extends StatefulWidget {
   const EditProfileScreen({super.key});
@@ -32,16 +30,13 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
   String? _weight;
   String? _chronicDiseases;
   String? _familyHistoryOfChronicDiseases;
-  UserDataModel? _userData;
+  Map<String, dynamic> userData = CacheData.getMapData(key: "userData");
 
   @override
   Widget build(BuildContext context) {
+    final cubit = context.bloc<AccountCubit>();
     return BlocConsumer<AccountCubit, AccountState>(
-      listener: (context, state) {
-        if (state is AccountSuccess) {
-          _userData = state.userDataModel;
-        }
-      },
+      listener: (context, state) {},
       builder: (context, state) {
         return Scaffold(
           appBar: AppBar(
@@ -53,16 +48,31 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
               padding: EdgeInsets.symmetric(horizontal: 18.w),
               child: Column(
                 children: [
-                  _buildUserCard(context, char: "M", name: "Mahmoud El Sayed"),
-                  _buildUserProfileDataFields(context),
+                  _buildUserCard(context,
+                      char: userData['name'][0], name: userData['name']),
+                  _buildUserProfileDataFields(
+                    context,
+                    userData,
+                  ),
                   Gap(32.h),
                   CustomButton(
                     title: "Update",
                     onPressed: () {
                       if (formKey.currentState!.validate()) {
                         formKey.currentState!.save();
-                        context.bloc(); //TODO: update profile
-                        context.pop();
+                        cubit.updateProfile(
+                          name: _name ?? userData['name'],
+                          email: _email ?? userData['email'],
+                          phoneNumber: _phoneNumber ?? userData['phoneNumber'],
+                          dob: _dob ?? userData['dob'],
+                          height: _height ?? userData['height'],
+                          weight: _weight ?? userData['weight'],
+                          chronicDiseases:
+                              _chronicDiseases ?? userData['chronicDiseases'],
+                          familyHistoryOfChronicDiseases:
+                              _familyHistoryOfChronicDiseases ??
+                                  userData['familyHistoryOfChronicDiseases'],
+                        );
                       }
                     },
                   ),
@@ -93,7 +103,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                   color: ColorManager.green.withOpacity(0.3),
                   border: Border.all(width: 2.w, color: ColorManager.green)),
               child: Text(
-                char,
+                char.toUpperCase(),
                 style: context.textTheme.displayLarge
                     ?.copyWith(fontSize: 32.spMin),
               ),
@@ -109,14 +119,15 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
     );
   }
 
-  Widget _buildUserProfileDataFields(BuildContext context) {
+  Widget _buildUserProfileDataFields(
+      BuildContext context, Map<String, dynamic> userData) {
     final cubit = context.bloc<FormvalidationCubit>();
     return Form(
       key: formKey,
       child: Column(
         children: [
           CustomTextFormField(
-          initialValue: _userData?.name,
+            initialValue: userData['name'],
             keyboardType: TextInputType.name,
             title: "Name",
             hintText: "Enter your Name",
@@ -126,7 +137,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
             validator: cubit.nameValidator,
           ),
           CustomTextFormField(
-            initialValue: _userData?.phoneNumber,
+            initialValue: userData['phoneNumber'],
             keyboardType: TextInputType.phone,
             title: "phone Number",
             hintText: "Enter your phone Number",
@@ -136,7 +147,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
             validator: cubit.phoneNumberValidator,
           ),
           CustomTextFormField(
-            initialValue: _userData?.dob,
+            initialValue: userData['dob'],
             keyboardType: TextInputType.datetime,
             title: "Date of birth",
             hintText: "Enter your Date of birth",
@@ -146,7 +157,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
             validator: cubit.validateDateOfBirth,
           ),
           CustomTextFormField(
-            initialValue: _userData?.height,
+            initialValue: userData['height'],
             keyboardType: TextInputType.number,
             title: "Height ( CM )",
             hintText: "Enter your height",
@@ -156,7 +167,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
             validator: cubit.heightValidator,
           ),
           CustomTextFormField(
-            initialValue: _userData?.weight,
+            initialValue: userData['weight'],
             keyboardType: TextInputType.number,
             title: "Weight ( KG )",
             hintText: "Enter your weight",
@@ -166,7 +177,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
             validator: cubit.weightValidator,
           ),
           CustomTextFormField(
-            initialValue: _userData?.chronicDiseases,
+            initialValue: userData['chronicDiseases'],
             keyboardType: TextInputType.name,
             title: "chronic diseases",
             hintText: "Enter your chronic diseases",
@@ -175,7 +186,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
             },
           ),
           CustomTextFormField(
-            initialValue: _userData?.familyHistoryOfChronicDiseases,
+            initialValue: userData['familyHistoryOfChronicDiseases'],
             keyboardType: TextInputType.name,
             title: "Family history of chronic diseases",
             hintText: "Enter your Family history of chronic diseases",

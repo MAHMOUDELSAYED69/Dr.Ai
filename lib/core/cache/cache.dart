@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:shared_preferences/shared_preferences.dart';
 
 class CacheData {
@@ -5,6 +7,7 @@ class CacheData {
   static Future<void> cacheDataInit() async {
     sharedpref = await SharedPreferences.getInstance();
   }
+
   static Future<bool> setData(
       {required String key, required dynamic value}) async {
     if (value is String) {
@@ -26,6 +29,17 @@ class CacheData {
     return false;
   }
 
+  static Future<bool> setMapData(
+      {required String key, required Map value}) async {
+    String jsonString = jsonEncode(value);
+    return await sharedpref.setString(key, jsonString);
+  }
+
+  static Map<String, dynamic> getMapData({required String key}) {
+    String jsonString = sharedpref.getString(key) ?? '{}';
+    return jsonDecode(jsonString);
+  }
+
   static dynamic getdata({required String key}) {
     return sharedpref.get(key);
   }
@@ -41,6 +55,3 @@ class CacheData {
     return false;
   }
 }
-
-
-

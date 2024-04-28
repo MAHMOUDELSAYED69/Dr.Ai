@@ -2,6 +2,7 @@
 
 import 'package:dr_ai/core/constant/color.dart';
 import 'package:dr_ai/core/constant/image.dart';
+import 'package:dr_ai/core/constant/routes.dart';
 import 'package:dr_ai/core/helper/custom_bottomsheet.dart';
 import 'package:dr_ai/core/helper/custom_dialog.dart';
 import 'package:dr_ai/core/helper/extention.dart';
@@ -31,7 +32,6 @@ class _AccountScreenState extends State<AccountScreen> {
   @override
   Widget build(BuildContext context) {
     final cubit = context.bloc<AccountCubit>();
-
     final divider = Divider(color: ColorManager.grey, thickness: 1.w);
     return BlocConsumer<AccountCubit, AccountState>(
       listener: (context, state) {
@@ -60,7 +60,7 @@ class _AccountScreenState extends State<AccountScreen> {
                     title: "Edit Profile",
                     image: ImageManager.userIcon,
                     onPressed: () =>
-                        Navigator.pushNamed(context, "/editProfile"),
+                        Navigator.pushNamed(context, RouteManager.editProfile),
                   ),
                   divider,
                   _buildProfileCard(context,

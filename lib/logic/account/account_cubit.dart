@@ -21,6 +21,7 @@ class AccountCubit extends Cubit<AccountState> {
           .listen((event) {
         UserDataModel userDataModel = UserDataModel.fromJson(event.data()!);
         CacheData.setData(key: "name", value: userDataModel.name);
+        CacheData.setMapData(key: "userData", value: userDataModel.toJson());
         emit(AccountSuccess(userDataModel: userDataModel));
       });
     } on Exception catch (err) {
@@ -85,7 +86,7 @@ class AccountCubit extends Cubit<AccountState> {
   Future<void> updateProfile({
     String? name,
     String? email,
-    String? phone,
+    String? phoneNumber,
     String? dob,
     String? height,
     String? weight,
@@ -100,7 +101,7 @@ class AccountCubit extends Cubit<AccountState> {
           .update({
         'name': name,
         'email': email,
-        'phoneNumber': phone,
+        'phoneNumber': phoneNumber,
         'dob': dob,
         'height': height,
         'weight': weight,
