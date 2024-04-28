@@ -1,5 +1,7 @@
 import 'package:dr_ai/core/helper/extention.dart';
+import 'package:dr_ai/core/helper/scaffold_snakbar.dart';
 import 'package:dr_ai/logic/account/account_cubit.dart';
+import 'package:dr_ai/view/widget/button_loading_indicator.dart';
 import 'package:dr_ai/view/widget/custom_button.dart';
 import 'package:dr_ai/view/widget/custom_text_field.dart';
 import 'package:flutter/material.dart';
@@ -30,55 +32,101 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
   String? _weight;
   String? _chronicDiseases;
   String? _familyHistoryOfChronicDiseases;
-  Map<String, dynamic> userData = CacheData.getMapData(key: "userData");
+  final Map<String, dynamic> _userData = CacheData.getMapData(key: "userData");
+  bool _isloading = false;
+  void _updateUserData() {
+    if (formKey.currentState!.validate()) {
+      formKey.currentState!.save();
+      if (_name == _userData['name'] &&
+          _phoneNumber == _userData['phoneNumber'] &&
+          _dob == _userData['dob'] &&
+          _height == _userData['height'] &&
+          _weight == _userData['weight'] &&
+          _chronicDiseases == _userData['chronicDiseases'] &&
+          _familyHistoryOfChronicDiseases ==
+              _userData['familyHistoryOfChronicDiseases']) {
+        context.pop();
+      } else {
+        context
+            .bloc<AccountCubit>()
+            .updateProfile(
+              name: _name ?? _userData['name'],
+              email: _email ?? _userData['email'],
+              phoneNumber: _phoneNumber ?? _userData['phoneNumber'],
+              dob: _dob ?? _userData['dob'],
+              height: _height ?? _userData['height'],
+              weight: _weight ?? _userData['weight'],
+              chronicDiseases: _chronicDiseases ?? _userData['chronicDiseases'],
+              familyHistoryOfChronicDiseases: _familyHistoryOfChronicDiseases ??
+                  _userData['familyHistoryOfChronicDiseases'],
+            )
+            .then((_) => context.pop());
+      }
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
-    final cubit = context.bloc<AccountCubit>();
     return BlocConsumer<AccountCubit, AccountState>(
-      listener: (context, state) {},
+      listener: (context, state) {
+        if (state is ProfileUpdateLoading) {
+          _isloading = true;
+        }
+        if (state is ProfileUpdateSuccess) {
+          _isloading = false;
+          customSnackBar(
+              context, "Profile Updated Successfully", ColorManager.green);
+        }
+        if (state is ProfileUpdateFailure) {
+          _isloading = false;
+          customSnackBar(context, state.message, ColorManager.error);
+        }
+      },
       builder: (context, state) {
         return Scaffold(
-          appBar: AppBar(
-            backgroundColor: context.theme.scaffoldBackgroundColor,
-            title: const Text("Edit Profile"),
-          ),
           body: SingleChildScrollView(
-            child: Padding(
-              padding: EdgeInsets.symmetric(horizontal: 18.w),
-              child: Column(
-                children: [
-                  _buildUserCard(context,
-                      char: userData['name'][0], name: userData['name']),
-                  _buildUserProfileDataFields(
-                    context,
-                    userData,
+            child: Column(
+              children: [
+                Gap(32.h),
+                _buildScrollableAppBar(context),
+                Gap(20.h),
+                Padding(
+                  padding: EdgeInsets.symmetric(horizontal: 18.w),
+                  child: Column(
+                    children: [
+                      _buildUserCard(context,
+                          char: _userData['name'][0], name: _userData['name']),
+                      _buildUserProfileDataFields(
+                        context,
+                        _userData,
+                      ),
+                      Gap(32.h),
+                      Row(
+                        children: [
+                          Expanded(
+                            child: CustomButton(
+                              title: "Cancel",
+                              onPressed: () => context.pop(),
+                            ),
+                          ),
+                          Gap(5.w),
+                          Expanded(
+                            child: CustomButton(
+                                widget: _isloading
+                                    ? const ButtonLoadingIndicator()
+                                    : null,
+                                isDisabled: _isloading,
+                                backgroundColor: ColorManager.error,
+                                title: "Update",
+                                onPressed: _updateUserData),
+                          ),
+                        ],
+                      ),
+                      Gap(32.h),
+                    ],
                   ),
-                  Gap(32.h),
-                  CustomButton(
-                    title: "Update",
-                    onPressed: () {
-                      if (formKey.currentState!.validate()) {
-                        formKey.currentState!.save();
-                        cubit.updateProfile(
-                          name: _name ?? userData['name'],
-                          email: _email ?? userData['email'],
-                          phoneNumber: _phoneNumber ?? userData['phoneNumber'],
-                          dob: _dob ?? userData['dob'],
-                          height: _height ?? userData['height'],
-                          weight: _weight ?? userData['weight'],
-                          chronicDiseases:
-                              _chronicDiseases ?? userData['chronicDiseases'],
-                          familyHistoryOfChronicDiseases:
-                              _familyHistoryOfChronicDiseases ??
-                                  userData['familyHistoryOfChronicDiseases'],
-                        );
-                      }
-                    },
-                  ),
-                  Gap(32.h),
-                ],
-              ),
+                ),
+              ],
             ),
           ),
         );
@@ -86,21 +134,46 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
     );
   }
 
+  Widget _buildScrollableAppBar(BuildContext context) {
+    return Row(
+      children: [
+        Gap(8.w),
+        IconButton(
+          onPressed: () => context.pop(),
+          icon: const Icon(
+            Icons.arrow_back,
+          ),
+        ),
+        Text(
+          "Edit Profile",
+          style: context.textTheme.bodyLarge
+              ?.copyWith(fontSize: 20.spMin, fontWeight: FontWeight.w500),
+        ),
+      ],
+    );
+  }
+
   Widget _buildUserCard(BuildContext context,
       {required String char, required String name}) {
+    final divider = Divider(
+      color: ColorManager.green.withOpacity(0.4),
+      thickness: 1.w,
+      endIndent: 10,
+    );
     return Column(
       crossAxisAlignment: CrossAxisAlignment.center,
       children: [
         Row(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
+            Expanded(child: divider),
             Container(
               alignment: Alignment.center,
-              width: 80.w,
-              height: 80.w,
+              width: context.width / 3.8,
+              height: context.width / 3.8,
               decoration: BoxDecoration(
                   shape: BoxShape.circle,
-                  color: ColorManager.green.withOpacity(0.3),
+                  color: ColorManager.green.withOpacity(0.1),
                   border: Border.all(width: 2.w, color: ColorManager.green)),
               child: Text(
                 char.toUpperCase(),
@@ -108,6 +181,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                     ?.copyWith(fontSize: 32.spMin),
               ),
             ),
+            Expanded(child: divider),
           ],
         ),
         Gap(10.h),

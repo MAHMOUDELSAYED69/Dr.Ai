@@ -91,7 +91,6 @@ class _BuildbuttomSheetState extends State<BuildbuttomSheet> {
                 children: [
                   Expanded(
                     child: CustomButton(
-                      size: Size.fromHeight(42.w),
                       title: "Cancel",
                       onPressed: () => context.pop(),
                     ),
@@ -103,7 +102,6 @@ class _BuildbuttomSheetState extends State<BuildbuttomSheet> {
                           ? const ButtonLoadingIndicator()
                           : null,
                       backgroundColor: ColorManager.error,
-                      size: Size.fromHeight(42.w),
                       title: "Update",
                       onPressed: () {
                         if (formKey.currentState!.validate()) {
