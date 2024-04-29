@@ -115,6 +115,7 @@ class AccountCubit extends Cubit<AccountState> {
   }
 
   Future<void> reAuthenticateUser(String password) async {
+    emit(AccountReAuthLoading());
     final FirebaseAuth _auth = FirebaseAuth.instance;
     final User? user = _auth.currentUser;
 
@@ -123,9 +124,11 @@ class AccountCubit extends Cubit<AccountState> {
           email: (user.email).toString(), password: password);
       try {
         await user.reauthenticateWithCredential(credential);
+        emit(AccountReAuthSuccess());
         log('User re-authenticated successfully');
-      } on FirebaseAuthException catch (e) {
-        log('Re-authentication failed: ${e.message}');
+      } on FirebaseAuthException catch (err) {
+        emit(AccountReAuthFailure(message: err.message.toString()));
+        log('Re-authentication failed: ${err.message}');
       }
     } else {
       log('No user found. Please sign in first.');
@@ -133,15 +136,19 @@ class AccountCubit extends Cubit<AccountState> {
   }
 
   Future<void> updatePassword(String newPassword) async {
+    emit(AccountUpdatePasswordLoading());
     final FirebaseAuth _auth = FirebaseAuth.instance;
     final User? user = _auth.currentUser;
 
     if (user != null) {
       try {
         await user.updatePassword(newPassword);
+        emit(AccountUpdatePasswordSuccess(
+            message: 'Password updated successfully'));
         log('Password updated successfully');
-      } on FirebaseAuthException catch (e) {
-        log('Password update failed: ${e.message}');
+      } on FirebaseAuthException catch (err) {
+        emit(AccountUpdatePasswordFailure(message: err.message.toString()));
+        log('Password update failed: ${err.message}');
       }
     } else {
       log('No user found. Please sign in first.');

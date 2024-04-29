@@ -64,6 +64,31 @@ class AccountUpdatePasswordFailure extends AccountState {
   AccountUpdatePasswordFailure({required this.message});
 }
 
+class AccountReAuthLoading extends AccountState {}
+
+class AccountReAuthSuccess extends AccountState {}
+
+class AccountReAuthFailure extends AccountState {
+  final String message;
+
+  AccountReAuthFailure({required this.message});
+}
+
+class AccountPasswordUpdatedLoading extends AccountState {}
+
+class AccountPasswordUpdatedSuccess extends AccountState {
+  final String message;
+
+  AccountPasswordUpdatedSuccess({required this.message});
+}
+
+class AccountPasswordUpdatedFailure extends AccountState {
+  final String message;
+
+  AccountPasswordUpdatedFailure({required this.message});
+}
+
+
 // //? update image
 // class AccountUpdateImageLoading extends AccountState {}
 
