@@ -11,4 +11,5 @@ abstract class RouteManager {
   static const editProfile = "/editProfile";
   static const maps = "/maps";
   static const oldPassword = "/oldPassword";
+  static const newPassword = "/newPassword";
 }

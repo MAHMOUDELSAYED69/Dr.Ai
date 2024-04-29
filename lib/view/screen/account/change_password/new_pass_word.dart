@@ -1,4 +1,3 @@
-import 'package:dr_ai/core/constant/routes.dart';
 import 'package:dr_ai/core/helper/extention.dart';
 import 'package:dr_ai/logic/validation/formvalidation_cubit.dart';
 import 'package:dr_ai/view/widget/custom_text_field.dart';
@@ -9,18 +8,18 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:gap/gap.dart';
 
 import '../../../widget/custom_button.dart';
-import '../../auth/forget_password.dart';
 
-class OldPasswordScreen extends StatefulWidget {
-  const OldPasswordScreen({super.key});
+class NewPasswordScreen extends StatefulWidget {
+  const NewPasswordScreen({super.key});
 
   @override
-  State<OldPasswordScreen> createState() => _OldPasswordScreenState();
+  State<NewPasswordScreen> createState() => _NewPasswordScreenState();
 }
 
-class _OldPasswordScreenState extends State<OldPasswordScreen> {
+class _NewPasswordScreenState extends State<NewPasswordScreen> {
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
   String? _password;
+  String? _confirmPassword;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -34,42 +33,41 @@ class _OldPasswordScreenState extends State<OldPasswordScreen> {
           Expanded(
             child: Padding(
               padding: EdgeInsets.symmetric(horizontal: 18.w),
-              child: Column(
-                children: [
-                  const UpdatePasswordStepper(stepReachedNumber: 0),
-                  Form(
-                    key: _formKey,
-                    child: CustomTextFormField(
+              child: Form(
+                key: _formKey,
+                child: Column(
+                  children: [
+                    const UpdatePasswordStepper(stepReachedNumber: 1),
+                    CustomTextFormField(
                       keyboardType: TextInputType.visiblePassword,
                       isVisible: true,
-                      title: "Old Password",
-                      hintText: "Enter Your Old Password",
+                      title: "New Password",
+                      hintText: "Enter Your New Password",
                       onSaved: (data) {
                         _password = data;
                       },
                       validator:
                           context.bloc<FormvalidationCubit>().validatePassword,
                     ),
-                  ),
-                  Gap(12.h),
-                  Align(
-                    alignment: AlignmentDirectional.centerEnd,
-                    child: GestureDetector(
-                      onTap: () => showForgetPasswordBottomSheet(context),
-                      child: Text(
-                        "Forgot Password?",
-                        style: context.textTheme.displaySmall,
-                      ),
+                    CustomTextFormField(
+                      keyboardType: TextInputType.visiblePassword,
+                      title: "Confirm New Password",
+                      hintText: "Enter Your Confirm New Password",
+                      onSaved: (data) {
+                        _confirmPassword = data;
+                      },
+                      validator:
+                          context.bloc<FormvalidationCubit>().validatePassword,
                     ),
-                  ),
-                  const Spacer(),
-                  CustomButton(
-                    title: "Next",
-                    onPressed: () =>
-                        Navigator.pushNamed(context, RouteManager.newPassword),
-                  ),
-                  Gap(30.h)
-                ],
+                    Gap(12.h),
+                    const Spacer(),
+                    CustomButton(
+                      title: "Update",
+                      onPressed: () {},
+                    ),
+                    Gap(30.h)
+                  ],
+                ),
               ),
             ),
           ),

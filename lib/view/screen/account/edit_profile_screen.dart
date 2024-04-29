@@ -89,7 +89,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
             child: Column(
               children: [
                 Gap(32.h),
-                const CustomScrollableAppBar(),
+                const CustomScrollableAppBar(title: "Edit Profile",),
                 Gap(20.h),
                 Padding(
                   padding: EdgeInsets.symmetric(horizontal: 18.w),
