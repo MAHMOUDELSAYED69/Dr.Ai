@@ -14,6 +14,7 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:gap/gap.dart';
 
 import '../account/edit_user_card_buttom_sheet.dart';
+import '../account/rating_screen.dart';
 
 class AccountScreen extends StatefulWidget {
   const AccountScreen({super.key});
@@ -64,11 +65,19 @@ class _AccountScreenState extends State<AccountScreen> {
                         Navigator.pushNamed(context, RouteManager.editProfile),
                   ),
                   divider,
-                  _buildProfileCard(context,
-                      title: "Dark Mode", image: ImageManager.darkModeIcon),
+                  _buildProfileCard(
+                    context,
+                    title: "Dark Mode",
+                    image: ImageManager.darkModeIcon,
+                    onPressed: () {},
+                  ),
                   divider,
-                  _buildProfileCard(context,
-                      title: "Languages", image: ImageManager.languageIcon),
+                  _buildProfileCard(
+                    context,
+                    title: "Languages",
+                    image: ImageManager.languageIcon,
+                    onPressed: () {},
+                  ),
                   divider,
                   _buildProfileCard(
                     context,
@@ -86,8 +95,15 @@ class _AccountScreenState extends State<AccountScreen> {
                         Navigator.pushNamed(context, RouteManager.aboutUs),
                   ),
                   divider,
-                  _buildProfileCard(context,
-                      title: "Rate Us", image: ImageManager.rateUsIcon),
+                  _buildProfileCard(
+                    context,
+                    title: "Rate Us",
+                    image: ImageManager.rateUsIcon,
+                    onPressed: () => showDialog(
+                      context: context,
+                      builder: (context) => RatingScreen(),
+                    ),
+                  ),
                   divider,
                   _buildProfileCard(
                     context,

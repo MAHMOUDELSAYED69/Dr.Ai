@@ -62,7 +62,9 @@ abstract class ImageManager {
   static const String termsIcon = "assets/images/terms_icon.svg";
   static const String socialMediaIcon = "assets/images/social_media_icon.svg";
   static const String updateIcon = "assets/images/update_icon.svg";
+  static const String opinionIcon = "assets/images/opinion_icon.svg";
 
+ 
   //? PNG
   static const String robotIcon = "assets/images/robot.png";
 }

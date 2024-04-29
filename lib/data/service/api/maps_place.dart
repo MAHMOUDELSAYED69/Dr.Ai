@@ -17,6 +17,7 @@ class PlacesWebservices {
           'components': 'country:eg',
           'key': ApiUrlManager.googleMap,
           'sessiontoken': sessionToken,
+          // 'keyword': 'cruise',
         },
       );
 
@@ -57,7 +58,8 @@ class PlacesWebservices {
       log('Dio Method err:$err');
     }
   }
-   //! get destination
+
+  //! get destination
   static Future getPlaceDirections(LatLng origin, LatLng destination) async {
     try {
       Response response = await dio.get(
@@ -65,7 +67,7 @@ class PlacesWebservices {
         queryParameters: {
           'origin': '${origin.latitude},${origin.longitude}',
           'destination': '${destination.latitude},${destination.longitude}',
-          'key': ApiUrlManager.googleMap, 
+          'key': ApiUrlManager.googleMap,
         },
       );
       return response.data;
