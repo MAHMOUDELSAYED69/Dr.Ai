@@ -121,7 +121,7 @@ class UpdatePasswordStepperState extends State<UpdatePasswordStepper> {
       enableStepTapping: false,
       activeStep: activeStep,
       lineStyle: LineStyle(
-        lineLength: context.width / 6,
+        lineLength: context.width / 3,
         lineType: LineType.dashed,
         activeLineColor: ColorManager.green,
         finishedLineColor: ColorManager.green,

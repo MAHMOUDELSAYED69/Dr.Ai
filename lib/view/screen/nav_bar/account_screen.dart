@@ -75,7 +75,7 @@ class _AccountScreenState extends State<AccountScreen> {
                     title: "Change Password",
                     image: ImageManager.changePasswordIcon,
                     onPressed: () => Navigator.pushNamed(
-                        context, RouteManager.updatePassword),
+                        context, RouteManager.oldPassword),
                   ),
                   divider,
                   _buildProfileCard(context,

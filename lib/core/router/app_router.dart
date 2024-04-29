@@ -2,7 +2,7 @@ import 'package:dr_ai/core/constant/routes.dart';
 import 'package:dr_ai/view/screen/auth/login_screen.dart';
 import 'package:dr_ai/view/screen/auth/password_screen.dart';
 import 'package:flutter/material.dart';
-import '../../view/screen/account/change_password_screen.dart';
+import '../../view/screen/account/change_password/old_password_screen.dart';
 import '../../view/screen/auth/create_profile.dart';
 import '../../view/screen/auth/email_screen.dart';
 import '../../view/screen/auth/register_screen.dart';
@@ -39,9 +39,9 @@ abstract class AppRouter {
       case RouteManager.editProfile:
         return PageTransitionManager.materialPageRoute(
             const EditProfileScreen());
-      case RouteManager.updatePassword:
+      case RouteManager.oldPassword:
         return PageTransitionManager.materialPageRoute(
-            const ChangePasswordScreen());
+            const OldPasswordScreen());
       case RouteManager.maps:
         return PageTransitionManager.fadeTransition(const MapScreen());
       default:

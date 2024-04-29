@@ -11,6 +11,7 @@ import 'package:gap/gap.dart';
 import '../../../core/cache/cache.dart';
 import '../../../core/constant/color.dart';
 import '../../../logic/validation/formvalidation_cubit.dart';
+import '../../widget/profile/custom_scrollable_appbar.dart';
 
 class EditProfileScreen extends StatefulWidget {
   const EditProfileScreen({super.key});
@@ -88,7 +89,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
             child: Column(
               children: [
                 Gap(32.h),
-                _buildScrollableAppBar(context),
+                const CustomScrollableAppBar(),
                 Gap(20.h),
                 Padding(
                   padding: EdgeInsets.symmetric(horizontal: 18.w),
@@ -134,32 +135,13 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
     );
   }
 
-  Widget _buildScrollableAppBar(BuildContext context) {
-    return Row(
-      children: [
-        Gap(8.w),
-        IconButton(
-          onPressed: () => context.pop(),
-          icon: const Icon(
-            Icons.arrow_back,
-          ),
-        ),
-        Text(
-          "Edit Profile",
-          style: context.textTheme.bodyLarge
-              ?.copyWith(fontSize: 20.spMin, fontWeight: FontWeight.w500),
-        ),
-      ],
-    );
-  }
-
   Widget _buildUserCard(BuildContext context,
       {required String char, required String name}) {
     final divider = Divider(
       color: ColorManager.green.withOpacity(0.4),
       thickness: 1.w,
       endIndent: 5,
-      indent: 5, 
+      indent: 5,
     );
     return Column(
       crossAxisAlignment: CrossAxisAlignment.center,
