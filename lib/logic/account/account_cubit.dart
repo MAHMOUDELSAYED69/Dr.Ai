@@ -114,6 +114,40 @@ class AccountCubit extends Cubit<AccountState> {
     }
   }
 
+  Future<void> reAuthenticateUser(String password) async {
+    final FirebaseAuth _auth = FirebaseAuth.instance;
+    final User? user = _auth.currentUser;
+
+    if (user != null) {
+      AuthCredential credential = EmailAuthProvider.credential(
+          email: (user.email).toString(), password: password);
+      try {
+        await user.reauthenticateWithCredential(credential);
+        log('User re-authenticated successfully');
+      } on FirebaseAuthException catch (e) {
+        log('Re-authentication failed: ${e.message}');
+      }
+    } else {
+      log('No user found. Please sign in first.');
+    }
+  }
+
+  Future<void> updatePassword(String newPassword) async {
+    final FirebaseAuth _auth = FirebaseAuth.instance;
+    final User? user = _auth.currentUser;
+
+    if (user != null) {
+      try {
+        await user.updatePassword(newPassword);
+        log('Password updated successfully');
+      } on FirebaseAuthException catch (e) {
+        log('Password update failed: ${e.message}');
+      }
+    } else {
+      log('No user found. Please sign in first.');
+    }
+  }
+
   // //? update email
   // Future<void> updateEmail({required String newEmail}) async {
   //   emit(ProfileUpdateLoading());

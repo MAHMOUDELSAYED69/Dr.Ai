@@ -7,6 +7,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:gap/gap.dart';
 
+import '../../../../logic/account/account_cubit.dart';
 import '../../../widget/custom_button.dart';
 
 class NewPasswordScreen extends StatefulWidget {
@@ -22,57 +23,64 @@ class _NewPasswordScreenState extends State<NewPasswordScreen> {
   String? _confirmPassword;
   @override
   Widget build(BuildContext context) {
+    final password = context.bloc<AccountCubit>();
+    final validator = context.bloc<FormvalidationCubit>();
     return Scaffold(
-      body: Column(
-        children: [
-          Gap(32.h),
-          const CustomScrollableAppBar(
-            title: "Change Password",
-          ),
-          Gap(20.h),
-          Expanded(
-            child: Padding(
-              padding: EdgeInsets.symmetric(horizontal: 18.w),
-              child: Form(
-                key: _formKey,
-                child: Column(
-                  children: [
-                    const UpdatePasswordStepper(stepReachedNumber: 1),
-                    CustomTextFormField(
-                      keyboardType: TextInputType.visiblePassword,
-                      isVisible: true,
-                      title: "New Password",
-                      hintText: "Enter Your New Password",
-                      onSaved: (data) {
-                        _password = data;
-                      },
-                      validator:
-                          context.bloc<FormvalidationCubit>().validatePassword,
-                    ),
-                    CustomTextFormField(
-                      keyboardType: TextInputType.visiblePassword,
-                      title: "Confirm New Password",
-                      hintText: "Enter Your Confirm New Password",
-                      onSaved: (data) {
-                        _confirmPassword = data;
-                      },
-                      validator:
-                          context.bloc<FormvalidationCubit>().validatePassword,
-                    ),
-                    Gap(12.h),
-                    const Spacer(),
-                    CustomButton(
-                      title: "Update",
-                      onPressed: () {},
-                    ),
-                    Gap(30.h)
-                  ],
+        body: SingleChildScrollView(
+          child: Column(
+            children: [
+              Gap(32.h),
+              const CustomScrollableAppBar(
+                title: "Change Password",
+              ),
+              Gap(20.h),
+              Padding(
+                padding: EdgeInsets.symmetric(horizontal: 18.w),
+                child: Form(
+                  key: _formKey,
+                  child: Column(
+                    children: [
+                      const UpdatePasswordStepper(stepReachedNumber: 1),
+                      CustomTextFormField(
+                        keyboardType: TextInputType.visiblePassword,
+                        isVisible: true,
+                        title: "New Password",
+                        hintText: "Enter Your New Password",
+                        onSaved: (data) {
+                          _password = data;
+                        },
+                        validator: validator.validatePassword,
+                      ),
+                      CustomTextFormField(
+                        keyboardType: TextInputType.visiblePassword,
+                        title: "Confirm New Password",
+                        hintText: "Enter Your Confirm New Password",
+                        onSaved: (data) {
+                          _confirmPassword = data;
+                        },
+                        validator: validator.validateConfirmPassword,
+                      ),
+                    ],
+                  ),
                 ),
               ),
-            ),
+            ],
           ),
-        ],
-      ),
-    );
+        ),
+        bottomNavigationBar: Padding(
+          padding: EdgeInsets.only(
+              left: 18.w,
+              right: 18.w,
+              bottom: MediaQuery.viewInsetsOf(context).bottom + 25.h),
+          child: CustomButton(
+            title: "Update",
+            onPressed: () {
+              if (_formKey.currentState!.validate()) {
+                _formKey.currentState?.save();
+                // password.updatePassword(_password!);
+              }
+            },
+          ),
+        ));
   }
 }

@@ -5,9 +5,9 @@ part 'formvalidation_state.dart';
 
 class FormvalidationCubit extends Cubit<FormvalidationState> {
   FormvalidationCubit() : super(FormvalidationInitial());
-  String email = '';
-  String password = '';
-  String confirmPassword = '';
+  String _email = '';
+  String _password = '';
+  String _confirmPassword = '';
 
   String? validatePassword(String? value, [String? firebaseException]) {
     if (value == null || value.isEmpty) {
@@ -30,7 +30,7 @@ class FormvalidationCubit extends Cubit<FormvalidationState> {
     //     firebaseException?.isNotEmpty == true) {
     //   return validateFirebaseException(firebaseException);
     // }
-    password = value;
+    _password = value;
 
     emit(PasswordValidationSuccess());
     return null;
@@ -44,10 +44,10 @@ class FormvalidationCubit extends Cubit<FormvalidationState> {
     if (value == null || value.isEmpty) {
       return 'Please confirm your password';
     }
-    if (value != password) {
+    if (value != _password) {
       return 'Passwords do not match';
     }
-    confirmPassword = value;
+    _confirmPassword = value;
 
     emit(ConfirmPasswordValidationSuccess());
     return null;
@@ -60,7 +60,7 @@ class FormvalidationCubit extends Cubit<FormvalidationState> {
     if (!_hasValidEmail(value)) {
       return 'Please enter a valid email address';
     }
-    email = value;
+    _email = value;
     // if (firebaseException != null ||
     //     firebaseException != '' ||
     //     firebaseException?.isNotEmpty == true) {
