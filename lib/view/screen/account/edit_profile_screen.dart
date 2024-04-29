@@ -11,7 +11,7 @@ import 'package:gap/gap.dart';
 import '../../../core/cache/cache.dart';
 import '../../../core/constant/color.dart';
 import '../../../logic/validation/formvalidation_cubit.dart';
-import '../../widget/profile/custom_scrollable_appbar.dart';
+import '../../widget/custom_scrollable_appbar.dart';
 
 class EditProfileScreen extends StatefulWidget {
   const EditProfileScreen({super.key});

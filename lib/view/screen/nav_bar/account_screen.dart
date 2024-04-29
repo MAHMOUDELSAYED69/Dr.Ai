@@ -134,8 +134,7 @@ class _AccountScreenState extends State<AccountScreen> {
       VoidCallback? onPressed}) {
     return ListTile(
       onTap: onPressed,
-      contentPadding:
-          EdgeInsets.symmetric(vertical: 5.h),
+      contentPadding: EdgeInsets.symmetric(vertical: 5.h),
       title: Text(title, style: context.textTheme.bodyMedium),
       trailing: IconButton(
         onPressed: onPressed,

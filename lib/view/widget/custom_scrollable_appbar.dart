@@ -15,7 +15,10 @@ class CustomScrollableAppBar extends StatelessWidget {
       children: [
         Gap(8.w),
         IconButton(
-          onPressed: () => context.pop(),
+          onPressed: () {
+            FocusScope.of(context).unfocus();
+            context.pop();
+          },
           icon: const Icon(
             Icons.arrow_back,
           ),

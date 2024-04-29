@@ -3,7 +3,7 @@ import 'package:dr_ai/logic/validation/formvalidation_cubit.dart';
 import 'package:dr_ai/view/widget/button_loading_indicator.dart';
 import 'package:dr_ai/view/widget/custom_text_field.dart';
 import 'package:dr_ai/view/widget/my_stepper_form.dart';
-import 'package:dr_ai/view/widget/profile/custom_scrollable_appbar.dart';
+import 'package:dr_ai/view/widget/custom_scrollable_appbar.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -37,6 +37,7 @@ class _NewPasswordScreenState extends State<NewPasswordScreen> {
         }
         if (state is AccountUpdatePasswordSuccess) {
           _isLoading = false;
+          customSnackBar(context, state.message);
           Navigator.popUntil(context, (route) => route.isFirst);
         }
         if (state is AccountUpdatePasswordFailure) {
@@ -101,7 +102,7 @@ class _NewPasswordScreenState extends State<NewPasswordScreen> {
                 onPressed: () {
                   if (_formKey.currentState!.validate()) {
                     _formKey.currentState?.save();
-                    password.updatePassword(_password!);
+                    password.updatePassword(_confirmPassword!);
                   }
                 },
               ),

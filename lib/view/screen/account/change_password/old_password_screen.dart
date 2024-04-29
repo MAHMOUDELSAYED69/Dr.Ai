@@ -4,7 +4,7 @@ import 'package:dr_ai/logic/validation/formvalidation_cubit.dart';
 import 'package:dr_ai/view/widget/button_loading_indicator.dart';
 import 'package:dr_ai/view/widget/custom_text_field.dart';
 import 'package:dr_ai/view/widget/my_stepper_form.dart';
-import 'package:dr_ai/view/widget/profile/custom_scrollable_appbar.dart';
+import 'package:dr_ai/view/widget/custom_scrollable_appbar.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';

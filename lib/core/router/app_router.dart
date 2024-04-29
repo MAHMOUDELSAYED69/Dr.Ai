@@ -45,7 +45,7 @@ abstract class AppRouter {
         return PageTransitionManager.materialPageRoute(
             const OldPasswordScreen());
       case RouteManager.newPassword:
-        return PageTransitionManager.materialPageRoute(
+        return PageTransitionManager.fadeTransition(
             const NewPasswordScreen());
       case RouteManager.aboutUs:
         return PageTransitionManager.materialPageRoute(const AboutUsScreen());
