@@ -1,7 +1,6 @@
 import 'package:dr_ai/core/cache/cache.dart';
 import 'package:dr_ai/core/helper/extention.dart';
 import 'package:dr_ai/core/helper/scaffold_snakbar.dart';
-import 'package:dr_ai/data/model/user_data_model.dart';
 import 'package:dr_ai/logic/account/account_cubit.dart';
 import 'package:dr_ai/view/widget/button_loading_indicator.dart';
 import 'package:dr_ai/view/widget/custom_button.dart';
@@ -10,8 +9,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:gap/gap.dart';
-import '../../logic/validation/formvalidation_cubit.dart';
-import '../constant/color.dart';
+
+import '../../../core/constant/color.dart';
+import '../../../logic/validation/formvalidation_cubit.dart';
 
 void showEditProfileBottomSheet(
   BuildContext context,

@@ -158,7 +158,8 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
     final divider = Divider(
       color: ColorManager.green.withOpacity(0.4),
       thickness: 1.w,
-      endIndent: 10,
+      endIndent: 5,
+      indent: 5, 
     );
     return Column(
       crossAxisAlignment: CrossAxisAlignment.center,

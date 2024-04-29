@@ -23,6 +23,7 @@ class MapScreen extends StatefulWidget {
 }
 
 class _MapScreenState extends State<MapScreen> {
+  
   @override
   void initState() {
     super.initState();
@@ -68,11 +69,11 @@ class _MapScreenState extends State<MapScreen> {
                 ? _buildMap()
                 : Align(
                     alignment: Alignment.center,
-                  child: Container(
+                    child: Container(
                       alignment: Alignment.center,
                       width: 50.w,
                       height: 50.w,
-                      decoration:  BoxDecoration(
+                      decoration: BoxDecoration(
                         color: ColorManager.green.withOpacity(0.5),
                         shape: BoxShape.circle,
                       ),
@@ -85,7 +86,7 @@ class _MapScreenState extends State<MapScreen> {
                         ),
                       ),
                     ),
-                ),
+                  ),
             _buildSelectedPlaceLocation(),
             _isSearchedPlaceMarkerClicked && _placeDirections != null
                 ? DistanceAndTime(
@@ -143,6 +144,7 @@ class _MapScreenState extends State<MapScreen> {
 
   Widget _buildMap() {
     return GoogleMap(
+      buildingsEnabled: true,
       markers: _markers,
       initialCameraPosition: CameraPosition(
         target: LatLng(_position!.latitude, _position!.longitude),

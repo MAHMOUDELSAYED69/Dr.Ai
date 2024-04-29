@@ -53,7 +53,7 @@ class _PasswordScreenState extends State<PasswordScreen> {
                     context.textTheme.bodySmall?.copyWith(fontSize: 16.spMin),
               ),
               Gap(26.h),
-              const MyStepperForm(stepReachedNumber: 1),
+              const SignInStepperForm(stepReachedNumber: 1),
               _buildPasswordAndConfirmPasswordFields(),
               Gap(context.height / 8.5),
               CustomButton(

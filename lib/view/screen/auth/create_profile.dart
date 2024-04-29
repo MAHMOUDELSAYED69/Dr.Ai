@@ -81,7 +81,7 @@ class _CreateProfileState extends State<CreateProfile> {
                     context.textTheme.bodySmall?.copyWith(fontSize: 16.spMin),
               ),
               Gap(26.h),
-              const MyStepperForm(stepReachedNumber: 2),
+              const SignInStepperForm(stepReachedNumber: 2),
               _buildCreateProfileFields(),
               Gap(18.h),
               BlocConsumer<SignUpCubit, SignUpState>(

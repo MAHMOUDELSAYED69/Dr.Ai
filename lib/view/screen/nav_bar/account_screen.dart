@@ -3,7 +3,6 @@
 import 'package:dr_ai/core/constant/color.dart';
 import 'package:dr_ai/core/constant/image.dart';
 import 'package:dr_ai/core/constant/routes.dart';
-import 'package:dr_ai/core/helper/custom_bottomsheet.dart';
 import 'package:dr_ai/core/helper/custom_dialog.dart';
 import 'package:dr_ai/core/helper/extention.dart';
 import 'package:dr_ai/data/model/user_data_model.dart';
@@ -13,6 +12,8 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:gap/gap.dart';
+
+import '../account/edit_user_card_buttom_sheet.dart';
 
 class AccountScreen extends StatefulWidget {
   const AccountScreen({super.key});
@@ -69,9 +70,13 @@ class _AccountScreenState extends State<AccountScreen> {
                   _buildProfileCard(context,
                       title: "Languages", image: ImageManager.languageIcon),
                   divider,
-                  _buildProfileCard(context,
-                      title: "Change Password",
-                      image: ImageManager.changePasswordIcon),
+                  _buildProfileCard(
+                    context,
+                    title: "Change Password",
+                    image: ImageManager.changePasswordIcon,
+                    onPressed: () => Navigator.pushNamed(
+                        context, RouteManager.updatePassword),
+                  ),
                   divider,
                   _buildProfileCard(context,
                       title: "About Us", image: ImageManager.aboutUsIcon),

@@ -10,4 +10,5 @@ abstract class RouteManager {
   static const chat = "/chat";
   static const editProfile = "/editProfile";
   static const maps = "/maps";
+  static const updatePassword = "/updatePassword";
 }

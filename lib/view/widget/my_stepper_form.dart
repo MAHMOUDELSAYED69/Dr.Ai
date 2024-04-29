@@ -8,14 +8,14 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
-class MyStepperForm extends StatefulWidget {
-  const MyStepperForm({super.key, required this.stepReachedNumber});
+class SignInStepperForm extends StatefulWidget {
+  const SignInStepperForm({super.key, required this.stepReachedNumber});
   final int stepReachedNumber;
   @override
-  MyStepperFormState createState() => MyStepperFormState();
+  SignInStepperFormState createState() => SignInStepperFormState();
 }
 
-class MyStepperFormState extends State<MyStepperForm> {
+class SignInStepperFormState extends State<SignInStepperForm> {
   int activeStep = 0;
   @override
   void initState() {
@@ -95,8 +95,82 @@ class MyStepperFormState extends State<MyStepperForm> {
           ),
         ),
       ],
-      // onStepReached: (_) =>
-      //     setState(() => activeStep = widget.stepReachedNumber),
+    );
+  }
+}
+
+class UpdatePasswordStepper extends StatefulWidget {
+  const UpdatePasswordStepper({super.key, required this.stepReachedNumber});
+  final int stepReachedNumber;
+  @override
+  UpdatePasswordStepperState createState() => UpdatePasswordStepperState();
+}
+
+class UpdatePasswordStepperState extends State<UpdatePasswordStepper> {
+  int activeStep = 0;
+  @override
+  void initState() {
+    activeStep = widget.stepReachedNumber;
+    super.initState();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return EasyStepper(
+      padding: EdgeInsets.zero,
+      enableStepTapping: false,
+      activeStep: activeStep,
+      lineStyle: LineStyle(
+        lineLength: context.width / 6,
+        lineType: LineType.dashed,
+        activeLineColor: ColorManager.green,
+        finishedLineColor: ColorManager.green,
+        defaultLineColor: ColorManager.grey,
+        lineThickness: 2.dm,
+      ),
+      stepShape: StepShape.rRectangle,
+      stepBorderRadius: 6.dm,
+      borderThickness: 3.dm,
+      activeStepBorderColor: ColorManager.green,
+      defaultStepBorderType: BorderType.normal,
+      stepRadius: 24.r,
+      finishedStepBorderColor: ColorManager.green,
+      finishedStepTextColor: Colors.deepOrange,
+      finishedStepBackgroundColor: ColorManager.white,
+      activeStepIconColor: ColorManager.white,
+      showLoadingAnimation: false,
+      steps: [
+        EasyStep(
+          customStep: SvgPicture.asset(
+            width: 18.w,
+            height: 18.w,
+            ImageManager.passwordIcon,
+            color: activeStep >= 0 ? ColorManager.green : ColorManager.grey,
+          ),
+          customTitle: Text(
+            "Old Password",
+            textAlign: TextAlign.center,
+            style: context.textTheme.bodySmall?.copyWith(
+              color: activeStep >= 0 ? ColorManager.black : ColorManager.grey,
+            ),
+          ),
+        ),
+        EasyStep(
+          customStep: SvgPicture.asset(
+            width: 18.w,
+            height: 18.w,
+            ImageManager.passwordIcon,
+            color: activeStep >= 1 ? ColorManager.green : ColorManager.grey,
+          ),
+          customTitle: Text(
+            "New Password",
+            textAlign: TextAlign.center,
+            style: context.textTheme.bodySmall?.copyWith(
+              color: activeStep >= 1 ? ColorManager.black : ColorManager.grey,
+            ),
+          ),
+        ),
+      ],
     );
   }
 }

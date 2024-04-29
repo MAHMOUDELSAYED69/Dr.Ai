@@ -3,7 +3,6 @@
 import 'package:animated_bottom_navigation_bar/animated_bottom_navigation_bar.dart';
 import 'package:dr_ai/core/constant/color.dart';
 import 'package:dr_ai/core/helper/extention.dart';
-import 'package:dr_ai/logic/account/account_cubit.dart';
 import 'package:dr_ai/view/screen/nav_bar/account_screen.dart';
 import 'package:dr_ai/view/screen/nav_bar/nfc_screen.dart';
 
