@@ -52,12 +52,16 @@ abstract class ImageManager {
   static const String languageIcon = "assets/images/language_icon.svg";
   static const String rateUsIcon = "assets/images/rate_us_icon.svg";
   static const String darkModeIcon = "assets/images/dark_mode_icon.svg";
-  static const String deteteAccountIcon  = "assets/images/delete_account_icon.svg";
-  static const String changePasswordIcon  = "assets/images/change_password_icon.svg";
-  static const String aboutUsIcon  = "assets/images/about_us_icon.svg";
-
-  
-
+  static const String deteteAccountIcon =
+      "assets/images/delete_account_icon.svg";
+  static const String changePasswordIcon =
+      "assets/images/change_password_icon.svg";
+  static const String aboutUsIcon = "assets/images/about_us_icon.svg";
+  static const String feedbackIcon = "assets/images/feedback_icon.svg";
+  static const String privacyPolicyIcon = "assets/images/privacy_icon.svg";
+  static const String termsIcon = "assets/images/terms_icon.svg";
+  static const String socialMediaIcon = "assets/images/social_media_icon.svg";
+  static const String updateIcon = "assets/images/update_icon.svg";
 
   //? PNG
   static const String robotIcon = "assets/images/robot.png";

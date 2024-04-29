@@ -74,12 +74,17 @@ class _AccountScreenState extends State<AccountScreen> {
                     context,
                     title: "Change Password",
                     image: ImageManager.changePasswordIcon,
-                    onPressed: () => Navigator.pushNamed(
-                        context, RouteManager.oldPassword),
+                    onPressed: () =>
+                        Navigator.pushNamed(context, RouteManager.oldPassword),
                   ),
                   divider,
-                  _buildProfileCard(context,
-                      title: "About Us", image: ImageManager.aboutUsIcon),
+                  _buildProfileCard(
+                    context,
+                    title: "About Us",
+                    image: ImageManager.aboutUsIcon,
+                    onPressed: () =>
+                        Navigator.pushNamed(context, RouteManager.aboutUs),
+                  ),
                   divider,
                   _buildProfileCard(context,
                       title: "Rate Us", image: ImageManager.rateUsIcon),
@@ -130,7 +135,7 @@ class _AccountScreenState extends State<AccountScreen> {
     return ListTile(
       onTap: onPressed,
       contentPadding:
-          EdgeInsets.only(left: 12.w, right: 4.w, bottom: 5.h, top: 5.h),
+          EdgeInsets.symmetric(vertical: 5.h),
       title: Text(title, style: context.textTheme.bodyMedium),
       trailing: IconButton(
         onPressed: onPressed,
