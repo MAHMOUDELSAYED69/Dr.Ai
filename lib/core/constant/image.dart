@@ -39,6 +39,7 @@ abstract class ImageManager {
   static const String errorIcon = "assets/images/error_icon.svg";
   static const String congratulationIcon =
       "assets/images/congratulation_icon.svg";
+  static const String curvedLines = "assets/images/curved_lines.svg";
   static const String ambulanceIcon = "assets/images/ambulance_icon.svg";
   static const String policeIcon = "assets/images/police_icon.svg";
   static const String firefightingIcon = "assets/images/firefighting_icon.svg";

@@ -106,7 +106,7 @@ class _CustomDialogState extends State<CustomDialog> {
         }
         if (state is AccountDeleteSuccess) {
           _isDeleteAccountLoading = false;
-       
+
           Navigator.pushNamedAndRemoveUntil(
               context, RouteManager.login, (route) => false);
 
@@ -152,32 +152,25 @@ class _CustomDialogState extends State<CustomDialog> {
                   : const SizedBox(),
               Gap(22.h),
               widget.secondButtoncolor != null
-                  ? Row(
+                  ? Column(
                       children: [
-                        Expanded(
-                          child: CustomButton(
-                            size: Size.fromHeight(42.w),
-                            title: "Cancel",
-                            onPressed: () => context.pop(),
-                          ),
+                        CustomButton(
+                          title: "Cancel",
+                          onPressed: () => context.pop(),
                         ),
-                        Gap(5.w),
-                        Expanded(
-                          child: CustomButton(
-                            size: Size.fromHeight(42.w),
-                            widget: (_islogoutLoading == true ||
-                                    _isDeleteAccountLoading == true)
-                                ? const ButtonLoadingIndicator()
-                                : null,
-                            backgroundColor: widget.secondButtoncolor,
-                            title: widget.buttonTitle,
-                            onPressed: widget.onPressed,
-                          ),
+                        Gap(13.h),
+                        CustomButton(
+                          widget: (_islogoutLoading == true ||
+                                  _isDeleteAccountLoading == true)
+                              ? const ButtonLoadingIndicator()
+                              : null,
+                          backgroundColor: widget.secondButtoncolor,
+                          title: widget.buttonTitle,
+                          onPressed: widget.onPressed,
                         ),
                       ],
                     )
                   : CustomButton(
-                      size: Size(context.width, 42.w),
                       widget: widget.widget,
                       title: widget.buttonTitle,
                       onPressed: widget.onPressed,

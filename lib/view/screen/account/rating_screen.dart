@@ -28,20 +28,26 @@ class RatingScreenState extends State<RatingScreen> {
       elevation: 0,
       backgroundColor: ColorManager.white,
       child: Padding(
-        padding: EdgeInsets.symmetric(horizontal: 18.w, vertical: 18.h),
+        padding: EdgeInsets.symmetric(horizontal: 18.w, vertical: 28.h),
         child: Column(
           mainAxisSize: MainAxisSize.min,
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            SvgPicture.asset(ImageManager.opinionIcon),
+            SvgPicture.asset(
+              ImageManager.opinionIcon,
+              width: 125.w,
+              height: 125.w,
+            ),
             Gap(12.h),
             Text(
               'Your opinion matters to us',
+              textAlign: TextAlign.center,
               style: context.textTheme.bodyLarge?.copyWith(fontSize: 18.spMin),
             ),
             Gap(6.h),
             Text(
               'Please rate your experience with the app',
+              textAlign: TextAlign.center,
               style: context.textTheme.bodySmall,
             ),
             Gap(4.h),
@@ -73,9 +79,9 @@ class RatingScreenState extends State<RatingScreen> {
             Gap(24.h),
             CustomButton(
               title: 'Submit',
-              onPressed: () {},
+              onPressed: () => context.pop(),
             ),
-            Gap(14.h),
+            Gap(13.h),
             CustomButton(
               backgroundColor: ColorManager.error,
               title: 'Cancel',
