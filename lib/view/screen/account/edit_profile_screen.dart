@@ -22,7 +22,7 @@ class EditProfileScreen extends StatefulWidget {
 
 class _EditProfileScreenState extends State<EditProfileScreen> {
   @override
-  final GlobalKey<FormState> formKey = GlobalKey<FormState>();
+  final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
   String? _name;
   String? _email;
   String? _phoneNumber;
@@ -36,8 +36,8 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
   final Map<String, dynamic> _userData = CacheData.getMapData(key: "userData");
   bool _isloading = false;
   void _updateUserData() {
-    if (formKey.currentState!.validate()) {
-      formKey.currentState!.save();
+    if (_formKey.currentState!.validate()) {
+      _formKey.currentState!.save();
       if (_name == _userData['name'] &&
           _phoneNumber == _userData['phoneNumber'] &&
           _dob == _userData['dob'] &&
@@ -180,7 +180,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
       BuildContext context, Map<String, dynamic> userData) {
     final cubit = context.bloc<FormvalidationCubit>();
     return Form(
-      key: formKey,
+      key: _formKey,
       child: Column(
         children: [
           CustomTextFormField(

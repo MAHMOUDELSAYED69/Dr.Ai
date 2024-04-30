@@ -2,7 +2,6 @@ import 'package:bloc/bloc.dart';
 import 'package:dr_ai/data/service/firebase/firebase_service.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:meta/meta.dart';
 
 part 'sign_in_state.dart';
@@ -26,11 +25,11 @@ class SignInCubit extends Cubit<SignInState> {
         case 'email-already-in-use':
           return 'The email address is already in use by another account.';
         case 'operation-not-allowed':
-          return 'Email/password accounts are not enabled.';
+          return 'Login with email and password is Disabled by an administrator.';
         case 'requires-recent-login':
           return 'This operation is sensitive and requires recent authentication. Log in again before retrying this request.';
         case 'invalid-credential':
-          return 'The provided credential is not valid.';
+          return 'The provided Email or Password is not valid.';
         case 'invalid-verification-code':
           return 'The verification code is invalid.';
         case 'invalid-verification-id':

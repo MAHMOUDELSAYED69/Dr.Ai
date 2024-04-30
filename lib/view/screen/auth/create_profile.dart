@@ -95,20 +95,6 @@ class _CreateProfileState extends State<CreateProfile> {
                         context: context,
                         barrierDismissible: false,
                         builder: (context) => const LoginDialog());
-                    // customDialog(
-                    //   context,
-                    //   dismiss: false,
-                    //   title: "Congratulation!",
-                    //   subtitle: "Your account has been created",
-                    //   errorMessage: "verify your email to login",
-                    //   buttonTitle: "Login",
-                    //   image: ImageManager.congratulationIcon,
-                    //   widget: _isLoading == true
-                    //       ? const ButtonLoadingIndicator()
-                    //       : null,
-                    //   onPressed: () =>
-                    //       Navigator.popUntil(context, (route) => route.isFirst),
-                    // );
                   }
                   if (state is CreateProfileFailure) {
                     customSnackBar(context, state.errorMessage);

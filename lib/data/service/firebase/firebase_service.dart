@@ -21,6 +21,8 @@ class FirebaseService {
     required String familyHistoryOfChronicDiseases,
   }) async {
     Map<String, dynamic> userData = {
+      'isActive': true,
+      'date': DateTime.now().toString(),
       'email': _auth.currentUser!.email,
       'uid': _auth.currentUser!.uid,
       'name': name,
@@ -63,6 +65,25 @@ class FirebaseService {
       'time': DateTime.now().toString(),
     });
   }
+
+  // Future<void> renameDocument() async {
+  //   final Map<String, dynamic> userData = CacheData.getMapData(key: "userData");
+  //   final firestore = FirebaseFirestore.instance;
+
+  //   final userDocRef = firestore.collection('users').doc(userData['uid']);
+  //   final originalDocSnapshot = await userDocRef.get();
+  //   final data = originalDocSnapshot.data();
+
+  //   if (data != null) {
+  //     final newDocRef = firestore.collection('users').doc('account_deprecated');
+  //     await newDocRef.set(data);
+  //     await userDocRef.delete();
+
+  //     log('Document renamed successfully!');
+  //   } else {
+  //     log('Original document not found.');
+  //   }
+  // }
 
 //! LOGIN
   static Future<void> logIn(
