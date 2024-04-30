@@ -48,10 +48,10 @@ class AccountCubit extends Cubit<AccountState> {
       //     .doc(FirebaseAuth.instance.currentUser!.uid)
       //     .delete()
       //     .then((value) => log("DELETED CHAT HISTORY"));
-      await FirebaseFirestore.instance
-          .collection('users')
-          .doc(FirebaseAuth.instance.currentUser!.uid)
-          .delete();
+      // await FirebaseFirestore.instance
+      //     .collection('users')
+      //     .doc(FirebaseAuth.instance.currentUser!.uid)
+      //     .delete();
       log("DELETED USER DATA");
       await CacheData.clearData(clearData: true);
       log("DELETED CACHE DATA");

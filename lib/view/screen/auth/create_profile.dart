@@ -8,7 +8,6 @@ import 'package:dr_ai/core/helper/extention.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:gap/gap.dart';
-import '../../../core/constant/image.dart';
 import '../../../core/helper/custom_dialog.dart';
 import '../../widget/black_button.dart';
 import '../../widget/custom_button.dart';
@@ -92,20 +91,24 @@ class _CreateProfileState extends State<CreateProfile> {
                   if (state is VerifyEmailSuccess) {
                     FocusScope.of(context).unfocus();
                     _isLoading = false;
-                    customDialog(
-                      context,
-                      dismiss: false,
-                      title: "Congratulation!",
-                      subtitle: "Your account has been created",
-                      errorMessage: "verify your email to login",
-                      buttonTitle: "Login",
-                      image: ImageManager.congratulationIcon,
-                      widget: _isLoading == true
-                          ? const ButtonLoadingIndicator()
-                          : null,
-                      onPressed: () =>
-                          Navigator.popUntil(context, (route) => route.isFirst),
-                    );
+                    showDialog(
+                        context: context,
+                        barrierDismissible: false,
+                        builder: (context) => const LoginDialog());
+                    // customDialog(
+                    //   context,
+                    //   dismiss: false,
+                    //   title: "Congratulation!",
+                    //   subtitle: "Your account has been created",
+                    //   errorMessage: "verify your email to login",
+                    //   buttonTitle: "Login",
+                    //   image: ImageManager.congratulationIcon,
+                    //   widget: _isLoading == true
+                    //       ? const ButtonLoadingIndicator()
+                    //       : null,
+                    //   onPressed: () =>
+                    //       Navigator.popUntil(context, (route) => route.isFirst),
+                    // );
                   }
                   if (state is CreateProfileFailure) {
                     customSnackBar(context, state.errorMessage);

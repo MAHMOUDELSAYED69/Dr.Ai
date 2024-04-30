@@ -2,13 +2,16 @@ import 'package:dr_ai/core/constant/color.dart';
 import 'package:dr_ai/core/helper/extention.dart';
 import 'package:dr_ai/view/widget/button_loading_indicator.dart';
 import 'package:dr_ai/view/widget/custom_button.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:gap/gap.dart';
 
 import '../../logic/account/account_cubit.dart';
+import '../constant/image.dart';
 import '../constant/routes.dart';
 import 'scaffold_snakbar.dart';
 
@@ -180,5 +183,83 @@ class _CustomDialogState extends State<CustomDialog> {
         );
       },
     );
+  }
+}
+
+class LoginDialog extends StatelessWidget {
+  const LoginDialog({
+    super.key,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return Dialog(
+        insetPadding: REdgeInsets.all(16.w),
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(12.dm),
+        ),
+        elevation: 0,
+        backgroundColor: ColorManager.white,
+        child: Container(
+          padding: EdgeInsets.symmetric(vertical: 28.h, horizontal: 16.w),
+          decoration: BoxDecoration(
+            color: ColorManager.white,
+            shape: BoxShape.rectangle,
+            borderRadius: BorderRadius.circular(12.dm),
+          ),
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              Stack(
+                alignment: Alignment.center,
+                children: [
+                  SvgPicture.asset(
+                    ImageManager.curvedLines,
+                    width: 135.w,
+                    height: 135.w,
+                  ),
+                  SvgPicture.asset(
+                    ImageManager.congratulationIcon,
+                    width: 125.w,
+                    height: 125.w,
+                  ),
+                ],
+              ),
+              Gap(18.h),
+              Text(
+                "Congratulation!",
+                style: context.textTheme.bodyLarge
+                    ?.copyWith(fontSize: 18.spMin, height: 0.9.h),
+              ),
+              SvgPicture.asset(
+                ImageManager.underLine,
+                height: 6.h,
+                width: context.width / 3,
+              ),
+              Gap(8.h),
+              Text(
+                "Your account has been created",
+                textAlign: TextAlign.center,
+                style: context.textTheme.bodySmall,
+              ),
+              Gap(3.h),
+              Text(
+                "Please verify your email to login.",
+                textAlign: TextAlign.center,
+                style: context.textTheme.bodySmall?.copyWith(
+                  color: ColorManager.error,
+                  fontWeight: FontWeight.bold,
+                  fontStyle: FontStyle.italic,
+                ),
+              ),
+              Gap(22.h),
+              CustomButton(
+                title: "Login",
+                onPressed: () =>
+                    Navigator.popUntil(context, (route) => route.isFirst),
+              ),
+            ],
+          ),
+        ));
   }
 }

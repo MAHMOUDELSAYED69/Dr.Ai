@@ -40,6 +40,8 @@ abstract class ImageManager {
   static const String congratulationIcon =
       "assets/images/congratulation_icon.svg";
   static const String curvedLines = "assets/images/curved_lines.svg";
+  static const String underLine = "assets/images/under_line.svg";
+
   static const String ambulanceIcon = "assets/images/ambulance_icon.svg";
   static const String policeIcon = "assets/images/police_icon.svg";
   static const String firefightingIcon = "assets/images/firefighting_icon.svg";
@@ -65,7 +67,6 @@ abstract class ImageManager {
   static const String updateIcon = "assets/images/update_icon.svg";
   static const String opinionIcon = "assets/images/opinion_icon.svg";
 
- 
   //? PNG
   static const String robotIcon = "assets/images/robot.png";
 }
