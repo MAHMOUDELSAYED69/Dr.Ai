@@ -6,7 +6,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 void customSnackBar(BuildContext context, [String? message ,Color? color,int? seconds]) {
   ScaffoldMessenger.of(context).showSnackBar(SnackBar(
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12.dm)),
-      duration: const Duration(seconds: 2),
+      duration: const Duration(seconds: 3),
       backgroundColor:(color ?? ColorManager.green).withOpacity(0.9),
       behavior: SnackBarBehavior.floating,
       content: Center(

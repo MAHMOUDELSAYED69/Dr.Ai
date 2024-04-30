@@ -39,77 +39,75 @@ class _ForgetPasswordState extends State<ForgetPassword> {
       child: Column(
         mainAxisSize: MainAxisSize.min,
         children: [
-          Padding(
-            padding: const EdgeInsets.only(bottom: 56),
-            child: Container(
-              padding: EdgeInsets.only(
-                  left: 16.w,
-                  right: 16.w,
-                  bottom: MediaQuery.viewInsetsOf(context).bottom,
-                  top: 10.h),
-              child: Column(
-                mainAxisSize: MainAxisSize.min,
-                children: [
-                  Text(
-                    "Forgot Password",
-                    style: context.textTheme.bodyLarge,
+          Container(
+            padding: EdgeInsets.only(
+                left: 16.w,
+                right: 16.w,
+                bottom: MediaQuery.viewInsetsOf(context).bottom,
+                top: 10.h),
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                Text(
+                  "Forgot Password",
+                  style: context.textTheme.bodyLarge,
+                ),
+                Gap(16.h),
+                Text(
+                  "Please enter your email, and we will send you a confirmation link to reset your password.",
+                  textAlign: TextAlign.center,
+                  style: context.textTheme.bodySmall?.copyWith(
+                    fontSize: 16.sp,
                   ),
-                  Gap(16.h),
-                  Text(
-                    "Please enter your email, and we will send you a confirmation link to reset your password.",
-                    textAlign: TextAlign.center,
-                    style: context.textTheme.bodySmall?.copyWith(
-                      fontSize: 16.sp,
-                    ),
-                  ),
-                  Gap(8.h),
-                  CustomTextFormField(
-                    title: "Email",
-                    hintText: "Enter your Email",
-                    keyboardType: TextInputType.emailAddress,
-                    onSaved: (data) {
-                      email = data;
-                    },
-                    validator:
-                        context.bloc<FormvalidationCubit>().validateEmail,
-                  ),
-                  Gap(24.h),
-                  BlocConsumer<ForgetPasswordCubit, ForgetPasswordState>(
-                    listener: (context, state) {
-                      if (state is ForgetPasswordLoading) {
-                        _isLoading = true;
-                      }
-                      if (state is ForgetPasswordSuccess) {
-                        Navigator.pop(context);
-                        FocusScope.of(context).unfocus();
-                        customSnackBar(context, "Check your E-mail for link",
-                            ColorManager.darkGrey, 3);
-                        _isLoading = false; 
-                      }
-                      if (state is ForgetPasswordFailure) {
-                        Navigator.pop(context);
-                        FocusScope.of(context).unfocus();
-                        customSnackBar(
-                            context,
-                            "There was an Error please try agin later!",
-                            ColorManager.error);
-                        log(state.message);
-                        _isLoading = false;
-                      }
-                    },
-                    builder: (context, state) {
-                      return CustomButton(
-                        isDisabled: _isLoading,
-                        title: _isLoading == false ? "Send link" : null,
-                        widget: _isLoading == true
-                            ? const ButtonLoadingIndicator()
-                            : null,
-                        onPressed: resetPassword,
-                      );
-                    },
-                  ),
-                ],
-              ),
+                ),
+                Gap(8.h),
+                CustomTextFormField(
+                  title: "Email",
+                  hintText: "Enter your Email",
+                  keyboardType: TextInputType.emailAddress,
+                  onSaved: (data) {
+                    email = data;
+                  },
+                  validator:
+                      context.bloc<FormvalidationCubit>().validateEmail,
+                ),
+                Gap(24.h),
+                BlocConsumer<ForgetPasswordCubit, ForgetPasswordState>(
+                  listener: (context, state) {
+                    if (state is ForgetPasswordLoading) {
+                      _isLoading = true;
+                    }
+                    if (state is ForgetPasswordSuccess) {
+                      Navigator.pop(context);
+                      FocusScope.of(context).unfocus();
+                      customSnackBar(context, "Check your Email for link",
+                          ColorManager.darkGrey, 3);
+                      _isLoading = false; 
+                    }
+                    if (state is ForgetPasswordFailure) {
+                      Navigator.pop(context);
+                      FocusScope.of(context).unfocus();
+                      customSnackBar(
+                          context,
+                          "There was an Error please try agin later!",
+                          ColorManager.error);
+                      log(state.message);
+                      _isLoading = false;
+                    }
+                  },
+                  builder: (context, state) {
+                    return CustomButton(
+                      isDisabled: _isLoading,
+                      title: _isLoading == false ? "Send link" : null,
+                      widget: _isLoading == true
+                          ? const ButtonLoadingIndicator()
+                          : null,
+                      onPressed: resetPassword,
+                    );
+                  },
+                ),
+                Gap(24.h),
+              ],
             ),
           ),
         ],

@@ -1,5 +1,3 @@
-// ignore_for_file: deprecated_member_use
-
 import 'package:dr_ai/core/helper/extention.dart';
 import 'package:dr_ai/view/widget/custom_scrollable_appbar.dart';
 import 'package:flutter/material.dart';
@@ -28,10 +26,12 @@ class AboutUsScreen extends StatelessWidget {
             padding: EdgeInsets.symmetric(horizontal: 18.w),
             child: Column(
               children: [
-                _buildProfileCard(context,
-                    title: "App Updates",
-                    image: ImageManager.updateIcon,
-                    onPressed: () {}),
+                _buildProfileCard(
+                  context,
+                  title: "App Updates",
+                  image: ImageManager.updateIcon,
+                  onPressed: () {},
+                ),
                 divider,
                 _buildProfileCard(context,
                     title: "App Feedback",
@@ -72,6 +72,7 @@ class AboutUsScreen extends StatelessWidget {
       IconData? iconData,
       VoidCallback? onPressed}) {
     return ListTile(
+      splashColor: ColorManager.green.withOpacity(0.15),
       onTap: onPressed,
       contentPadding: EdgeInsets.symmetric(vertical: 5.h),
       title: Text(title, style: context.textTheme.bodyMedium),
@@ -91,7 +92,6 @@ class AboutUsScreen extends StatelessWidget {
         child: iconData == null
             ? SvgPicture.asset(
                 image!,
-                color: color ?? ColorManager.green,
                 width: 20.w,
                 height: 20.w,
               )

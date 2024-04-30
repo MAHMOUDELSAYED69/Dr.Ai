@@ -29,7 +29,7 @@ class SignInCubit extends Cubit<SignInState> {
         case 'requires-recent-login':
           return 'This operation is sensitive and requires recent authentication. Log in again before retrying this request.';
         case 'invalid-credential':
-          return 'The provided Email or Password is not valid.';
+          return 'The provided credential is not valid.';
         case 'invalid-verification-code':
           return 'The verification code is invalid.';
         case 'invalid-verification-id':

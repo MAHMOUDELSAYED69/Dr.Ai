@@ -149,6 +149,7 @@ class _AccountScreenState extends State<AccountScreen> {
       IconData? iconData,
       VoidCallback? onPressed}) {
     return ListTile(
+      splashColor: (color ?? ColorManager.green).withOpacity(0.15),
       onTap: onPressed,
       contentPadding: EdgeInsets.symmetric(vertical: 5.h),
       title: Text(title, style: context.textTheme.bodyMedium),
