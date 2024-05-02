@@ -10,6 +10,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:gap/gap.dart';
 
 import '../../../../core/constant/color.dart';
+import '../../../../core/helper/custom_dialog.dart';
 import '../../../../core/helper/scaffold_snakbar.dart';
 import '../../../../logic/account/account_cubit.dart';
 import '../../../widget/custom_button.dart';
@@ -37,8 +38,11 @@ class _NewPasswordScreenState extends State<NewPasswordScreen> {
         }
         if (state is AccountUpdatePasswordSuccess) {
           _isLoading = false;
-          customSnackBar(context, state.message);
-          Navigator.popUntil(context, (route) => route.isFirst);
+          showDialog(
+            barrierDismissible: false,
+            context: context,
+            builder: (context) => const ChangePasswordDialog(),
+          );
         }
         if (state is AccountUpdatePasswordFailure) {
           _isLoading = false;

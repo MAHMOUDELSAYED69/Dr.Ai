@@ -63,6 +63,7 @@ class _NavbarScreenState extends State<NavbarScreen> {
         ),
       ),
       bottomNavigationBar: AnimatedBottomNavigationBar.builder(
+        splashColor: ColorManager.green.withOpacity(0.5),
         splashRadius: 20,
         gapWidth: 0,
         backgroundColor: ColorManager.white,

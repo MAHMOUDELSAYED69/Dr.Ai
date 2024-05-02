@@ -171,8 +171,8 @@ class AccountCubit extends Cubit<AccountState> {
   Future<void> reAuthenticateUser(String password) async {
     emit(AccountReAuthLoading());
     await Future.delayed(const Duration(milliseconds: 400));
-    final FirebaseAuth _auth = FirebaseAuth.instance;
-    final User? user = _auth.currentUser;
+    final FirebaseAuth auth = FirebaseAuth.instance;
+    final User? user = auth.currentUser;
 
     if (user != null) {
       AuthCredential credential = EmailAuthProvider.credential(
@@ -199,8 +199,8 @@ class AccountCubit extends Cubit<AccountState> {
   Future<void> updatePassword(String newPassword) async {
     emit(AccountUpdatePasswordLoading());
     await Future.delayed(const Duration(milliseconds: 400));
-    final FirebaseAuth _auth = FirebaseAuth.instance;
-    final User? user = _auth.currentUser;
+    final FirebaseAuth auth = FirebaseAuth.instance;
+    final User? user = auth.currentUser;
 
     if (user != null) {
       try {
@@ -246,6 +246,7 @@ class AccountCubit extends Cubit<AccountState> {
       if (userDocRef.data() != null && userDocRef.data()!['rating'] != null) {
         int? rating = int.tryParse(userDocRef.data()!['rating'][0]);
         if (rating != null) {
+          await CacheData.setData(key: "rating", value: rating);
           emit(AccountRatingResult(rating: rating));
           log('User rating: $rating');
         }
