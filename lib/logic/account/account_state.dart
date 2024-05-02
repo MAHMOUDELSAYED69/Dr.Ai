@@ -92,8 +92,6 @@ class AccountPasswordUpdatedFailure extends AccountState {
 class AccountRatingLoading extends AccountState {}
 
 class AccountRatingSuccess extends AccountState {
-  final String thxMessage;
-  AccountRatingSuccess({required this.thxMessage});
 }
 
 class AccountRatingFailure extends AccountState {

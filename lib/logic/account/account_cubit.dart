@@ -205,20 +205,18 @@ class AccountCubit extends Cubit<AccountState> {
     }
   }
 
-  Future<void> storeUserRating(double rating) async {
-    AccountRatingLoading();
+  Future<void> storeUserRating(int rating) async {
+    emit(AccountRatingLoading());
     try {
       await Future.delayed(const Duration(milliseconds: 400));
       DocumentReference userDocRef = _firestore
-          .collection('users')
+          .collection('ratings')
           .doc(FirebaseAuth.instance.currentUser!.uid);
 
       await userDocRef.set({
-        'rating': rating,
+        'rating': '$rating / 5',
       }, SetOptions(merge: true));
-      emit(AccountRatingSuccess(
-        thxMessage: "Thanks for rating us",
-      ));
+      emit(AccountRatingSuccess());
       log('User rating updated successfully.');
     } on FirebaseException catch (err) {
       emit(AccountRatingFailure(message: err.message.toString()));
