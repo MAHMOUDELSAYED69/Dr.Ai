@@ -113,6 +113,11 @@ class _CustomDialogState extends State<CustomDialog> {
 
           customSnackBar(context, state.message, ColorManager.error);
         }
+        if (state is AccountDeleteFailure) {
+          _isDeleteAccountLoading = false;
+          context.pop();
+          customSnackBar(context, state.message, ColorManager.error);
+        }
       },
       builder: (context, state) {
         return Container(

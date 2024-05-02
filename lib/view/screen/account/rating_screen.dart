@@ -1,3 +1,4 @@
+import 'package:dr_ai/core/cache/cache.dart';
 import 'package:dr_ai/core/helper/extention.dart';
 import 'package:dr_ai/core/helper/scaffold_snakbar.dart';
 import 'package:dr_ai/logic/account/account_cubit.dart';
@@ -20,9 +21,8 @@ class RatingScreen extends StatefulWidget {
 }
 
 class RatingScreenState extends State<RatingScreen> {
-  int _selectedRating = 0;
+  int _selectedRating = CacheData.getdata(key: "rating") ?? 0;
   bool _isloading = false;
-
   @override
   Widget build(BuildContext context) {
     return Dialog(
@@ -36,6 +36,9 @@ class RatingScreenState extends State<RatingScreen> {
         padding: EdgeInsets.symmetric(horizontal: 18.w, vertical: 28.h),
         child: BlocConsumer<AccountCubit, AccountState>(
           listener: (context, state) {
+            if (state is AccountRatingResult) {
+              _selectedRating = state.rating ?? 0;
+            }
             if (state is AccountRatingLoading) {
               _isloading = true;
             }
@@ -104,9 +107,15 @@ class RatingScreenState extends State<RatingScreen> {
                   isDisabled: _isloading,
                   widget: _isloading ? const ButtonLoadingIndicator() : null,
                   title: 'Submit',
-                  onPressed: () => context
-                      .bloc<AccountCubit>()
-                      .storeUserRating(_selectedRating),
+                  onPressed: () {
+                    if (_selectedRating == CacheData.getdata(key: "rating")) {
+                      context.pop();
+                    } else {
+                      context
+                          .bloc<AccountCubit>()
+                          .storeUserRating(_selectedRating);
+                    }
+                  },
                 ),
                 Gap(13.h),
                 CustomButton(

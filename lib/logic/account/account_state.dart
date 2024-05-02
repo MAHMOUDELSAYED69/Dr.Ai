@@ -38,6 +38,12 @@ class AccountDeleteSuccess extends AccountState {
   AccountDeleteSuccess({required this.message});
 }
 
+class AccountDeleteFailure extends AccountState {
+  final String message;
+
+  AccountDeleteFailure({required this.message});
+}
+
 //? Update profile
 class ProfileUpdateLoading extends AccountState {}
 
@@ -91,15 +97,18 @@ class AccountPasswordUpdatedFailure extends AccountState {
 //! User rating
 class AccountRatingLoading extends AccountState {}
 
-class AccountRatingSuccess extends AccountState {
-}
+class AccountRatingSuccess extends AccountState {}
 
 class AccountRatingFailure extends AccountState {
   final String message;
   AccountRatingFailure({required this.message});
 }
- 
 
+class AccountRatingResult extends AccountState {
+  final int? rating;
+
+  AccountRatingResult({this.rating});
+}
 // //? update image
 // class AccountUpdateImageLoading extends AccountState {}
 

@@ -41,15 +41,15 @@ class _ForgetPasswordState extends State<ForgetPassword> {
         children: [
           Container(
             padding: EdgeInsets.only(
-                left: 16.w,
-                right: 16.w,
-                bottom: MediaQuery.viewInsetsOf(context).bottom,
-                top: 10.h),
+              left: 16.w,
+              right: 16.w,
+              bottom: MediaQuery.viewInsetsOf(context).bottom,
+            ),
             child: Column(
               mainAxisSize: MainAxisSize.min,
               children: [
                 Text(
-                  "Forgot Password",
+                  "Forgot Password", 
                   style: context.textTheme.bodyLarge,
                 ),
                 Gap(16.h),
@@ -68,8 +68,7 @@ class _ForgetPasswordState extends State<ForgetPassword> {
                   onSaved: (data) {
                     email = data;
                   },
-                  validator:
-                      context.bloc<FormvalidationCubit>().validateEmail,
+                  validator: context.bloc<FormvalidationCubit>().validateEmail,
                 ),
                 Gap(24.h),
                 BlocConsumer<ForgetPasswordCubit, ForgetPasswordState>(
@@ -82,7 +81,7 @@ class _ForgetPasswordState extends State<ForgetPassword> {
                       FocusScope.of(context).unfocus();
                       customSnackBar(context, "Check your Email for link",
                           ColorManager.darkGrey, 3);
-                      _isLoading = false; 
+                      _isLoading = false;
                     }
                     if (state is ForgetPasswordFailure) {
                       Navigator.pop(context);

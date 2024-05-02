@@ -74,7 +74,7 @@ class _BuildbuttomSheetState extends State<BuildbuttomSheet> {
       builder: (context, state) {
         return Container(
           padding:
-              EdgeInsets.only(right: 16.w, left: 16.w, bottom: 16.h, top: 4.h),
+              EdgeInsets.only(right: 16.w, left: 16.w, bottom: 16.h),
           child: Column(
             mainAxisSize: MainAxisSize.min,
             children: [
