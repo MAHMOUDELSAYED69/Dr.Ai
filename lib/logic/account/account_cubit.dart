@@ -32,6 +32,7 @@ class AccountCubit extends Cubit<AccountState> {
   Future<void> logout() async {
     emit(AccountLogoutLoading());
     try {
+      await Future.delayed(const Duration(seconds: 1));
       await CacheData.clearData(clearData: true);
       await FirebaseAuth.instance.signOut();
       emit(AccountLogoutSuccess(message: "Logout successfully"));
@@ -62,6 +63,7 @@ class AccountCubit extends Cubit<AccountState> {
   Future<void> deleteAccount() async {
     emit(AccountDeleteLoading());
     try {
+      await Future.delayed(const Duration(seconds: 1));
       await _firestore
           .collection('users')
           .doc(FirebaseAuth.instance.currentUser!.uid)
@@ -70,7 +72,6 @@ class AccountCubit extends Cubit<AccountState> {
       log("DELETED CACHE DATA");
       await FirebaseAuth.instance.currentUser!.delete();
       log("DELETED USER ACCOUNT");
-      await Future.delayed(const Duration(seconds: 1));
       await FirebaseAuth.instance.signOut();
       log("LOGGED OUT");
       emit(AccountDeleteSuccess(
@@ -118,6 +119,7 @@ class AccountCubit extends Cubit<AccountState> {
   Future<void> updateUserName({required String newName}) async {
     emit(ProfileUpdateLoading());
     try {
+      await Future.delayed(const Duration(milliseconds: 400));
       await _firestore
           .collection('users')
           .doc(FirebaseAuth.instance.currentUser!.uid)
@@ -140,6 +142,7 @@ class AccountCubit extends Cubit<AccountState> {
   }) async {
     emit(ProfileUpdateLoading());
     try {
+      await Future.delayed(const Duration(milliseconds: 400));
       await _firestore
           .collection('users')
           .doc(FirebaseAuth.instance.currentUser!.uid)
@@ -161,6 +164,7 @@ class AccountCubit extends Cubit<AccountState> {
 
   Future<void> reAuthenticateUser(String password) async {
     emit(AccountReAuthLoading());
+    await Future.delayed(const Duration(milliseconds: 400));
     final FirebaseAuth _auth = FirebaseAuth.instance;
     final User? user = _auth.currentUser;
 
@@ -182,6 +186,7 @@ class AccountCubit extends Cubit<AccountState> {
 
   Future<void> updatePassword(String newPassword) async {
     emit(AccountUpdatePasswordLoading());
+    await Future.delayed(const Duration(milliseconds: 400));
     final FirebaseAuth _auth = FirebaseAuth.instance;
     final User? user = _auth.currentUser;
 
@@ -197,6 +202,27 @@ class AccountCubit extends Cubit<AccountState> {
       }
     } else {
       log('No user found. Please sign in first.');
+    }
+  }
+
+  Future<void> storeUserRating(double rating) async {
+    AccountRatingLoading();
+    try {
+      await Future.delayed(const Duration(milliseconds: 400));
+      DocumentReference userDocRef = _firestore
+          .collection('users')
+          .doc(FirebaseAuth.instance.currentUser!.uid);
+
+      await userDocRef.set({
+        'rating': rating,
+      }, SetOptions(merge: true));
+      emit(AccountRatingSuccess(
+        thxMessage: "Thanks for rating us",
+      ));
+      log('User rating updated successfully.');
+    } on FirebaseException catch (err) {
+      emit(AccountRatingFailure(message: err.message.toString()));
+      log('Error updating user rating: $err');
     }
   }
 

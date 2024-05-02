@@ -1,4 +1,5 @@
 abstract class RouteManager {
+  RouteManager._();
   static const initialRoute = "/";
   static const login = "/login";
   static const email = "/email";

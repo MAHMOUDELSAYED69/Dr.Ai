@@ -13,8 +13,8 @@ class SignUpCubit extends Cubit<SignUpState> {
     try {
       await FirebaseService.emailVerify();
       emit(VerifyEmailSuccess());
-    } on Exception catch (err) {
-      emit(VerifyEmailFailure(errorMessage: err.toString()));
+    } on FirebaseException catch (err) {
+      emit(VerifyEmailFailure(errorMessage: err.message ?? err.code));
     }
   }
 
@@ -26,8 +26,8 @@ class SignUpCubit extends Cubit<SignUpState> {
         password: password,
       );
       emit(CreatePasswordSuccess());
-    } on Exception catch (err) {
-      emit(CreateProfileFailure(errorMessage: err.toString()));
+    } on FirebaseAuthException catch (err) {
+      emit(CreateProfileFailure(errorMessage: err.message ?? err.code));
     }
   }
 
@@ -54,8 +54,8 @@ class SignUpCubit extends Cubit<SignUpState> {
           chronicDiseases: chronicDiseases,
           familyHistoryOfChronicDiseases: familyHistoryOfChronicDiseases);
       emit(CreateProfileSuccess());
-    } on Exception catch (err) {
-      emit(CreateProfileFailure(errorMessage: err.toString()));
+    } on FirebaseException catch (err) {
+      emit(CreateProfileFailure(errorMessage: err.message ?? err.code));
     }
   }
 }

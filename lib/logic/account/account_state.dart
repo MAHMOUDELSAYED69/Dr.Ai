@@ -88,6 +88,19 @@ class AccountPasswordUpdatedFailure extends AccountState {
   AccountPasswordUpdatedFailure({required this.message});
 }
 
+//! User rating
+class AccountRatingLoading extends AccountState {}
+
+class AccountRatingSuccess extends AccountState {
+  final String thxMessage;
+  AccountRatingSuccess({required this.thxMessage});
+}
+
+class AccountRatingFailure extends AccountState {
+  final String message;
+  AccountRatingFailure({required this.message});
+}
+ 
 
 // //? update image
 // class AccountUpdateImageLoading extends AccountState {}
