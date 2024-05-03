@@ -50,6 +50,7 @@ class RatingScreenState extends State<RatingScreen> {
             }
             if (state is AccountRatingFailure) {
               _isloading = false;
+              context.pop();
               customSnackBar(context, state.message, ColorManager.error);
             }
           },

@@ -68,13 +68,13 @@ class _BuildbuttomSheetState extends State<BuildbuttomSheet> {
           context.pop();
         }
         if (state is ProfileUpdateFailure) {
-          customSnackBar(context, state.message);
+          context.pop();
+          customSnackBar(context, state.message,ColorManager.error);
         }
       },
       builder: (context, state) {
         return Container(
-          padding:
-              EdgeInsets.only(right: 16.w, left: 16.w, bottom: 16.h),
+          padding: EdgeInsets.only(right: 16.w, left: 16.w, bottom: 16.h),
           child: Column(
             mainAxisSize: MainAxisSize.min,
             children: [

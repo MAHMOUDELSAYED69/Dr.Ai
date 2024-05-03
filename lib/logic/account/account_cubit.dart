@@ -24,7 +24,7 @@ class AccountCubit extends Cubit<AccountState> {
         CacheData.setMapData(key: "userData", value: userDataModel.toJson());
         emit(AccountSuccess(userDataModel: userDataModel));
       });
-    } on Exception catch (err) {
+    } on FirebaseException catch (err) {
       emit(AccountFailure(message: err.toString()));
     }
   }
@@ -36,7 +36,7 @@ class AccountCubit extends Cubit<AccountState> {
       await CacheData.clearData(clearData: true);
       await FirebaseAuth.instance.signOut();
       emit(AccountLogoutSuccess(message: "Logout successfully"));
-    } on Exception catch (err) {
+    } on FirebaseException catch (err) {
       emit(AccountFailure(message: err.toString()));
     }
   }
@@ -129,9 +129,12 @@ class AccountCubit extends Cubit<AccountState> {
       await _firestore
           .collection('users')
           .doc(FirebaseAuth.instance.currentUser!.uid)
-          .update({'name': newName});
-      emit(ProfileUpdateSuccess());
-    } on Exception catch (err) {
+          .update({'name': newName})
+          .whenComplete(() => emit(ProfileUpdateSuccess()))
+          .timeout(const Duration(seconds: 5),
+              onTimeout: () => emit(ProfileUpdateFailure(
+                  message: "There was an error, please try again")));
+    } on FirebaseException catch (err) {
       emit(ProfileUpdateFailure(message: err.toString()));
     }
   }
@@ -153,17 +156,20 @@ class AccountCubit extends Cubit<AccountState> {
           .collection('users')
           .doc(FirebaseAuth.instance.currentUser!.uid)
           .update({
-        'name': name,
-        'email': email,
-        'phoneNumber': phoneNumber,
-        'dob': dob,
-        'height': height,
-        'weight': weight,
-        'chronicDiseases': chronicDiseases,
-        'familyHistoryOfChronicDiseases': familyHistoryOfChronicDiseases
-      });
-      emit(ProfileUpdateSuccess());
-    } on Exception catch (err) {
+            'name': name,
+            'email': email,
+            'phoneNumber': phoneNumber,
+            'dob': dob,
+            'height': height,
+            'weight': weight,
+            'chronicDiseases': chronicDiseases,
+            'familyHistoryOfChronicDiseases': familyHistoryOfChronicDiseases
+          })
+          .whenComplete(() => emit(ProfileUpdateSuccess()))
+          .timeout(const Duration(seconds: 5),
+              onTimeout: () => emit(ProfileUpdateFailure(
+                  message: "There was an error, please try again")));
+    } on FirebaseException catch (err) {
       emit(ProfileUpdateFailure(message: err.toString()));
     }
   }
@@ -178,9 +184,10 @@ class AccountCubit extends Cubit<AccountState> {
       AuthCredential credential = EmailAuthProvider.credential(
           email: (user.email).toString(), password: password);
       try {
-        await user.reauthenticateWithCredential(credential);
-        emit(AccountReAuthSuccess());
-        log('User re-authenticated successfully');
+        await user.reauthenticateWithCredential(credential).whenComplete(() {
+          emit(AccountReAuthSuccess());
+          log('User re-authenticated successfully');
+        });
       } on FirebaseAuthException catch (err) {
         if (err.code == 'wrong-password' || err.code == 'invalid-credential') {
           emit(AccountReAuthFailure(message: 'Wrong password'));
@@ -204,10 +211,13 @@ class AccountCubit extends Cubit<AccountState> {
 
     if (user != null) {
       try {
-        await user.updatePassword(newPassword);
-        emit(AccountUpdatePasswordSuccess(
-            message: 'Password updated successfully'));
-        log('Password updated successfully');
+        await user.updatePassword(newPassword).whenComplete(() {
+          emit(AccountUpdatePasswordSuccess(
+              message: 'Password updated successfully'));
+          log('Password updated successfully');
+        }).timeout(const Duration(seconds: 5),
+            onTimeout: () => emit(AccountUpdatePasswordFailure(
+                message: "There was an error, please try again")));
       } on FirebaseAuthException catch (err) {
         emit(AccountUpdatePasswordFailure(message: err.message.toString()));
         log('Password update failed: ${err.message}');
@@ -226,10 +236,13 @@ class AccountCubit extends Cubit<AccountState> {
           .doc(FirebaseAuth.instance.currentUser!.uid);
       await userDocRef.set({
         'rating': '$rating / 5',
-      }, SetOptions(merge: true));
-      await CacheData.setData(key: "rating", value: rating);
-      emit(AccountRatingSuccess());
-      log('User rating updated successfully.');
+      }, SetOptions(merge: true)).whenComplete(() async {
+        emit(AccountRatingSuccess());
+        await CacheData.setData(key: "rating", value: rating);
+        log('User rating updated successfully.');
+      }).timeout(const Duration(seconds: 5),
+          onTimeout: () => emit(AccountRatingFailure(
+              message: "There was an error, please try again")));
     } on FirebaseException catch (err) {
       emit(AccountRatingFailure(message: err.message.toString()));
       log('Error updating user rating: $err');
