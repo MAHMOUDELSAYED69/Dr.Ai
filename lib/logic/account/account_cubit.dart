@@ -14,15 +14,16 @@ class AccountCubit extends Cubit<AccountState> {
   Future<void> getprofileData() async {
     emit(AccountLoading());
     try {
+      UserDataModel? userDataModel;
       _firestore
           .collection('users')
           .doc(FirebaseAuth.instance.currentUser!.uid)
           .snapshots()
           .listen((event) {
-        UserDataModel userDataModel = UserDataModel.fromJson(event.data()!);
-        CacheData.setData(key: "name", value: userDataModel.name);
-        CacheData.setMapData(key: "userData", value: userDataModel.toJson());
-        emit(AccountSuccess(userDataModel: userDataModel));
+        userDataModel = UserDataModel.fromJson(event.data()!);
+        CacheData.setData(key: "name", value: userDataModel!.name);
+        CacheData.setMapData(key: "userData", value: userDataModel!.toJson());
+        emit(AccountSuccess(userDataModel: userDataModel!));
       });
     } on FirebaseException catch (err) {
       emit(AccountFailure(message: err.toString()));

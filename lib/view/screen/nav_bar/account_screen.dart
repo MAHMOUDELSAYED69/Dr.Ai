@@ -30,7 +30,7 @@ class _AccountScreenState extends State<AccountScreen> {
     super.initState();
     context.bloc<AccountCubit>().getprofileData();
   }
-
+  
   UserDataModel? _userData;
   @override
   Widget build(BuildContext context) {

@@ -24,9 +24,9 @@ class LogOutCubit extends Cubit<LogOutState> {
         if (permission == true) {
           await FirebaseService.logOut();
           await CacheData.clearData(clearData: true);
+          emit(LogOutSuccess());
         }
       }
-      emit(LogOutSuccess());
     } on FirebaseAuthException catch (err) {
       emit(LogOutFailure(message: err.code));
     } catch (err) {
@@ -34,4 +34,3 @@ class LogOutCubit extends Cubit<LogOutState> {
     }
   }
 }
- 

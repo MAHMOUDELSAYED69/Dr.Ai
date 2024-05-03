@@ -144,6 +144,8 @@ class _MapScreenState extends State<MapScreen> {
 
   Widget _buildMap() {
     return GoogleMap(
+      mapToolbarEnabled: false,
+      compassEnabled:true,
       buildingsEnabled: true,
       markers: _markers,
       initialCameraPosition: CameraPosition(
@@ -185,6 +187,8 @@ class _MapScreenState extends State<MapScreen> {
   }
 
   Future<void> _goToMyCurrentLocation() async {
+    LocationHelper.determineCurrentPosition();
+     Geolocator.getCurrentPosition();
     final GoogleMapController controller = await mapController.future;
     controller.animateCamera(
         CameraUpdate.newCameraPosition(_myCurrrentPositionCameraPosition));
