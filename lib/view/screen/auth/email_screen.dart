@@ -1,7 +1,7 @@
-
 import 'package:dr_ai/core/helper/extention.dart';
 import 'package:dr_ai/logic/auth/sign_up/sign_up_cubit.dart';
 import 'package:dr_ai/logic/validation/formvalidation_cubit.dart';
+import 'package:dr_ai/view/widget/button_loading_indicator.dart';
 import 'package:dr_ai/view/widget/custom_button.dart';
 import 'package:dr_ai/view/widget/custom_divider.dart';
 import 'package:dr_ai/view/widget/custom_sign_up_button.dart';
@@ -9,9 +9,12 @@ import 'package:dr_ai/view/widget/custom_text_field.dart';
 import 'package:dr_ai/view/widget/custom_text_span.dart';
 import 'package:dr_ai/view/widget/social_login_card.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:gap/gap.dart';
+import '../../../core/constant/color.dart';
 import '../../../core/constant/routes.dart';
+import '../../../core/helper/scaffold_snakbar.dart';
 import '../../widget/black_button.dart';
 import '../../widget/my_stepper_form.dart';
 
@@ -31,7 +34,7 @@ class _EmailScreenState extends State<EmailScreen> {
 
   late GlobalKey<FormState> formKey;
   String? _email;
-
+  bool _isLoading = false;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -70,15 +73,39 @@ class _EmailScreenState extends State<EmailScreen> {
                 ),
               ),
               Gap(context.height / 8.5),
-              CustomButton(
-                title: "Send",
-                onPressed: () {
-                  if (formKey.currentState!.validate()) {
-                    formKey.currentState!.save();
-
+              BlocConsumer<SignUpCubit, SignUpState>(
+                listener: (context, state) {
+                  if (state is EmailCheckLoading) {
+                    _isLoading = true;
+                    FocusScope.of(context).unfocus();
+                  }
+                  if (state is EmailValid) {
+                    _isLoading = false;
                     context.bloc<SignUpCubit>().email = _email!;
                     Navigator.pushNamed(context, RouteManager.password);
                   }
+                  if (state is EmailNotValid) {
+                    _isLoading = false;
+                    customSnackBar(
+                        context,
+                        state.message ??
+                            "Email is already in use, please try with another email again!",
+                        ColorManager.error,
+                        4);
+                  }
+                },
+                builder: (context, state) {
+                  return CustomButton(
+                    isDisabled: _isLoading,
+                    widget: _isLoading ? const ButtonLoadingIndicator() : null,
+                    title: "Send",
+                    onPressed: () {
+                      if (formKey.currentState!.validate()) {
+                        formKey.currentState!.save();
+                        context.bloc<SignUpCubit>().checkIfEmailInUse(_email!);
+                      }
+                    },
+                  );
                 },
               ),
               Gap(16.h),

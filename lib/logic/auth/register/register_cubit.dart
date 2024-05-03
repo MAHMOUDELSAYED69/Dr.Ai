@@ -34,4 +34,6 @@ class RegisterCubit extends Cubit<RegisterState> {
       log(err.toString());
     }
   }
+
+  
 }

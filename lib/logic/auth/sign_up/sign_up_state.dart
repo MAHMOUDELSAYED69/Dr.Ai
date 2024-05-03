@@ -30,3 +30,15 @@ class CreateProfileFailure extends SignUpState {
   final String errorMessage;
   CreateProfileFailure({required this.errorMessage});
 }
+
+//?  email check
+
+class EmailCheckLoading extends SignUpState {}
+
+class EmailValid extends SignUpState {}
+
+class EmailNotValid extends SignUpState {
+  final String? message;
+
+  EmailNotValid({this.message});
+}

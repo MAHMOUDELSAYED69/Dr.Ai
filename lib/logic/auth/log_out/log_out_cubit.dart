@@ -20,7 +20,7 @@ class LogOutCubit extends Cubit<LogOutState> {
       for (QueryDocumentSnapshot<Map<String, dynamic>> documentSnapshot
           in querySnapshot.docs) {
         dynamic permission = documentSnapshot.data()['permission'];
-
+        
         if (permission == true) {
           await FirebaseService.logOut();
           await CacheData.clearData(clearData: true);
