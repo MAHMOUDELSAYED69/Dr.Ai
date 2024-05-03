@@ -5,19 +5,46 @@ import 'package:google_maps_flutter/google_maps_flutter.dart';
 
 class PlacesWebservices {
   static Dio dio = Dio();
+
+  // static Future<void> fetchNearestHospitals(
+  //     double latitude, double longitude) async {
+  //   final Map<String, dynamic> queryParameters = {
+  //     'location': '$latitude,$longitude',
+  //     'radius': '5000',
+  //     'type': 'hospital',
+  //     'key': ApiUrlManager.googleMap,
+  //   };
+
+  //   try {
+  //     final response =
+  //         await _dio.get(, queryParameters: queryParameters);
+  //     if (response.statusCode == 200) {
+  //       print('Hospitals data: ${response.data}');
+  //       // Handle the received data
+  //     } else {
+  //       print('Error fetching hospitals: ${response.statusMessage}');
+  //     }
+  //   } catch (e) {
+  //     print('Exception caught: $e');
+  //   }
+  // }
+
   //! Fetch Suggetions.
-  static Future fetchPlaceSuggestions(String place, String sessionToken) async {
+   static Future fetchPlaceSuggestions(String place, String sessionToken,
+      {double? latitude, double? longitude}) async {  
     try {
       Response response = await dio.get(
         ApiUrlManager.placeSuggetion,
         queryParameters: {
+          'location': '$latitude,$longitude',
           'radius': 5000,
           'input': place,
+          'region': 'eg',
+          'keyword': 'cruise',
           'types': 'hospital',
           'components': 'country:eg',
           'key': ApiUrlManager.googleMap,
           'sessiontoken': sessionToken,
-          // 'keyword': 'cruise',
         },
       );
 

@@ -23,7 +23,6 @@ class MapScreen extends StatefulWidget {
 }
 
 class _MapScreenState extends State<MapScreen> {
-  
   @override
   void initState() {
     super.initState();
@@ -62,7 +61,7 @@ class _MapScreenState extends State<MapScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.transparent,
+        backgroundColor: Colors.transparent,
         resizeToAvoidBottomInset: false,
         body: Stack(
           children: [

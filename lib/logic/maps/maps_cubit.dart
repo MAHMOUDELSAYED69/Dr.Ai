@@ -2,10 +2,12 @@ import 'dart:developer';
 
 import 'package:bloc/bloc.dart';
 import 'package:dio/dio.dart';
+import 'package:dr_ai/core/helper/location.dart';
 import 'package:dr_ai/data/model/place_directions.dart';
 import 'package:dr_ai/data/model/place_location.dart';
 import 'package:dr_ai/data/model/place_suggetion.dart';
 import 'package:dr_ai/data/service/api/maps_place.dart';
+import 'package:geolocator/geolocator.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:meta/meta.dart';
 
@@ -14,13 +16,21 @@ part 'maps_state.dart';
 class MapsCubit extends Cubit<MapsState> {
   MapsCubit() : super(MapsInitial());
 
+  double? lat;
+  double? long;
+
   //! Place suggetions.
-  Future<void> getPlaceSuggetions(
-      {required String place, required String sessionToken}) async {
+  Future<void> getPlaceSuggetions({
+    required String place,
+    required String sessionToken,
+  }) async {
     emit(MapsLoading());
     try {
+      Position position = await Geolocator.getCurrentPosition();
       List<dynamic> response = await PlacesWebservices.fetchPlaceSuggestions(
-          place.trim(), sessionToken);
+          place.trim(), sessionToken,
+          latitude: position.latitude ,
+          longitude: position.longitude);
 
       List<PlaceSuggestionModel> suggestionList = response
           .map((prediction) => PlaceSuggestionModel.fromJson(prediction))
