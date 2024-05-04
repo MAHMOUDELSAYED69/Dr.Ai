@@ -25,7 +25,8 @@ abstract class ColorManager {
   static const Color dark = Color(0xff1D1B20);
   static const Color white = Color(0xffFCFCFC);
   static const Color correct = Color(0xff25BD5D);
-  static const Color blue = Color(0xff0057A8);
+  static const Color lightBlue = Colors.blue;
+  static const Color darkBlue = Color(0xff0057A8);
   static const Color orange = Color(0xffEB7100);
   static const Color amber = Colors.amber;
   static const Color trasnsparent = Colors.transparent;

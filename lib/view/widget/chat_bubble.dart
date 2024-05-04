@@ -60,10 +60,19 @@ class ChatBubbleForDrAi extends StatelessWidget {
           ),
           color: ColorManager.grey.withOpacity(0.25),
         ),
-        child: Text(message,
+        child: TextSelectionTheme(
+          data: context.theme.textSelectionTheme.copyWith(
+              cursorColor: ColorManager.green,
+              selectionColor: ColorManager.green.withOpacity(0.3),
+              selectionHandleColor: ColorManager.green),
+          child: SelectableText(
+            message,
+            enableInteractiveSelection: true,
             textAlign: TextAlign.start,
             style: context.textTheme.bodySmall
-                ?.copyWith(color: ColorManager.darkGrey)),
+                ?.copyWith(color: ColorManager.darkGrey),
+          ),
+        ),
       ),
     );
   }
@@ -75,7 +84,6 @@ class ChatBubbleForGuest extends StatelessWidget {
     required this.message,
   }) : super(key: key);
 
-  // final Message message;
   final String message;
   @override
   Widget build(BuildContext context) {
@@ -93,9 +101,16 @@ class ChatBubbleForGuest extends StatelessWidget {
           ),
           color: ColorManager.green,
         ),
-        child: Text(message,
-            style: context.textTheme.bodySmall
-                ?.copyWith(color: ColorManager.white)),
+        child: TextSelectionTheme(
+          data: context.theme.textSelectionTheme.copyWith(
+            cursorColor: ColorManager.white,
+            selectionColor: ColorManager.white.withOpacity(0.3),
+            selectionHandleColor: ColorManager.white,
+          ),
+          child: SelectableText(message,
+              style: context.textTheme.bodySmall
+                  ?.copyWith(color: ColorManager.white)),
+        ),
       ),
     );
   }
