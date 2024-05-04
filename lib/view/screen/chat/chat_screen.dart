@@ -25,8 +25,13 @@ class _ChatScreenState extends State<ChatScreen> {
 
   void _sendMessage() {
     if (_controller.text.isNotEmpty) {
-      BlocProvider.of<ChatCubit>(context)
-          .sendMessage(message: _controller.text);
+      context.bloc<ChatCubit>().sendMessage(message: _controller.text);
+    }
+  }
+
+  void onSelected(value) {
+    if (value == 'delete') {
+      context.bloc<ChatCubit>().deleteChatHistory();
     }
   }
 
@@ -38,8 +43,6 @@ class _ChatScreenState extends State<ChatScreen> {
 
   @override
   Widget build(BuildContext context) {
-    final cubit = context.bloc<ChatCubit>();
-
     return BlocConsumer<ChatCubit, ChatState>(
       listener: (context, state) {
         if (state is ChatSenderLoading) {
@@ -70,15 +73,7 @@ class _ChatScreenState extends State<ChatScreen> {
             title: const Text("Doctor AI Chat"),
             shape: context.appBarTheme.shape,
             actions: [
-              IconButton(
-                icon: Icon(
-                  Icons.more_vert_sharp,
-                  size: 25.r,
-                ),
-                onPressed: () {
-                  //! TODO : delete chat history
-                },
-              )
+              _buildPopupMenuButton(),
             ],
           ),
           bottomNavigationBar: Padding(
@@ -148,9 +143,26 @@ class _ChatScreenState extends State<ChatScreen> {
       ),
     );
   }
+
+  PopupMenuButton _buildPopupMenuButton() {
+    return PopupMenuButton<String>(
+      padding: EdgeInsets.zero,
+      onSelected: onSelected,
+      offset: Offset(0, 30.h),
+      itemBuilder: (BuildContext context) {
+        return [
+          PopupMenuItem<String>(
+            height: 28.h,
+            value: 'delete',
+            child: Text('Clear Chat History',
+                style: context.textTheme.bodySmall
+                    ?.copyWith(color: ColorManager.black)),
+          ),
+        ];
+      },
+    );
+  }
 }
-
-
 
 // import 'package:dr_ai/core/constant/image.dart';
 // import 'package:dr_ai/core/helper/custom_dialog.dart';
