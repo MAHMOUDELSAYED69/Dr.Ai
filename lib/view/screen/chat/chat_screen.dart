@@ -69,6 +69,17 @@ class _ChatScreenState extends State<ChatScreen> {
           appBar: AppBar(
             title: const Text("Doctor AI Chat"),
             shape: context.appBarTheme.shape,
+            actions: [
+              IconButton(
+                icon: Icon(
+                  Icons.more_vert_sharp,
+                  size: 25.r,
+                ),
+                onPressed: () {
+                  //! TODO : delete chat history
+                },
+              )
+            ],
           ),
           bottomNavigationBar: Padding(
             padding: EdgeInsets.only(

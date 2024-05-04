@@ -22,15 +22,11 @@ class ChatFailure extends ChatState {
   ChatFailure({required this.message});
 }
 
-class ClearChatLoading extends ChatState {}
+class ChatDeletingLoading extends ChatState {}
 
-class ClearChatSuccess extends ChatState {
+class ChatDeleteSuccess extends ChatState {}
+
+class ChatDeleteFailure extends ChatState {
   final String message;
-  ClearChatSuccess({required this.message});
+  ChatDeleteFailure({required this.message});
 }
-
-class ClearChatFailure extends ChatState {
-  final String message;
-  ClearChatFailure({required this.message});
-}
-

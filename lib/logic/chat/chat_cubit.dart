@@ -16,7 +16,6 @@ class ChatCubit extends Cubit<ChatState> {
   ChatCubit() : super(ChatInitial()) {
     FirebaseAuth.instance.authStateChanges().listen((user) {
       if (user != null) {
-
         _messagesCollection = FirebaseFirestore.instance
             .collection('chat_history')
             .doc(user.uid)
@@ -24,7 +23,7 @@ class ChatCubit extends Cubit<ChatState> {
         startListeningToMessages();
       } else {
         _messagesSubscription?.cancel();
-        _messagesCollection = null; 
+        _messagesCollection = null;
       }
     });
   }
@@ -71,6 +70,23 @@ class ChatCubit extends Cubit<ChatState> {
         emit(ChatSendSuccess());
       } on Exception catch (err) {
         emit(ChatFailure(message: err.toString()));
+      }
+    }
+  }
+
+  Future<void> deleteChatHistory() async {
+    if (_messagesCollection != null) {
+      emit(ChatDeletingLoading());
+      try {
+       
+        final messagesQuerySnapshot = await _messagesCollection!.get();
+    
+        for (var doc in messagesQuerySnapshot.docs) {
+          await _messagesCollection!.doc(doc.id).delete();
+        }
+        emit(ChatDeleteSuccess());
+      } on FirebaseException catch (err) {
+        emit(ChatDeleteFailure(message: err.toString()));
       }
     }
   }

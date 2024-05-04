@@ -67,7 +67,6 @@ class SignUpCubit extends Cubit<SignUpState> {
 
   Future<void> checkIfEmailInUse(String emailAddress) async {
     emit(EmailCheckLoading());
-
     try {
       if (_ctn < 5) {
         final querySnapshot = await _firestore

@@ -185,10 +185,11 @@ class AccountCubit extends Cubit<AccountState> {
       AuthCredential credential = EmailAuthProvider.credential(
           email: (user.email).toString(), password: password);
       try {
-        await user.reauthenticateWithCredential(credential).whenComplete(() {
-          emit(AccountReAuthSuccess());
-          log('User re-authenticated successfully');
-        });
+        await user
+            .reauthenticateWithCredential(credential)
+            .timeout(const Duration(seconds: 5));
+        emit(AccountReAuthSuccess());
+        log('User re-authenticated successfully');
       } on FirebaseAuthException catch (err) {
         if (err.code == 'wrong-password' || err.code == 'invalid-credential') {
           emit(AccountReAuthFailure(message: 'Wrong password'));
