@@ -7,13 +7,16 @@ class ButtonLoadingIndicator extends StatelessWidget {
   const ButtonLoadingIndicator({
     super.key,
     this.color,
+    this.radius,
   });
+
   final Color? color;
+  final double? radius;
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-      height: 20.w,
-      width: 20.w,
+      height: radius ?? 20.w,
+      width: radius ?? 20.w,
       child: CircularProgressIndicator(
         color: color ?? ColorManager.white,
         strokeCap: StrokeCap.round,

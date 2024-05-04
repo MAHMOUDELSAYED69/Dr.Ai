@@ -27,6 +27,6 @@ class ChatDeletingLoading extends ChatState {}
 class ChatDeleteSuccess extends ChatState {}
 
 class ChatDeleteFailure extends ChatState {
-  final String message;
-  ChatDeleteFailure({required this.message});
+  final String? message;
+  ChatDeleteFailure({ this.message});
 }

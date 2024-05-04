@@ -1,8 +1,11 @@
+import 'package:dr_ai/core/helper/scaffold_snakbar.dart';
+import 'package:dr_ai/view/widget/button_loading_indicator.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:dr_ai/logic/chat/chat_cubit.dart';
 import 'package:dr_ai/data/model/chat_message_model.dart';
+import 'package:gap/gap.dart';
 import '../../widget/chat_bubble.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import '../../../core/constant/color.dart';
@@ -20,6 +23,7 @@ class ChatScreen extends StatefulWidget {
 class _ChatScreenState extends State<ChatScreen> {
   bool _isSenderLoading = false;
   bool _isReceiverLoading = false;
+  bool _isChatDeletingLoading = false;
   List<ChatMessageModel> _chatMessageModel = [];
   late TextEditingController _controller;
 
@@ -66,6 +70,19 @@ class _ChatScreenState extends State<ChatScreen> {
           _isReceiverLoading = false;
           alertMessage(context);
         }
+        if (state is ChatDeletingLoading) {
+          _isChatDeletingLoading = true;
+        }
+        if (state is ChatDeleteSuccess) {
+          _isChatDeletingLoading = false;
+          customSnackBar(context, "Chat History Deleted Successfully.",
+              ColorManager.green);
+        }
+        if (state is ChatDeleteFailure) {
+          _isChatDeletingLoading = false;
+          customSnackBar(context, "Chat History Deleted Successfully.",
+              ColorManager.green);
+        }
       },
       builder: (context, state) {
         return Scaffold(
@@ -85,9 +102,56 @@ class _ChatScreenState extends State<ChatScreen> {
               child: _buildChatTextField(context),
             ),
           ),
-          body: _buildMessages(),
+          body: _chatMessageModel.isEmpty
+              ? _buildEmptyChatBackgroud()
+              : _isChatDeletingLoading
+                  ? _buildLoadingIndicator()
+                  : _buildMessages(),
         );
       },
+    );
+  }
+
+  Widget _buildLoadingIndicator() {
+    return Align(
+      alignment: Alignment.center,
+      child: Container(
+        alignment: Alignment.center,
+        width: 50.w,
+        height: 50.w,
+        decoration: BoxDecoration(
+          color: ColorManager.green.withOpacity(0.5),
+          shape: BoxShape.circle,
+        ),
+        child: SizedBox(
+          width: 25.w,
+          height: 25.w,
+          child: const CircularProgressIndicator(
+            strokeCap: StrokeCap.round,
+            color: ColorManager.white,
+          ),
+        ),
+      ),
+    );
+  }
+
+  Widget _buildEmptyChatBackgroud() {
+    return Center(
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          SvgPicture.asset(
+            ImageManager.chatIcon,
+            width: 100.w,
+            height: 100.h,
+            // ignore: deprecated_member_use
+            color: ColorManager.green,
+          ),
+          Gap(10.h),
+          Text("Start Chatting With Dr. AI",
+              style: context.textTheme.bodyMedium),
+        ],
+      ),
     );
   }
 

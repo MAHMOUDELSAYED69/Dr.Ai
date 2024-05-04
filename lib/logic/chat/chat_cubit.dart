@@ -78,15 +78,14 @@ class ChatCubit extends Cubit<ChatState> {
     if (_messagesCollection != null) {
       emit(ChatDeletingLoading());
       try {
-       
         final messagesQuerySnapshot = await _messagesCollection!.get();
-    
+
         for (var doc in messagesQuerySnapshot.docs) {
           await _messagesCollection!.doc(doc.id).delete();
         }
         emit(ChatDeleteSuccess());
-      } on FirebaseException catch (err) {
-        emit(ChatDeleteFailure(message: err.toString()));
+      } on FirebaseException catch (_) {
+        emit(ChatDeleteFailure(message: "Failed to delete chat history"));
       }
     }
   }

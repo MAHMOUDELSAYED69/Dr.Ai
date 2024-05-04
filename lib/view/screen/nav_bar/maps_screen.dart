@@ -65,28 +65,7 @@ class _MapScreenState extends State<MapScreen> {
         resizeToAvoidBottomInset: false,
         body: Stack(
           children: [
-            _position != null
-                ? _buildMap()
-                : Align(
-                    alignment: Alignment.center,
-                    child: Container(
-                      alignment: Alignment.center,
-                      width: 50.w,
-                      height: 50.w,
-                      decoration: BoxDecoration(
-                        color: ColorManager.green.withOpacity(0.5),
-                        shape: BoxShape.circle,
-                      ),
-                      child: SizedBox(
-                        width: 25.w,
-                        height: 25.w,
-                        child: const CircularProgressIndicator(
-                          strokeCap: StrokeCap.round,
-                          color: ColorManager.white,
-                        ),
-                      ),
-                    ),
-                  ),
+            _position != null ? _buildMap() : _buildLoadingIndicator(),
             _buildSelectedPlaceLocation(),
             _isSearchedPlaceMarkerClicked && _placeDirections != null
                 ? DistanceAndTime(
@@ -145,7 +124,7 @@ class _MapScreenState extends State<MapScreen> {
   Widget _buildMap() {
     return GoogleMap(
       mapToolbarEnabled: false,
-      compassEnabled:true,
+      compassEnabled: true,
       buildingsEnabled: true,
       markers: _markers,
       initialCameraPosition: CameraPosition(
@@ -188,7 +167,7 @@ class _MapScreenState extends State<MapScreen> {
 
   Future<void> _goToMyCurrentLocation() async {
     LocationHelper.determineCurrentPosition();
-     Geolocator.getCurrentPosition();
+    Geolocator.getCurrentPosition();
     final GoogleMapController controller = await mapController.future;
     controller.animateCamera(
         CameraUpdate.newCameraPosition(_myCurrrentPositionCameraPosition));
@@ -276,5 +255,28 @@ class _MapScreenState extends State<MapScreen> {
           destination: LatLng(_selectedPlace.lat, _selectedPlace.lng),
         );
     setState(() {});
+  }
+
+  Widget _buildLoadingIndicator() {
+    return Align(
+      alignment: Alignment.center,
+      child: Container(
+        alignment: Alignment.center,
+        width: 50.w,
+        height: 50.w,
+        decoration: BoxDecoration(
+          color: ColorManager.green.withOpacity(0.5),
+          shape: BoxShape.circle,
+        ),
+        child: SizedBox(
+          width: 25.w,
+          height: 25.w,
+          child: const CircularProgressIndicator(
+            strokeCap: StrokeCap.round,
+            color: ColorManager.white,
+          ),
+        ),
+      ),
+    );
   }
 }
