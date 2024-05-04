@@ -38,7 +38,7 @@ class _NavbarScreenState extends State<NavbarScreen> {
     };
   }
 
-  List<Widget> _buildScreens() {
+  List<Widget> _buildScreens() { 
     return [
       const HomeScreen(),
       const NFCScreen(),

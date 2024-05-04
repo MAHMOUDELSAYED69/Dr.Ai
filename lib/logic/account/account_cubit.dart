@@ -185,9 +185,7 @@ class AccountCubit extends Cubit<AccountState> {
       AuthCredential credential = EmailAuthProvider.credential(
           email: (user.email).toString(), password: password);
       try {
-        await user
-            .reauthenticateWithCredential(credential)
-            .timeout(const Duration(seconds: 5));
+        await user.reauthenticateWithCredential(credential);
         emit(AccountReAuthSuccess());
         log('User re-authenticated successfully');
       } on FirebaseAuthException catch (err) {
