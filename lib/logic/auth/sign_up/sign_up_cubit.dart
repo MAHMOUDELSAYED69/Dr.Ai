@@ -70,7 +70,7 @@ class SignUpCubit extends Cubit<SignUpState> {
     try {
       if (_ctn < 5) {
         final querySnapshot = await _firestore
-            .collection('users')
+            .collection('users').where('isActive', isEqualTo: true)
             .get()
             .timeout(const Duration(seconds: 5));
         final isEmailInUse = querySnapshot.docs

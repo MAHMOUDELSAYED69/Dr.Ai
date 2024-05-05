@@ -42,53 +42,73 @@ class AccountCubit extends Cubit<AccountState> {
     }
   }
 
-  // Future<void> deleteUserData() async {
-  //   try {
-  //     if (FirebaseAuth.instance.currentUser != null) {
-  //       final uid = FirebaseAuth.instance.currentUser!.uid;
-  //       await FirebaseFirestore.instance
-  //           .collection('chat_history')
-  //           .doc(uid)
-  //           .delete();
-  //       log("DELETED CHAT HISTORY");
-  //       await FirebaseFirestore.instance.collection('users').doc(uid).delete();
-  //       log("DELETED USER DATA");
-  //     } else {
-  //       log("Data not deleted. User is not logged in.");
-  //     }
-  //   } catch (err) {
-  //     log("Error deleting data: ${err.toString()}");
-  //   }
-  // }
-
   Future<void> deleteAccount() async {
     emit(AccountDeleteLoading());
     try {
       await Future.delayed(const Duration(milliseconds: 500));
+      await _deleteChatHistory();
       await _firestore
           .collection('users')
           .doc(FirebaseAuth.instance.currentUser!.uid)
-          .update({'isActive': false});
-      log("User not active");
-      await FirebaseAuth.instance.currentUser?.delete().timeout(
-            const Duration(seconds: 10),
-            onTimeout: () =>
-                emit(AccountDeleteFailure(message: "Failed to delete account")),
-          );
+          .update(
+        {'isActive': false},
+      );
+      // await _deleteUserData();
+      log("DELETED CHAT HISTORY");
+      await FirebaseAuth.instance.currentUser?.delete();
       log("DELETED USER ACCOUNT");
       await CacheData.clearData(clearData: true);
       log("DELETED CACHE DATA");
       await FirebaseAuth.instance.signOut();
       log("LOGGED OUT");
-      emit(AccountDeleteSuccess(
-        message: "Account deleted successfully",
-      ));
+      emit(AccountDeleteSuccess(message: "Account deleted successfully"));
       log("ACCOUNT DELETED SUCCESSFULLY");
     } on FirebaseException catch (err) {
       log("DELETE ACCOUNT ERROR: ${err.toString()}");
       emit(AccountDeleteFailure(message: err.message.toString()));
     }
   }
+
+  //! DELETE USER DATA
+  Future<void> _deleteUserData() async {
+    emit(UserDataDeletingLoading());
+    try {
+      await _firestore
+          .collection('users')
+          .doc(FirebaseAuth.instance.currentUser?.uid)
+          .get();
+      log("DELETED USER DATA");
+      await CacheData.clearData(clearData: true);
+      log("DELETED CACHE DATA");
+      emit(UserDataDeleteSuccess());
+      log("ACCOUNT DELETED SUCCESSFULLY");
+    } on FirebaseException catch (err) {
+      log("${err.message} \n ${err.stackTrace} \n ${err.code.toString()} \n ${err.plugin}");
+      emit(UserDataDeleteFailure(message: "Failed to delete user data"));
+    }
+  }
+
+//! DELETE Chat History
+
+  Future<void> _deleteChatHistory() async {
+    CollectionReference messagesCollection = FirebaseFirestore.instance
+        .collection('chat_history')
+        .doc(FirebaseAuth.instance.currentUser?.uid)
+        .collection('messages');
+    emit(ChatDeletingLoading());
+    try {
+      final messagesQuerySnapshot = await messagesCollection.get();
+
+      for (var doc in messagesQuerySnapshot.docs) {
+        await messagesCollection.doc(doc.id).delete();
+      }
+      emit(ChatDeleteSuccess());
+      log("CHAT HISTORY DELETED SUCCESSFULLY");
+    } on FirebaseException catch (_) {
+      emit(ChatDeleteFailure(message: "Failed to delete chat history"));
+    }
+  }
+
   //   Future<void> deleteAccount() async {
   //   emit(AccountDeleteLoading());
   //   try {

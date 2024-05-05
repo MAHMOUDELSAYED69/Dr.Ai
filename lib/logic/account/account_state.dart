@@ -109,6 +109,28 @@ class AccountRatingResult extends AccountState {
 
   AccountRatingResult({this.rating});
 }
+
+//! DELETE USER DATA
+class UserDataDeletingLoading extends AccountState {}
+
+class UserDataDeleteSuccess extends AccountState {}
+
+class UserDataDeleteFailure extends AccountState {
+  final String message;
+
+  UserDataDeleteFailure({required this.message});
+}
+
+//! DELETE CHAT HISTORY
+class ChatDeletingLoading extends AccountState {}
+
+class ChatDeleteSuccess extends AccountState {}
+
+class ChatDeleteFailure extends AccountState {
+  final String message;
+
+  ChatDeleteFailure({required this.message});
+}
 // //? update image
 // class AccountUpdateImageLoading extends AccountState {}
 
@@ -137,3 +159,4 @@ class AccountRatingResult extends AccountState {
 
 //   AccountLoadedFailure({required this.message});
 // }
+

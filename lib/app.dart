@@ -15,6 +15,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'core/constant/color.dart';
 import 'core/helper/responsive.dart';
 import 'core/router/app_router.dart';
 import 'core/theme/app_theme.dart';
@@ -102,6 +103,7 @@ class _MyAppState extends State<MyApp> {
                     duration: const Duration(microseconds: 250),
                     curve: Curves.linear,
                   ),
+                  color: ColorManager.white,
                   debugShowCheckedModeBanner: false,
                   title: 'Dr AI',
                   theme: AppTheme.lightTheme,

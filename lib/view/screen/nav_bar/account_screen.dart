@@ -122,7 +122,7 @@ class _AccountScreenState extends State<AccountScreen> {
                               "Are you sure you want to delete your account?",
                           buttonTitle: "Delete",
                           image: ImageManager.errorIcon,
-                          onPressed: () async => await cubit.deleteAccount());
+                          onPressed: () => cubit.deleteAccount());
                     },
                   ),
                   divider,

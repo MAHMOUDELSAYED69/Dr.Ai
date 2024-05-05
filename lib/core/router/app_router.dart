@@ -42,7 +42,7 @@ abstract class AppRouter {
         return PageTransitionManager.materialPageRoute(
             const EditProfileScreen());
       case RouteManager.oldPassword:
-        return PageTransitionManager.customMaterialPageRoute(
+        return PageTransitionManager.materialPageRoute(
             const OldPasswordScreen());
       case RouteManager.newPassword:
         return PageTransitionManager.fadeTransition(
