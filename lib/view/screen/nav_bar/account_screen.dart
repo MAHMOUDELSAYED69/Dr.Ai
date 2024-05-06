@@ -30,7 +30,7 @@ class _AccountScreenState extends State<AccountScreen> {
     super.initState();
     context.bloc<AccountCubit>().getprofileData();
   }
-  
+
   UserDataModel? _userData;
   @override
   Widget build(BuildContext context) {
@@ -114,16 +114,9 @@ class _AccountScreenState extends State<AccountScreen> {
                     title: "Delete Account",
                     image: ImageManager.deteteAccountIcon,
                     color: ColorManager.error,
-                    onPressed: () {
-                      customDialog(context,
-                          secondButtoncolor: ColorManager.error,
-                          title: "Delete Account?!",
-                          subtitle:
-                              "Are you sure you want to delete your account?",
-                          buttonTitle: "Delete",
-                          image: ImageManager.errorIcon,
-                          onPressed: () => cubit.deleteAccount());
-                    },
+                    onPressed: () => showDialog(
+                        context: context,
+                        builder: (context) => const DeleteAccountDialog()),
                   ),
                   divider,
                   _buildProfileCard(context,

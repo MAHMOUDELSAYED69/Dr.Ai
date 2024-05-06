@@ -1,7 +1,9 @@
 import 'package:dr_ai/core/constant/color.dart';
 import 'package:dr_ai/core/helper/extention.dart';
+import 'package:dr_ai/logic/validation/formvalidation_cubit.dart';
 import 'package:dr_ai/view/widget/button_loading_indicator.dart';
 import 'package:dr_ai/view/widget/custom_button.dart';
+import 'package:dr_ai/view/widget/custom_text_field.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -183,6 +185,129 @@ class _CustomDialogState extends State<CustomDialog> {
                       onPressed: widget.onPressed,
                     ),
             ],
+          ),
+        );
+      },
+    );
+  }
+}
+
+class DeleteAccountDialog extends StatefulWidget {
+  const DeleteAccountDialog({super.key});
+
+  @override
+  State<DeleteAccountDialog> createState() => _DeleteAccountDialogState();
+}
+
+class _DeleteAccountDialogState extends State<DeleteAccountDialog> {
+  late GlobalKey<FormState> _formKey;
+  @override
+  void initState() {
+    _formKey = GlobalKey<FormState>();
+    super.initState();
+  }
+
+  String? _password;
+  bool _isLoading = false;
+  String? errorMessage;
+  @override
+  Widget build(BuildContext context) {
+    final cubit = context.bloc<AccountCubit>();
+    return BlocConsumer<AccountCubit, AccountState>(
+      listener: (context, state) {
+        if (state is AccountReAuthLoading) {
+          errorMessage = null;
+          _isLoading = true;
+        }
+        if (state is AccountReAuthSuccess) {
+          _isLoading = false;
+          context.pop();
+          customDialog(context,
+              secondButtoncolor: ColorManager.error,
+              title: "Delete Account?!",
+              subtitle: "Are you sure you want to delete your account?",
+              buttonTitle: "Delete",
+              image: ImageManager.errorIcon,
+              onPressed: () => cubit.deleteAccount());
+        }
+        if (state is AccountReAuthFailure) {
+          _isLoading = false;
+          errorMessage = state.message;
+        }
+      },
+      builder: (context, state) {
+        return Center(
+          child: SingleChildScrollView(
+            child: Dialog(
+              insetPadding: REdgeInsets.all(16.w),
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(12.dm),
+              ),
+              elevation: 0,
+              backgroundColor: ColorManager.white,
+              child: Container(
+                padding: EdgeInsets.symmetric(vertical: 28.h, horizontal: 16.w),
+                decoration: BoxDecoration(
+                  color: ColorManager.white,
+                  shape: BoxShape.rectangle,
+                  borderRadius: BorderRadius.circular(12.dm),
+                ),
+                child: Column(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    SvgPicture.asset(
+                      ImageManager.errorIcon,
+                      width: 125.w,
+                      height: 125.w,
+                    ),
+                    Gap(18.h),
+                    Text("Delete Account?!",
+                        textAlign: TextAlign.center,
+                        style: context.textTheme.bodyLarge?.copyWith(
+                            color: ColorManager.error, fontSize: 18.spMin)),
+                    Gap(8.h),
+                    Text(
+                      "Enter your password to delete your account",
+                      textAlign: TextAlign.center,
+                      style: context.textTheme.bodySmall,
+                    ),
+                    Gap(errorMessage != null ? 8.h : 0),
+                    if (errorMessage != null)
+                      Text(
+                        errorMessage!,
+                        textAlign: TextAlign.center,
+                        style: context.textTheme.bodyMedium
+                            ?.copyWith(color: ColorManager.error),
+                      ),
+                    Form(
+                      key: _formKey,
+                      child: CustomTextFormField(
+                        obscureText: true,
+                        isVisible: true,
+                        title: "Password",
+                        onSaved: (data) => _password = data,
+                        validator: context
+                            .bloc<FormvalidationCubit>()
+                            .validatePassword,
+                      ),
+                    ),
+                    Gap(22.h),
+                    CustomButton(
+                      isDisabled: _isLoading,
+                      widget:
+                          _isLoading ? const ButtonLoadingIndicator() : null,
+                      title: "Next",
+                      onPressed: () {
+                        if (_formKey.currentState?.validate() ?? false) {
+                          _formKey.currentState?.save();
+                          cubit.reAuthenticateUser(_password!);
+                        }
+                      },
+                    ),
+                  ],
+                ),
+              ),
+            ),
           ),
         );
       },
