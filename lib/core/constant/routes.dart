@@ -14,4 +14,7 @@ abstract class RouteManager {
   static const oldPassword = "/oldPassword";
   static const newPassword = "/newPassword";
   static const aboutUs = "/aboutUs";  
+  static const reAuthScreen = "/reAuthScreen";  
+  static const deleteAccount = "/deleteAccount";  
+  
 }

@@ -65,7 +65,7 @@ class _NewPasswordScreenState extends State<NewPasswordScreen> {
                       key: _formKey,
                       child: Column(
                         children: [
-                          const UpdatePasswordStepper(stepReachedNumber: 1),
+                          const ReAuthanticateStepper(stepReachedNumber: 1),
                           CustomTextFormField(
                             keyboardType: TextInputType.visiblePassword,
                             isVisible: true,

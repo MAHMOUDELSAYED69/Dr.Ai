@@ -1,4 +1,5 @@
 import 'package:dr_ai/core/constant/routes.dart';
+import 'package:dr_ai/core/helper/custom_dialog.dart';
 import 'package:dr_ai/core/helper/extention.dart';
 import 'package:dr_ai/logic/validation/formvalidation_cubit.dart';
 import 'package:dr_ai/view/widget/button_loading_indicator.dart';
@@ -11,14 +12,30 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:gap/gap.dart';
 
 import '../../../../core/constant/color.dart';
+import '../../../../core/constant/image.dart';
 import '../../../../core/helper/scaffold_snakbar.dart';
 import '../../../../logic/account/account_cubit.dart';
 import '../../../widget/custom_button.dart';
 import '../../auth/forget_password.dart';
 
 class OldPasswordScreen extends StatefulWidget {
-  const OldPasswordScreen({super.key});
+  const OldPasswordScreen(
+      {super.key,
+      this.stepIconOne,
+      this.stepIconTwo,
+      this.stepTitleOne,
+      this.stepTitleTwo,
+      this.stepColorOne,
+      this.stepColorTwo,
+      this.navigator});
 
+  final String? stepIconOne;
+  final String? stepIconTwo;
+  final String? stepTitleOne;
+  final String? stepTitleTwo;
+  final Color? stepColorOne;
+  final Color? stepColorTwo;
+  final String? navigator;
   @override
   State<OldPasswordScreen> createState() => _OldPasswordScreenState();
 }
@@ -29,7 +46,7 @@ class _OldPasswordScreenState extends State<OldPasswordScreen> {
   bool _isLoading = false;
   @override
   Widget build(BuildContext context) {
-    final password = context.bloc<AccountCubit>();
+    final cubit = context.bloc<AccountCubit>();
     final validator = context.bloc<FormvalidationCubit>();
     return BlocConsumer<AccountCubit, AccountState>(
       listener: (context, state) {
@@ -37,8 +54,10 @@ class _OldPasswordScreenState extends State<OldPasswordScreen> {
           _isLoading = true;
         }
         if (state is AccountReAuthSuccess) {
+          FocusScope.of(context).unfocus();
+          Navigator.pushReplacementNamed(
+              context, widget.navigator ?? RouteManager.newPassword);
           _isLoading = false;
-          Navigator.pushReplacementNamed(context, RouteManager.newPassword);
         }
         if (state is AccountReAuthFailure) {
           _isLoading = false;
@@ -51,22 +70,31 @@ class _OldPasswordScreenState extends State<OldPasswordScreen> {
             child: Column(
               children: [
                 Gap(32.h),
-                const CustomScrollableAppBar(
-                  title: "Change Password",
+                CustomScrollableAppBar(
+                  title: widget.stepTitleOne ?? "Change Password",
                 ),
                 Gap(20.h),
                 Padding(
                   padding: EdgeInsets.symmetric(horizontal: 18.w),
                   child: Column(
                     children: [
-                      const UpdatePasswordStepper(stepReachedNumber: 0),
+                      ReAuthanticateStepper(
+                        stepReachedNumber: 0,
+                        stepColorOne: widget.stepColorOne,
+                        stepColorTwo: widget.stepColorTwo,
+                        stepIconOne: widget.stepIconOne,
+                        stepIconTwo: widget.stepIconTwo,
+                        stepTitleOne: widget.stepTitleOne,
+                        stepTitleTwo: widget.stepTitleTwo,
+                      ),
                       Form(
                         key: _formKey,
                         child: CustomTextFormField(
                           keyboardType: TextInputType.visiblePassword,
                           isVisible: true,
-                          title: "Old Password",
-                          hintText: "Enter Your Old Password",
+                          title: widget.stepTitleOne ?? "Old Password",
+                          hintText:
+                              "Enter Your ${widget.stepTitleOne ?? 'Old Password'}",
                           onSaved: (data) {
                             _password = data;
                           },
@@ -103,7 +131,7 @@ class _OldPasswordScreenState extends State<OldPasswordScreen> {
               onPressed: () async {
                 if (_formKey.currentState!.validate()) {
                   _formKey.currentState?.save();
-                  await password.reAuthenticateUser(_password!);
+                  await cubit.reAuthenticateUser(_password!);
                 }
               },
             ),

@@ -99,14 +99,28 @@ class SignInStepperFormState extends State<SignInStepperForm> {
   }
 }
 
-class UpdatePasswordStepper extends StatefulWidget {
-  const UpdatePasswordStepper({super.key, required this.stepReachedNumber});
+class ReAuthanticateStepper extends StatefulWidget {
+  const ReAuthanticateStepper(
+      {super.key,
+      required this.stepReachedNumber,
+      this.stepIconOne,
+      this.stepIconTwo,
+      this.stepTitleOne,
+      this.stepTitleTwo,
+      this.stepColorOne,
+      this.stepColorTwo});
   final int stepReachedNumber;
+  final String? stepIconOne;
+  final String? stepIconTwo;
+  final String? stepTitleOne;
+  final String? stepTitleTwo;
+  final Color? stepColorOne;
+  final Color? stepColorTwo;
   @override
-  UpdatePasswordStepperState createState() => UpdatePasswordStepperState();
+  ReAuthanticateStepperState createState() => ReAuthanticateStepperState();
 }
 
-class UpdatePasswordStepperState extends State<UpdatePasswordStepper> {
+class ReAuthanticateStepperState extends State<ReAuthanticateStepper> {
   int activeStep = 0;
   @override
   void initState() {
@@ -124,14 +138,14 @@ class UpdatePasswordStepperState extends State<UpdatePasswordStepper> {
         lineLength: context.width / 3,
         lineType: LineType.dashed,
         activeLineColor: ColorManager.green,
-        finishedLineColor: ColorManager.green,
+        finishedLineColor: widget.stepColorTwo ?? ColorManager.green,
         defaultLineColor: ColorManager.grey,
         lineThickness: 2.dm,
       ),
       stepShape: StepShape.rRectangle,
       stepBorderRadius: 6.dm,
       borderThickness: 3.dm,
-      activeStepBorderColor: ColorManager.green,
+      activeStepBorderColor: widget.stepColorTwo ?? ColorManager.green,
       defaultStepBorderType: BorderType.normal,
       stepRadius: 24.r,
       finishedStepBorderColor: ColorManager.green,
@@ -144,11 +158,11 @@ class UpdatePasswordStepperState extends State<UpdatePasswordStepper> {
           customStep: SvgPicture.asset(
             width: 18.w,
             height: 18.w,
-            ImageManager.passwordIcon,
+            widget.stepIconOne ?? ImageManager.passwordIcon,
             color: activeStep >= 0 ? ColorManager.green : ColorManager.grey,
           ),
           customTitle: Text(
-            "Old Password",
+            widget.stepTitleOne ?? "Old Password",
             textAlign: TextAlign.center,
             style: context.textTheme.bodySmall?.copyWith(
               color: activeStep >= 0 ? ColorManager.black : ColorManager.grey,
@@ -159,15 +173,20 @@ class UpdatePasswordStepperState extends State<UpdatePasswordStepper> {
           customStep: SvgPicture.asset(
             width: 18.w,
             height: 18.w,
-            ImageManager.passwordIcon,
-            color: activeStep >= 1 ? ColorManager.green : ColorManager.grey,
+            widget.stepIconTwo ?? ImageManager.passwordIcon,
+            color: activeStep >= 1
+                ? widget.stepColorTwo ?? ColorManager.green
+                : ColorManager.grey,
           ),
           customTitle: Text(
-            "New Password",
+            widget.stepTitleTwo ?? "New Password",
             textAlign: TextAlign.center,
             style: context.textTheme.bodySmall?.copyWith(
-              color: activeStep >= 1 ? ColorManager.black : ColorManager.grey,
-            ),
+                color: activeStep >= 1
+                    ? widget.stepColorTwo ?? ColorManager.black
+                    : ColorManager.grey,
+                fontWeight:
+                    widget.stepColorTwo != null ? FontWeight.bold : null),
           ),
         ),
       ],

@@ -34,6 +34,7 @@ void customDialog(BuildContext context,
     String? errorMessage,
     Color? secondButtoncolor,
     Widget? widget,
+    VoidCallback? onCancle,
     bool? dismiss}) {
   showDialog(
       context: context,
@@ -47,6 +48,7 @@ void customDialog(BuildContext context,
             errorMessage: errorMessage,
             secondButtoncolor: secondButtoncolor,
             widget: widget,
+            onCancle: onCancle,
           ));
 }
 
@@ -61,6 +63,7 @@ class CustomDialog extends StatefulWidget {
     this.errorMessage,
     this.secondButtoncolor,
     this.widget,
+    this.onCancle,
   });
   final String title;
   final String subtitle;
@@ -70,6 +73,7 @@ class CustomDialog extends StatefulWidget {
   final Color? secondButtoncolor;
   final Widget? widget;
   final String image;
+  final VoidCallback? onCancle;
 
   @override
   State<CustomDialog> createState() => _CustomDialogState();
@@ -165,7 +169,7 @@ class _CustomDialogState extends State<CustomDialog> {
                       children: [
                         CustomButton(
                           title: "Cancel",
-                          onPressed: () => context.pop(),
+                          onPressed: widget.onCancle ?? () => context.pop(),
                         ),
                         Gap(13.h),
                         CustomButton(
@@ -222,13 +226,6 @@ class _DeleteAccountDialogState extends State<DeleteAccountDialog> {
         if (state is AccountReAuthSuccess) {
           _isLoading = false;
           context.pop();
-          customDialog(context,
-              secondButtoncolor: ColorManager.error,
-              title: "Delete Account?!",
-              subtitle: "Are you sure you want to delete your account?",
-              buttonTitle: "Delete",
-              image: ImageManager.errorIcon,
-              onPressed: () => cubit.deleteAccount());
         }
         if (state is AccountReAuthFailure) {
           _isLoading = false;
@@ -282,7 +279,6 @@ class _DeleteAccountDialogState extends State<DeleteAccountDialog> {
                     Form(
                       key: _formKey,
                       child: CustomTextFormField(
-                        obscureText: true,
                         isVisible: true,
                         title: "Password",
                         onSaved: (data) => _password = data,

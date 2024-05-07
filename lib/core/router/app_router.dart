@@ -1,4 +1,6 @@
 import 'package:dr_ai/core/constant/routes.dart';
+import 'package:dr_ai/view/screen/account/delete_account/delete_account_screen.dart';
+import 'package:dr_ai/view/screen/account/delete_account/re_auth_screen.dart';
 import 'package:dr_ai/view/screen/auth/login_screen.dart';
 import 'package:dr_ai/view/screen/auth/password_screen.dart';
 import 'package:flutter/material.dart';
@@ -45,16 +47,18 @@ abstract class AppRouter {
         return PageTransitionManager.materialPageRoute(
             const OldPasswordScreen());
       case RouteManager.newPassword:
-        return PageTransitionManager.fadeTransition(
-            const NewPasswordScreen());
+        return PageTransitionManager.fadeTransition(const NewPasswordScreen());
       case RouteManager.aboutUs:
         return PageTransitionManager.materialPageRoute(const AboutUsScreen());
       case RouteManager.maps:
         return PageTransitionManager.fadeTransition(const MapScreen());
+      case RouteManager.reAuthScreen:
+        return PageTransitionManager.materialPageRoute(const ReAuthScreen());
+      case RouteManager.deleteAccount:
+        return PageTransitionManager.fadeTransition(
+            const DeleteAccountScreen());
       default:
         return null;
     }
   }
 }
-
-
