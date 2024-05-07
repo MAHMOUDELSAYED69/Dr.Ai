@@ -7,22 +7,25 @@ class CustomScrollableAppBar extends StatelessWidget {
   const CustomScrollableAppBar({
     super.key,
     required this.title,
+    this.hideButton = false,
   });
   final String title;
+  final bool? hideButton;
   @override
   Widget build(BuildContext context) {
     return Row(
       children: [
         Gap(8.w),
-        IconButton(
-          onPressed: () {
-            FocusScope.of(context).unfocus();
-            context.pop();
-          },
-          icon: const Icon(
-            Icons.arrow_back,
+        if (!hideButton!)
+          IconButton(
+            onPressed: () {
+              FocusScope.of(context).unfocus();
+              context.pop();
+            },
+            icon: const Icon(
+              Icons.arrow_back,
+            ),
           ),
-        ),
         Text(
           title,
           style: context.textTheme.bodyLarge

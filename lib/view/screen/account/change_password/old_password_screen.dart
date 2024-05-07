@@ -57,6 +57,7 @@ class _OldPasswordScreenState extends State<OldPasswordScreen> {
           FocusScope.of(context).unfocus();
           Navigator.pushReplacementNamed(
               context, widget.navigator ?? RouteManager.newPassword);
+
           _isLoading = false;
         }
         if (state is AccountReAuthFailure) {

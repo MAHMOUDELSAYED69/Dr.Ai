@@ -8,6 +8,7 @@ import 'package:gap/gap.dart';
 import '../../../../core/constant/color.dart';
 import '../../../../core/constant/image.dart';
 import '../../../../core/helper/custom_dialog.dart';
+import '../../../widget/custom_scrollable_appbar.dart';
 import '../../../widget/my_stepper_form.dart';
 
 class DeleteAccountScreen extends StatefulWidget {
@@ -39,16 +40,13 @@ class _DeleteAccountScreenState extends State<DeleteAccountScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        backgroundColor: context.theme.scaffoldBackgroundColor,
-        elevation: 0,
-        leading: const SizedBox(),
-        centerTitle: true,
-        title: Text("Delete Account",
-            style: context.textTheme.bodyLarge?.copyWith(fontSize: 18.spMin)),
-      ),
       body: Column(
         children: [
+          Gap(34.h),
+          const CustomScrollableAppBar(
+            title: "",
+            hideButton: true,
+          ),
           Gap(20.h),
           const Column(
             children: [

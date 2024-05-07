@@ -39,17 +39,20 @@ void customDialog(BuildContext context,
   showDialog(
       context: context,
       barrierDismissible: dismiss ?? true,
-      builder: (_) => CustomDialog(
-            title: title,
-            subtitle: subtitle,
-            buttonTitle: buttonTitle,
-            onPressed: onPressed,
-            image: image,
-            errorMessage: errorMessage,
-            secondButtoncolor: secondButtoncolor,
-            widget: widget,
-            onCancle: onCancle,
-          ));
+      builder: (_) => PopScope(
+        canPop: dismiss ?? true,
+        child: CustomDialog(
+              title: title,
+              subtitle: subtitle,
+              buttonTitle: buttonTitle,
+              onPressed: onPressed,
+              image: image,
+              errorMessage: errorMessage,
+              secondButtoncolor: secondButtoncolor,
+              widget: widget,
+              onCancle: onCancle,
+            ),
+      ));
 }
 
 class CustomDialog extends StatefulWidget {
