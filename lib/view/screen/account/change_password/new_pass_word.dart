@@ -39,7 +39,8 @@ class _NewPasswordScreenState extends State<NewPasswordScreen> {
         if (state is AccountUpdatePasswordSuccess) {
           _isLoading = false;
           showDialog(
-            barrierDismissible: false,
+          
+                      barrierDismissible: false,
             context: context,
             builder: (context) => const ChangePasswordDialog(),
           );

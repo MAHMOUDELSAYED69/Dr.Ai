@@ -206,74 +206,77 @@ class LoginDialog extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Dialog(
-        insetPadding: REdgeInsets.all(16.w),
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(12.dm),
-        ),
-        elevation: 0,
-        backgroundColor: ColorManager.white,
-        child: Container(
-          padding: EdgeInsets.symmetric(vertical: 28.h, horizontal: 16.w),
-          decoration: BoxDecoration(
-            color: ColorManager.white,
-            shape: BoxShape.rectangle,
+    return PopScope(
+      canPop: false,
+      child: Dialog(
+          insetPadding: REdgeInsets.all(16.w),
+          shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(12.dm),
           ),
-          child: Column(
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              Stack(
-                alignment: Alignment.center,
-                children: [
-                  SvgPicture.asset(
-                    ImageManager.curvedLines,
-                    width: 135.w,
-                    height: 135.w,
-                  ),
-                  SvgPicture.asset(
-                    ImageManager.congratulationIcon,
-                    width: 125.w,
-                    height: 125.w,
-                  ),
-                ],
-              ),
-              Gap(18.h),
-              Text(
-                "Congratulation!",
-                style: context.textTheme.bodyLarge
-                    ?.copyWith(fontSize: 18.spMin, height: 0.9.h),
-              ),
-              SvgPicture.asset(
-                ImageManager.underLine,
-                height: 6.h,
-                width: context.width / 3,
-              ),
-              Gap(8.h),
-              Text(
-                "Your account has been created",
-                textAlign: TextAlign.center,
-                style: context.textTheme.bodySmall,
-              ),
-              Gap(3.h),
-              Text(
-                "Please verify your email to login.",
-                textAlign: TextAlign.center,
-                style: context.textTheme.bodySmall?.copyWith(
-                  color: ColorManager.error,
-                  fontWeight: FontWeight.bold,
-                  fontStyle: FontStyle.italic,
+          elevation: 0,
+          backgroundColor: ColorManager.white,
+          child: Container(
+            padding: EdgeInsets.symmetric(vertical: 28.h, horizontal: 16.w),
+            decoration: BoxDecoration(
+              color: ColorManager.white,
+              shape: BoxShape.rectangle,
+              borderRadius: BorderRadius.circular(12.dm),
+            ),
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                Stack(
+                  alignment: Alignment.center,
+                  children: [
+                    SvgPicture.asset(
+                      ImageManager.curvedLines,
+                      width: 135.w,
+                      height: 135.w,
+                    ),
+                    SvgPicture.asset(
+                      ImageManager.congratulationIcon,
+                      width: 125.w,
+                      height: 125.w,
+                    ),
+                  ],
                 ),
-              ),
-              Gap(22.h),
-              CustomButton(
-                title: "Login",
-                onPressed: () =>
-                    Navigator.popUntil(context, (route) => route.isFirst),
-              ),
-            ],
-          ),
-        ));
+                Gap(18.h),
+                Text(
+                  "Congratulation!",
+                  style: context.textTheme.bodyLarge
+                      ?.copyWith(fontSize: 18.spMin, height: 0.9.h),
+                ),
+                SvgPicture.asset(
+                  ImageManager.underLine,
+                  height: 6.h,
+                  width: context.width / 3,
+                ),
+                Gap(8.h),
+                Text(
+                  "Your account has been created",
+                  textAlign: TextAlign.center,
+                  style: context.textTheme.bodySmall,
+                ),
+                Gap(3.h),
+                Text(
+                  "Please verify your email to login.",
+                  textAlign: TextAlign.center,
+                  style: context.textTheme.bodySmall?.copyWith(
+                    color: ColorManager.error,
+                    fontWeight: FontWeight.bold,
+                    fontStyle: FontStyle.italic,
+                  ),
+                ),
+                Gap(22.h),
+                CustomButton(
+                  title: "Login",
+                  onPressed: () =>
+                      Navigator.popUntil(context, (route) => route.isFirst),
+                ),
+              ],
+            ),
+          )),
+    );
   }
 }
 
@@ -282,58 +285,61 @@ class ChangePasswordDialog extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Dialog(
-        insetPadding: REdgeInsets.all(16.w),
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(12.dm),
-        ),
-        elevation: 0,
-        backgroundColor: ColorManager.white,
-        child: Container(
-          padding: EdgeInsets.symmetric(vertical: 28.h, horizontal: 16.w),
-          decoration: BoxDecoration(
-            color: ColorManager.white,
-            shape: BoxShape.rectangle,
+    return PopScope(
+      canPop: false,
+      child: Dialog(
+          insetPadding: REdgeInsets.all(16.w),
+          shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(12.dm),
           ),
-          child: Column(
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              SvgPicture.asset(
-                ImageManager.trueIcon,
-                width: 125.w,
-                height: 125.w,
-              ),
-              Gap(18.h),
-              Text(
-                "Congratulation!",
-                style:
-                    context.textTheme.bodyLarge?.copyWith(fontSize: 18.spMin),
-              ),
-              Gap(8.h),
-              Text(
-                "your password has been changed",
-                textAlign: TextAlign.center,
-                style: context.textTheme.bodySmall,
-              ),
-              Gap(3.h),
-              Text(
-                "Try to keep the password away to avoid theft of your account and data",
-                textAlign: TextAlign.center,
-                style: context.textTheme.bodySmall?.copyWith(
-                  color: ColorManager.error,
-                  fontWeight: FontWeight.bold,
-                  fontStyle: FontStyle.italic,
+          elevation: 0,
+          backgroundColor: ColorManager.white,
+          child: Container(
+            padding: EdgeInsets.symmetric(vertical: 28.h, horizontal: 16.w),
+            decoration: BoxDecoration(
+              color: ColorManager.white,
+              shape: BoxShape.rectangle,
+              borderRadius: BorderRadius.circular(12.dm),
+            ),
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                SvgPicture.asset(
+                  ImageManager.trueIcon,
+                  width: 125.w,
+                  height: 125.w,
                 ),
-              ),
-              Gap(22.h),
-              CustomButton(
-                title: "Continue",
-                onPressed: () =>
-                    Navigator.popUntil(context, (route) => route.isFirst),
-              ),
-            ],
-          ),
-        ));
+                Gap(18.h),
+                Text(
+                  "Congratulation!",
+                  style:
+                      context.textTheme.bodyLarge?.copyWith(fontSize: 18.spMin),
+                ),
+                Gap(8.h),
+                Text(
+                  "your password has been changed",
+                  textAlign: TextAlign.center,
+                  style: context.textTheme.bodySmall,
+                ),
+                Gap(3.h),
+                Text(
+                  "Try to keep the password away to avoid theft of your account and data",
+                  textAlign: TextAlign.center,
+                  style: context.textTheme.bodySmall?.copyWith(
+                    color: ColorManager.error,
+                    fontWeight: FontWeight.bold,
+                    fontStyle: FontStyle.italic,
+                  ),
+                ),
+                Gap(22.h),
+                CustomButton(
+                  title: "Continue",
+                  onPressed: () =>
+                      Navigator.popUntil(context, (route) => route.isFirst),
+                ),
+              ],
+            ),
+          )),
+    );
   }
 }

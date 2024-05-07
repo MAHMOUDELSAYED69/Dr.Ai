@@ -44,7 +44,7 @@ class _CreateProfileState extends State<CreateProfile> {
   List<Item> genderList = const [
     Item("Male", Icons.male),
     Item("Female", Icons.female),
-    Item("Other", Icons.not_interested_outlined),
+
   ];
   List<Item> bloodTypesList = const [
     Item('A+'),

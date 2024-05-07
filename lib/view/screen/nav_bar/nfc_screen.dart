@@ -8,8 +8,11 @@ class NFCScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: context.theme.scaffoldBackgroundColor,
-      body: Center(
-        child: Text("NFC Screen"),
+      body: const Center(
+        child: Text(
+          "NFC Screen\nSoon Available!",
+          textAlign: TextAlign.center,
+        ),
       ),
     );
   }

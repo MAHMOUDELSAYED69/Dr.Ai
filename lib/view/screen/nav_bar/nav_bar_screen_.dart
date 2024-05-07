@@ -69,7 +69,7 @@ class _NavbarScreenState extends State<NavbarScreen> {
         width: double.infinity,
         height: double.infinity,
         child: PopScope(
-          canPop: false,
+          canPop: _bottomNavIndex == 0 ? true : false,
           onPopInvoked: (_) => _onWillPop(),
           // canPop: _bottomNavIndex == 0 ? true : false,
 
@@ -93,10 +93,7 @@ class _NavbarScreenState extends State<NavbarScreen> {
         height: 65.h,
         leftCornerRadius: 20.dm,
         rightCornerRadius: 20.dm,
-        onTap: (index) {
-          setState(() => _bottomNavIndex = index);
-          log(index.toString());
-        },
+        onTap: (index) => setState(() => _bottomNavIndex = index),
         itemCount: 4,
         tabBuilder: (int index, bool isActive) {
           return Column(
