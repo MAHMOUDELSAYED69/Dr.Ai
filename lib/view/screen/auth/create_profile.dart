@@ -88,6 +88,9 @@ class _CreateProfileState extends State<CreateProfile> {
                   if (state is SignUpLoading) {
                     _isLoading = true;
                   }
+                  if (state is CreateProfileSuccess) {
+                    FocusScope.of(context).unfocus();
+                  }
                   if (state is VerifyEmailSuccess) {
                     FocusScope.of(context).unfocus();
                     _isLoading = false;

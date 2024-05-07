@@ -114,12 +114,8 @@ class _AccountScreenState extends State<AccountScreen> {
                     title: "Delete Account",
                     image: ImageManager.deteteAccountIcon,
                     color: ColorManager.error,
-                    onPressed: () {
-                      // showDialog(
-                      //   context: context,
-                      //   builder: (context) => const DeleteAccountDialog());
-                      Navigator.pushNamed(context, RouteManager.reAuthScreen);
-                    },
+                    onPressed: () =>
+                        Navigator.pushNamed(context, RouteManager.reAuthScreen),
                   ),
                   divider,
                   _buildProfileCard(context,
