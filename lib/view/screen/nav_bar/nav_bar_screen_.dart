@@ -1,7 +1,10 @@
 // ignore_for_file: deprecated_member_use
 
+import 'dart:developer';
+
 import 'package:animated_bottom_navigation_bar/animated_bottom_navigation_bar.dart';
 import 'package:dr_ai/core/constant/color.dart';
+import 'package:dr_ai/core/constant/routes.dart';
 import 'package:dr_ai/core/helper/extention.dart';
 import 'package:dr_ai/view/screen/nav_bar/account_screen.dart';
 import 'package:dr_ai/view/screen/nav_bar/nfc_screen.dart';
@@ -38,13 +41,23 @@ class _NavbarScreenState extends State<NavbarScreen> {
     };
   }
 
-  List<Widget> _buildScreens() { 
-    return [
+  List<Widget> _buildScreens() {
+    return <Widget>[
       const HomeScreen(),
       const NFCScreen(),
       const MapScreen(),
       const AccountScreen(),
     ];
+  }
+
+  bool _onWillPop() {
+    if (_bottomNavIndex != 0) {
+      setState(() {
+        _bottomNavIndex = 0;
+      });
+      return false;
+    }
+    return true;
   }
 
   int _bottomNavIndex = 0;
@@ -55,9 +68,15 @@ class _NavbarScreenState extends State<NavbarScreen> {
       body: SizedBox(
         width: double.infinity,
         height: double.infinity,
-        child: IndexedStack(
-          index: _bottomNavIndex,
-          children: _buildScreens(),
+        child: PopScope(
+          canPop: false,
+          onPopInvoked: (_) => _onWillPop(),
+          // canPop: _bottomNavIndex == 0 ? true : false,
+
+          child: IndexedStack(
+            index: _bottomNavIndex,
+            children: _buildScreens(),
+          ),
         ),
       ),
       bottomNavigationBar: AnimatedBottomNavigationBar.builder(
@@ -76,6 +95,7 @@ class _NavbarScreenState extends State<NavbarScreen> {
         rightCornerRadius: 20.dm,
         onTap: (index) {
           setState(() => _bottomNavIndex = index);
+          log(index.toString());
         },
         itemCount: 4,
         tabBuilder: (int index, bool isActive) {

@@ -43,7 +43,7 @@ class _DeleteAccountScreenState extends State<DeleteAccountScreen> {
       body: Column(
         children: [
           Gap(34.h),
-          const CustomScrollableAppBar(
+          CustomScrollableAppBar(
             title: "",
             hideButton: true,
           ),
