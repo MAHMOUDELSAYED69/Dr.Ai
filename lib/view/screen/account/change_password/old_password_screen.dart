@@ -27,7 +27,8 @@ class OldPasswordScreen extends StatefulWidget {
       this.stepTitleTwo,
       this.stepColorOne,
       this.stepColorTwo,
-      this.navigator});
+      this.navigator,
+      this.appBarTitle});
 
   final String? stepIconOne;
   final String? stepIconTwo;
@@ -36,6 +37,7 @@ class OldPasswordScreen extends StatefulWidget {
   final Color? stepColorOne;
   final Color? stepColorTwo;
   final String? navigator;
+  final String? appBarTitle;
   @override
   State<OldPasswordScreen> createState() => _OldPasswordScreenState();
 }
@@ -72,7 +74,7 @@ class _OldPasswordScreenState extends State<OldPasswordScreen> {
               children: [
                 Gap(32.h),
                 CustomScrollableAppBar(
-                  title: widget.stepTitleOne ?? "Change Password",
+                  title: widget.appBarTitle ?? "Change Password",
                 ),
                 Gap(20.h),
                 Padding(

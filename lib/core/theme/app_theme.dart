@@ -87,14 +87,14 @@ abstract class AppTheme {
         scrolledUnderElevation: 0,
         titleSpacing: 0,
         iconTheme: const IconThemeData(color: ColorManager.black),
-        elevation: 0,
+        elevation:0,
         shadowColor: ColorManager.black.withOpacity(0.3),
-        // shape: LinearBorder.bottom(
-        //   side: BorderSide(
-        //     width: 1.h,
-        //     color: ColorManager.grey.withOpacity(0.5),
-        //   ),
-        // ),
+        shape: LinearBorder.bottom(
+          side: BorderSide(
+            width: 1.h,
+            color: ColorManager.grey,
+          ),
+        ),
       ),
 
       //* TEXT

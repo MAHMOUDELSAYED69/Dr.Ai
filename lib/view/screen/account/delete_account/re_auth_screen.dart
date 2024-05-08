@@ -11,6 +11,7 @@ class ReAuthScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return const OldPasswordScreen(
+      appBarTitle: "Delete Account",
       stepTitleOne: "Password",
       stepTitleTwo: "Delete Account",
       stepIconTwo: ImageManager.deteteAccountIcon,
