@@ -31,18 +31,21 @@ class _MapScreenState extends State<MapScreen> {
 
   Future<void> _getCurrentLocation() async {
     await LocationHelper.determineCurrentPosition();
-    _position = await Geolocator.getCurrentPosition().whenComplete(() {
+    _position = await Geolocator.getCurrentPosition().whenComplete(() async {
       setState(() {});
     });
   }
 
   Future<void> _goToSearchedPlaceLocation() async {
-    final GoogleMapController controller = await mapController.future;
-    controller
-        .animateCamera(CameraUpdate.newCameraPosition(_goToSearchedForPlace));
+    final GoogleMapController mapController = await completerController.future;
+    mapController.animateCamera(
+      CameraUpdate.newCameraPosition(
+        _goToSearchedForPlace,
+      ),
+    );
   }
 
-  Completer<GoogleMapController> mapController = Completer();
+  Completer<GoogleMapController> completerController = Completer();
   static Position? _position;
   static final CameraPosition _myCurrrentPositionCameraPosition =
       CameraPosition(
@@ -51,7 +54,6 @@ class _MapScreenState extends State<MapScreen> {
           tilt: 0.0,
           zoom: 17);
 
-//!
   Set<Marker> _markers = {};
   late String? _placeSuggestion;
   late PlaceLocationModel _selectedPlace;
@@ -146,7 +148,7 @@ class _MapScreenState extends State<MapScreen> {
       myLocationButtonEnabled: false,
       zoomControlsEnabled: false,
       onMapCreated: (GoogleMapController controller) {
-        mapController.complete(controller);
+        completerController.complete(controller);
       },
       polylines: _placeDirections != null
           ? {
@@ -168,7 +170,7 @@ class _MapScreenState extends State<MapScreen> {
   Future<void> _goToMyCurrentLocation() async {
     LocationHelper.determineCurrentPosition();
     Geolocator.getCurrentPosition();
-    final GoogleMapController controller = await mapController.future;
+    final GoogleMapController controller = await completerController.future;
     controller.animateCamera(
         CameraUpdate.newCameraPosition(_myCurrrentPositionCameraPosition));
   }
@@ -191,7 +193,7 @@ class _MapScreenState extends State<MapScreen> {
 
   Future<void> _goToMySearchedForLocation() async {
     _buildCameraNewPosition();
-    final GoogleMapController controller = await mapController.future;
+    final GoogleMapController controller = await completerController.future;
     controller
         .animateCamera(CameraUpdate.newCameraPosition(_goToSearchedForPlace));
     _buildSearchedPlaceMarker();

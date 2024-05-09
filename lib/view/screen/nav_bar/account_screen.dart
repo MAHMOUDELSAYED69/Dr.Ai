@@ -1,5 +1,7 @@
 // ignore_for_file: deprecated_member_use
 
+import 'dart:developer';
+
 import 'package:dr_ai/core/cache/cache.dart';
 import 'package:dr_ai/core/constant/color.dart';
 import 'package:dr_ai/core/constant/image.dart';
@@ -13,7 +15,9 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:gap/gap.dart';
+import 'package:uuid/uuid.dart';
 
+import '../../../data/service/api/maps_place.dart';
 import '../account/edit_user_card_buttom_sheet.dart';
 import '../account/rating_screen.dart';
 
@@ -70,7 +74,12 @@ class _AccountScreenState extends State<AccountScreen> {
                     context,
                     title: "Dark Mode",
                     image: ImageManager.darkModeIcon,
-                    onPressed: () {},
+                    onPressed: () async {
+                      final sessionToken = const Uuid().v4();
+                      log(sessionToken);
+                      await PlacesWebservices.getNearestHospital(
+                          30.2977, 31.2970, sessionToken);
+                    },
                   ),
                   divider,
                   _buildProfileCard(

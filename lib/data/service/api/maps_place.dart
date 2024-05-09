@@ -30,8 +30,8 @@ class PlacesWebservices {
   // }
 
   //! Fetch Suggetions.
-   static Future fetchPlaceSuggestions(String place, String sessionToken,
-      {double? latitude, double? longitude}) async {  
+  static Future fetchPlaceSuggestions(String place, String sessionToken,
+      {double? latitude, double? longitude}) async {
     try {
       Response response = await dio.get(
         ApiUrlManager.placeSuggetion,
@@ -103,6 +103,29 @@ class PlacesWebservices {
           StackTrace.fromString("this is the trace"));
     } catch (err) {
       log('Dio Method err:$err');
+    }
+  }
+
+  static Future getNearestHospital(
+      double latitude, double longitude, String sessionToken) async {
+    final queryParameters = {
+      'location': '$latitude,$longitude',
+      'radius': '5000',
+      'type': 'hospital',
+      'key': ApiUrlManager.googleMap,
+      'sessiontoken': sessionToken,
+    };
+
+    try {
+      final response = await dio.get(ApiUrlManager.nearestHospital,
+          queryParameters: queryParameters);
+      // log("Nearby hospitals data are here: ${response.data}");
+
+      for (int i = 0; i < response.data['results'].length; i++) {
+        log(response.data['results'][i]['name']);
+      }
+    } catch (err) {
+      log(err.toString());
     }
   }
 }

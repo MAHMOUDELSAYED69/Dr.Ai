@@ -7,4 +7,5 @@ abstract class ApiUrlManager {
   static String placeSuggetion = dotenv.env['placeSuggetionBaseUrl']!;
   static String placeLocation = dotenv.env['placeLocationBaseUrl']!;
   static String directions = dotenv.env['placedirectionsBaseUrl']!;
+  static String nearestHospital = dotenv.env['nearestHospitalBaseUrl']!;
 }
