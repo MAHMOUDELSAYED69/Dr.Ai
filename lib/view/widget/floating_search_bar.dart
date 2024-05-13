@@ -42,6 +42,7 @@ class MyFloatingSearchBarState extends State<MyFloatingSearchBar> {
         }
       },
       isScrollControlled: true,
+      accentColor: ColorManager.green,
       queryStyle:
           context.textTheme.bodySmall?.copyWith(color: ColorManager.black),
       textInputType: TextInputType.text,
@@ -54,6 +55,7 @@ class MyFloatingSearchBarState extends State<MyFloatingSearchBar> {
       hintStyle:
           context.textTheme.bodySmall?.copyWith(color: ColorManager.black),
       hint: 'Find a hospital...',
+      showCursor: true,
       scrollPadding: EdgeInsets.only(bottom: 53.h, top: 0),
       transitionDuration: const Duration(milliseconds: 300),
       transitionCurve: Curves.easeInOut,
@@ -67,12 +69,9 @@ class MyFloatingSearchBarState extends State<MyFloatingSearchBar> {
       transition: SlideFadeFloatingSearchBarTransition(),
       actions: [
         FloatingSearchBarAction(
-          showIfOpened: false,
-          child: CircularButton(
-              icon: Icon(Icons.apartment_rounded,
-                  color: ColorManager.green, size: 25.r),
-              onPressed: () {}),
-        ),
+            showIfOpened: false,
+            child: Icon(Icons.apartment_rounded,
+                color: ColorManager.green, size: 25.r)),
         FloatingSearchBarAction.searchToClear(
           showIfClosed: false,
         ),
