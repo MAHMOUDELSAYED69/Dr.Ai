@@ -1,5 +1,4 @@
 import 'package:bloc/bloc.dart';
-
 import 'package:url_launcher/url_launcher.dart';
 
 enum LaunchUriState {

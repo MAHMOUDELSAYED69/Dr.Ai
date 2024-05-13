@@ -9,7 +9,6 @@ import '../../view/screen/account/change_password/new_pass_word.dart';
 import '../../view/screen/account/change_password/old_password_screen.dart';
 import '../../view/screen/auth/create_profile.dart';
 import '../../view/screen/auth/email_screen.dart';
-import '../../view/screen/auth/register_screen.dart';
 import '../../view/screen/chat/chat_screen.dart';
 import '../../view/screen/nav_bar/home_screen.dart';
 import '../../view/screen/nav_bar/maps_screen.dart';
@@ -26,8 +25,6 @@ abstract class AppRouter {
         return PageTransitionManager.fadeTransition(const SplashScreen());
       case RouteManager.login:
         return PageTransitionManager.materialPageRoute(const LoginScreen());
-      case RouteManager.register:
-        return PageTransitionManager.materialPageRoute(const RegisterScreen());
       case RouteManager.home:
         return PageTransitionManager.materialPageRoute(const HomeScreen());
       case RouteManager.email:

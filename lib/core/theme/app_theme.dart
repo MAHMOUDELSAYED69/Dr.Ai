@@ -87,7 +87,7 @@ abstract class AppTheme {
         scrolledUnderElevation: 0,
         titleSpacing: 0,
         iconTheme: const IconThemeData(color: ColorManager.black),
-        elevation:0,
+        elevation: 0,
         shadowColor: ColorManager.black.withOpacity(0.3),
         shape: LinearBorder.bottom(
           side: BorderSide(
@@ -128,8 +128,8 @@ abstract class AppTheme {
         ),
         displaySmall: TextStyle(
           decoration: TextDecoration.underline,
-          decorationColor: MyColors.green,
-          color: MyColors.green,
+          decorationColor: ColorManager.green,
+          color: ColorManager.green,
           fontSize: 14.spMin,
           fontWeight: FontWeight.w500,
         ),
