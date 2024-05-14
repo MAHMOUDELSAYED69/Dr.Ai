@@ -62,7 +62,7 @@ class _SplashScreenState extends State<SplashScreen> {
                 width: context.width / 3,
                 height: context.width / 3,
               ),
-              const BuidLoadingIndicator(),
+              const BuidSplashLoadingIndicator(),
             ],
           ),
         ),

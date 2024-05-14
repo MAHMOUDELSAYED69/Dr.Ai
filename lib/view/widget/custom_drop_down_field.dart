@@ -49,6 +49,9 @@ class CustomDropDownFieldState extends State<CustomDropDownField> {
           ),
         ),
         DropdownButtonFormField2<Item>(
+          iconStyleData: const IconStyleData(
+            icon: Icon(Icons.keyboard_arrow_down_outlined),
+          ),
           dropdownStyleData: DropdownStyleData(
             maxHeight: 200.h,
             padding: EdgeInsets.zero,

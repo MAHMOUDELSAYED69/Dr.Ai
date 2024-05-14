@@ -1,5 +1,6 @@
 import 'package:dr_ai/core/constant/color.dart';
 import 'package:dr_ai/core/helper/extention.dart';
+import 'package:dr_ai/logic/validation/formvalidation_cubit.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:loading_indicator/loading_indicator.dart';
@@ -46,6 +47,7 @@ class ChatBubbleForDrAi extends StatelessWidget {
   final String message;
   @override
   Widget build(BuildContext context) {
+    final cubit = context.bloc<FormvalidationCubit>();
     return Align(
       alignment: AlignmentDirectional.centerStart,
       child: Container(
@@ -67,6 +69,7 @@ class ChatBubbleForDrAi extends StatelessWidget {
               selectionHandleColor: ColorManager.green),
           child: SelectableText(
             message,
+            textDirection: cubit.getTextDirection(message),
             enableInteractiveSelection: true,
             textAlign: TextAlign.start,
             style: context.textTheme.bodySmall
@@ -87,6 +90,7 @@ class ChatBubbleForGuest extends StatelessWidget {
   final String message;
   @override
   Widget build(BuildContext context) {
+    final cubit = context.bloc<FormvalidationCubit>();
     return Align(
       alignment: AlignmentDirectional.centerEnd,
       child: Container(
@@ -108,6 +112,7 @@ class ChatBubbleForGuest extends StatelessWidget {
             selectionHandleColor: ColorManager.white,
           ),
           child: SelectableText(message,
+              textDirection: cubit.getTextDirection(message),
               style: context.textTheme.bodySmall
                   ?.copyWith(color: ColorManager.white)),
         ),

@@ -1,6 +1,7 @@
 import 'package:bloc/bloc.dart';
+import 'package:flutter/material.dart' show TextDirection;
 import 'package:meta/meta.dart';
-import 'package:intl/intl.dart';
+import 'package:intl/intl.dart ' hide TextDirection;
 part 'formvalidation_state.dart';
 
 class FormvalidationCubit extends Cubit<FormvalidationState> {
@@ -8,6 +9,10 @@ class FormvalidationCubit extends Cubit<FormvalidationState> {
   String _email = '';
   String _password = '';
   String _confirmPassword = '';
+  TextDirection? getTextDirection(String text) {
+    bool isArabic = RegExp(r'[\u0600-\u06FF]').hasMatch(text);
+    return isArabic ? TextDirection.rtl : TextDirection.ltr;
+  }
 
   String? validatePassword(String? value, [String? firebaseException]) {
     if (value == null || value.isEmpty) {
