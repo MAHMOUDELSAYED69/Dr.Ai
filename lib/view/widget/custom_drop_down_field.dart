@@ -1,4 +1,5 @@
 import 'package:dr_ai/core/helper/extention.dart';
+import 'package:dropdown_button2/dropdown_button2.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
@@ -47,8 +48,15 @@ class CustomDropDownFieldState extends State<CustomDropDownField> {
             style: context.textTheme.bodyMedium,
           ),
         ),
-        DropdownButtonFormField<Item>(
-          icon: const Icon(Icons.keyboard_arrow_down_outlined),
+        DropdownButtonFormField2<Item>(
+          dropdownStyleData: DropdownStyleData(
+            maxHeight: 200.h,
+            padding: EdgeInsets.zero,
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(12.r),
+            ),
+          ),
+          isExpanded: true,
           style:
               context.textTheme.bodySmall?.copyWith(color: ColorManager.black),
           decoration: InputDecoration(
@@ -78,19 +86,16 @@ class CustomDropDownFieldState extends State<CustomDropDownField> {
           items: widget.items.map((Item user) {
             return DropdownMenuItem<Item>(
               value: user,
-              child: Padding(
-                padding: EdgeInsets.symmetric(horizontal: 5.w),
-                child: Row(
-                  children: [
-                    if (user.icon != null) Icon(user.icon),
-                    if (user.icon != null) SizedBox(width: 10.w),
-                    Text(
-                      user.name,
-                      style: context.textTheme.bodySmall
-                          ?.copyWith(color: ColorManager.black),
-                    ),
-                  ],
-                ),
+              child: Row(
+                children: [
+                  if (user.icon != null) Icon(user.icon),
+                  if (user.icon != null) SizedBox(width: 10.w),
+                  Text(
+                    user.name,
+                    style: context.textTheme.bodySmall
+                        ?.copyWith(color: ColorManager.black),
+                  ),
+                ],
               ),
             );
           }).toList(),

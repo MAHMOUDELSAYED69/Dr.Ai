@@ -209,7 +209,10 @@ class _ChatScreenState extends State<ChatScreen> {
 
   PopupMenuButton _buildPopupMenuButton() {
     return PopupMenuButton<String>(
-      elevation: 5,
+      elevation: 2,
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(6.r),
+      ),
       padding: EdgeInsets.zero,
       onSelected: onSelected,
       offset: const Offset(0, 40),
@@ -227,4 +230,3 @@ class _ChatScreenState extends State<ChatScreen> {
     );
   }
 }
-

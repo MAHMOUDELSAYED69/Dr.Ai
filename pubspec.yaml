@@ -34,6 +34,7 @@ dependencies:
   cloud_firestore: ^4.13.3
   cupertino_icons: ^1.0.2
   dio: ^5.4.0
+  dropdown_button2: ^2.3.9
   easy_stepper: ^0.8.3
   firebase_auth: ^4.15.0
   firebase_core: ^2.24.0
