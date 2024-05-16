@@ -35,7 +35,6 @@ class CustomDropDownField extends StatefulWidget {
 
 class CustomDropDownFieldState extends State<CustomDropDownField> {
   Item? selectedUser;
-
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -52,8 +51,16 @@ class CustomDropDownFieldState extends State<CustomDropDownField> {
           iconStyleData: const IconStyleData(
             icon: Icon(Icons.keyboard_arrow_down_outlined),
           ),
+          isDense: true,
+          menuItemStyleData: MenuItemStyleData(
+            padding: EdgeInsets.only(left: 10.w),
+          ),
           dropdownStyleData: DropdownStyleData(
+            elevation: 2,
             maxHeight: 200.h,
+            scrollbarTheme: const ScrollbarThemeData(
+              thumbColor: MaterialStatePropertyAll(ColorManager.green),
+            ),
             padding: EdgeInsets.zero,
             decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(12.r),
@@ -69,7 +76,7 @@ class CustomDropDownFieldState extends State<CustomDropDownField> {
             errorStyle: context.textTheme.bodySmall
                 ?.copyWith(color: ColorManager.error, fontSize: 14.spMin),
             contentPadding:
-                EdgeInsets.symmetric(vertical: 13.h, horizontal: 10.w),
+                EdgeInsets.symmetric(vertical: 12.5.h, horizontal: 10.w),
             filled: true,
             fillColor: ColorManager.white,
             hintText: widget.hintText,
@@ -91,7 +98,11 @@ class CustomDropDownFieldState extends State<CustomDropDownField> {
               value: user,
               child: Row(
                 children: [
-                  if (user.icon != null) Icon(user.icon),
+                  (user.icon != null)
+                      ? Icon(user.icon)
+                      : SizedBox(
+                          width: 5.w,
+                        ),
                   if (user.icon != null) SizedBox(width: 10.w),
                   Text(
                     user.name,

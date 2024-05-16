@@ -23,9 +23,10 @@ class _ChatScreenState extends State<ChatScreen> {
   bool _isSenderLoading = false;
   bool _isReceiverLoading = false;
   bool _isChatDeletingLoading = false;
+  bool _isButtonVisible = false;
   List<ChatMessageModel> _chatMessageModel = [];
   late TextEditingController _controller;
-
+  late ScrollController _scrollController;
   void _sendMessage() {
     if (_controller.text.isNotEmpty) {
       context.bloc<ChatCubit>().sendMessage(message: _controller.text);
@@ -42,6 +43,24 @@ class _ChatScreenState extends State<ChatScreen> {
   void initState() {
     super.initState();
     _controller = TextEditingController();
+    _scrollController = ScrollController();
+    _scrollController.addListener(() {
+      bool isAtBottom = _scrollController.position.pixels <= 100;
+
+      if (!isAtBottom) {
+        if (!_isButtonVisible) {
+          setState(() {
+            _isButtonVisible = true;
+          });
+        }
+      } else {
+        if (_isButtonVisible) {
+          setState(() {
+            _isButtonVisible = false;
+          });
+        }
+      }
+    });
   }
 
   @override
@@ -63,6 +82,7 @@ class _ChatScreenState extends State<ChatScreen> {
         if (state is ChatReceiveSuccess) {
           _isReceiverLoading = false;
           _chatMessageModel = state.response;
+          _scrollToEnd();
         }
         if (state is ChatFailure) {
           _isSenderLoading = false;
@@ -75,7 +95,7 @@ class _ChatScreenState extends State<ChatScreen> {
         if (state is ChatDeleteSuccess) {
           _isChatDeletingLoading = false;
           customSnackBar(context, "Chat History Deleted Successfully.",
-              ColorManager.green);
+              ColorManager.green, 1);
         }
         if (state is ChatDeleteFailure) {
           _isChatDeletingLoading = false;
@@ -92,6 +112,8 @@ class _ChatScreenState extends State<ChatScreen> {
               _buildPopupMenuButton(),
             ],
           ),
+          floatingActionButton:
+              _isButtonVisible ? _buildFloatingActionButton() : null,
           bottomNavigationBar: Padding(
             padding: EdgeInsets.only(
                 bottom: MediaQuery.of(context).viewInsets.bottom),
@@ -156,6 +178,7 @@ class _ChatScreenState extends State<ChatScreen> {
 
   Widget _buildMessages() {
     return ListView.builder(
+      controller: _scrollController,
       physics: const BouncingScrollPhysics(),
       itemCount: _chatMessageModel.length + (_isReceiverLoading ? 1 : 0),
       reverse: true,
@@ -228,5 +251,28 @@ class _ChatScreenState extends State<ChatScreen> {
         ];
       },
     );
+  }
+
+  Widget _buildFloatingActionButton() {
+    return FloatingActionButton.small(
+      splashColor: ColorManager.white.withOpacity(0.3),
+      elevation: 2,
+      onPressed: _scrollToEnd,
+      backgroundColor: ColorManager.green,
+      child: const Icon(
+        Icons.keyboard_double_arrow_down_rounded,
+        color: ColorManager.white,
+      ),
+    );
+  }
+
+  void _scrollToEnd() {
+    if (_scrollController.hasClients) {
+      _scrollController.animateTo(
+        _scrollController.position.minScrollExtent,
+        duration: const Duration(milliseconds: 700),
+        curve: Curves.fastOutSlowIn,
+      );
+    }
   }
 }

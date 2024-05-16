@@ -13,9 +13,9 @@ class MessageWebService {
 
       log('[${response.statusCode}] Data posted successfully!');
       log("DATA: ${response.data}");
-
       return response.data['message'];
-    } on DioException {
+    } on DioException catch(err) {
+      log(err.response!.statusCode.toString());
       return Future.error(
           "pyDrAi error: ", StackTrace.fromString("this is the trace"));
     } catch (err) {
