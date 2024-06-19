@@ -245,7 +245,7 @@ class FormvalidationCubit extends Cubit<FormvalidationState> {
         case 'network-request-failed':
           return 'A network error (such as timeout, interrupted connection or unreachable host) has occurred.';
         case 'too-many-requests':
-          return 'Too many requests. Try again later.\n بطل سبام ياعرص';
+          return 'Too many requests. Try again later.';
         default:
           return value;
       }

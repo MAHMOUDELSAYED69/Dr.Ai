@@ -25,11 +25,11 @@ class _ChatScreenState extends State<ChatScreen> {
   bool _isChatDeletingLoading = false;
   bool _isButtonVisible = false;
   List<ChatMessageModel> _chatMessageModel = [];
-  late TextEditingController _controller;
+  late TextEditingController _txtController;
   late ScrollController _scrollController;
   void _sendMessage() {
-    if (_controller.text.isNotEmpty) {
-      context.bloc<ChatCubit>().sendMessage(message: _controller.text);
+    if (_txtController.text.isNotEmpty) {
+      context.bloc<ChatCubit>().sendMessage(message: _txtController.text);
     }
   }
 
@@ -42,7 +42,7 @@ class _ChatScreenState extends State<ChatScreen> {
   @override
   void initState() {
     super.initState();
-    _controller = TextEditingController();
+    _txtController = TextEditingController();
     _scrollController = ScrollController();
     _scrollController.addListener(() {
       bool isAtBottom = _scrollController.position.pixels <= 100;
@@ -70,7 +70,7 @@ class _ChatScreenState extends State<ChatScreen> {
         if (state is ChatSenderLoading) {
           setState(() {
             _isSenderLoading = true;
-            _controller.clear();
+            _txtController.clear();
           });
         }
         if (state is ChatSendSuccess) {
@@ -200,7 +200,7 @@ class _ChatScreenState extends State<ChatScreen> {
     return TextField(
       style: context.textTheme.bodySmall?.copyWith(color: ColorManager.black),
       cursorColor: ColorManager.green,
-      controller: _controller,
+      controller: _txtController,
       onSubmitted: (_) => _sendMessage(),
       decoration: InputDecoration(
         contentPadding: EdgeInsets.symmetric(horizontal: 12.w, vertical: 14.h),

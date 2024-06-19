@@ -16,20 +16,20 @@ abstract class AppTheme {
       outlinedButtonTheme: OutlinedButtonThemeData(
         style: ButtonStyle(
           overlayColor:
-              MaterialStateProperty.all(ColorManager.green.withOpacity(0.1)),
-          foregroundColor: MaterialStateProperty.all(ColorManager.green),
-          side: MaterialStateProperty.all(
+              WidgetStatePropertyAll(ColorManager.green.withOpacity(0.1)),
+          foregroundColor: const WidgetStatePropertyAll(ColorManager.green),
+          side: WidgetStatePropertyAll(
             BorderSide(
               width: 3,
               color: ColorManager.green.withOpacity(0.3),
             ),
           ),
-          shape: MaterialStateProperty.all(
+          shape: WidgetStatePropertyAll(
             RoundedRectangleBorder(
               borderRadius: BorderRadius.circular(8),
             ),
           ),
-          fixedSize: MaterialStateProperty.all(
+          fixedSize: WidgetStatePropertyAll(
             Size(95.w, 50.h),
           ),
         ),
@@ -38,23 +38,23 @@ abstract class AppTheme {
       elevatedButtonTheme: ElevatedButtonThemeData(
         style: ButtonStyle(
           overlayColor:
-              MaterialStateProperty.all(ColorManager.white.withOpacity(0.2)),
-          foregroundColor: MaterialStateProperty.all(ColorManager.white),
-          backgroundColor: MaterialStateProperty.all(ColorManager.green),
-          shape: MaterialStateProperty.all(
+              WidgetStatePropertyAll(ColorManager.white.withOpacity(0.2)),
+          foregroundColor: const WidgetStatePropertyAll(ColorManager.white),
+          backgroundColor: const WidgetStatePropertyAll(ColorManager.green),
+          shape: WidgetStatePropertyAll(
             RoundedRectangleBorder(
               borderRadius: BorderRadius.circular(8), // Use 8 as default value
             ),
           ),
-          fixedSize: MaterialStateProperty.all(
+          fixedSize: WidgetStatePropertyAll(
             Size(double.maxFinite, 48.h),
           ),
         ),
       ),
 
       checkboxTheme: CheckboxThemeData(
-        checkColor: const MaterialStatePropertyAll(ColorManager.white),
-        fillColor: const MaterialStatePropertyAll(ColorManager.white),
+        checkColor: const WidgetStatePropertyAll(ColorManager.white),
+        fillColor: const WidgetStatePropertyAll(ColorManager.white),
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(3.dm),
         ),
@@ -63,11 +63,11 @@ abstract class AppTheme {
       //
 
       iconTheme: const IconThemeData(color: ColorManager.black),
-      switchTheme: SwitchThemeData(
-        trackOutlineColor: MaterialStateProperty.all(ColorManager.green),
-        thumbColor: MaterialStateProperty.all(ColorManager.white),
-        trackColor: MaterialStateProperty.all(ColorManager.green),
-        thumbIcon: MaterialStateProperty.all(const Icon(
+      switchTheme: const SwitchThemeData(
+        trackOutlineColor: WidgetStatePropertyAll(ColorManager.green),
+        thumbColor: WidgetStatePropertyAll(ColorManager.white),
+        trackColor: WidgetStatePropertyAll(ColorManager.green),
+        thumbIcon: WidgetStatePropertyAll(Icon(
           Icons.light_mode,
           color: ColorManager.white,
         )),
