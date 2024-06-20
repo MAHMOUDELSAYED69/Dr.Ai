@@ -12,7 +12,7 @@ class ChatReceiverLoading extends ChatState {}
 class ChatSendSuccess extends ChatState {}
 
 class ChatReceiveSuccess extends ChatState {
-  final dynamic response;
+  final List<ChatMessageModel> response;
 
   ChatReceiveSuccess({required this.response});
 }

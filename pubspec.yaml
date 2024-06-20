@@ -30,12 +30,14 @@ environment:
 dependencies:
   animated_bottom_navigation_bar: ^1.3.0
   bloc: ^8.1.2
+  build_runner: ^2.4.11
   cached_network_image: ^3.3.1
   cloud_firestore: ^4.13.3
   cupertino_icons: ^1.0.2
   dio: ^5.4.0
-  dropdown_button2: ^2.3.9
+  dropdown_button2: ^2.3.6
   easy_stepper: ^0.8.3
+  equatable: ^2.0.5
   firebase_auth: ^4.15.0
   firebase_core: ^2.24.0
   firebase_storage: ^11.7.2
@@ -50,8 +52,12 @@ dependencies:
   gap: ^3.0.1
   geolocator: ^11.0.0
   google_fonts: ^6.1.0
+  google_generative_ai: ^0.4.3
   google_maps_flutter: ^2.5.3
   google_sign_in: ^6.1.6
+  hive: ^2.2.3
+  hive_flutter: ^1.1.0
+  hive_generator: ^2.0.1
   image_picker: ^1.0.4
   intl: ^0.19.0
   loading_indicator: ^3.1.1
@@ -60,6 +66,7 @@ dependencies:
   material_floating_search_bar_2: ^0.5.0
   meta: ^1.10.0
   modal_progress_hud_nsn: ^0.5.1
+  path_provider: ^2.1.3
   shared_preferences: ^2.2.2
   sign_in_with_apple: ^6.1.0
   url_launcher: ^6.2.4

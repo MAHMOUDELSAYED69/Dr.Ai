@@ -43,7 +43,7 @@ class PlacesWebservices {
           'keyword': 'cruise',
           'types': 'hospital',
           'components': 'country:eg',
-          'key': ApiUrlManager.googleMap,
+          'key': ApiUrlManager.googleMapApiKey,
           'sessiontoken': sessionToken,
         },
       );
@@ -73,7 +73,7 @@ class PlacesWebservices {
         queryParameters: {
           'place_id': placeId,
           'fields': 'geometry',
-          'key': ApiUrlManager.googleMap,
+          'key': ApiUrlManager.googleMapApiKey,
           'sessiontoken': sessionToken,
         },
       );
@@ -94,7 +94,7 @@ class PlacesWebservices {
         queryParameters: {
           'origin': '${origin.latitude},${origin.longitude}',
           'destination': '${destination.latitude},${destination.longitude}',
-          'key': ApiUrlManager.googleMap,
+          'key': ApiUrlManager.googleMapApiKey,
         },
       );
       return response.data;
@@ -112,7 +112,7 @@ class PlacesWebservices {
       'location': '$latitude,$longitude',
       'radius': '5000',
       'type': 'hospital',
-      'key': ApiUrlManager.googleMap,
+      'key': ApiUrlManager.googleMapApiKey,
       'sessiontoken': sessionToken,
     };
 

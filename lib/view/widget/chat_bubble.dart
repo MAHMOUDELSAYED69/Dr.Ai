@@ -3,6 +3,7 @@ import 'package:dr_ai/core/helper/extention.dart';
 import 'package:dr_ai/logic/validation/formvalidation_cubit.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:intl/intl.dart';
 import 'package:loading_indicator/loading_indicator.dart';
 
 class ChatBubbleForLoading extends StatelessWidget {
@@ -42,40 +43,55 @@ class ChatBubbleForDrAi extends StatelessWidget {
   const ChatBubbleForDrAi({
     Key? key,
     required this.message,
+    required this.time,
   }) : super(key: key);
 
   final String message;
+  final String time;
   @override
   Widget build(BuildContext context) {
     final cubit = context.bloc<FormvalidationCubit>();
     return Align(
       alignment: AlignmentDirectional.centerStart,
-      child: Container(
-        padding: EdgeInsets.all(12.w),
-        margin: EdgeInsets.only(
-            left: 16.w, top: 7.h, bottom: 7.h, right: context.width / 4),
-        decoration: BoxDecoration(
-          borderRadius: BorderRadius.only(
-            bottomLeft: Radius.circular(16.r),
-            topRight: Radius.circular(16.r),
-            bottomRight: Radius.circular(16.r),
+      child: Column(
+        mainAxisSize: MainAxisSize.min,
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Container(
+            padding: EdgeInsets.all(12.w),
+            margin: EdgeInsets.only(
+                left: 16.w, top: 7.h, bottom: 7.h, right: context.width / 4),
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.only(
+                bottomLeft: Radius.circular(16.r),
+                topRight: Radius.circular(16.r),
+                bottomRight: Radius.circular(16.r),
+              ),
+              color: ColorManager.grey.withOpacity(0.25),
+            ),
+            child: TextSelectionTheme(
+              data: context.theme.textSelectionTheme.copyWith(
+                  cursorColor: ColorManager.green,
+                  selectionColor: ColorManager.green.withOpacity(0.3),
+                  selectionHandleColor: ColorManager.green),
+              child: SelectableText(
+                message,
+                textDirection: cubit.getTextDirection(message),
+                enableInteractiveSelection: true,
+                textAlign: TextAlign.start,
+                style: context.textTheme.bodySmall
+                    ?.copyWith(color: ColorManager.darkGrey),
+              ),
+            ),
           ),
-          color: ColorManager.grey.withOpacity(0.25),
-        ),
-        child: TextSelectionTheme(
-          data: context.theme.textSelectionTheme.copyWith(
-              cursorColor: ColorManager.green,
-              selectionColor: ColorManager.green.withOpacity(0.3),
-              selectionHandleColor: ColorManager.green),
-          child: SelectableText(
-            message,
-            textDirection: cubit.getTextDirection(message),
-            enableInteractiveSelection: true,
-            textAlign: TextAlign.start,
-            style: context.textTheme.bodySmall
-                ?.copyWith(color: ColorManager.darkGrey),
-          ),
-        ),
+          Padding(
+            padding: EdgeInsets.only(left: 16.w),
+            child: Text(
+              time,
+              style: context.textTheme.bodySmall,
+            ),
+          )
+        ],
       ),
     );
   }
@@ -88,6 +104,7 @@ class ChatBubbleForGuest extends StatelessWidget {
   }) : super(key: key);
 
   final String message;
+
   @override
   Widget build(BuildContext context) {
     final cubit = context.bloc<FormvalidationCubit>();

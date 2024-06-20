@@ -35,12 +35,17 @@ class _ChatScreenState extends State<ChatScreen> {
 
   void onSelected(value) {
     if (value == 'delete') {
-      context.bloc<ChatCubit>().deleteChatHistory();
+      context.bloc<ChatCubit>().deleteAllMessages();
     }
+  }
+
+  void getMessages() async {
+    if (_chatMessageModel.isEmpty) await context.bloc<ChatCubit>().initHive();
   }
 
   @override
   void initState() {
+    getMessages();
     super.initState();
     _txtController = TextEditingController();
     _scrollController = ScrollController();
@@ -190,7 +195,10 @@ class _ChatScreenState extends State<ChatScreen> {
           final chatMessage = _chatMessageModel[chatIndex];
           return chatMessage.isUser
               ? ChatBubbleForGuest(message: chatMessage.message)
-              : ChatBubbleForDrAi(message: chatMessage.message);
+              : ChatBubbleForDrAi(
+                  message: chatMessage.message,
+                  time: chatMessage.timeTamp,
+                );
         }
       },
     );
@@ -198,6 +206,8 @@ class _ChatScreenState extends State<ChatScreen> {
 
   Widget _buildChatTextField(BuildContext context) {
     return TextField(
+      minLines: 1,
+      maxLines: 4,
       style: context.textTheme.bodySmall?.copyWith(color: ColorManager.black),
       cursorColor: ColorManager.green,
       controller: _txtController,
@@ -216,7 +226,7 @@ class _ChatScreenState extends State<ChatScreen> {
                 onPressed: () {},
                 icon: SvgPicture.asset(ImageManager.recordIcon)),
             IconButton(
-                onPressed: _sendMessage,
+                onPressed: () => _sendMessage(),
                 icon: Icon(
                   Icons.send,
                   color: ColorManager.green,

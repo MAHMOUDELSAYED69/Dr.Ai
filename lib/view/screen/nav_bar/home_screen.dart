@@ -4,7 +4,7 @@ import 'package:dr_ai/core/helper/extention.dart';
 import 'package:dr_ai/view/widget/custom_button.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:gap/gap.dart';  
+import 'package:gap/gap.dart';
 import '../../../core/constant/color.dart';
 import '../../../logic/chat/chat_cubit.dart';
 import '../../widget/contact_card.dart';
@@ -26,9 +26,8 @@ class HomeScreen extends StatelessWidget {
               Gap(32.h),
               _buidContactsCard(),
               Gap(32.h),
-          
             ],
-          ), 
+          ),
         ),
       ),
     );
@@ -36,6 +35,11 @@ class HomeScreen extends StatelessWidget {
 
   Widget _buildChatCard(BuildContext context) {
     return Card(
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(12.dm),
+        side: BorderSide(color: ColorManager.green, width: 1.w),
+      ),
+      elevation: 3,
       color: ColorManager.white,
       child: Padding(
         padding: EdgeInsets.all(16.w),
@@ -63,7 +67,7 @@ class HomeScreen extends StatelessWidget {
                         size: Size(context.width * 0.375, 42.w),
                         title: "Start Chat",
                         onPressed: () {
-                          context.bloc<ChatCubit>().startListeningToMessages();
+                          context.bloc<ChatCubit>().initHive();
                           Navigator.pushNamed(context, RouteManager.chat);
                         },
                       ),

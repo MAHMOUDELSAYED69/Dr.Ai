@@ -27,6 +27,7 @@ class ContactCard extends StatelessWidget {
         onTap: () =>
             context.bloc<LaunchUriCubit>().openContactsApp(phoneNumber: number),
         child: Card(
+          elevation: 3,
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(12.dm),
             side: BorderSide(color: ColorManager.green, width: 1.w),

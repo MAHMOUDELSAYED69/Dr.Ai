@@ -10,6 +10,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
 import '../../core/constant/color.dart';
+import '../../logic/chat/chat_cubit.dart';
 
 class SplashScreen extends StatefulWidget {
   const SplashScreen({super.key});
@@ -31,6 +32,7 @@ class _SplashScreenState extends State<SplashScreen> {
         milliseconds: 1500,
       ),
       () {
+        context.bloc<ChatCubit>().initHive();
         Navigator.pushReplacementNamed(
             context,
             (FirebaseAuth.instance.currentUser != null &&

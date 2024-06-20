@@ -55,10 +55,10 @@ class CustomDropDownFieldState extends State<CustomDropDownField> {
             padding: EdgeInsets.only(left: 10.w),
           ),
           dropdownStyleData: DropdownStyleData(
-            elevation: 2,
+            elevation: 4,
             maxHeight: 200.h,
             scrollbarTheme: const ScrollbarThemeData(
-              thumbColor: MaterialStatePropertyAll(ColorManager.green),
+              thumbColor: WidgetStatePropertyAll(ColorManager.green),
             ),
             padding: EdgeInsets.zero,
             decoration: BoxDecoration(

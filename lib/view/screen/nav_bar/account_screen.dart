@@ -1,7 +1,3 @@
-// ignore_for_file: deprecated_member_use
-
-import 'dart:developer';
-
 import 'package:dr_ai/core/cache/cache.dart';
 import 'package:dr_ai/core/constant/color.dart';
 import 'package:dr_ai/core/constant/image.dart';
@@ -15,10 +11,6 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:gap/gap.dart';
-import 'package:uuid/uuid.dart';
-
-import '../../../data/service/api/maps_place.dart';
-import '../../../data/service/api/py_message.dart';
 import '../../widget/build_profile_card.dart';
 import '../account/edit_user_card_buttom_sheet.dart';
 import '../account/rating_screen.dart';
@@ -74,19 +66,13 @@ class _AccountScreenState extends State<AccountScreen> {
                   BuildProfileCard(
                     title: "Dark Mode",
                     image: ImageManager.darkModeIcon,
-                    onPressed: () async {
-                      final sessionToken = const Uuid().v4();
-                      log(sessionToken);
-                      await PlacesWebservices.getNearestHospital(
-                          30.2977, 31.2970, sessionToken);
-                    },
+                    onPressed: () {},
                   ),
                   divider,
                   BuildProfileCard(
-                    title: "Languages",
-                    image: ImageManager.languageIcon,
-                    onPressed: () {},
-                  ),
+                      title: "Languages",
+                      image: ImageManager.languageIcon,
+                      onPressed: () {}),
                   divider,
                   BuildProfileCard(
                     title: "Change Password",
@@ -147,6 +133,7 @@ class _AccountScreenState extends State<AccountScreen> {
   Widget _buildUserCard(BuildContext context,
       {required String char, required String email, required String name}) {
     return Card(
+      color: ColorManager.trasnsparent,
       elevation: 0,
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(12.dm),

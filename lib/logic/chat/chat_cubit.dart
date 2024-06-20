@@ -1,92 +1,89 @@
 import 'dart:async';
 import 'dart:developer';
 import 'package:bloc/bloc.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import '../../data/model/chat_message_model.dart';
-import '../../data/service/api/py_message.dart';
+import 'package:hive/hive.dart';
+import 'package:path_provider/path_provider.dart';
 
+import '../../data/model/chat_message_model.dart';
+import '../../data/service/api/google_generative_ai.dart';
 part 'chat_state.dart';
 
 class ChatCubit extends Cubit<ChatState> {
-  CollectionReference? _messagesCollection;
-  StreamSubscription<QuerySnapshot>? _messagesSubscription;
+  Box<ChatMessageModel>? _messagesBox;
 
-  ChatCubit() : super(ChatInitial()) {
-    FirebaseAuth.instance.authStateChanges().listen((user) {
-      if (user != null) {
-        _messagesCollection = FirebaseFirestore.instance
-            .collection('chat_history')
-            .doc(user.uid)
-            .collection('messages');
-        startListeningToMessages();
-      } else {
-        _messagesSubscription?.cancel();
-        _messagesCollection = null;
-      }
-    });
+  ChatCubit() : super(ChatInitial());
+
+  Future<void> openMessagesBox() async {
+    try {
+      _messagesBox = await Hive.openBox<ChatMessageModel>(
+          'chat_history_${FirebaseAuth.instance.currentUser?.uid}');
+    } on HiveError catch (err) {
+      log(err.message.toString());
+    }
+  }
+
+  Future<void> initHive() async {
+    try {
+      final appDocumentDir = await getApplicationDocumentsDirectory();
+      Hive.init(appDocumentDir.path);
+      await openMessagesBox();
+      startListeningToMessages();
+    } on HiveError catch (err) {
+      log(err.message.toString());
+    }
   }
 
   void startListeningToMessages() {
-    if (_messagesCollection != null) {
-      _messagesSubscription?.cancel();
-      _messagesSubscription = _messagesCollection!
-          .orderBy('timeTamp', descending: true)
-          .snapshots()
-          .listen((snapshot) {
-        final messages = snapshot.docs
-            .map((doc) =>
-                ChatMessageModel.fromJson(doc.data() as Map<String, dynamic>))
-            .toList();
-        emit(ChatReceiveSuccess(response: messages));
-      }, onError: (error) {
-        emit(ChatFailure(message: error.toString()));
+    try {
+      List<ChatMessageModel> messages =
+          _messagesBox?.values.toList().reversed.toList() ?? [];
+      emit(ChatReceiveSuccess(response: messages));
+      _messagesBox?.watch().listen((event) {
+        List<ChatMessageModel> updatedMessages =
+            _messagesBox?.values.toList().reversed.toList() ?? [];
+        emit(ChatReceiveSuccess(response: updatedMessages));
       });
+    } on HiveError catch (err) {
+      log(err.message.toString());
     }
   }
 
   Future<void> sendMessage({required String message}) async {
-    if (_messagesCollection != null) {
-      emit(ChatSenderLoading());
-      try {
-        final chatMessageModel = ChatMessageModel(
-            isUser: true,
-            message: message.trim(),
-            timeTamp: DateTime.now().toString());
-        await _messagesCollection!.add(chatMessageModel.toJson());
-        emit(ChatSendSuccess());
+    emit(ChatSenderLoading());
+    try {
+      final chatMessageModel = ChatMessageModel(
+        isUser: true,
+        message: message.trim(),
+        timeTamp: DateTime.now().toString(),
+      );
+      await _messagesBox?.add(chatMessageModel);
+      emit(ChatSendSuccess());
+      await Future.delayed(const Duration(milliseconds: 350));
 
-        //send message to bot
-        emit(ChatReceiverLoading());
-        final response =
-            await MessageWebService.postData(data: {'content': message});
-        log(response.toString());
-        await _messagesCollection!.add(ChatMessageModel(
-          isUser: false,
-          message: response ?? "ERROR",
-          timeTamp: DateTime.now().toString(),
-        ).toJson());
-        emit(ChatSendSuccess());
-      } on Exception catch (err) {
-        emit(ChatFailure(message: err.toString()));
-      }
+      emit(ChatReceiverLoading());
+      final response = await GenerativeAiWebService.postData(text: message);
+      log(response.toString());
+      await _messagesBox?.add(ChatMessageModel(
+        isUser: false,
+        message: response ?? "ERROR",
+        timeTamp: DateTime.now().toString(),
+      ));
+      emit(ChatSendSuccess());
+    } on HiveError catch (err) {
+      emit(ChatFailure(message: err.message.toString()));
     }
   }
 
-  Future<void> deleteChatHistory() async {
-    if (_messagesCollection != null) {
-      emit(ChatDeletingLoading());
-      try {
-        final messagesQuerySnapshot = await _messagesCollection!.get();
-
-        for (var doc in messagesQuerySnapshot.docs) {
-          await _messagesCollection!.doc(doc.id).delete();
-        }
-        emit(ChatDeleteSuccess());
-      } on FirebaseException catch (_) {
-        emit(ChatDeleteFailure(message: "Failed to delete chat history"));
-      }
+  Future<void> deleteAllMessages() async {
+    emit(ChatDeletingLoading());
+    try {
+      await _messagesBox?.clear();
+      emit(ChatDeleteSuccess());
+    } on HiveError catch (err) {
+      log(err.message.toString());
+      emit(ChatDeleteFailure(message: "Failed to delete chat history: $err"));
     }
   }
 }
