@@ -49,6 +49,7 @@ dependencies:
   flutter_polyline_points: ^2.0.0
   flutter_screenutil: ^5.9.0
   flutter_svg: ^2.0.10+1
+  formatted_text: ^4.0.1
   gap: ^3.0.1
   geolocator: ^11.0.0
   google_fonts: ^6.1.0

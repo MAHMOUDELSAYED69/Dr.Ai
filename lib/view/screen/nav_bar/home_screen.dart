@@ -36,11 +36,12 @@ class HomeScreen extends StatelessWidget {
   Widget _buildChatCard(BuildContext context) {
     return Card(
       shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(12.dm),
-        side: BorderSide(color: ColorManager.green, width: 1.w),
+        borderRadius: BorderRadius.circular(12.r),
+        side:
+            BorderSide(color: ColorManager.grey.withOpacity(0.3), width: 0.5.w),
       ),
-      elevation: 3,
-      color: ColorManager.white,
+      color: ColorManager.white.withOpacity(0.9),
+      elevation: 2,
       child: Padding(
         padding: EdgeInsets.all(16.w),
         child: Row(

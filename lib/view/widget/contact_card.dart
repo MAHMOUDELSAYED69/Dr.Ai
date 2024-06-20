@@ -27,12 +27,12 @@ class ContactCard extends StatelessWidget {
         onTap: () =>
             context.bloc<LaunchUriCubit>().openContactsApp(phoneNumber: number),
         child: Card(
-          elevation: 3,
+          elevation: 2,
           shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(12.dm),
+            borderRadius: BorderRadius.circular(12.r),
             side: BorderSide(color: ColorManager.green, width: 1.w),
           ),
-          color: ColorManager.white,
+          color: ColorManager.white.withOpacity(0.9),
           child: Padding(
             padding: EdgeInsets.symmetric(vertical: 12.h, horizontal: 5.w),
             child: Column(
@@ -44,7 +44,7 @@ class ContactCard extends StatelessWidget {
                       height: 42.w,
                       decoration: BoxDecoration(
                           color: (color).withOpacity(0.3),
-                          borderRadius: BorderRadius.circular(6.dm)),
+                          borderRadius: BorderRadius.circular(6.r)),
                       alignment: Alignment.center,
                       padding: EdgeInsets.all(8.w),
                       child: SvgPicture.asset(
@@ -52,7 +52,6 @@ class ContactCard extends StatelessWidget {
                         width: 20.w,
                         height: 20.w,
                       )),
-                  // SvgPicture.asset(image),
                   Gap(8.h),
                   Text(
                     title,

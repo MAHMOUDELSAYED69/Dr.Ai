@@ -4,6 +4,7 @@ import 'package:bloc/bloc.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:hive/hive.dart';
+import 'package:intl/intl.dart';
 import 'package:path_provider/path_provider.dart';
 
 import '../../data/model/chat_message_model.dart';
@@ -56,7 +57,7 @@ class ChatCubit extends Cubit<ChatState> {
       final chatMessageModel = ChatMessageModel(
         isUser: true,
         message: message.trim(),
-        timeTamp: DateTime.now().toString(),
+        timeTamp: dateTimeFormatter(),
       );
       await _messagesBox?.add(chatMessageModel);
       emit(ChatSendSuccess());
@@ -68,7 +69,7 @@ class ChatCubit extends Cubit<ChatState> {
       await _messagesBox?.add(ChatMessageModel(
         isUser: false,
         message: response ?? "ERROR",
-        timeTamp: DateTime.now().toString(),
+        timeTamp: dateTimeFormatter(),
       ));
       emit(ChatSendSuccess());
     } on HiveError catch (err) {
@@ -85,5 +86,13 @@ class ChatCubit extends Cubit<ChatState> {
       log(err.message.toString());
       emit(ChatDeleteFailure(message: "Failed to delete chat history: $err"));
     }
+  }
+
+  String dateTimeFormatter() {
+    DateTime now = DateTime.now();
+    DateFormat formatter = DateFormat('yyyy-MM-dd hh:mm a');
+    String formattedDate = formatter.format(now);
+    log(formattedDate);
+    return formattedDate;
   }
 }
