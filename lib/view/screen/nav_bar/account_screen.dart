@@ -133,10 +133,11 @@ class _AccountScreenState extends State<AccountScreen> {
   Widget _buildUserCard(BuildContext context,
       {required String char, required String email, required String name}) {
     return Card(
+      margin: EdgeInsets.zero,
       color: ColorManager.trasnsparent,
       elevation: 0,
       shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(12.dm),
+        borderRadius: BorderRadius.circular(12.r),
         side: BorderSide(color: ColorManager.grey, width: 1.w),
       ),
       child: ListTile(
@@ -146,7 +147,7 @@ class _AccountScreenState extends State<AccountScreen> {
             width: 50.w,
             decoration: BoxDecoration(
               color: ColorManager.green.withOpacity(0.1),
-              borderRadius: BorderRadius.circular(8.dm),
+              borderRadius: BorderRadius.circular(8.r),
               border: Border.all(
                 width: 1.5.w,
                 color: ColorManager.green,

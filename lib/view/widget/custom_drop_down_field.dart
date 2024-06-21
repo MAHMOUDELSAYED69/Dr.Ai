@@ -68,6 +68,12 @@ class CustomDropDownFieldState extends State<CustomDropDownField> {
           isExpanded: true,
           style:
               context.textTheme.bodySmall?.copyWith(color: ColorManager.black),
+          hint: widget.hintText != null
+              ? Text(
+                  widget.hintText!,
+                  style: context.textTheme.bodySmall,
+                )
+              : null,
           decoration: InputDecoration(
             isCollapsed: true,
             isDense: true,
@@ -78,7 +84,6 @@ class CustomDropDownFieldState extends State<CustomDropDownField> {
                 EdgeInsets.symmetric(vertical: 12.5.h, horizontal: 10.w),
             filled: true,
             fillColor: ColorManager.white,
-            hintText: widget.hintText,
             hintStyle: context.textTheme.bodySmall,
             enabledBorder: context.inputDecoration.enabledBorder,
             focusedBorder: context.inputDecoration.focusedBorder,

@@ -1,3 +1,4 @@
+import 'dart:developer';
 import 'package:dr_ai/core/helper/scaffold_snakbar.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -11,6 +12,8 @@ import '../../../core/constant/color.dart';
 import '../../../core/helper/custom_dialog.dart';
 import '../../../core/helper/extention.dart';
 import '../../../core/constant/image.dart';
+import 'package:speech_to_text/speech_recognition_result.dart';
+import 'package:speech_to_text/speech_to_text.dart' as stt;
 
 class ChatScreen extends StatefulWidget {
   const ChatScreen({Key? key}) : super(key: key);
@@ -20,38 +23,26 @@ class ChatScreen extends StatefulWidget {
 }
 
 class _ChatScreenState extends State<ChatScreen> {
+  stt.SpeechToText _speechToText = stt.SpeechToText();
+  bool _speechEnabled = false;
+  String _lastWords = '';
   bool _isSenderLoading = false;
   bool _isReceiverLoading = false;
   bool _isChatDeletingLoading = false;
   bool _isButtonVisible = false;
   List<ChatMessageModel> _chatMessageModel = [];
-  late TextEditingController _txtController;
+  late TextEditingController _txtController = TextEditingController();
   late ScrollController _scrollController;
-  void _sendMessage() {
-    if (_txtController.text.isNotEmpty) {
-      context.bloc<ChatCubit>().sendMessage(message: _txtController.text);
-    }
-  }
-
-  void onSelected(value) {
-    if (value == 'delete') {
-      context.bloc<ChatCubit>().deleteAllMessages();
-    }
-  }
-
-  void getMessages() async {
-    if (_chatMessageModel.isEmpty) await context.bloc<ChatCubit>().initHive();
-  }
+  String _currentLocaleId = 'ar-EG';
 
   @override
   void initState() {
-    getMessages();
     super.initState();
-    _txtController = TextEditingController();
+    _initSpeech();
+    _getMessages();
     _scrollController = ScrollController();
     _scrollController.addListener(() {
       bool isAtBottom = _scrollController.position.pixels <= 100;
-
       if (!isAtBottom) {
         if (!_isButtonVisible) {
           setState(() {
@@ -66,6 +57,56 @@ class _ChatScreenState extends State<ChatScreen> {
         }
       }
     });
+  }
+
+  void _initSpeech() async {
+    _speechEnabled = await _speechToText.initialize();
+    setState(() {});
+  }
+
+  void _startListening() async {
+    await _speechToText.listen(
+      onResult: _onSpeechResult,
+      partialResults: true,
+      onSoundLevelChange: null,
+      cancelOnError: true,
+      localeId: _currentLocaleId,
+      listenMode: stt.ListenMode.dictation,
+    );
+    setState(() {});
+  }
+
+  void _stopListening() async {
+    await _speechToText.stop();
+    setState(() {});
+  }
+
+  void _onSpeechResult(SpeechRecognitionResult result) {
+    setState(() {
+      _lastWords = result.recognizedWords;
+      _txtController.text = _lastWords;
+      _txtController.selection = TextSelection.fromPosition(
+        TextPosition(offset: _txtController.text.length),
+      );
+    });
+    log(result.recognizedWords);
+  }
+
+  void _sendMessage() {
+    if (_txtController.text.isNotEmpty) {
+      context.read<ChatCubit>().sendMessage(message: _txtController.text);
+      _txtController.clear();
+    }
+  }
+
+  void onSelected(value) {
+    if (value == 'delete') {
+      context.read<ChatCubit>().deleteAllMessages();
+    }
+  }
+
+  void _getMessages() async {
+    if (_chatMessageModel.isEmpty) await context.read<ChatCubit>().initHive();
   }
 
   @override
@@ -222,16 +263,24 @@ class _ChatScreenState extends State<ChatScreen> {
           mainAxisAlignment: MainAxisAlignment.end,
           mainAxisSize: MainAxisSize.min,
           children: [
+            if (_speechToText.isNotListening)
+              IconButton(
+                onPressed: _startListening,
+                icon: SvgPicture.asset(ImageManager.recordIcon),
+              ),
+            if (_speechToText.isListening)
+              IconButton(
+                onPressed: _stopListening,
+                icon: const Icon(Icons.stop, color: Colors.red),
+              ),
             IconButton(
-                onPressed: () {},
-                icon: SvgPicture.asset(ImageManager.recordIcon)),
-            IconButton(
-                onPressed: () => _sendMessage(),
-                icon: Icon(
-                  Icons.send,
-                  color: ColorManager.green,
-                  size: 25.r,
-                )),
+              onPressed: () => _sendMessage(),
+              icon: Icon(
+                Icons.send,
+                color: ColorManager.green,
+                size: 25.r,
+              ),
+            ),
           ],
         ),
         enabledBorder: context.inputDecoration.border,
