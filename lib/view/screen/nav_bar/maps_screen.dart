@@ -266,8 +266,8 @@ class _MapScreenState extends State<MapScreen> {
         alignment: Alignment.center,
         width: 50.w,
         height: 50.w,
-        decoration: BoxDecoration(
-          color: ColorManager.green.withOpacity(0.5),
+        decoration: const BoxDecoration(
+          color: ColorManager.green,
           shape: BoxShape.circle,
         ),
         child: SizedBox(

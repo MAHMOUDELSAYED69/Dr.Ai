@@ -89,7 +89,9 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
             child: Column(
               children: [
                 Gap(32.h),
-                const CustomScrollableAppBar(title: "Edit Profile",),
+                const CustomScrollableAppBar(
+                  title: "Edit Profile",
+                ),
                 Gap(20.h),
                 Padding(
                   padding: EdgeInsets.symmetric(horizontal: 18.w),
@@ -101,29 +103,21 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                         context,
                         _userData,
                       ),
-                      Gap(32.h),
-                      Row(
-                        children: [
-                          Expanded(
-                            child: CustomButton(
-                              title: "Cancel",
-                              onPressed: () => context.pop(),
-                            ),
-                          ),
-                          Gap(5.w),
-                          Expanded(
-                            child: CustomButton(
-                                widget: _isloading
-                                    ? const ButtonLoadingIndicator()
-                                    : null,
-                                isDisabled: _isloading,
-                                backgroundColor: ColorManager.error,
-                                title: "Update",
-                                onPressed: _updateUserData),
-                          ),
-                        ],
+                      Gap(28.h),
+                      CustomButton(
+                          widget: _isloading
+                              ? const ButtonLoadingIndicator()
+                              : null,
+                          isDisabled: _isloading,
+                          title: "Update",
+                          onPressed: _updateUserData),
+                      Gap(14.h),
+                      CustomButton(
+                        title: "Cancel",
+                        backgroundColor: ColorManager.error,
+                        onPressed: () => context.pop(),
                       ),
-                      Gap(32.h),
+                      Gap(22.h),
                     ],
                   ),
                 ),

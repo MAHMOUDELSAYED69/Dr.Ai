@@ -1,9 +1,7 @@
 import 'package:dr_ai/core/constant/color.dart';
 import 'package:dr_ai/core/helper/extention.dart';
-import 'package:dr_ai/logic/validation/formvalidation_cubit.dart';
 import 'package:dr_ai/view/widget/button_loading_indicator.dart';
 import 'package:dr_ai/view/widget/custom_button.dart';
-import 'package:dr_ai/view/widget/custom_text_field.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -15,13 +13,47 @@ import '../constant/image.dart';
 import '../constant/routes.dart';
 import 'scaffold_snakbar.dart';
 
-void alertMessage(BuildContext context, {String? message}) {
-  showDialog(
+Future<Widget?> customDialogWithAnimation(BuildContext context,
+    {required Widget screen, bool? dismiss}) {
+  return showGeneralDialog(
     context: context,
-    builder: (_) => AlertDialog(
+    transitionDuration: const Duration(milliseconds: 250),
+    barrierDismissible: dismiss ?? true,
+    barrierLabel: MaterialLocalizations.of(context).modalBarrierDismissLabel,
+    pageBuilder: (BuildContext buildContext, Animation animation,
+            Animation secondaryAnimation) =>
+        screen,
+    transitionBuilder: (context, animation, secondaryAnimation, child) {
+      return FadeTransition(
+        opacity: animation,
+        child: FadeTransition(
+          opacity: animation,
+          child: child,
+        ),
+      );
+    },
+  );
+}
+
+void alertMessage(BuildContext context, {String? message}) {
+  showGeneralDialog(
+    context: context,
+    transitionDuration: const Duration(milliseconds: 200),
+    pageBuilder: (BuildContext buildContext, Animation animation,
+            Animation secondaryAnimation) =>
+        AlertDialog(
       title: const Icon(Icons.warning_amber),
       content: Text(message ?? "there was an error please try again later!"),
     ),
+    transitionBuilder: (context, animation, secondaryAnimation, child) {
+      return FadeTransition(
+        opacity: animation,
+        child: ScaleTransition(
+          scale: animation,
+          child: child,
+        ),
+      );
+    },
   );
 }
 
@@ -36,23 +68,37 @@ void customDialog(BuildContext context,
     Widget? widget,
     VoidCallback? onCancle,
     bool? dismiss}) {
-  showDialog(
-      context: context,
-      barrierDismissible: dismiss ?? true,
-      builder: (_) => PopScope(
-        canPop: dismiss ?? true,
-        child: CustomDialog(
-              title: title,
-              subtitle: subtitle,
-              buttonTitle: buttonTitle,
-              onPressed: onPressed,
-              image: image,
-              errorMessage: errorMessage,
-              secondButtoncolor: secondButtoncolor,
-              widget: widget,
-              onCancle: onCancle,
-            ),
-      ));
+  showGeneralDialog(
+    context: context,
+    transitionDuration: const Duration(milliseconds: 250),
+    barrierLabel: MaterialLocalizations.of(context).modalBarrierDismissLabel,
+    barrierDismissible: dismiss ?? true,
+    pageBuilder: (BuildContext buildContext, Animation animation,
+            Animation secondaryAnimation) =>
+        PopScope(
+      canPop: dismiss ?? true,
+      child: CustomDialog(
+        title: title,
+        subtitle: subtitle,
+        buttonTitle: buttonTitle,
+        onPressed: onPressed,
+        image: image,
+        errorMessage: errorMessage,
+        secondButtoncolor: secondButtoncolor,
+        widget: widget,
+        onCancle: onCancle,
+      ),
+    ),
+    transitionBuilder: (context, animation, secondaryAnimation, child) {
+      return FadeTransition(
+        opacity: animation,
+        child: FadeTransition(
+          opacity: animation,
+          child: child,
+        ),
+      );
+    },
+  );
 }
 
 class CustomDialog extends StatefulWidget {

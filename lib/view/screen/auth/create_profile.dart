@@ -44,7 +44,6 @@ class _CreateProfileState extends State<CreateProfile> {
   List<Item> genderList = const [
     Item("Male", Icons.male),
     Item("Female", Icons.female),
-
   ];
   List<Item> bloodTypesList = const [
     Item('A+'),
@@ -94,10 +93,8 @@ class _CreateProfileState extends State<CreateProfile> {
                   if (state is VerifyEmailSuccess) {
                     FocusScope.of(context).unfocus();
                     _isLoading = false;
-                    showDialog(
-                        context: context,
-                        barrierDismissible: false,
-                        builder: (context) => const LoginDialog());
+                    customDialogWithAnimation(context,
+                        dismiss: false, screen: const LoginDialog());
                   }
                   if (state is CreateProfileFailure) {
                     customSnackBar(context, state.errorMessage);

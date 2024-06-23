@@ -93,10 +93,8 @@ class _AccountScreenState extends State<AccountScreen> {
                     image: ImageManager.rateUsIcon,
                     onPressed: () {
                       CacheData.getdata(key: "rating") ?? cubit.getUserRating();
-                      showDialog(
-                        context: context,
-                        builder: (context) => const RatingScreen(),
-                      );
+                      customDialogWithAnimation(context,
+                          screen: const RatingScreen());
                     },
                   ),
                   divider,

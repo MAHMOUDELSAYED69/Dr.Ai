@@ -38,19 +38,19 @@ abstract class AppRouter {
       case RouteManager.chat:
         return PageTransitionManager.fadeTransition(const ChatScreen());
       case RouteManager.editProfile:
-        return PageTransitionManager.materialPageRoute(
+        return PageTransitionManager.materialSlideTransition(
             const EditProfileScreen());
       case RouteManager.oldPassword:
-        return PageTransitionManager.materialPageRoute(
+        return PageTransitionManager.materialSlideTransition(
             const OldPasswordScreen());
       case RouteManager.newPassword:
         return PageTransitionManager.fadeTransition(const NewPasswordScreen());
       case RouteManager.aboutUs:
-        return PageTransitionManager.materialPageRoute(const AboutUsScreen());
+        return PageTransitionManager.materialSlideTransition(const AboutUsScreen());
       case RouteManager.maps:
         return PageTransitionManager.fadeTransition(const MapScreen());
       case RouteManager.reAuthScreen:
-        return PageTransitionManager.materialPageRoute(const ReAuthScreen());
+        return PageTransitionManager.materialSlideTransition(const ReAuthScreen());
       case RouteManager.deleteAccount:
         return PageTransitionManager.fadeTransition(
             const DeleteAccountScreen());
