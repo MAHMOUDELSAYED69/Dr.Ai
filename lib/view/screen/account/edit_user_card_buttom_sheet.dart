@@ -54,7 +54,7 @@ class _BuildbuttomSheetState extends State<BuildbuttomSheet> {
   bool _isLoading = false;
   @override
   Widget build(BuildContext context) {
-    final validator = context.bloc<FormvalidationCubit>();
+    final validator = context.bloc<ValidationCubit>();
     final accountCubit = context.read<AccountCubit>();
 
     return BlocConsumer<AccountCubit, AccountState>(

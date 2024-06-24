@@ -30,7 +30,7 @@ class _NewPasswordScreenState extends State<NewPasswordScreen> {
   @override
   Widget build(BuildContext context) {
     final password = context.bloc<AccountCubit>();
-    final validator = context.bloc<FormvalidationCubit>();
+    final validator = context.bloc<ValidationCubit>();
     return BlocConsumer<AccountCubit, AccountState>(
       listener: (context, state) {
         if (state is AccountUpdatePasswordLoading) {

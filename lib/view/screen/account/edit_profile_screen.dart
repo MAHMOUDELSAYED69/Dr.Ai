@@ -172,7 +172,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
 
   Widget _buildUserProfileDataFields(
       BuildContext context, Map<String, dynamic> userData) {
-    final cubit = context.bloc<FormvalidationCubit>();
+    final cubit = context.bloc<ValidationCubit>();
     return Form(
       key: _formKey,
       child: Column(

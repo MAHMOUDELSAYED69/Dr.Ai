@@ -7,7 +7,7 @@ void customSnackBar(BuildContext context,
     [String? message, Color? color, int? seconds]) {
   ScaffoldMessenger.of(context).hideCurrentSnackBar();
   ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12.dm)),
+      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(14.r)),
       duration: Duration(seconds: seconds ?? 3),
       backgroundColor: (color ?? ColorManager.green).withOpacity(0.9),
       behavior: SnackBarBehavior.floating,

@@ -68,7 +68,7 @@ class _ForgetPasswordState extends State<ForgetPassword> {
                   onSaved: (data) {
                     email = data;
                   },
-                  validator: context.bloc<FormvalidationCubit>().validateEmail,
+                  validator: context.bloc<ValidationCubit>().validateEmail,
                 ),
                 Gap(24.h),
                 BlocConsumer<ForgetPasswordCubit, ForgetPasswordState>(

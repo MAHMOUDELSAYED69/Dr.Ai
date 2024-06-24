@@ -1,18 +1,27 @@
 import 'package:bloc/bloc.dart';
-import 'package:flutter/services.dart';
-import 'package:meta/meta.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter/services.dart' hide TextDirection;
 import 'package:intl/intl.dart ' hide TextDirection;
 
 part 'formvalidation_state.dart';
 
-class FormvalidationCubit extends Cubit<FormvalidationState> {
-  FormvalidationCubit() : super(FormvalidationInitial());
+class ValidationCubit extends Cubit<FormvalidationState> {
+  ValidationCubit() : super(FormvalidationInitial());
   String _email = '';
   String _password = '';
   String _confirmPassword = '';
   TextDirection? getTextDirection(String text) {
     bool isArabic = RegExp(r'[\u0600-\u06FF]').hasMatch(text);
     return isArabic ? TextDirection.rtl : TextDirection.ltr;
+  }
+
+  TextDirection getFieldDirection(String text) {
+    if (text.isEmpty) {
+      return TextDirection.ltr;
+    }
+    final firstChar = text.characters.first;
+    final isRtl = RegExp(r'[\u0600-\u06FF]').hasMatch(firstChar);
+    return isRtl ? TextDirection.rtl : TextDirection.ltr;
   }
 
   void copyText(String? text) {

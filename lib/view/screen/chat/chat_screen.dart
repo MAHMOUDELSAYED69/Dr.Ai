@@ -6,6 +6,7 @@ import 'package:flutter_svg/svg.dart';
 import 'package:dr_ai/logic/chat/chat_cubit.dart';
 import 'package:dr_ai/data/model/chat_message_model.dart';
 import 'package:gap/gap.dart';
+import '../../../logic/validation/formvalidation_cubit.dart';
 import '../../widget/chat_bubble.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import '../../../core/constant/color.dart';
@@ -165,7 +166,7 @@ class _ChatScreenState extends State<ChatScreen> {
                 bottom: MediaQuery.of(context).viewInsets.bottom),
             child: Padding(
               padding: EdgeInsets.only(
-                  right: 18.w, left: 18.w, top: 10.h, bottom: 16.h),
+                  right: 14.w, left: 14.w, top: 5.h, bottom: 10.h),
               child: _buildChatTextField(context),
             ),
           ),
@@ -246,12 +247,20 @@ class _ChatScreenState extends State<ChatScreen> {
   }
 
   Widget _buildChatTextField(BuildContext context) {
+    final cubit = context.bloc<ValidationCubit>();
     return TextField(
       minLines: 1,
       maxLines: 4,
+      onChanged: (text) {
+        if (text.length == 1) {
+          setState(() {});
+          log("onChanged");
+        }
+      },
       style: context.textTheme.bodySmall?.copyWith(color: ColorManager.black),
       cursorColor: ColorManager.green,
       controller: _txtController,
+      textDirection: cubit.getFieldDirection(_txtController.text),
       onSubmitted: (_) => _sendMessage(),
       decoration: InputDecoration(
         contentPadding: EdgeInsets.symmetric(horizontal: 12.w, vertical: 14.h),

@@ -130,7 +130,7 @@ class _LoginScreenState extends State<LoginScreen> {
   }
 
   Widget _buildEmailAndPasswordFields() {
-    final cubit = context.bloc<FormvalidationCubit>();
+    final cubit = context.bloc<ValidationCubit>();
     return Column(children: [
       CustomTextFormField(
         keyboardType: TextInputType.emailAddress,

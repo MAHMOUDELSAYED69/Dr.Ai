@@ -36,7 +36,7 @@ abstract class AppRouter {
       case RouteManager.nav:
         return PageTransitionManager.materialPageRoute(const NavbarScreen());
       case RouteManager.chat:
-        return PageTransitionManager.fadeTransition(const ChatScreen());
+        return PageTransitionManager.materialPageRoute(const ChatScreen());
       case RouteManager.editProfile:
         return PageTransitionManager.materialSlideTransition(
             const EditProfileScreen());

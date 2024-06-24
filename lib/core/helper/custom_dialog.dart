@@ -17,7 +17,7 @@ Future<Widget?> customDialogWithAnimation(BuildContext context,
     {required Widget screen, bool? dismiss}) {
   return showGeneralDialog(
     context: context,
-    transitionDuration: const Duration(milliseconds: 250),
+    transitionDuration: const Duration(milliseconds: 350),
     barrierDismissible: dismiss ?? true,
     barrierLabel: MaterialLocalizations.of(context).modalBarrierDismissLabel,
     pageBuilder: (BuildContext buildContext, Animation animation,
@@ -38,7 +38,7 @@ Future<Widget?> customDialogWithAnimation(BuildContext context,
 void alertMessage(BuildContext context, {String? message}) {
   showGeneralDialog(
     context: context,
-    transitionDuration: const Duration(milliseconds: 200),
+    transitionDuration: const Duration(milliseconds: 350),
     pageBuilder: (BuildContext buildContext, Animation animation,
             Animation secondaryAnimation) =>
         AlertDialog(
@@ -70,7 +70,7 @@ void customDialog(BuildContext context,
     bool? dismiss}) {
   showGeneralDialog(
     context: context,
-    transitionDuration: const Duration(milliseconds: 250),
+    transitionDuration: const Duration(milliseconds: 350),
     barrierLabel: MaterialLocalizations.of(context).modalBarrierDismissLabel,
     barrierDismissible: dismiss ?? true,
     pageBuilder: (BuildContext buildContext, Animation animation,

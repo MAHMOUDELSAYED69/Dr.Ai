@@ -22,9 +22,9 @@ class ChatBubbleForLoading extends StatelessWidget {
             left: 16.w, top: 7.h, bottom: 7.h, right: context.width / 4),
         decoration: BoxDecoration(
           borderRadius: BorderRadius.only(
+            topLeft: Radius.circular(16.r),
             topRight: Radius.circular(16.r),
             bottomRight: Radius.circular(16.r),
-            topLeft: Radius.circular(16.r),
           ),
           color: ColorManager.grey.withOpacity(0.25),
         ),
@@ -59,7 +59,7 @@ class _ChatBubbleForDrAiState extends State<ChatBubbleForDrAi> {
   bool _isShowDateTime = false;
   @override
   Widget build(BuildContext context) {
-    final cubit = context.bloc<FormvalidationCubit>();
+    final cubit = context.bloc<ValidationCubit>();
     return GestureDetector(
       onTap: () {
         _isShowDateTime = !_isShowDateTime;
@@ -119,14 +119,21 @@ class _ChatBubbleForDrAiState extends State<ChatBubbleForDrAi> {
                   )),
             ],
           ),
-          if (_isShowDateTime)
-            Padding(
+          AnimatedOpacity(
+            duration: const Duration(milliseconds: 500),
+            curve: Curves.ease,
+            opacity: _isShowDateTime ? 1 : 0,
+            child: AnimatedContainer(
+              curve: Curves.ease,
+              duration: const Duration(milliseconds: 250),
+              height: _isShowDateTime ? 18.h : 0.0,
               padding: EdgeInsets.only(left: 16.w),
               child: Text(
                 widget.time,
                 style: context.textTheme.bodySmall,
               ),
-            )
+            ),
+          ),
         ],
       ),
     );
@@ -143,7 +150,7 @@ class ChatBubbleForGuest extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final cubit = context.bloc<FormvalidationCubit>();
+    final cubit = context.bloc<ValidationCubit>();
     return Align(
       alignment: AlignmentDirectional.centerEnd,
       child: Container(

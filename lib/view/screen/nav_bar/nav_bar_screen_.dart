@@ -1,10 +1,5 @@
-// ignore_for_file: deprecated_member_use
-
-import 'dart:developer';
-
 import 'package:animated_bottom_navigation_bar/animated_bottom_navigation_bar.dart';
 import 'package:dr_ai/core/constant/color.dart';
-import 'package:dr_ai/core/constant/routes.dart';
 import 'package:dr_ai/core/helper/extention.dart';
 import 'package:dr_ai/view/screen/nav_bar/account_screen.dart';
 import 'package:dr_ai/view/screen/nav_bar/nfc_screen.dart';
@@ -80,8 +75,8 @@ class _NavbarScreenState extends State<NavbarScreen> {
         ),
       ),
       bottomNavigationBar: AnimatedBottomNavigationBar.builder(
-        splashColor: ColorManager.green.withOpacity(0.5),
-        splashRadius: 20,
+        splashColor: ColorManager.green.withOpacity(0.3),
+        splashRadius: 18,
         gapWidth: 0,
         backgroundColor: ColorManager.white,
         elevation: 15,
@@ -91,8 +86,8 @@ class _NavbarScreenState extends State<NavbarScreen> {
         activeIndex: _bottomNavIndex,
         gapLocation: GapLocation.center,
         height: 65.h,
-        leftCornerRadius: 20.dm,
-        rightCornerRadius: 20.dm,
+        leftCornerRadius: 22.r,
+        rightCornerRadius: 22.r,
         onTap: (index) => setState(() => _bottomNavIndex = index),
         itemCount: 4,
         tabBuilder: (int index, bool isActive) {

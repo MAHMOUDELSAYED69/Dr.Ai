@@ -69,7 +69,7 @@ class _EmailScreenState extends State<EmailScreen> {
                   onSaved: (data) {
                     _email = data;
                   },
-                  validator: context.bloc<FormvalidationCubit>().validateEmail,
+                  validator: context.bloc<ValidationCubit>().validateEmail,
                 ),
               ),
               Gap(context.height / 8.5),

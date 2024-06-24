@@ -11,6 +11,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:gap/gap.dart';
+import '../../../data/service/api/py_message.dart';
 import '../../widget/build_profile_card.dart';
 import '../account/edit_user_card_buttom_sheet.dart';
 import '../account/rating_screen.dart';
@@ -66,7 +67,9 @@ class _AccountScreenState extends State<AccountScreen> {
                   BuildProfileCard(
                     title: "Dark Mode",
                     image: ImageManager.darkModeIcon,
-                    onPressed: () {},
+                    onPressed: () async {
+           
+                    },
                   ),
                   divider,
                   BuildProfileCard(

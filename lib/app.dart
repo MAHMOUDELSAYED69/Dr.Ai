@@ -71,7 +71,7 @@ class _MyAppState extends State<MyApp> {
           create: (context) => MapsCubit(),
         ),
         BlocProvider(
-          create: (context) => FormvalidationCubit(),
+          create: (context) => ValidationCubit(),
         ),
         BlocProvider(
           create: (context) => LaunchUriCubit(),

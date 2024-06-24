@@ -75,7 +75,7 @@ class _PasswordScreenState extends State<PasswordScreen> {
   }
 
   Widget _buildPasswordAndConfirmPasswordFields() {
-    final cubit = context.bloc<FormvalidationCubit>();
+    final cubit = context.bloc<ValidationCubit>();
     return Form(
       key: formKey,
       child: Column(

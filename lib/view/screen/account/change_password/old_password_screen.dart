@@ -49,7 +49,7 @@ class _OldPasswordScreenState extends State<OldPasswordScreen> {
   @override
   Widget build(BuildContext context) {
     final cubit = context.bloc<AccountCubit>();
-    final validator = context.bloc<FormvalidationCubit>();
+    final validator = context.bloc<ValidationCubit>();
     return BlocConsumer<AccountCubit, AccountState>(
       listener: (context, state) {
         if (state is AccountReAuthLoading) {
