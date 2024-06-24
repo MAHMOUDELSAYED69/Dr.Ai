@@ -26,9 +26,11 @@ class _MapScreenState extends State<MapScreen> {
   @override
   void initState() {
     super.initState();
+    _scaffoldKey = GlobalKey<ScaffoldState>();
     _getCurrentLocation();
   }
 
+  late GlobalKey<ScaffoldState> _scaffoldKey;
   Future<void> _getCurrentLocation() async {
     await LocationHelper.determineCurrentPosition();
     _position = await Geolocator.getCurrentPosition().whenComplete(() async {
@@ -63,6 +65,37 @@ class _MapScreenState extends State<MapScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+        key: _scaffoldKey,
+        drawer: Drawer(
+          child: ListView(
+            padding: EdgeInsets.zero,
+            children: const [
+              DrawerHeader(
+                decoration: BoxDecoration(
+                  color: ColorManager.green,
+                ),
+                child: Column(
+                  children: [
+                    Text(
+                      'Find Nearest Hospital',
+                      style: TextStyle(
+                        color: Colors.white,
+                        fontSize: 24,
+                      ),
+                    ),
+                    Text(
+                      'DR.Ai Team',
+                      style: TextStyle(
+                        color: Colors.white,
+                        fontSize: 24,
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+            ],
+          ),
+        ),
         backgroundColor: Colors.transparent,
         resizeToAvoidBottomInset: false,
         body: Stack(
@@ -94,10 +127,23 @@ class _MapScreenState extends State<MapScreen> {
                   )
                 : const SizedBox(),
             Gap(14.h),
+            FloatingActionButton.small(
+              splashColor: ColorManager.white.withOpacity(0.3),
+              backgroundColor: ColorManager.error,
+              heroTag: 1,
+              onPressed: () {
+                _scaffoldKey.currentState?.openDrawer();
+              },
+              child: const Icon(
+                Icons.emergency_outlined,
+                color: ColorManager.white,
+              ),
+            ),
+            Gap(14.h),
             FloatingActionButton(
               splashColor: ColorManager.white.withOpacity(0.3),
               backgroundColor: ColorManager.green,
-              heroTag: 1,
+              heroTag: 3,
               onPressed: _goToMyCurrentLocation,
               child: const Icon(
                 Icons.zoom_in_map_rounded,

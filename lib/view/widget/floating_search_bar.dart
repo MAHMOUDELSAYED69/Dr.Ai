@@ -67,11 +67,13 @@ class MyFloatingSearchBarState extends State<MyFloatingSearchBar> {
       onQueryChanged: onQueryChanged,
       clearQueryOnClose: true,
       transition: SlideFadeFloatingSearchBarTransition(),
+      leadingActions: [],
       actions: [
         FloatingSearchBarAction(
-            showIfOpened: false,
-            child: Icon(Icons.apartment_rounded,
-                color: ColorManager.green, size: 25.r)),
+          showIfOpened: false,
+          child: Icon(Icons.apartment_rounded,
+              color: ColorManager.green, size: 25.r),
+        ),
         FloatingSearchBarAction.searchToClear(
           showIfClosed: false,
         ),

@@ -27,19 +27,16 @@ class BuildProfileCard extends StatelessWidget {
       onTap: onPressed,
       splashFactory: InkSplash.splashFactory,
       child: ListTile(
-        contentPadding: EdgeInsets.symmetric(vertical: 5.h),
+        contentPadding: EdgeInsets.symmetric(vertical: 5.h, horizontal: 6.w),
         title: Text(title, style: context.textTheme.bodyMedium),
-        trailing: IconButton(
-          onPressed: onPressed,
-          icon: Icon(Icons.arrow_forward_ios,
-              size: 16.r, grade: 60, color: color ?? ColorManager.green),
-        ),
+        trailing: Icon(Icons.arrow_forward_ios,
+            size: 16.r, grade: 60, color: color ?? ColorManager.green),
         leading: Container(
           width: 46.w,
           height: 46.w,
           decoration: BoxDecoration(
               color: (color ?? ColorManager.green).withOpacity(0.1),
-              borderRadius: BorderRadius.circular(8.dm)),
+              borderRadius: BorderRadius.circular(8.r)),
           alignment: Alignment.center,
           padding: EdgeInsets.all(12.w),
           child: iconData == null
