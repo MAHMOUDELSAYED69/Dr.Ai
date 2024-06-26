@@ -8,6 +8,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:gap/gap.dart';
 import '../../../core/constant/image.dart';
+import '../../widget/custom_tooltip.dart';
 import 'maps_screen.dart';
 import '../nav_bar/home_screen.dart';
 
@@ -91,24 +92,27 @@ class _NavbarScreenState extends State<NavbarScreen> {
         onTap: (index) => setState(() => _bottomNavIndex = index),
         itemCount: 4,
         tabBuilder: (int index, bool isActive) {
-          return Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              SvgPicture.asset(
-                width: 20.w,
-                height: 20.w,
-                fit: BoxFit.contain,
-                _buildItems()["icon"]![index],
-                color: isActive ? ColorManager.green : ColorManager.grey,
-              ),
-              Gap(5.h),
-              Text(
-                _buildItems()["text"]![index],
-                style: context.textTheme.bodySmall?.copyWith(
-                    fontSize: 12.spMin,
-                    color: isActive ? ColorManager.green : ColorManager.grey),
-              ),
-            ],
+          return CustomToolTip(
+            message: _buildItems()["text"]![index],
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                SvgPicture.asset(
+                  width: 20.w,
+                  height: 20.w,
+                  fit: BoxFit.contain,
+                  _buildItems()["icon"]![index],
+                  color: isActive ? ColorManager.green : ColorManager.grey,
+                ),
+                Gap(5.h),
+                Text(
+                  _buildItems()["text"]![index],
+                  style: context.textTheme.bodySmall?.copyWith(
+                      fontSize: 12.spMin,
+                      color: isActive ? ColorManager.green : ColorManager.grey),
+                ),
+              ],
+            ),
           );
         },
         //other params
@@ -116,6 +120,7 @@ class _NavbarScreenState extends State<NavbarScreen> {
     );
   }
 }
+
 // class NavbarScreen extends StatefulWidget {
 //   const NavbarScreen({super.key});
 

@@ -67,16 +67,11 @@ class MyFloatingSearchBarState extends State<MyFloatingSearchBar> {
       onQueryChanged: onQueryChanged,
       clearQueryOnClose: true,
       transition: SlideFadeFloatingSearchBarTransition(),
-      leadingActions: [],
+      automaticallyImplyDrawerHamburger: true,
+      automaticallyImplyBackButton: true,
+      autocorrect: true,
       actions: [
-        FloatingSearchBarAction(
-          showIfOpened: false,
-          child: Icon(Icons.apartment_rounded,
-              color: ColorManager.green, size: 25.r),
-        ),
-        FloatingSearchBarAction.searchToClear(
-          showIfClosed: false,
-        ),
+        FloatingSearchBarAction.searchToClear(),
       ],
       builder: (context, transition) {
         return BlocBuilder<MapsCubit, MapsState>(
