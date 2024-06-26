@@ -20,8 +20,8 @@ import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:uuid/uuid.dart';
 import '../../../core/helper/scaffold_snakbar.dart';
 import '../../../data/model/find_hospital_place_info.dart';
-import '../../../data/service/api/maps_place.dart';
 import '../../../logic/maps/maps_cubit.dart';
+// Empty commit
 
 class MapScreen extends StatefulWidget {
   const MapScreen({super.key});
@@ -648,7 +648,8 @@ class _MapScreenState extends State<MapScreen> {
                         context.bloc<MapsCubit>().getNearestHospitals();
                       },
                       title: "Find Hospitals",
-                      widget: _isLoading ? const ButtonLoadingIndicator() : null,
+                      widget:
+                          _isLoading ? const ButtonLoadingIndicator() : null,
                     ),
                   ),
                 ],
