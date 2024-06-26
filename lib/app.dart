@@ -101,7 +101,7 @@ class _MyAppState extends State<MyApp> {
                   },
                   themeAnimationStyle: AnimationStyle(
                     duration: const Duration(microseconds: 250),
-                    curve: Curves.linear,
+                    curve: Curves.ease,
                   ),
                   color: ColorManager.white,
                   debugShowCheckedModeBanner: false,
