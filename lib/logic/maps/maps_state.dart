@@ -30,3 +30,18 @@ class MapsFailure extends MapsState {
 
   MapsFailure({required this.errMessage});
 }
+
+class FindHospitalInitial extends MapsState {}
+
+class FindHospitalLoading extends MapsState {}
+
+class FindHospitalSuccess extends MapsState {
+  final List<FindHospitalsPlaceInfo?> hospitalsList;
+
+  FindHospitalSuccess({required this.hospitalsList});
+}
+
+class FindHospitalFailure extends MapsState {
+  final String message;
+  FindHospitalFailure({required this.message});
+}
