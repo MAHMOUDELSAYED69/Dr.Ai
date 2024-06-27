@@ -114,7 +114,7 @@ class PlacesWebservices {
     final queryParameters = {
       'location': '$latitude,$longitude',
       'radius': '5000',
-      'type': 'hospital',
+      'types': 'hospital',
       'key': ApiUrlManager.googleMapApiKey,
       'sessiontoken': sessionToken,
     };
@@ -150,7 +150,7 @@ class FindHospitalWebService {
           queryParameters: {
             'location': '$latitude,$lngitude',
             'radius': radius?.toString() ?? '5000',
-            'type': 'hospital',
+            'types': ['hospital', 'emergency_hospital', 'surgery_hospital'],
             'key': ApiUrlManager.googleMapApiKey,
             'sessiontoken': sessionToken,
             if (nextPageToken != null) 'pagetoken': nextPageToken,

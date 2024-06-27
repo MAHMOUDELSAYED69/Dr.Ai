@@ -15,6 +15,18 @@ class ValidationCubit extends Cubit<FormvalidationState> {
     return isArabic ? TextDirection.rtl : TextDirection.ltr;
   }
 
+  String? convertDuration(String duration) {
+    RegExp regExp = RegExp(r'(\d+)\s*hours?\s*(\d+)\s*mins?');
+    Match? match = regExp.firstMatch(duration);
+
+    if (match != null) {
+      String hours = match.group(1)!;
+      String minutes = match.group(2)!;
+      return '$hours h $minutes m';
+    }
+    return duration;
+  }
+
   TextDirection getFieldDirection(String text) {
     if (text.isEmpty) {
       return TextDirection.ltr;
