@@ -1,5 +1,6 @@
 import 'package:dr_ai/core/helper/extention.dart';
 import 'package:dr_ai/data/model/place_directions.dart';
+import 'package:dr_ai/logic/validation/formvalidation_cubit.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
@@ -47,11 +48,14 @@ class DistanceAndTime extends StatelessWidget {
 
   Widget _buildDetailsCard(BuildContext context,
       {String? data, IconData? iconData}) {
+    final cubit = context.bloc<ValidationCubit>();
     return Card(
       elevation: 0,
       shape: RoundedRectangleBorder(
-        side:
-            BorderSide(width: 2.w, color: ColorManager.black.withOpacity(0.17)),
+        side: BorderSide(
+          width: 2.w,
+          color: ColorManager.black.withOpacity(0.17),
+        ),
         borderRadius: BorderRadius.circular(8.dm),
       ),
       color: ColorManager.white,
@@ -64,7 +68,7 @@ class DistanceAndTime extends StatelessWidget {
           size: 20.r,
         ),
         title: Text(
-          data ?? "Empty",
+          cubit.convertDuration(data!) ?? "Empty",
           style: context.textTheme.bodyMedium,
           textAlign: TextAlign.center,
           overflow: TextOverflow.ellipsis,

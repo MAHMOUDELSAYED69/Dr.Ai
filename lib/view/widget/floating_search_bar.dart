@@ -43,8 +43,9 @@ class MyFloatingSearchBarState extends State<MyFloatingSearchBar> {
       },
       isScrollControlled: true,
       accentColor: ColorManager.green,
-      queryStyle:
-          context.textTheme.bodySmall?.copyWith(color: ColorManager.black),
+      queryStyle: context.textTheme.bodySmall?.copyWith(
+        color: ColorManager.black,
+      ),
       textInputType: TextInputType.text,
       shadowColor: ColorManager.grey.withOpacity(0.4),
       controller: searchBarController,

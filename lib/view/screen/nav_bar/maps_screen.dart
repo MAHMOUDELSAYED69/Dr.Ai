@@ -118,7 +118,7 @@ class _MapScreenState extends State<MapScreen> {
         floatingActionButton: Column(
           mainAxisSize: MainAxisSize.min,
           children: [
-            if (_isSearchedPlaceMarkerClicked)
+            if (_isTimeAndDistanceVisible)
               CustomToolTip(
                 bottomMargin: 20,
                 message: "Searched Location",
@@ -173,10 +173,25 @@ class _MapScreenState extends State<MapScreen> {
 
   Widget _buildMap() {
     return GoogleMap(
+      
       mapToolbarEnabled: false,
+      // trafficEnabled: true,
       compassEnabled: true,
       buildingsEnabled: true,
-      markers: _markers,
+      markers: _markers.isEmpty
+          ? {
+              // Marker(
+              //   markerId: const MarkerId('currentLocation'),
+              //   position: LatLng(_position!.latitude, _position!.longitude),
+              //   icon: BitmapDescriptor.defaultMarkerWithHue(
+              //       BitmapDescriptor.hueGreen),
+              //   infoWindow: const InfoWindow(
+              //     title: 'Current Location',
+              //     snippet: 'This is your current location',
+              //   ),
+              // ),
+            }
+          : _markers,
       initialCameraPosition: CameraPosition(
         target: LatLng(_position!.latitude, _position!.longitude),
         zoom: 15.0,
@@ -186,9 +201,9 @@ class _MapScreenState extends State<MapScreen> {
           circleId: const CircleId("current_location"),
           center: LatLng(_position!.latitude, _position!.longitude),
           radius: 70.r,
-          fillColor: ColorManager.lightBlue.withOpacity(0.3),
-          strokeColor: ColorManager.lightBlue.withOpacity(0.7),
-          strokeWidth: 2,
+          fillColor: ColorManager.green.withOpacity(0.25),
+          strokeColor: ColorManager.green.withOpacity(0.7),
+          strokeWidth: 1,
         ),
       },
       mapType: MapType.normal,
@@ -206,7 +221,7 @@ class _MapScreenState extends State<MapScreen> {
                 endCap: Cap.roundCap,
                 jointType: JointType.round,
                 polylineId: const PolylineId('polyline'),
-                color: ColorManager.error,
+                color: ColorManager.green,
                 width: 5,
                 points: _polylinePoints,
               ),
@@ -420,7 +435,7 @@ class _MapScreenState extends State<MapScreen> {
     //   }
     // }
 
-    // _markers = {};
+    _markers = {};
     for (var hospital in _hospitalList) {
       final marker = Marker(
         markerId: MarkerId(hospital!.placeId),
@@ -462,12 +477,13 @@ class _MapScreenState extends State<MapScreen> {
       },
       builder: (context, state) {
         return SafeArea(
-          child: SizedBox(
-            height: context.height / 1,
+          child: AnimatedContainer(
+            duration: const Duration(milliseconds: 1400),
+            height: _hospitalList.isEmpty || _hospitalList.length <= 3
+                ? context.height / 2
+                : context.height,
             child: Drawer(
-              backgroundColor: _hospitalList.isNotEmpty
-                  ? ColorManager.trasnsparent
-                  : ColorManager.trasnsparent.withOpacity(0.2),
+              backgroundColor: ColorManager.trasnsparent.withOpacity(0.2),
               width: context.width / 1.3,
               child: Column(
                 children: [
@@ -495,6 +511,8 @@ class _MapScreenState extends State<MapScreen> {
                                     _goToSearchedPlaceLocation();
                                     _markNearestHospital();
                                     _getDirections();
+                                    _isTimeAndDistanceVisible = true;
+                                    _isSearchedPlaceMarkerClicked = true;
                                     setState(() {});
                                     _scaffoldKey.currentState?.closeDrawer();
                                   },
@@ -630,15 +648,13 @@ class _MapScreenState extends State<MapScreen> {
                       //         ),
                       //       ),
 
-                      : Padding(
-                          padding: EdgeInsets.only(top: context.height / 3),
-                          child: const Icon(
+                      : const Expanded(
+                          child: Icon(
                             Icons.my_location_rounded,
                             color: ColorManager.green,
-                            size: 150,
+                            size: 60,
                           ),
                         ),
-                  if (_hospitalList.isEmpty) const Spacer(),
                   Padding(
                     padding: EdgeInsets.symmetric(vertical: 8.h),
                     child: CustomButton(
