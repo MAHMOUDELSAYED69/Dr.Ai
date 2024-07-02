@@ -6,8 +6,6 @@ Dr. AI is an advanced, Flutter-based mobile application developed to act as your
 
 `Medical Queries:` Users can ask medical questions and receive accurate, timely responses. This feature is powered by a robust backend that sources information from reliable medical databases and expert systems, ensuring the advice and information provided are trustworthy and up-to-date.
 
-`Medicine Information:` The app allows users to search for detailed information about various medicines, including their uses, side effects, dosage recommendations, and more. This feature is designed to help users make informed decisions about their medications.
-
 `Hospital Locator:` In case of emergencies, users can leverage the integrated Google Maps functionality to search for hospitals. The app provides real-time data on the nearest hospitals, helping users navigate quickly to the closest medical facility when every second counts.
 
 `Medical History Access:` Dr. AI securely stores users' medical histories in Firebase, allowing users to access their records at any time. This is particularly useful during emergencies, where having quick access to medical history can be crucial. Users can also share their medical history with healthcare providers through NFC technology.
