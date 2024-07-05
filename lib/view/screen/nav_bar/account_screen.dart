@@ -11,7 +11,6 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:gap/gap.dart';
-import '../../../data/service/api/py_message.dart';
 import '../../widget/build_profile_card.dart';
 import '../account/edit_user_card_buttom_sheet.dart';
 import '../account/rating_screen.dart';
@@ -34,7 +33,7 @@ class _AccountScreenState extends State<AccountScreen> {
   @override
   Widget build(BuildContext context) {
     final cubit = context.bloc<AccountCubit>();
-    final divider = Divider(color: ColorManager.grey, thickness: 1.w);
+    const divider = Divider(color: ColorManager.grey);
     return BlocConsumer<AccountCubit, AccountState>(
       listener: (context, state) {
         if (state is AccountSuccess) {
@@ -46,7 +45,7 @@ class _AccountScreenState extends State<AccountScreen> {
           backgroundColor: context.theme.scaffoldBackgroundColor,
           body: SingleChildScrollView(
             child: Padding(
-              padding: EdgeInsets.symmetric(horizontal: 12.w, vertical: 18.h),
+              padding: const EdgeInsets.symmetric(horizontal: 18, vertical: 18),
               child: Column(
                 children: [
                   Gap(15.h),
@@ -67,9 +66,7 @@ class _AccountScreenState extends State<AccountScreen> {
                   BuildProfileCard(
                     title: "Dark Mode",
                     image: ImageManager.darkModeIcon,
-                    onPressed: () async {
-           
-                    },
+                    onPressed: () {},
                   ),
                   divider,
                   BuildProfileCard(
@@ -138,8 +135,8 @@ class _AccountScreenState extends State<AccountScreen> {
       color: ColorManager.trasnsparent,
       elevation: 0,
       shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(12.r),
-        side: BorderSide(color: ColorManager.grey, width: 1.w),
+        borderRadius: BorderRadius.circular(12),
+        side: const BorderSide(color: ColorManager.grey, width: 1),
       ),
       child: ListTile(
         leading: Container(
@@ -148,7 +145,7 @@ class _AccountScreenState extends State<AccountScreen> {
             width: 50.w,
             decoration: BoxDecoration(
               color: ColorManager.green.withOpacity(0.1),
-              borderRadius: BorderRadius.circular(8.r),
+              borderRadius: BorderRadius.circular(8),
               border: Border.all(
                 width: 1.5.w,
                 color: ColorManager.green,
@@ -169,7 +166,7 @@ class _AccountScreenState extends State<AccountScreen> {
           overflow: TextOverflow.ellipsis,
         ),
         contentPadding:
-            EdgeInsets.only(left: 12.w, right: 4.w, bottom: 5.h, top: 5.h),
+            const EdgeInsets.only(left: 14, right: 6, bottom: 6, top: 6),
         trailing: IconButton(
             padding: EdgeInsets.zero,
             onPressed: () => showEditProfileBottomSheet(context),

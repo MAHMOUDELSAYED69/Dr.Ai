@@ -28,7 +28,7 @@ class RatingScreenState extends State<RatingScreen> {
     return Dialog(
       insetPadding: REdgeInsets.all(16.w),
       shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(12.dm),
+        borderRadius: BorderRadius.circular(14),
       ),
       elevation: 0,
       backgroundColor: ColorManager.white,

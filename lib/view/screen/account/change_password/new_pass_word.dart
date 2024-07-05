@@ -60,7 +60,7 @@ class _NewPasswordScreenState extends State<NewPasswordScreen> {
                   ),
                   Gap(20.h),
                   Padding(
-                    padding: EdgeInsets.symmetric(horizontal: 18.w),
+                    padding: const EdgeInsets.symmetric(horizontal: 18),
                     child: Form(
                       key: _formKey,
                       child: Column(

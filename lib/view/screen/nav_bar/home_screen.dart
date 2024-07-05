@@ -18,7 +18,7 @@ class HomeScreen extends StatelessWidget {
       backgroundColor: context.theme.scaffoldBackgroundColor,
       body: SingleChildScrollView(
         child: Padding(
-          padding: EdgeInsets.symmetric(horizontal: 16.w, vertical: 18.h),
+          padding: const EdgeInsets.symmetric(horizontal: 18, vertical: 18),
           child: Column(
             children: [
               Gap(32.h),
@@ -36,14 +36,13 @@ class HomeScreen extends StatelessWidget {
   Widget _buildChatCard(BuildContext context) {
     return Card(
       shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(12.r),
-        side:
-            BorderSide(color: ColorManager.grey.withOpacity(0.3), width: 0.5.w),
+        borderRadius: BorderRadius.circular(12),
+        side: BorderSide(color: ColorManager.grey.withOpacity(0.3), width: 0.5),
       ),
       color: ColorManager.white.withOpacity(0.9),
       elevation: 2,
       child: Padding(
-        padding: EdgeInsets.all(16.w),
+        padding: const EdgeInsets.all(18),
         child: Row(
           children: [
             Expanded(
@@ -65,7 +64,7 @@ class HomeScreen extends StatelessWidget {
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       CustomButton(
-                        size: Size(context.width * 0.375, 42.w),
+                        size: Size(context.width * 0.375, 47),
                         title: "Start Chat",
                         onPressed: () {
                           context.bloc<ChatCubit>().initHive();

@@ -27,7 +27,7 @@ class BuildProfileCard extends StatelessWidget {
       onTap: onPressed,
       splashFactory: InkSplash.splashFactory,
       child: ListTile(
-        contentPadding: EdgeInsets.symmetric(vertical: 5.h, horizontal: 6.w),
+        contentPadding: const EdgeInsets.only(top: 6,bottom: 6,right: 6),
         title: Text(title, style: context.textTheme.bodyMedium),
         trailing: Icon(Icons.arrow_forward_ios,
             size: 16.r, grade: 60, color: color ?? ColorManager.green),

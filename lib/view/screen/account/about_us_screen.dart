@@ -21,7 +21,7 @@ class AboutUsScreen extends StatelessWidget {
           ),
           Gap(32.h),
           Padding(
-            padding: EdgeInsets.symmetric(horizontal: 18.w),
+            padding: const EdgeInsets.symmetric(horizontal: 18),
             child: Column(
               children: [
                 BuildProfileCard(

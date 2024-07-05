@@ -165,8 +165,8 @@ class _ChatScreenState extends State<ChatScreen> {
             padding: EdgeInsets.only(
                 bottom: MediaQuery.of(context).viewInsets.bottom),
             child: Padding(
-              padding: EdgeInsets.only(
-                  right: 14.w, left: 14.w, top: 5.h, bottom: 10.h),
+              padding: const EdgeInsets.only(
+                  right: 14, left: 14, top: 5, bottom: 10),
               child: _buildChatTextField(context),
             ),
           ),

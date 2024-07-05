@@ -35,7 +35,7 @@ class _PasswordScreenState extends State<PasswordScreen> {
       backgroundColor: context.theme.scaffoldBackgroundColor,
       body: SingleChildScrollView(
         child: Padding(
-          padding: EdgeInsets.symmetric(horizontal: 18.w, vertical: 18.h),
+           padding: const EdgeInsets.symmetric(horizontal: 18, vertical: 18),
           child: Column(
             children: [
               Gap(context.height * 0.03),

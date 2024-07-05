@@ -29,12 +29,12 @@ class ContactCard extends StatelessWidget {
         child: Card(
           elevation: 2,
           shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(12.r),
-            side: BorderSide(color: ColorManager.green, width: 1.w),
+            borderRadius: BorderRadius.circular(12),
+            side: const BorderSide(color: ColorManager.green, width: 1),
           ),
           color: ColorManager.white.withOpacity(0.9),
           child: Padding(
-            padding: EdgeInsets.symmetric(vertical: 12.h, horizontal: 5.w),
+            padding: const EdgeInsets.symmetric(vertical: 15, horizontal: 6),
             child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 mainAxisSize: MainAxisSize.min,
@@ -44,9 +44,9 @@ class ContactCard extends StatelessWidget {
                       height: 42.w,
                       decoration: BoxDecoration(
                           color: (color).withOpacity(0.3),
-                          borderRadius: BorderRadius.circular(6.r)),
+                          borderRadius: BorderRadius.circular(6)),
                       alignment: Alignment.center,
-                      padding: EdgeInsets.all(8.w),
+                      padding: const EdgeInsets.all(10),
                       child: SvgPicture.asset(
                         image,
                         width: 20.w,

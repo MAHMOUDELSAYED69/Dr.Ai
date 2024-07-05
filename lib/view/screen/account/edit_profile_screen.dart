@@ -94,7 +94,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                 ),
                 Gap(20.h),
                 Padding(
-                  padding: EdgeInsets.symmetric(horizontal: 18.w),
+                  padding: const EdgeInsets.symmetric(horizontal: 18),
                   child: Column(
                     children: [
                       _buildUserCard(context,

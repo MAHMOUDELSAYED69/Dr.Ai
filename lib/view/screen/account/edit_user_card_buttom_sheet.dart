@@ -19,10 +19,10 @@ void showEditProfileBottomSheet(
   showModalBottomSheet(
     showDragHandle: true,
     useSafeArea: true,
-    shape: RoundedRectangleBorder(
+    shape: const RoundedRectangleBorder(
       borderRadius: BorderRadius.only(
-        topRight: Radius.circular(20.dm),
-        topLeft: Radius.circular(20.dm),
+        topRight: Radius.circular(22),
+        topLeft: Radius.circular(22),
       ),
     ),
     backgroundColor: ColorManager.white,
@@ -69,7 +69,7 @@ class _BuildbuttomSheetState extends State<BuildbuttomSheet> {
         }
         if (state is ProfileUpdateFailure) {
           context.pop();
-          customSnackBar(context, state.message,ColorManager.error);
+          customSnackBar(context, state.message, ColorManager.error);
         }
       },
       builder: (context, state) {

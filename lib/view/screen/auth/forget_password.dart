@@ -41,15 +41,15 @@ class _ForgetPasswordState extends State<ForgetPassword> {
         children: [
           Container(
             padding: EdgeInsets.only(
-              left: 16.w,
-              right: 16.w,
+              left: 18,
+              right: 18,
               bottom: MediaQuery.viewInsetsOf(context).bottom,
             ),
             child: Column(
               mainAxisSize: MainAxisSize.min,
               children: [
                 Text(
-                  "Forgot Password", 
+                  "Forgot Password",
                   style: context.textTheme.bodyLarge,
                 ),
                 Gap(16.h),
@@ -118,10 +118,10 @@ class _ForgetPasswordState extends State<ForgetPassword> {
 void showForgetPasswordBottomSheet(BuildContext context) {
   showModalBottomSheet(
     showDragHandle: true,
-    shape: RoundedRectangleBorder(
+    shape: const RoundedRectangleBorder(
       borderRadius: BorderRadius.only(
-        topRight: Radius.circular(20.dm),
-        topLeft: Radius.circular(20.dm),
+        topRight: Radius.circular(22),
+        topLeft: Radius.circular(22),
       ),
     ),
     backgroundColor: ColorManager.white,

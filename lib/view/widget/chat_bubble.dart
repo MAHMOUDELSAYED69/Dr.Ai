@@ -21,10 +21,10 @@ class ChatBubbleForLoading extends StatelessWidget {
         margin: EdgeInsets.only(
             left: 16.w, top: 7.h, bottom: 7.h, right: context.width / 4),
         decoration: BoxDecoration(
-          borderRadius: BorderRadius.only(
-            topLeft: Radius.circular(16.r),
-            topRight: Radius.circular(16.r),
-            bottomRight: Radius.circular(16.r),
+          borderRadius: const BorderRadius.only(
+            topLeft: Radius.circular(16),
+            topRight: Radius.circular(16),
+            bottomRight: Radius.circular(16),
           ),
           color: ColorManager.grey.withOpacity(0.25),
         ),
@@ -80,10 +80,10 @@ class _ChatBubbleForDrAiState extends State<ChatBubbleForDrAi> {
                 padding: EdgeInsets.all(12.w),
                 margin: EdgeInsets.only(left: 16.w, top: 7.h, bottom: 7.h),
                 decoration: BoxDecoration(
-                  borderRadius: BorderRadius.only(
-                      topRight: Radius.circular(16.r),
-                      bottomRight: Radius.circular(16.r),
-                      topLeft: Radius.circular(16.r)),
+                  borderRadius: const BorderRadius.only(
+                      topRight: Radius.circular(16),
+                      bottomRight: Radius.circular(16),
+                      topLeft: Radius.circular(16)),
                   color: ColorManager.grey.withOpacity(0.25),
                 ),
                 child: TextSelectionTheme(
@@ -157,11 +157,11 @@ class ChatBubbleForGuest extends StatelessWidget {
         padding: EdgeInsets.all(12.w),
         margin: EdgeInsets.only(
             left: context.width / 4, top: 7.h, bottom: 7.h, right: 16.w),
-        decoration: BoxDecoration(
+        decoration: const BoxDecoration(
           borderRadius: BorderRadius.only(
-            bottomLeft: Radius.circular(16.r),
-            topLeft: Radius.circular(16.r),
-            bottomRight: Radius.circular(16.r),
+            bottomLeft: Radius.circular(16),
+            topLeft: Radius.circular(16),
+            bottomRight: Radius.circular(16),
           ),
           color: ColorManager.green,
         ),
