@@ -55,7 +55,7 @@ class _NewPasswordScreenState extends State<NewPasswordScreen> {
               child: Column(
                 children: [
                   Gap(32.h),
-                  const CustomScrollableAppBar(
+                  const CustomTitleBackButton(
                     title: "Change Password",
                   ),
                   Gap(20.h),

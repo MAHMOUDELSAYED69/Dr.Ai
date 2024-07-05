@@ -3,8 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:gap/gap.dart';
 
-class CustomScrollableAppBar extends StatelessWidget {
-  const CustomScrollableAppBar({
+class CustomTitleBackButton extends StatelessWidget {
+  const CustomTitleBackButton({
     super.key,
     required this.title,
     this.hideButton = false,
@@ -20,7 +20,7 @@ class CustomScrollableAppBar extends StatelessWidget {
           IconButton(
             onPressed: () {
               FocusScope.of(context).unfocus();
-              context.pop();
+              Navigator.pop(context);
             },
             icon: const Icon(
               Icons.arrow_back,

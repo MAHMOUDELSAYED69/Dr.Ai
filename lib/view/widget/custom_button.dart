@@ -29,7 +29,7 @@ class CustomButton extends StatelessWidget {
           backgroundColor: MaterialStatePropertyAll(
               isDisabled == true ? ColorManager.darkGrey : backgroundColor),
           fixedSize:
-              MaterialStateProperty.all(size ?? Size(context.width, 43.5.h)),
+              MaterialStateProperty.all(size ?? Size(context.width,52)),
         ),
         onPressed: isDisabled == true ? null : onPressed,
         child: widget ??

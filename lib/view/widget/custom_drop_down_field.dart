@@ -53,6 +53,7 @@ class CustomDropDownFieldState extends State<CustomDropDownField> {
           isDense: true,
           menuItemStyleData: MenuItemStyleData(
             padding: EdgeInsets.only(left: 10.w),
+            overlayColor: const WidgetStatePropertyAll(ColorManager.green),
           ),
           dropdownStyleData: DropdownStyleData(
             elevation: 4,
@@ -62,6 +63,7 @@ class CustomDropDownFieldState extends State<CustomDropDownField> {
             ),
             padding: EdgeInsets.zero,
             decoration: BoxDecoration(
+              color: ColorManager.white,
               borderRadius: BorderRadius.circular(12.r),
             ),
           ),
@@ -81,7 +83,7 @@ class CustomDropDownFieldState extends State<CustomDropDownField> {
             errorStyle: context.textTheme.bodySmall
                 ?.copyWith(color: ColorManager.error, fontSize: 14.spMin),
             contentPadding:
-                EdgeInsets.symmetric(vertical: 12.5.h, horizontal: 10.w),
+                EdgeInsets.symmetric(vertical: 14.8, horizontal: 10.w),
             filled: true,
             fillColor: ColorManager.white,
             hintStyle: context.textTheme.bodySmall,

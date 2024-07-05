@@ -73,7 +73,7 @@ class _OldPasswordScreenState extends State<OldPasswordScreen> {
             child: Column(
               children: [
                 Gap(32.h),
-                CustomScrollableAppBar(
+                CustomTitleBackButton(
                   title: widget.appBarTitle ?? "Change Password",
                 ),
                 Gap(20.h),

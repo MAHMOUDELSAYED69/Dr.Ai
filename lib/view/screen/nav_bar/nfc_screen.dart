@@ -1,5 +1,8 @@
+import 'package:dr_ai/core/constant/color.dart';
+import 'package:dr_ai/core/constant/image.dart';
 import 'package:dr_ai/core/helper/extention.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 
 class NFCScreen extends StatelessWidget {
   const NFCScreen({super.key});
@@ -8,10 +11,20 @@ class NFCScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: context.theme.scaffoldBackgroundColor,
-      body: const Center(
-        child: Text(
-          "NFC Screen\nSoon Available!",
-          textAlign: TextAlign.center,
+      body: Center(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            SvgPicture.asset(
+              ImageManager.nfcIcon,
+              width: context.width / 2.5,
+              height: context.width / 2.5,
+              color: ColorManager.green,
+            ),
+            const Text(
+              "NFC Screen",
+            ),
+          ],
         ),
       ),
     );

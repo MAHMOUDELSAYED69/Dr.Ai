@@ -16,7 +16,7 @@ class AboutUsScreen extends StatelessWidget {
       body: Column(
         children: [
           Gap(32.h),
-          const CustomScrollableAppBar(
+          const CustomTitleBackButton(
             title: "About Us",
           ),
           Gap(32.h),
