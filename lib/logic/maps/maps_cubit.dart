@@ -107,31 +107,7 @@ class MapsCubit extends Cubit<MapsState> {
 
       final List<FindHospitalsPlaceInfo> hospitalsData =
           await FindHospitalWebService.getNearestHospital(
-              _position!.latitude, _position!.longitude, 500);
-
-      final List<Map<String, dynamic>> hospitalsCacheData =
-          hospitalsData.map((hospital) {
-        return {
-          'name': hospital.name,
-          'openNow': hospital.openNow,
-          'rate': hospital.rating,
-          'userRatingsTotal': hospital.userRatingsTotal,
-          'lat': hospital.lat,
-          'lng': hospital.lng,
-          'businessStatus': hospital.businessStatus,
-          'placeId': hospital.placeId,
-          'formattedPhoneNumber': hospital.formattedPhoneNumber,
-          'internationalPhoneNumber': hospital.internationalPhoneNumber,
-          'photos': hospital.photos,
-          'distance': hospital.distance,
-          'duration': hospital.duration,
-        };
-      }).toList();
-
-      await CacheData.setLastUpdatedTime('LastUpdated');
-      await CacheData.setListOfMaps(
-          key: 'nearestHospitals', value: hospitalsCacheData);
-      log('Success: Cached nearest hospitals data.');
+              _position!.latitude, _position!.longitude, radius);
 
       if (hospitalsData.isEmpty) {
         emit(FindHospitalFailure(message: 'No hospitals found.'));
@@ -139,10 +115,32 @@ class MapsCubit extends Cubit<MapsState> {
         emit(FindHospitalSuccess(hospitalsList: hospitalsData));
         log('Success: Loaded nearest hospitals.');
       }
-      await CacheData.setData(key: 'selectedValue', value: 500);
     } catch (err) {
       log('Error: $err');
       emit(FindHospitalFailure(message: err.toString()));
     }
   }
 }
+      // final List<Map<String, dynamic>> hospitalsCacheData =
+      //     hospitalsData.map((hospital) {
+      //   return {
+      //     'name': hospital.name,
+      //     'openNow': hospital.openNow,
+      //     'rate': hospital.rating,
+      //     'userRatingsTotal': hospital.userRatingsTotal,
+      //     'lat': hospital.lat,
+      //     'lng': hospital.lng,
+      //     'businessStatus': hospital.businessStatus,
+      //     'placeId': hospital.placeId,
+      //     'formattedPhoneNumber': hospital.formattedPhoneNumber,
+      //     'internationalPhoneNumber': hospital.internationalPhoneNumber,
+      //     'photos': hospital.photos,
+      //     'distance': hospital.distance,
+      //     'duration': hospital.duration,
+      //   };
+      // }).toList();
+
+      // await CacheData.setLastUpdatedTime('LastUpdated');
+      // await CacheData.setListOfMaps(
+      //     key: 'nearestHospitals', value: hospitalsCacheData);
+      // log('Success: Cached nearest hospitals data.');
