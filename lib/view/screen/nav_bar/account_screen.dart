@@ -45,16 +45,15 @@ class _AccountScreenState extends State<AccountScreen> {
           backgroundColor: context.theme.scaffoldBackgroundColor,
           body: SingleChildScrollView(
             child: Padding(
-              padding: const EdgeInsets.only(left: 18, right: 18,bottom: 18),
+              padding:  EdgeInsets.symmetric(horizontal: 18, vertical: 18.h),
               child: Column(
                 children: [
-                  SafeArea(
-                    child: _buildUserCard(
-                      context,
-                      char: _userData?.name[0].toUpperCase() ?? "",
-                      email: _userData?.email ?? "",
-                      name: _userData?.name ?? "",
-                    ),
+                  Gap(15.h),
+                  _buildUserCard(
+                    context,
+                    char: _userData?.name[0].toUpperCase() ?? "",
+                    email: _userData?.email ?? "",
+                    name: _userData?.name ?? "",
                   ),
                   Gap(20.h),
                   BuildProfileCard(

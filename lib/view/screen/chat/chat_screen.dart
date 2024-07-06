@@ -1,3 +1,4 @@
+import 'dart:async';
 import 'dart:developer';
 import 'package:dr_ai/core/helper/scaffold_snakbar.dart';
 import 'package:flutter/material.dart';
@@ -24,7 +25,6 @@ class ChatScreen extends StatefulWidget {
 }
 
 class _ChatScreenState extends State<ChatScreen> {
-  stt.SpeechToText _speechToText = stt.SpeechToText();
   bool _speechEnabled = false;
   String _lastWords = '';
   bool _isSenderLoading = false;
@@ -32,15 +32,17 @@ class _ChatScreenState extends State<ChatScreen> {
   bool _isChatDeletingLoading = false;
   bool _isButtonVisible = false;
   List<ChatMessageModel> _chatMessageModel = [];
-  late TextEditingController _txtController = TextEditingController();
+  final stt.SpeechToText _speechToText = stt.SpeechToText();
+  late TextEditingController _txtController;
   late ScrollController _scrollController;
-  String _currentLocaleId = 'ar-EG';
-
+  Timer? _noInputTimer;
+  final Duration _noInputDuration = const Duration(seconds: 5);
   @override
   void initState() {
     super.initState();
     _initSpeech();
     _getMessages();
+    _txtController = TextEditingController();
     _scrollController = ScrollController();
     _scrollController.addListener(() {
       bool isAtBottom = _scrollController.position.pixels <= 100;
@@ -60,25 +62,34 @@ class _ChatScreenState extends State<ChatScreen> {
     });
   }
 
-  void _initSpeech() async {
+  @override
+  void dispose() {
+    _txtController.dispose();
+    _noInputTimer?.cancel();
+    super.dispose();
+  }
+
+  Future<void> _initSpeech() async {
     _speechEnabled = await _speechToText.initialize();
     setState(() {});
   }
 
-  void _startListening() async {
+  Future<void> _startListening() async {
     await _speechToText.listen(
       onResult: _onSpeechResult,
       partialResults: true,
       onSoundLevelChange: null,
       cancelOnError: true,
-      localeId: _currentLocaleId,
+      localeId: 'ar-EG',
       listenMode: stt.ListenMode.dictation,
     );
+    _startNoInputTimer();
     setState(() {});
   }
 
-  void _stopListening() async {
+  Future<void> _stopListening() async {
     await _speechToText.stop();
+    _cancelNoInputTimer();
     setState(() {});
   }
 
@@ -90,10 +101,25 @@ class _ChatScreenState extends State<ChatScreen> {
         TextPosition(offset: _txtController.text.length),
       );
     });
+    _resetNoInputTimer();
     log(result.recognizedWords);
   }
 
+  void _startNoInputTimer() {
+    _noInputTimer = Timer(_noInputDuration, _stopListening);
+  }
+
+  void _resetNoInputTimer() {
+    _noInputTimer?.cancel();
+    _startNoInputTimer();
+  }
+
+  void _cancelNoInputTimer() {
+    _noInputTimer?.cancel();
+  }
+
   void _sendMessage() {
+    _txtController.text.trim();
     if (_txtController.text.isNotEmpty) {
       context.read<ChatCubit>().sendMessage(message: _txtController.text);
       _txtController.clear();
@@ -107,7 +133,7 @@ class _ChatScreenState extends State<ChatScreen> {
   }
 
   void _getMessages() async {
-    if (_chatMessageModel.isEmpty) await context.read<ChatCubit>().initHive();
+    if (_chatMessageModel.isEmpty) await context.read<ChatCubit>().initHive ();
   }
 
   @override
@@ -264,9 +290,6 @@ class _ChatScreenState extends State<ChatScreen> {
       onSubmitted: (_) => _sendMessage(),
       decoration: InputDecoration(
         contentPadding: EdgeInsets.symmetric(horizontal: 12.w, vertical: 14.h),
-        filled: context.inputDecoration.filled,
-        fillColor: context.inputDecoration.fillColor,
-        hintStyle: context.inputDecoration.hintStyle,
         hintText: 'Write Your Message..',
         suffixIcon: Row(
           mainAxisAlignment: MainAxisAlignment.end,
@@ -284,10 +307,10 @@ class _ChatScreenState extends State<ChatScreen> {
               ),
             IconButton(
               onPressed: () => _sendMessage(),
-              icon: Icon(
+              icon: const Icon(
                 Icons.send,
                 color: ColorManager.green,
-                size: 25.r,
+                size: 25,
               ),
             ),
           ],
@@ -300,13 +323,14 @@ class _ChatScreenState extends State<ChatScreen> {
 
   PopupMenuButton _buildPopupMenuButton() {
     return PopupMenuButton<String>(
-      elevation: 2,
+      elevation: 4,
       shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(6.r),
+        borderRadius: BorderRadius.circular(7),
       ),
       padding: EdgeInsets.zero,
       onSelected: onSelected,
       offset: const Offset(0, 40),
+      color: ColorManager.white,
       itemBuilder: (BuildContext context) {
         return [
           PopupMenuItem<String>(
