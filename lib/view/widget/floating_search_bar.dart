@@ -49,7 +49,7 @@ class MyFloatingSearchBarState extends State<MyFloatingSearchBar> {
       textInputType: TextInputType.text,
       shadowColor: ColorManager.grey.withOpacity(0.4),
       controller: searchBarController,
-      borderRadius: BorderRadius.circular(12.dm),
+      borderRadius: BorderRadius.circular(14),
       backgroundColor: ColorManager.white,
       iconColor: ColorManager.green,
       height: 45.h,

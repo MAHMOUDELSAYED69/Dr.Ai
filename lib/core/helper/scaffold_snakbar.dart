@@ -1,13 +1,12 @@
 import 'package:dr_ai/core/constant/color.dart';
 import 'package:dr_ai/core/helper/extention.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 void customSnackBar(BuildContext context,
     [String? message, Color? color, int? seconds]) {
   ScaffoldMessenger.of(context).hideCurrentSnackBar();
   ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(14.r)),
+      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(14)),
       duration: Duration(seconds: seconds ?? 3),
       backgroundColor: (color ?? ColorManager.green).withOpacity(0.9),
       behavior: SnackBarBehavior.floating,

@@ -134,9 +134,9 @@ class _CustomDialogState extends State<CustomDialog> {
   @override
   Widget build(BuildContext context) {
     return Dialog(
-      insetPadding: REdgeInsets.all(16.w),
+      insetPadding: REdgeInsets.all(18),
       shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(12.dm),
+        borderRadius: BorderRadius.circular(14),
       ),
       elevation: 0,
       backgroundColor: ColorManager.white,
@@ -176,11 +176,11 @@ class _CustomDialogState extends State<CustomDialog> {
       },
       builder: (context, state) {
         return Container(
-          padding: EdgeInsets.symmetric(vertical: 28.h, horizontal: 16.w),
+          padding: EdgeInsets.symmetric(vertical: 28.h, horizontal: 18),
           decoration: BoxDecoration(
             color: ColorManager.white,
             shape: BoxShape.rectangle,
-            borderRadius: BorderRadius.circular(12.dm),
+            borderRadius: BorderRadius.circular(14),
           ),
           child: Column(
             mainAxisSize: MainAxisSize.min,
@@ -218,7 +218,7 @@ class _CustomDialogState extends State<CustomDialog> {
                       children: [
                         CustomButton(
                           title: "Cancel",
-                          onPressed: widget.onCancle ?? () => context.pop(),
+                          onPressed: widget.onCancle ?? () => Navigator.pop(context),
                         ),
                         Gap(13.h),
                         CustomButton(
@@ -255,18 +255,18 @@ class LoginDialog extends StatelessWidget {
     return PopScope(
       canPop: false,
       child: Dialog(
-          insetPadding: REdgeInsets.all(16.w),
+          insetPadding: REdgeInsets.all(18),
           shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(12.dm),
+            borderRadius: BorderRadius.circular(14),
           ),
           elevation: 0,
           backgroundColor: ColorManager.white,
           child: Container(
-            padding: EdgeInsets.symmetric(vertical: 28.h, horizontal: 16.w),
+            padding: EdgeInsets.symmetric(vertical: 28.h, horizontal: 18),
             decoration: BoxDecoration(
               color: ColorManager.white,
               shape: BoxShape.rectangle,
-              borderRadius: BorderRadius.circular(12.dm),
+              borderRadius: BorderRadius.circular(14),
             ),
             child: Column(
               mainAxisSize: MainAxisSize.min,
@@ -334,18 +334,18 @@ class ChangePasswordDialog extends StatelessWidget {
     return PopScope(
       canPop: false,
       child: Dialog(
-          insetPadding: REdgeInsets.all(16.w),
+          insetPadding: REdgeInsets.all(18),
           shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(12.dm),
+            borderRadius: BorderRadius.circular(14),
           ),
           elevation: 0,
           backgroundColor: ColorManager.white,
           child: Container(
-            padding: EdgeInsets.symmetric(vertical: 28.h, horizontal: 16.w),
+            padding: EdgeInsets.symmetric(vertical: 28.h, horizontal: 18),
             decoration: BoxDecoration(
               color: ColorManager.white,
               shape: BoxShape.rectangle,
-              borderRadius: BorderRadius.circular(12.dm),
+              borderRadius: BorderRadius.circular(14),
             ),
             child: Column(
               mainAxisSize: MainAxisSize.min,

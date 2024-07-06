@@ -56,7 +56,7 @@ class DistanceAndTime extends StatelessWidget {
           width: 2.w,
           color: ColorManager.black.withOpacity(0.17),
         ),
-        borderRadius: BorderRadius.circular(8.dm),
+        borderRadius: BorderRadius.circular(10),
       ),
       color: ColorManager.white,
       child: ListTile(

@@ -34,7 +34,10 @@ void showEditProfileBottomSheet(
         padding: EdgeInsets.only(
           bottom: MediaQuery.of(context).viewInsets.bottom,
         ),
-        child: const BuildbuttomSheet(),
+        child: BlocProvider(
+          create: (context) => AccountCubit(),
+          child: const BuildbuttomSheet(),
+        ),
       );
     },
   );
