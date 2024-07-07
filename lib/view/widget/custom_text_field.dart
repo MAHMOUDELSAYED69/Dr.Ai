@@ -20,7 +20,8 @@ class CustomTextFormField extends StatefulWidget {
     this.fillColor,
     this.isVisibleColor,
     this.cursorColor,
-    this.obscureText, this.initialValue,
+    this.obscureText,
+    this.initialValue,
   });
   final String? hintText;
   final String? label;
@@ -37,7 +38,7 @@ class CustomTextFormField extends StatefulWidget {
   final Color? isVisibleColor;
   final Color? cursorColor;
   final bool? obscureText;
-  final String? initialValue; 
+  final String? initialValue;
   @override
   State<CustomTextFormField> createState() => _CustomTextFormFieldState();
 }
@@ -93,9 +94,8 @@ class _CustomTextFormFieldState extends State<CustomTextFormField> {
               ? _buildSuffixIcon(Icons.visibility_off, Icons.visibility)
               : null,
           contentPadding:
-              EdgeInsets.symmetric(vertical: 16.4, horizontal: 10.w),
-          filled: true 
-          ,
+              EdgeInsets.symmetric(vertical: 13.h, horizontal: 10.w),
+          filled: true,
           fillColor: widget.fillColor ?? ColorManager.white,
           hintText: widget.hintText,
           hintStyle: context.textTheme.bodySmall,

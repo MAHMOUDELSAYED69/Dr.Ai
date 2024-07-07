@@ -83,7 +83,7 @@ class CustomDropDownFieldState extends State<CustomDropDownField> {
             errorStyle: context.textTheme.bodySmall
                 ?.copyWith(color: ColorManager.error, fontSize: 14.spMin),
             contentPadding:
-                EdgeInsets.symmetric(vertical: 14.8, horizontal: 10.w),
+                EdgeInsets.symmetric(vertical:12.5.h, horizontal: 10.w),
             filled: true,
             fillColor: ColorManager.white,
             hintStyle: context.textTheme.bodySmall,

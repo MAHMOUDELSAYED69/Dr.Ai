@@ -30,7 +30,7 @@ class ContactCard extends StatelessWidget {
           elevation: 2,
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(12),
-            side: const BorderSide(color: ColorManager.green, width: 1),
+            side: BorderSide(color: ColorManager.green, width: 1.w),
           ),
           color: ColorManager.white.withOpacity(0.9),
           child: Padding(

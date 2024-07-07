@@ -33,7 +33,7 @@ class _AccountScreenState extends State<AccountScreen> {
   @override
   Widget build(BuildContext context) {
     final cubit = context.bloc<AccountCubit>();
-    const divider = Divider(color: ColorManager.grey);
+    final divider = Divider(color: ColorManager.grey, thickness: 1.w);
     return BlocConsumer<AccountCubit, AccountState>(
       listener: (context, state) {
         if (state is AccountSuccess) {
@@ -45,7 +45,7 @@ class _AccountScreenState extends State<AccountScreen> {
           backgroundColor: context.theme.scaffoldBackgroundColor,
           body: SingleChildScrollView(
             child: Padding(
-              padding:  EdgeInsets.symmetric(horizontal: 18, vertical: 18.h),
+              padding: EdgeInsets.symmetric(horizontal: 18, vertical: 18.h),
               child: Column(
                 children: [
                   Gap(15.h),

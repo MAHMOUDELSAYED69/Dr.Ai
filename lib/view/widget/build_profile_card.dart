@@ -36,7 +36,7 @@ class BuildProfileCard extends StatelessWidget {
           height: 46.w,
           decoration: BoxDecoration(
               color: (color ?? ColorManager.green).withOpacity(0.1),
-              borderRadius: BorderRadius.circular(8.r)),
+              borderRadius: BorderRadius.circular(8)),
           alignment: Alignment.center,
           padding: EdgeInsets.all(12.w),
           child: iconData == null
