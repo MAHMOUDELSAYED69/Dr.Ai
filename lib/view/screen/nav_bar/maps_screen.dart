@@ -41,8 +41,9 @@ class _MapScreenState extends State<MapScreen> {
   }
 
   late GlobalKey<ScaffoldState> _scaffoldKey;
+  
   Future<void> _getCurrentLocation() async {
-    await LocationHelper.determineCurrentPosition();
+    await LocationHelper.determineCurrentPosition(context);
     _position = await Geolocator.getCurrentPosition().whenComplete(() async {
       setState(() {});
     });
@@ -173,7 +174,6 @@ class _MapScreenState extends State<MapScreen> {
 
   Widget _buildMap() {
     return GoogleMap(
-      
       mapToolbarEnabled: false,
       // trafficEnabled: true,
       compassEnabled: true,
@@ -231,7 +231,7 @@ class _MapScreenState extends State<MapScreen> {
   }
 
   Future<void> _goToMyCurrentLocation() async {
-    LocationHelper.determineCurrentPosition();
+    LocationHelper.determineCurrentPosition(context);
     Geolocator.getCurrentPosition();
     final GoogleMapController controller = await completerController.future;
     controller.animateCamera(
