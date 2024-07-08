@@ -10,8 +10,6 @@ part 'sign_up_state.dart';
 
 class SignUpCubit extends Cubit<SignUpState> {
   SignUpCubit() : super(SignUpInitial());
-  String email = '';
-  String password = '';
   int _ctn = 0;
   final _firestore = FirebaseFirestore.instance;
   Future<void> verifyEmail() async {
@@ -24,7 +22,8 @@ class SignUpCubit extends Cubit<SignUpState> {
     }
   }
 
-  Future<void> createPassword() async {
+  Future<void> createEmailAndPassword(
+      {required String email, required String password}) async {
     emit(SignUpLoading());
     try {
       await FirebaseAuth.instance.createUserWithEmailAndPassword(
@@ -70,7 +69,8 @@ class SignUpCubit extends Cubit<SignUpState> {
     try {
       if (_ctn < 5) {
         final querySnapshot = await _firestore
-            .collection('users').where('isActive', isEqualTo: true)
+            .collection('users')
+            .where('isActive', isEqualTo: true)
             .get()
             .timeout(const Duration(seconds: 5));
         final isEmailInUse = querySnapshot.docs

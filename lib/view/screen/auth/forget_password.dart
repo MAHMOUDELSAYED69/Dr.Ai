@@ -71,42 +71,39 @@ class _ForgetPasswordState extends State<ForgetPassword> {
                   validator: context.bloc<ValidationCubit>().validateEmail,
                 ),
                 Gap(24.h),
-                BlocProvider(
-                  create: (context) => ForgetPasswordCubit(),
-                  child: BlocConsumer<ForgetPasswordCubit, ForgetPasswordState>(
-                    listener: (context, state) {
-                      if (state is ForgetPasswordLoading) {
-                        _isLoading = true;
-                      }
-                      if (state is ForgetPasswordSuccess) {
-                        Navigator.pop(context);
-                        FocusScope.of(context).unfocus();
-                        customSnackBar(context, "Check your Email for link",
-                            ColorManager.darkGrey, 3);
-                        _isLoading = false;
-                      }
-                      if (state is ForgetPasswordFailure) {
-                        Navigator.pop(context);
-                        FocusScope.of(context).unfocus();
-                        customSnackBar(
-                            context,
-                            "There was an Error please try agin later!",
-                            ColorManager.error);
-                        log(state.message);
-                        _isLoading = false;
-                      }
-                    },
-                    builder: (context, state) {
-                      return CustomButton(
-                        isDisabled: _isLoading,
-                        title: _isLoading == false ? "Send link" : null,
-                        widget: _isLoading == true
-                            ? const ButtonLoadingIndicator()
-                            : null,
-                        onPressed: resetPassword,
-                      );
-                    },
-                  ),
+                BlocConsumer<ForgetPasswordCubit, ForgetPasswordState>(
+                  listener: (context, state) {
+                    if (state is ForgetPasswordLoading) {
+                      _isLoading = true;
+                    }
+                    if (state is ForgetPasswordSuccess) {
+                      Navigator.pop(context);
+                      FocusScope.of(context).unfocus();
+                      customSnackBar(context, "Check your Email for link",
+                          ColorManager.darkGrey, 3);
+                      _isLoading = false;
+                    }
+                    if (state is ForgetPasswordFailure) {
+                      Navigator.pop(context);
+                      FocusScope.of(context).unfocus();
+                      customSnackBar(
+                          context,
+                          "There was an Error please try agin later!",
+                          ColorManager.error);
+                      log(state.message);
+                      _isLoading = false;
+                    }
+                  },
+                  builder: (context, state) {
+                    return CustomButton(
+                      isDisabled: _isLoading,
+                      title: _isLoading == false ? "Send link" : null,
+                      widget: _isLoading == true
+                          ? const ButtonLoadingIndicator()
+                          : null,
+                      onPressed: resetPassword,
+                    );
+                  },
                 ),
                 Gap(24.h),
               ],
@@ -132,7 +129,10 @@ void showForgetPasswordBottomSheet(BuildContext context) {
     context: context,
     isScrollControlled: true,
     builder: (BuildContext context) {
-      return const ForgetPassword();
+      return BlocProvider(
+        create: (context) => ForgetPasswordCubit(),
+        child: const ForgetPassword(),
+      );
     },
   );
 }

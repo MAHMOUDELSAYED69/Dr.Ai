@@ -1,5 +1,4 @@
 import 'package:dr_ai/core/helper/extention.dart';
-import 'package:dr_ai/logic/auth/sign_up/sign_up_cubit.dart';
 import 'package:dr_ai/logic/validation/formvalidation_cubit.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -12,8 +11,8 @@ import '../../widget/custom_text_span.dart';
 import '../../widget/my_stepper_form.dart';
 
 class PasswordScreen extends StatefulWidget {
-  const PasswordScreen({super.key});
-
+  const PasswordScreen({super.key, required this.email});
+  final String email;
   @override
   State<PasswordScreen> createState() => _PasswordScreenState();
 }
@@ -35,7 +34,7 @@ class _PasswordScreenState extends State<PasswordScreen> {
       backgroundColor: context.theme.scaffoldBackgroundColor,
       body: SingleChildScrollView(
         child: Padding(
-           padding: const EdgeInsets.symmetric(horizontal: 18, vertical: 18),
+          padding: const EdgeInsets.symmetric(horizontal: 18, vertical: 18),
           child: Column(
             children: [
               Gap(context.height * 0.03),
@@ -61,8 +60,12 @@ class _PasswordScreenState extends State<PasswordScreen> {
                 onPressed: () {
                   if (formKey.currentState!.validate()) {
                     formKey.currentState!.save();
-                    context.bloc<SignUpCubit>().password = _password!;
-                    Navigator.pushNamed(context, RouteManager.information);
+
+                    Navigator.pushNamed(context, RouteManager.information,
+                        arguments: [
+                          widget.email,
+                          _password,
+                        ]);
                   }
                 },
               ),

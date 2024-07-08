@@ -8,8 +8,6 @@ class FirebaseService {
   static final FirebaseFirestore _firestore = FirebaseFirestore.instance;
   static final FirebaseAuth _auth = FirebaseAuth.instance;
   static Future<void> storeUserData({
-    // required String email,
-    // required String uid,
     required String name,
     required String phoneNumber,
     required String dob,

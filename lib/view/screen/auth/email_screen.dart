@@ -41,7 +41,7 @@ class _EmailScreenState extends State<EmailScreen> {
       backgroundColor: context.theme.scaffoldBackgroundColor,
       body: SingleChildScrollView(
         child: Padding(
-           padding: const EdgeInsets.symmetric(horizontal: 18, vertical: 18),
+          padding: const EdgeInsets.symmetric(horizontal: 18, vertical: 18),
           child: Column(
             children: [
               Gap(context.height * 0.03),
@@ -81,8 +81,8 @@ class _EmailScreenState extends State<EmailScreen> {
                   }
                   if (state is EmailValid) {
                     _isLoading = false;
-                    context.bloc<SignUpCubit>().email = _email!;
-                    Navigator.pushNamed(context, RouteManager.password);
+                    Navigator.pushNamed(context, RouteManager.password,
+                        arguments: _email);
                   }
                   if (state is EmailNotValid) {
                     _isLoading = false;

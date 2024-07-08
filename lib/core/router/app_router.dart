@@ -1,4 +1,3 @@
-
 import '../../core/constant/routes.dart';
 import '../../logic/auth/log_out/log_out_cubit.dart';
 import '../../view/screen/account/delete_account/delete_account_screen.dart';
@@ -48,14 +47,16 @@ abstract class AppRouter {
           child: const EmailScreen(),
         ));
       case RouteManager.password:
+        String userEmail = settings.arguments as String;
         return PageTransitionManager.fadeTransition(BlocProvider(
           create: (context) => SignUpCubit(),
-          child: const PasswordScreen(),
+          child: PasswordScreen(email: userEmail),
         ));
       case RouteManager.information:
+        List<String?> userCredential = settings.arguments as List<String?>;
         return PageTransitionManager.fadeTransition(BlocProvider(
           create: (context) => SignUpCubit(),
-          child: const CreateProfile(),
+          child: CreateProfile(userCredential: userCredential),
         ));
       case RouteManager.nav:
         return PageTransitionManager.materialPageRoute(MultiBlocProvider(

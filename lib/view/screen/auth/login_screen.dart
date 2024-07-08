@@ -12,6 +12,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:gap/gap.dart';
+import '../../../logic/chat/chat_cubit.dart';
 import '../../../logic/validation/formvalidation_cubit.dart';
 import '../../widget/button_loading_indicator.dart';
 import '../../widget/custom_divider.dart';
@@ -81,8 +82,8 @@ class _LoginScreenState extends State<LoginScreen> {
                       _isLoading = true;
                     }
                     if (state is SignInSuccess) {
+                      context.bloc<ChatCubit>().initHive();
                       FocusScope.of(context).unfocus();
-
                       Navigator.pushNamedAndRemoveUntil(
                           context, RouteManager.nav, (route) => false);
                       _isLoading = false;

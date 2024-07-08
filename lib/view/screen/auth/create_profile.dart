@@ -17,8 +17,8 @@ import '../../widget/custom_text_span.dart';
 import '../../widget/my_stepper_form.dart';
 
 class CreateProfile extends StatefulWidget {
-  const CreateProfile({super.key});
-
+  const CreateProfile({super.key, required this.userCredential});
+  final List<String?> userCredential;
   @override
   State<CreateProfile> createState() => _CreateProfileState();
 }
@@ -120,7 +120,10 @@ class _CreateProfileState extends State<CreateProfile> {
                     onPressed: () async {
                       if (formKey.currentState!.validate()) {
                         formKey.currentState!.save();
-                        await cubit.createPassword();
+                        await cubit.createEmailAndPassword(
+                          email: widget.userCredential[0]!,
+                          password: widget.userCredential[1]!,
+                        );
                         await cubit.createProfile(
                           name: _name!,
                           phoneNumber: _phoneNumber!,
