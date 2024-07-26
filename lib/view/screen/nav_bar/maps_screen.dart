@@ -41,7 +41,7 @@ class _MapScreenState extends State<MapScreen> {
   }
 
   late GlobalKey<ScaffoldState> _scaffoldKey;
-  
+
   Future<void> _getCurrentLocation() async {
     await LocationHelper.determineCurrentPosition(context);
     _position = await Geolocator.getCurrentPosition().whenComplete(() async {
@@ -274,7 +274,7 @@ class _MapScreenState extends State<MapScreen> {
         setState(() {});
       },
       infoWindow: InfoWindow(title: _placeSuggestion),
-      icon: BitmapDescriptor.defaultMarkerWithHue(BitmapDescriptor.hueRed),
+      icon: BitmapDescriptor.defaultMarkerWithHue(BitmapDescriptor.hueGreen),
     );
 
     _addMarkerToMarkersAndUpdateUI(_searchedPlaceMarker);
@@ -302,7 +302,7 @@ class _MapScreenState extends State<MapScreen> {
           _getDirections();
           setState(() {});
         },
-        icon: BitmapDescriptor.defaultMarkerWithHue(BitmapDescriptor.hueRed),
+        icon: BitmapDescriptor.defaultMarkerWithHue(BitmapDescriptor.hueGreen),
       );
       _markers.add(marker);
     }
@@ -451,8 +451,8 @@ class _MapScreenState extends State<MapScreen> {
         },
         icon: nearestHospital != null &&
                 hospital.placeId == nearestHospital.placeId
-            ? BitmapDescriptor.defaultMarkerWithHue(BitmapDescriptor.hueGreen)
-            : BitmapDescriptor.defaultMarkerWithHue(BitmapDescriptor.hueRed),
+            ? BitmapDescriptor.defaultMarkerWithHue(BitmapDescriptor.hueRed)
+            : BitmapDescriptor.defaultMarkerWithHue(BitmapDescriptor.hueGreen),
       );
       _markers.add(marker);
     }
