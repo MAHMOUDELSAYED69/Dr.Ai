@@ -3,7 +3,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:meta/meta.dart';
 
-import '../../../core/cache/cache.dart';
+import '../../../cache/cache.dart';
 import '../../../data/service/firebase/firebase_service.dart';
 
 part 'log_out_state.dart';

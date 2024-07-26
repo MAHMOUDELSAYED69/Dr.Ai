@@ -1,4 +1,4 @@
-import 'package:dr_ai/core/helper/extention.dart';
+import 'package:dr_ai/utils/helper/extention.dart';
 import 'package:dr_ai/logic/validation/formvalidation_cubit.dart';
 import 'package:dr_ai/view/widget/button_loading_indicator.dart';
 import 'package:dr_ai/view/widget/custom_text_field.dart';
@@ -9,9 +9,9 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:gap/gap.dart';
 
-import '../../../../core/constant/color.dart';
-import '../../../../core/helper/custom_dialog.dart';
-import '../../../../core/helper/scaffold_snakbar.dart';
+import '../../../../utils/constant/color.dart';
+import '../../../../utils/helper/custom_dialog.dart';
+import '../../../../utils/helper/scaffold_snakbar.dart';
 import '../../../../logic/account/account_cubit.dart';
 import '../../../widget/custom_button.dart';
 

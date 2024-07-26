@@ -1,7 +1,7 @@
 import 'dart:developer';
 import 'package:dio/dio.dart';
 
-import '../../../core/constant/api_url.dart';
+import '../../../utils/constant/api_url.dart';
 
 //! POST
 class MessageWebService {

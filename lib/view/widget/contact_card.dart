@@ -1,11 +1,11 @@
-import 'package:dr_ai/core/helper/extention.dart';
+import 'package:dr_ai/utils/helper/extention.dart';
 import 'package:dr_ai/logic/launch_uri/launch_uri_cubit.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:gap/gap.dart';
 
-import '../../core/constant/color.dart';
+import '../../utils/constant/color.dart';
 
 class ContactCard extends StatelessWidget {
   const ContactCard({

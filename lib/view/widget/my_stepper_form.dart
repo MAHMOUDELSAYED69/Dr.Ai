@@ -1,8 +1,8 @@
 // ignore_for_file: deprecated_member_use
 
-import 'package:dr_ai/core/constant/color.dart';
-import 'package:dr_ai/core/constant/image.dart';
-import 'package:dr_ai/core/helper/extention.dart';
+import 'package:dr_ai/utils/constant/color.dart';
+import 'package:dr_ai/utils/constant/image.dart';
+import 'package:dr_ai/utils/helper/extention.dart';
 import 'package:easy_stepper/easy_stepper.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';

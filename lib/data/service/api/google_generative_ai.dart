@@ -1,6 +1,6 @@
 import 'dart:developer';
 
-import 'package:dr_ai/core/constant/api_url.dart';
+import 'package:dr_ai/utils/constant/api_url.dart';
 import 'package:google_generative_ai/google_generative_ai.dart';
 
 class GenerativeAiWebService {

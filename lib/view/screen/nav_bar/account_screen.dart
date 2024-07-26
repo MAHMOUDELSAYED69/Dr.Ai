@@ -1,9 +1,9 @@
-import 'package:dr_ai/core/cache/cache.dart';
-import 'package:dr_ai/core/constant/color.dart';
-import 'package:dr_ai/core/constant/image.dart';
-import 'package:dr_ai/core/constant/routes.dart';
-import 'package:dr_ai/core/helper/custom_dialog.dart';
-import 'package:dr_ai/core/helper/extention.dart';
+import 'package:dr_ai/cache/cache.dart';
+import 'package:dr_ai/utils/constant/color.dart';
+import 'package:dr_ai/utils/constant/image.dart';
+import 'package:dr_ai/utils/constant/routes.dart';
+import 'package:dr_ai/utils/helper/custom_dialog.dart';
+import 'package:dr_ai/utils/helper/extention.dart';
 import 'package:dr_ai/data/model/user_data_model.dart';
 import 'package:dr_ai/logic/account/account_cubit.dart';
 import 'package:flutter/material.dart';

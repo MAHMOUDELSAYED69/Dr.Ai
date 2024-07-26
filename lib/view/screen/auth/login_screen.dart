@@ -1,9 +1,9 @@
 import 'dart:developer';
 
-import 'package:dr_ai/core/constant/color.dart';
-import 'package:dr_ai/core/constant/routes.dart';
-import 'package:dr_ai/core/helper/extention.dart';
-import 'package:dr_ai/core/helper/scaffold_snakbar.dart';
+import 'package:dr_ai/utils/constant/color.dart';
+import 'package:dr_ai/utils/constant/routes.dart';
+import 'package:dr_ai/utils/helper/extention.dart';
+import 'package:dr_ai/utils/helper/scaffold_snakbar.dart';
 import 'package:dr_ai/logic/auth/sign_in/sign_in_cubit.dart';
 import 'package:dr_ai/view/screen/auth/forget_password.dart';
 import 'package:dr_ai/view/widget/custom_button.dart';

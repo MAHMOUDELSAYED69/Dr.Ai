@@ -1,8 +1,8 @@
 import 'dart:async';
 import 'dart:developer';
-import 'package:dr_ai/core/constant/color.dart';
-import 'package:dr_ai/core/helper/extention.dart';
-import 'package:dr_ai/core/helper/location.dart';
+import 'package:dr_ai/utils/constant/color.dart';
+import 'package:dr_ai/utils/helper/extention.dart';
+import 'package:dr_ai/utils/helper/location.dart';
 import 'package:dr_ai/data/model/place_directions.dart';
 import 'package:dr_ai/data/model/place_location.dart';
 import 'package:dr_ai/logic/validation/formvalidation_cubit.dart';
@@ -18,7 +18,7 @@ import 'package:gap/gap.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:uuid/uuid.dart';
-import '../../../core/helper/scaffold_snakbar.dart';
+import '../../../utils/helper/scaffold_snakbar.dart';
 import '../../../data/model/find_hospital_place_info.dart';
 import '../../../logic/maps/maps_cubit.dart';
 // Empty commit

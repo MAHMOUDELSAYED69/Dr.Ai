@@ -10,7 +10,7 @@ import 'package:geolocator/geolocator.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:meta/meta.dart';
 
-import '../../core/cache/cache.dart';
+import '../../cache/cache.dart';
 import '../../data/model/find_hospital_place_info.dart';
 
 part 'maps_state.dart';

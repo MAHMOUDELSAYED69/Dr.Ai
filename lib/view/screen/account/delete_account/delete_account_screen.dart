@@ -1,13 +1,13 @@
-import 'package:dr_ai/core/helper/extention.dart';
+import 'package:dr_ai/utils/helper/extention.dart';
 import 'package:dr_ai/logic/account/account_cubit.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import 'package:gap/gap.dart';
 
-import '../../../../core/constant/color.dart';
-import '../../../../core/constant/image.dart';
-import '../../../../core/helper/custom_dialog.dart';
+import '../../../../utils/constant/color.dart';
+import '../../../../utils/constant/image.dart';
+import '../../../../utils/helper/custom_dialog.dart';
 import '../../../widget/custom_scrollable_appbar.dart';
 import '../../../widget/my_stepper_form.dart';
 

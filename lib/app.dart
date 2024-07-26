@@ -1,13 +1,13 @@
-import 'package:dr_ai/core/constant/routes.dart';
+import 'package:dr_ai/utils/constant/routes.dart';
 import 'package:dr_ai/logic/chat/chat_cubit.dart';
 import 'package:dr_ai/logic/validation/formvalidation_cubit.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'core/constant/color.dart';
-import 'core/helper/responsive.dart';
-import 'core/router/app_router.dart';
-import 'core/theme/app_theme.dart';
+import 'utils/constant/color.dart';
+import 'utils/helper/responsive.dart';
+import 'router/app_router.dart';
+import 'utils/theme/app_theme.dart';
 import 'logic/account/account_cubit.dart';
 
 class MyApp extends StatelessWidget {

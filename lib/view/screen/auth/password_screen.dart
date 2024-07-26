@@ -1,9 +1,9 @@
-import 'package:dr_ai/core/helper/extention.dart';
+import 'package:dr_ai/utils/helper/extention.dart';
 import 'package:dr_ai/logic/validation/formvalidation_cubit.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:gap/gap.dart';
-import '../../../core/constant/routes.dart';
+import '../../../utils/constant/routes.dart';
 import '../../widget/black_button.dart';
 import '../../widget/custom_button.dart';
 import '../../widget/custom_text_field.dart';

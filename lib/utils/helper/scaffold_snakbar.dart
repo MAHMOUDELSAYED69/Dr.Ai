@@ -1,5 +1,5 @@
-import 'package:dr_ai/core/constant/color.dart';
-import 'package:dr_ai/core/helper/extention.dart';
+import 'package:dr_ai/utils/constant/color.dart';
+import 'package:dr_ai/utils/helper/extention.dart';
 import 'package:flutter/material.dart';
 
 void customSnackBar(BuildContext context,

@@ -1,5 +1,5 @@
-import 'package:dr_ai/core/constant/color.dart';
-import 'package:dr_ai/core/constant/fonts.dart';
+import 'package:dr_ai/utils/constant/color.dart';
+import 'package:dr_ai/utils/constant/fonts.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 

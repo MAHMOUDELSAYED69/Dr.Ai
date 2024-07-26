@@ -1,5 +1,5 @@
-import 'package:dr_ai/core/constant/color.dart';
-import 'package:dr_ai/core/helper/extention.dart';
+import 'package:dr_ai/utils/constant/color.dart';
+import 'package:dr_ai/utils/helper/extention.dart';
 import 'package:dr_ai/view/widget/button_loading_indicator.dart';
 import 'package:dr_ai/view/widget/custom_button.dart';
 import 'package:flutter/material.dart';

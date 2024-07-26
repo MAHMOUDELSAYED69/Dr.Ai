@@ -1,4 +1,4 @@
-import 'package:dr_ai/core/helper/extention.dart';
+import 'package:dr_ai/utils/helper/extention.dart';
 import 'package:dr_ai/logic/auth/sign_up/sign_up_cubit.dart';
 import 'package:dr_ai/logic/validation/formvalidation_cubit.dart';
 import 'package:dr_ai/view/widget/button_loading_indicator.dart';
@@ -12,9 +12,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:gap/gap.dart';
-import '../../../core/constant/color.dart';
-import '../../../core/constant/routes.dart';
-import '../../../core/helper/scaffold_snakbar.dart';
+import '../../../utils/constant/color.dart';
+import '../../../utils/constant/routes.dart';
+import '../../../utils/helper/scaffold_snakbar.dart';
 import '../../widget/black_button.dart';
 import '../../widget/my_stepper_form.dart';
 

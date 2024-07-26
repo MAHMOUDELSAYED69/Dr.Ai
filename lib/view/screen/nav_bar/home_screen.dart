@@ -1,11 +1,11 @@
-import 'package:dr_ai/core/constant/image.dart';
-import 'package:dr_ai/core/constant/routes.dart';
-import 'package:dr_ai/core/helper/extention.dart';
+import 'package:dr_ai/utils/constant/image.dart';
+import 'package:dr_ai/utils/constant/routes.dart';
+import 'package:dr_ai/utils/helper/extention.dart';
 import 'package:dr_ai/view/widget/custom_button.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:gap/gap.dart';
-import '../../../core/constant/color.dart';
+import '../../../utils/constant/color.dart';
 import '../../../logic/chat/chat_cubit.dart';
 import '../../widget/contact_card.dart';
 

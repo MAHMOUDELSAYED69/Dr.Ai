@@ -1,10 +1,10 @@
-import 'package:dr_ai/core/helper/extention.dart';
+import 'package:dr_ai/utils/helper/extention.dart';
 import 'package:dr_ai/data/model/place_directions.dart';
 import 'package:dr_ai/logic/validation/formvalidation_cubit.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
-import '../../core/constant/color.dart';
+import '../../utils/constant/color.dart';
 
 class DistanceAndTime extends StatelessWidget {
   final PlaceDirectionsModel? placeDirections;

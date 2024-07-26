@@ -1,6 +1,6 @@
 import 'dart:async';
 import 'dart:developer';
-import 'package:dr_ai/core/helper/scaffold_snakbar.dart';
+import 'package:dr_ai/utils/helper/scaffold_snakbar.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/svg.dart';
@@ -10,10 +10,10 @@ import 'package:gap/gap.dart';
 import '../../../logic/validation/formvalidation_cubit.dart';
 import '../../widget/chat_bubble.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import '../../../core/constant/color.dart';
-import '../../../core/helper/custom_dialog.dart';
-import '../../../core/helper/extention.dart';
-import '../../../core/constant/image.dart';
+import '../../../utils/constant/color.dart';
+import '../../../utils/helper/custom_dialog.dart';
+import '../../../utils/helper/extention.dart';
+import '../../../utils/constant/image.dart';
 import 'package:speech_to_text/speech_recognition_result.dart';
 import 'package:speech_to_text/speech_to_text.dart' as stt;
 

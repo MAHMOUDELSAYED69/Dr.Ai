@@ -2,7 +2,7 @@ import 'dart:developer';
 
 import 'package:bloc/bloc.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:dr_ai/core/cache/cache.dart';
+import 'package:dr_ai/cache/cache.dart';
 import 'package:dr_ai/data/model/user_data_model.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:meta/meta.dart';

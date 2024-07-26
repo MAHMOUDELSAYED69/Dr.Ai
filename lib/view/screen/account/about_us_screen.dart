@@ -2,8 +2,8 @@ import 'package:dr_ai/view/widget/custom_scrollable_appbar.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:gap/gap.dart';
-import '../../../core/constant/color.dart';
-import '../../../core/constant/image.dart';
+import '../../../utils/constant/color.dart';
+import '../../../utils/constant/image.dart';
 import '../../widget/build_profile_card.dart';
 
 class AboutUsScreen extends StatelessWidget {
