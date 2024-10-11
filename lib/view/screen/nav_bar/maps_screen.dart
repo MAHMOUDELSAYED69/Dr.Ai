@@ -440,7 +440,7 @@ class _MapScreenState extends State<MapScreen> {
       final marker = Marker(
         markerId: MarkerId(hospital!.placeId),
         position: LatLng(hospital.lat, hospital.lng),
-        infoWindow: InfoWindow(title: hospital.name),
+        infoWindow: InfoWindow(title: hospital.name), 
         onTap: () {
           _selectedPlace =
               PlaceLocationModel(lat: hospital.lat, lng: hospital.lng);
